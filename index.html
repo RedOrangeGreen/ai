@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .stopwatch {
+            text-align: center;
+            font-size: 24px;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .start {
+            background-color: green;
+            color: white;
+        }
+        .stop {
+            background-color: red;
+            color: white;
+        }
+        .reset {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+    <title>Stopwatch</title>
+</head>
+<body>
+    <div class="stopwatch" id="stopwatch">00:00:00.000</div>
+    <div class="buttons">
+        <button id="startBtn" class="start" onclick="start()">Start</button>
+        <button class="stop" onclick="stop()">Stop</button>
+        <button class="reset" onclick="reset()">Reset</button>
+    </div>
+
+    <script>
+        let startTime;
+        let elapsedTime = 0;
+        let timerInterval;
+
+        function start() {
+            // Disable the start button
+            document.getElementById('startBtn').disabled = true;
+
+            startTime = Date.now() - elapsedTime;
+            timerInterval = setInterval(function() {
+                elapsedTime = Date.now() - startTime;
+                updateStopwatch(elapsedTime);
+            }, 10);
+        }
+
+        function stop() {
+            // Enable the start button
+            document.getElementById('startBtn').disabled = false;
+
+            clearInterval(timerInterval);
+        }
+
+        function reset() {
+            // Enable the start button
+            document.getElementById('startBtn').disabled = false;
+
+            clearInterval(timerInterval);
+            elapsedTime = 0;
+            updateStopwatch(elapsedTime);
+        }
+
+        function updateStopwatch(time) {
+            let hours = Math.floor(time / (1000 * 60 * 60));
+            let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((time % (1000 * 60)) / 1000);
+            let milliseconds = Math.floor((time % 1000) / 10);
+
+            document.getElementById('stopwatch').innerHTML = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0') + '.' + milliseconds.toString().padStart(3, '0');
+        }
+    </script>
+</body>
+</html>
