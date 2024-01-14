@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<people>
+  <person>
+    <name>Joe Biden</name>
+    <age>79</age>
+    <address>1600 Pennsylvania Avenue NW, Washington, D.C.</address>
+  </person>
+  <person>
+    <name>Angela Merkel</name>
+    <age>68</age>
+    <address>Bundeskanzleramt, Willy-Brandt-Straße 1, 10557 Berlin, Germany</address>
+  </person>
+  <person>
+    <name>Emmanuel Macron</name>
+    <age>44</age>
+    <address>55 Rue du Faubourg Saint-Honoré, 75008 Paris, France</address>
+  </person>
+  <person>
+    <name>Xi Jinping</name>
+    <age>68</age>
+    <address>Zhongnanhai, Xicheng District, Beijing, China</address>
+  </person>
+  <person>
+    <name>Vladimir Putin</name>
+    <age>70</age>
+    <address>23, Ilyinka Street, Moscow, Russia</address>
+  </person>
+  <person>
+    <name>Bing AI</name>
+    <age>2</age>
+    <address>Redmond, Washington, United States</address>
+  </person>
+  <person>
+    <name>Perplexity AI</name>
+    <age>3</age>
+    <address>San Francisco, California, United States</address>
+  </person>
+  <person>
+    <name>Chatsonic</name>
+    <age>1</age>
+    <address>San Francisco, California, United States</address>
+  </person>
+  <person>
+    <name>ChatGPT</name>
+    <age>2</age>
+    <address>San Francisco, California, United States</address>
+  </person>
+  <person>
+    <name>Jasper Chat</name>
+    <age>1</age>
+    <address>San Francisco, California, United States</address>
+  </person>
+</people>
