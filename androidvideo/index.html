@@ -102,7 +102,7 @@ sealed class Screen {
 class MainViewModel : ViewModel() {
     var count by mutableStateOf(0)
     var message by mutableStateOf("Initial message")
-    var currentScreen by mutableStateOf<Screen>(Screen.Jimmy)
+    var currentScreen by mutableStateOf&lt;Screen&gt;(Screen.Jimmy)
 }
 
 @Composable
