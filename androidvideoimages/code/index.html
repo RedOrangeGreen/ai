@@ -257,7 +257,7 @@ fun VideoPlayer(
 @Composable
 fun MarkScreen(mainViewModel: MainViewModel) {
     val showDialog = remember { mutableStateOf(false) }
-    val selectedChannel = remember { mutableStateOf<Channel?>(null) }
+    val selectedChannel = remember { mutableStateOf&lt;Channel?&gt;(null) }
 
     if (showDialog.value && selectedChannel.value != null) {
         AlertDialog(
