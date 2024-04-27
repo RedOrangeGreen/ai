@@ -99,7 +99,7 @@ data class Channel(
 class MainViewModel : ViewModel() {
     var count by mutableIntStateOf(0)
     var message by mutableStateOf("Initial message")
-    var currentScreen by mutableStateOf<Screen>(Screen.Mark)
+    var currentScreen by mutableStateOf&lt;Screen&gt;(Screen.Mark)
     var currentlyPlaying by mutableStateOf("https://bloomberg.com/media-manifest/streams/us.m3u8")
 
     val channels = List(30) { index ->
