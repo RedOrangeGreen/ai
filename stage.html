@@ -37,9 +37,13 @@
             margin-left: 220px;
             padding: 20px;
             padding-top: 80px; /* Add some top padding */
-            display: flex; /* Add this line */
-            align-items: flex-start; /* Add this line */
-            min-height: 100vh; /* Add this line */
+            display: flex;
+            flex-direction: column; /* Add this line */
+            min-height: 100vh;
+        }
+
+        .content-container {
+            margin-top: 50px; /* Add this line */
         }
 
         /* Responsive styles */
@@ -91,18 +95,20 @@
         </nav>
     </header>
     <main class="main-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h2>ABC Welcome to AI Generated Code!</h2>
-                    <p>Hello! (English)</p>
-                    <p>Ciao! (Italian)</p>
-                    <p>Hej! (Swedish)</p>
-                    <p>สวัสดี! (Thai)</p>
-                    <p>你好! (Mandarin)</p>
-                    <p>こんにちは! (Japanese)</p>
-                    <a href="https://www.youtube.com/@quasiplayground/videos" target="_blank">Associated YouTube Videos</a>
-                    <div id="joke-container"></div>
+        <div class="content-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>DE Welcome to AI Generated Code!</h2>
+                        <p>Hello! (English)</p>
+                        <p>Ciao! (Italian)</p>
+                        <p>Hej! (Swedish)</p>
+                        <p>สวัสดี! (Thai)</p>
+                        <p>你好! (Mandarin)</p>
+                        <p>こんにちは! (Japanese)</p>
+                        <a href="https://www.youtube.com/@quasiplayground/videos" target="_blank">Associated YouTube Videos</a>
+                        <div id="joke-container"></div>
+                    </div>
                 </div>
             </div>
         </div>
