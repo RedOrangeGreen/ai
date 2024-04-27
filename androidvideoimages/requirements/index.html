@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Android VideoApp Stage 4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #4CAF50;
+        }
+
+        pre {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <pre>
+1) Additions
+app/manifests/AndroidManifest.xml
+&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;
+
+app/Gradle Scripts/build.gradle.kts (Module :app)
+implementation("androidx.compose.material3:material3:1.2.1")
+implementation("androidx.compose.ui:ui:1.6.6")
+implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+implementation("androidx.media3:media3-exoplayer:1.3.1")
+implementation("androidx.media3:media3-exoplayer-hls:1.3.1")
+implementation("androidx.media3:media3-ui:1.3.1")
+implementation("io.coil-kt:coil:2.2.2") 
+implementation("io.coil-kt:coil-compose:2.2.2")
+
+2) AI Coding
+What does the following code do…[copy code below comments at https://redorangegreen.github.io/ai/androidvideoentry/index.html]
+
+Add a record structure called Channel which has three fields id (an int), image (a string) and name (a string).
+
+Create a variable called channels in the ViewModel which consists of thirty Channel elements, each having the associated element position as id, the value  https://upload.wikimedia.org/wikipedia/commons/b/b4/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg, First Channel”
+as image and Item ‘X’ as name where ‘X’ is identical to id.
+
+On MarkScreen create a vertically scrollable LazyColumn in the bottom half of the screen which displays the contents of Channels, loading and displaying the image referenced by each image field using the coil image library.
+
+Enhance so that when a user click on a row in the LazyColumn the id and name fields are displayed in an alert message box which has an OK button.
+
+Show all the code, including all original composable functions.
+</pre>
+</body>
+</html>
