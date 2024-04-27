@@ -1,67 +1,147 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>AI Generated Code</title> <style> /* Navbar styles */ .navbar { position: fixed; top: 0; left: 0; bottom: 0; width: 200px; background-color: #f8f9fa; padding: 20px; display: flex; flex-direction: column; }
-    .navbar-nav {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-
-    .navbar-nav .nav-item {
-        margin-bottom: 20px;
-    }
-
-    .navbar-nav .nav-link {
-        display: block;
-    }
-
-    /* Main content styles */
-    .main-content {
-        margin-left: 220px;
-        padding: 20px;
-    }
-
-    /* Responsive styles */
-    @media (max-width: 767px) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Generated Code</title>
+    <style>
+        /* Navbar styles */
         .navbar {
-            position: static;
-            width: 100%;
-            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 200px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
         }
 
         .navbar-nav {
-            flex-direction: row;
-            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
         }
 
         .navbar-nav .nav-item {
-            margin-bottom: 0;
-            margin-right: 20px;
+            margin-bottom: 20px;
         }
 
-        .main-content {
-            margin-left: 0;
-            padding: 20px 10px;
+        .navbar-nav .nav-link {
+            display: block;
         }
-    }
-</style>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head> <body> <header> <nav class="navbar navbar-expand-lg navbar-light bg-light"> <div class="navbar-nav"> <a class="nav-link" href="stopwatch/index.html">Web Stopwatch</a> <a class="nav-link" href="leaders/index.html">Web Leaders</a> <a class="nav-link" href="androidstopwatch/index.html">Android Stopwatch</a> <a class="nav-link" href="androidmulti/index.html">Android Multi</a> <a class="nav-link" href="androidvideo/index.html">Android Video</a> <a class="nav-link" href="androidvideoentry/index.html">Android VideoEntry</a> </div> </nav> </header>
-<main class="main-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2>Welcome to AI Generated Code!</h2>
-                <p>Hello! (English)</p>
-                <p>สวัสดี! (Thai)</p>
-                <p>你好! (Mandarin)</p>
-                <!-- Add more greetings in different languages as needed -->
-                <a href="https://www.youtube.com/@quasiplayground/videos" target="_blank">Associated YouTube Videos</a>
+
+        /* Main content styles */
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+            padding-top: 2px; /* Add some top padding */
+            display: flex;
+            flex-direction: column; /* Add this line */
+            min-height: 100vh;
+        }
+
+        .content-container {
+            margin-top: 2px; /* Add this line */
+        }
+
+        /* Responsive styles */
+        @media (max-width: 767px) {
+            .navbar {
+                position: static;
+                width: 100%;
+                padding: 10px;
+            }
+
+            .navbar-nav {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .navbar-nav .nav-item {
+                margin-bottom: 0;
+                margin-right: 20px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px 10px;
+                padding-top: 2px; /* Reduce top padding on smaller screens */
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="navbar-nav flex-column">
+                <a class="nav-link" href="stopwatch/index.html">Web Stopwatch</a>
+                <a class="nav-link" href="leaders/index.html">Web Leaders</a>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="androidDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Android
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="androidDropdown">
+                        <a class="dropdown-item" href="androidstopwatch/index.html">Stopwatch</a>
+                        <a class="dropdown-item" href="androidmulti/index.html">VdeoApp Stage 1: Multi</a>
+                        <a class="dropdown-item" href="androidvideo/index.html">VideoApp Stage 2: Video</a>
+                        <a class="dropdown-item" href="androidvideoentry/index.html">VideoApp Stage 3: VideoEntry</a>
+                        <a class="dropdown-item" href="androidvideoimages/index.html">VideoApp Stage 4: Images</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="main-content">
+        <div class="content-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>Welcome to AI Generated Code!</h2>
+                        <p>Hello! (English)</p>
+                        <p>Ciao! (Italian)</p>
+                        <p>Hej! (Swedish)</p>
+                        <p>สวัสดี! (Thai)</p>
+                        <p>你好! (Mandarin)</p>
+                        <p>こんにちは! (Japanese)</p>
+                        <a href="https://www.youtube.com/@quasiplayground/videos" target="_blank">Associated YouTube Videos</a>
+                        <div id="joke-container"></div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 
-<footer>
-    <!-- Add any additional footer content here -->
-</footer>
+    <footer>
+        <!-- Add any additional footer content here -->
+    </footer>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-toggle').dropdown();
+        });
+
+        function getJoke() {
+            fetch('https://official-joke-api.appspot.com/random_joke')
+                .then(response => response.json())
+                .then(data => {
+                    const jokeContainer = document.getElementById('joke-container');
+                    jokeContainer.innerHTML = `<p>${data.setup} ${data.punchline}</p>`;
+                })
+                .catch(error => {
+                    console.error('Error fetching joke:', error);
+                });
+        }
+
+        // Call getJoke() initially
+        getJoke();
+
+        // Call getJoke() every 30 seconds
+        setInterval(getJoke, 30000);
+    </script>
+</body>
+</html>
