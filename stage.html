@@ -71,10 +71,10 @@
                 <a class="nav-link" href="stopwatch/index.html">Web Stopwatch</a>
                 <a class="nav-link" href="leaders/index.html">Web Leaders</a>
                 <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="androidDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                         Android
                     </a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu" aria-labelledby="androidDropdown">
                         <a class="dropdown-item" href="androidstopwatch/index.html">Android Stopwatch</a>
                         <a class="dropdown-item" href="androidmulti/index.html">Android Multi</a>
                         <a class="dropdown-item" href="androidvideo/index.html">Android Video</a>
@@ -103,6 +103,12 @@
         <!-- Add any additional footer content here -->
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-toggle').dropdown();
+        });
+    </script>
 </body>
 </html>
