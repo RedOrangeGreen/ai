@@ -265,7 +265,7 @@ fun PlayScreen(mainViewModel: MainViewModel) {
     }
 }
 
-fun getChannels(): Array<Channel> {
+fun getChannels(): Array&lt;Channel&gt; {
     val url = "https://iptv-org.github.io/iptv/index.m3u"
     val client = OkHttpClient()
     val request = Request.Builder()
