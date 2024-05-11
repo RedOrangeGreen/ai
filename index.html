@@ -70,6 +70,11 @@
                 padding-top: 2px; /* Reduce top padding on smaller screens */
             }
         }
+
+        .browser-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -89,12 +94,16 @@
                         <a class="dropdown-item" href="androidvideo/index.html">VideoApp Stage 2: Video</a>
                         <a class="dropdown-item" href="androidvideoentry/index.html">VideoApp Stage 3: VideoEntry</a>
                         <a class="dropdown-item" href="androidvideoimages/index.html">VideoApp Stage 4: Images</a>
+                        <a class="dropdown-item" href="androidvideowebpagegrab/index.html">VideoApp Stage 5: WebPageGrab</a>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
     <main class="main-content">
+        <div class="browser-info">
+            <h4 id="browserInfo"></h4>
+        </div>
         <div class="content-container">
             <div class="container">
                 <div class="row">
@@ -123,6 +132,12 @@
     <script>
         $(document).ready(function() {
             $('.dropdown-toggle').dropdown();
+
+            // Get the browser name
+            var browserName = getBrowserName();
+
+            // Update the browser info text
+            document.getElementById('browserInfo').textContent = 'You are using ' + browserName;
         });
 
         function getJoke() {
@@ -142,6 +157,28 @@
 
         // Call getJoke() every 30 seconds
         setInterval(getJoke, 30000);
+
+        // Function to detect the browser name
+        function getBrowserName() {
+            var userAgent = navigator.userAgent;
+            var browserName;
+
+            if (userAgent.indexOf("Edg") > -1) {
+                browserName = "Microsoft Edge";
+            } else if (userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Edg") === -1) {
+                browserName = "Google Chrome";
+            } else if (userAgent.indexOf("Firefox") > -1) {
+                browserName = "Mozilla Firefox";
+            } else if (userAgent.indexOf("Safari") > -1) {
+                browserName = "Apple Safari";
+            } else if (userAgent.indexOf("Opera") > -1) {
+                browserName = "Opera";
+            } else {
+                browserName = "Unknown";
+            }
+
+            return browserName;
+        }
     </script>
 </body>
 </html>
