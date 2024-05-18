@@ -202,7 +202,7 @@ fun MainScreen(mainViewModel: MainViewModel = viewModel()) {
 /* PlayScreen */
 @Composable
 fun PlayScreen(mainViewModel: MainViewModel) {
-    val selectedChannel = remember { mutableStateOf<Channel?>(null) }
+    val selectedChannel = remember { mutableStateOf&lt;Channel?&gt;(null) }
     var selectedVideoSource by remember { mutableStateOf(VideoSource.Video1) }
 
     LaunchedEffect(mainViewModel.currentPlaylist) {
