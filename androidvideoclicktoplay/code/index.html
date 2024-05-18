@@ -290,7 +290,7 @@ fun getChannels(url: String): Array&lt;Channel&gt; {
         null
     }
 
-    val channels = mutableListOf<Channel>()
+    val channels = mutableListOf&lt;Channel&gt;()
     var id = 1
     if (response != null) {
         val lines = response.split(Constants.NEWLINE)
