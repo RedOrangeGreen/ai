@@ -104,7 +104,7 @@
     <main class="main-content">
         <div class="browser-info">
             <h4 id="browserInfo"></h4>
-            <h4 id="currentDateTime"></h4> <!-- Add this line -->
+            <h4 id="currentDateTime"></h4>
         </div>
         <div class="content-container">
             <div class="container">
@@ -189,7 +189,8 @@
         // Function to update the current date and time
         function updateDateTime() {
             const now = new Date();
-            const dateTimeString = now.toLocaleString();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+            const dateTimeString = now.toLocaleString('en-US', options);
             document.getElementById('currentDateTime').textContent = dateTimeString;
         }
     </script>
