@@ -276,7 +276,7 @@ fun PlayScreen(mainViewModel: MainViewModel) {
     }
 }
 
-fun getChannels(url: String): Array<Channel> {
+fun getChannels(url: String): Array&lt;Channel&gt; {
     val client = OkHttpClient()
     val request = Request.Builder()
         .url(url)
