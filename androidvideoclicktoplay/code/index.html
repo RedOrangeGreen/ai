@@ -133,10 +133,10 @@ data class Channel(
 
 class MainViewModel : ViewModel() {
     var message by mutableStateOf(Constants.ABOUT_MESSAGE)
-    var currentScreen by mutableStateOf<Screen>(Screen.Play)
+    var currentScreen by mutableStateOf&lt;Screen&gt;(Screen.Play)
     var currentPlaylist by mutableStateOf(Constants.DEFAULT_PLAYLIST)
     var currentVideo by mutableStateOf(Constants.DEFAULT_VIDEO)
-    val channels = mutableStateListOf<Channel>()
+    val channels = mutableStateListOf&lt;Channel&gt;()
 }
 
 class MainActivity : ComponentActivity() {
