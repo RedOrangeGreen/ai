@@ -1,1 +1,67 @@
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AI Generated Android VideoApp Stage 6: ClickToPlay</title>
+  </head>
+  <body>
+    <h1>AI Generated Android VideoApp Stage 6: ClickToPlay</h1>
+    <section>
+      <h2><b>Start Using The Generated Code From The Previous Stage</b></h2>
+      <p>Using Android Studio Jellyfish or compatible</p>
+      <p>Generate a project template using Projects | New Project | Empty Activity</p>
+      <p>Make the following additions to app/manifests/AndroidManifest.xml</br>
+         &lt;uses-permission android:name="android.permission.INTERNET" /><br>
+         &lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /></p>
+      <p>Make the following additions to Gradle Scripts/build.gradle.kts (Module :app)</br>
+         implementation("androidx.compose.material3:material3:1.2.1")</br>
+         implementation("androidx.compose.ui:ui:1.6.7")</br>
+         implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")</br>
+         implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")</br>
+         implementation("androidx.media3:media3-exoplayer:1.3.1")</br>
+         implementation("androidx.media3:media3-exoplayer-hls:1.3.1")</br>
+         implementation("androidx.media3:media3-ui:1.3.1")</br>
+         implementation("com.squareup.okhttp3:okhttp:4.10.0")</br>
+         implementation("io.coil-kt:coil:2.2.2")</br>
+         implementation("io.coil-kt:coil-compose:2.2.2")</p>
+      <p>Delete all code in MainActivity.kt then copy'n'paste into MainActivity.kt all the code shown at https://redorangegreen.github.io/ai/androidvideowebpagegrab/code/index.html</br>
+    </section>
+    <section>
+      <h2><b>AI Code Improvements (Human Tasks In Bold)</b></h2>
+      <p>In kotlin show how to define constants in an object similar to C++ #define</p>
+      <p>Add constants to the object for DEFAULT_PLAYLIST="https://iptv-org.github.io/iptv/index.m3u, DEFAULT_VIDEO=”https://bloomberg.com/media-manifest/streams/us.m3u8", PLAY_BUTTON = “Play”, SETTINGS_BUTTON = “Settings”, ABOUT_BUTTON = About”, IMAGE_CONTENT_DESCRIPTION=”"Channel Image", NEWLINE=”\n”, LINE_TAG=”#EXTINF", ID_TAG=tvg-id=", QUOTE=”\”, LOGO_TAG=”"tvg-logo=", SETTINGS_TITLE = “Settings”, SETTINGS_CURRENT_PLAYLIST_ENTRY="Current Playlist", SETTINGS_CURRENT_VIDEO_ENTRY=”Current Video”, ABOUT_BUTTON = About”, ABOUT_TITLE = “About”, ABOUT_MESSAGE=”AI flicks v0.6”</p>
+      <p><b>Replace hard coded string literals with new constants.</b></p>
+      <p><b>Test app.</b></p>     
+      <p>Improve the following code by removing the exception handler...[copy in getChannels()]</p>
+      <p>Simplify the following two functions so that most of the code is in a single shared function…[copy in getTvgId() and getTvgLogo())]</p>
+      <p><b>Test app.</b></p>
+      <p>Change the following so that verticalArrangement is Top and remove text showing count…[copy in AboutScreen()]</p>  
+      <p><b>Test app.</b></p>
+      <p>Change the following so that verticalArrangement is Top and remove text showing count, message, currentlyplaying and remove button allowing click increment…[copy in SettingsScreen()]</p>
+      <p><b>Test app.</b></p>
+      <p><b>Delete count variable from MainViewModel</b></p> 
+      <p>Add another TextField entry in the following before the existing TextField entry which onDone sets mainViewModel.currentPlaylist...[copy in SettingsScreen()]</p>
+      <p><b>If the line '## New TextField for Playlist URL' is shown in the generated code delete it.</b></p> 
+      <p><b>Add currentPlaylist to MainViewModel, initialise with Constants.DEFAULT_PLAYLIST</b></p> 
+      <p><b>Change the label text in the new TextEntry to Constants.SETTINGS_CURRENT_PLAYLIST_ENTRY</b></p>
+      <p><b>Change currentlyPlaying in the MainViewModel to currentVideo then change all uses in the file.</b></p>
+      <p>Initialise the following to mainViewModel.currentPlaylist...[copy in the local playlist variable declaration from SettingsScreen()]</p> 
+      <p><b>Test app.</b></p> 
+      <p>Add a small amount of left and right margin to the following...[copy in SettingsScreen()]</p> 
+      <p><b>Test app.</b></p> 
+      <p>change the following so that it uses a parameter called url rather than a local hard coded variable...[copy in getChannels()]</p>
+      <p>change the following to pass in mainViewModel.currentPlaylist as a parameter...[copy in the line which calls getChannels() from PlayScreen()]</p> 
+      <p><b>Test app.</b></p>
+      <p>Change Unit in the following LaunchedEffect to mainViewModel.currentPlaylist and before calling mainViewModel.channels.addAll() call mainViewModel.channels.clear()...[copy in the LaunchedEffect() from PlayScreen()]</p> 
+      <p><b>Test app, Test changes to playlist and changing the playlist to https://iptv-org.github.io/iptv/countries/it.m3u then back to https://iptv-org.github.io/iptv/index.m3u</b></p>
+      <p><i>Bug found - if second url of currnetPlaylist changed to garbage (e.g. https://iptv-org.aaagithub.io/iptv/index.m3u) then get crash</i></p>
+      <p>Enhance the following so that if the entered url is invalid an empty list is returned...[copy in getChannels()]</p>
+      <p>In the following change the VideoPlayer modifier by removing .weight and adding a modifier for a 16/9 aspect ratio...[copy in PlayScreen()]</p>
+      <p>In kotlin show how to define an enumeration in a composable with two values Video1 and Video2, initially set to Video1</p>
+      <p><b>Copy the generated enumeration definition to the start of the file, add the generated composible var to PlayScreen(), change the strings in the enumeration to constants</b></p>
+      <p>In the following retain currently unused selectedVideoSource but remove showDialog and all related code then change the row clickable action so it also sets mainViewModel.currentVideo to selectedChannel.value.location...[copy in PlayScreen()]</p>
+      <p>Improve the following kotlin code... if (selectedVideoSource == VideoSource.Video1) selectedVideoSource = VideoSource.Video2 else selectedVideoSource = VideoSource.Video1</p>
+      <p><b>Copy the generated improved 'if' kotlin code into .clickable as the last action</b></p>
+      <p>In the following exactly duplicate the VideoPlayer() call code - perform the first instance of the code if selectedVideoSource == VideoSource.Video1 else perform the second instance...copy in PlayScreen()</p>  
+    </section>
+  </body>
+</html>
