@@ -298,7 +298,7 @@ fun getChannels(url: String): Array&lt;Channel&gt; {
             if (lines[i].startsWith(Constants.LINE_TAG)) {
                 val tvgId = getTvgId(lines[i])
                 val tvgLogo = getTvgLogo(lines[i])
-                if (i + 1 < lines.size) {
+                if (i + 1 &lt; lines.size) {
                     val location = lines[i + 1]
                     channels.add(Channel(id, tvgLogo, tvgId, location))
                     id++
