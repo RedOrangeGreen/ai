@@ -1,1 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Android VideoApp Stage 5</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+        }
 
+        h1 {
+            color: #4CAF50;
+        }
+
+        pre {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <pre>
+package com.test.myapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.annotation.OptIn
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.media3.common.MediaItem
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.hls.HlsMediaSource
+import androidx.media3.ui.PlayerView
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import com.test.myapplication.ui.theme.MyApplicationTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
+
+object Constants {
+    const val DEFAULT_PLAYLIST = "https://iptv-org.github.io/iptv/index.m3u"
+    const val DEFAULT_VIDEO = "https://bloomberg.com/media-manifest/streams/us.m3u8"
+    const val PLAY_BUTTON = "Play"
+    const val SETTINGS_BUTTON = "Settings"
+    const val ABOUT_BUTTON = "About"
+    const val IMAGE_CONTENT_DESCRIPTION = "Channel Image"
+    const val NEWLINE = "\n"
+    const val LINE_TAG = "#EXTINF"
+    const val ID_TAG = "tvg-id="
+    const val QUOTE = "\""
+    const val LOGO_TAG = "tvg-logo="
+    const val SETTINGS_TITLE = "Settings"
+    const val SETTINGS_CURRENT_PLAYLIST_ENTRY = "Current Playlist"
+    const val SETTINGS_CURRENT_VIDEO_ENTRY = "Current Video"
+    const val ABOUT_TITLE = "About"
+    const val ABOUT_MESSAGE = "AI flicks v0.6"
+    const val ENUM_VIDEO1 = "video1"
+    const val ENUM_VIDEO2 = "video2"
+}
+
+enum class VideoSource(val value: String) {
+    Video1(Constants.ENUM_VIDEO1),
+    Video2(Constants.ENUM_VIDEO2)
+}
+
+sealed class Screen {
+    data object Play : Screen()
+    data object Settings : Screen()
+    data object About : Screen()
+}
+
+data class Channel(
+    val id: Int,
+    val image: String,
+    val name: String,
+    val location: String
+)
+
+class MainViewModel : ViewModel() {
+    var message by mutableStateOf(Constants.ABOUT_MESSAGE)
+    var currentScreen by mutableStateOf<Screen>(Screen.Play)
+    var currentPlaylist by mutableStateOf(Constants.DEFAULT_PLAYLIST)
+    var currentVideo by mutableStateOf(Constants.DEFAULT_VIDEO)
+    val channels = mutableStateListOf<Channel>()
+}
+
+class MainActivity : ComponentActivity() {
+    private val mainViewModel: MainViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            MyApplicationTheme {
+                Scaffold(
+                    topBar = {},
+                    bottomBar = {
+                        BottomAppBar(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                TextButton(onClick = {
+                                    mainViewModel.currentScreen = Screen.Play
+                                }) {
+                                    Text(text = Constants.PLAY_BUTTON)
+                                }
+                                TextButton(onClick = {
+                                    mainViewModel.currentScreen = Screen.Settings
+                                }) {
+                                    Text(text = Constants.SETTINGS_BUTTON)
+                                }
+                                TextButton(onClick = {
+                                    mainViewModel.currentScreen = Screen.About
+                                }) {
+                                    Text(text = Constants.ABOUT_BUTTON)
+                                }
+                            }
+                        }
+                    },
+                    floatingActionButton = {},
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    Column(
+                        modifier = Modifier.padding(innerPadding),
+                    ) {
+                        MainScreen()
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* MainScreen */
+@Composable
+fun MainScreen(mainViewModel: MainViewModel = viewModel()) {
+    when (mainViewModel.currentScreen) {
+        is Screen.Play -> PlayScreen(mainViewModel)
+        is Screen.Settings -> SettingsScreen(mainViewModel)
+        is Screen.About -> AboutScreen(mainViewModel)
+    }
+}
+
+/* PlayScreen */
+@Composable
+fun PlayScreen(mainViewModel: MainViewModel) {
+    val selectedChannel = remember { mutableStateOf<Channel?>(null) }
+    var selectedVideoSource by remember { mutableStateOf(VideoSource.Video1) }
+
+    LaunchedEffect(mainViewModel.currentPlaylist) {
+        withContext(Dispatchers.IO) {
+            mainViewModel.channels.clear() // Clear existing channels
+            mainViewModel.channels.addAll(getChannels(mainViewModel.currentPlaylist))
+        }
+    }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        if (selectedVideoSource == VideoSource.Video1) {
+            VideoPlayer(
+                videoUrl = mainViewModel.currentVideo,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(16 / 9f)
+            )
+        } else {
+            VideoPlayer(
+                videoUrl = mainViewModel.currentVideo,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(16 / 9f)
+            )
+        }
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            items(mainViewModel.channels) { channel ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .clickable {
+                            selectedChannel.value = channel
+                            mainViewModel.currentVideo = channel.location
+                            selectedVideoSource = when (selectedVideoSource) {
+                                VideoSource.Video1 -> VideoSource.Video2
+                                VideoSource.Video2 -> VideoSource.Video1
+                            }
+                        },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = rememberAsyncImagePainter(
+                            ImageRequest.Builder(LocalContext.current).data(data = channel.image)
+                                .apply(block = fun ImageRequest.Builder.() {
+                                    crossfade(true)
+                                }).build()
+                        ),
+                        contentDescription = Constants.IMAGE_CONTENT_DESCRIPTION,
+                        modifier = Modifier
+                            .size(64.dp)
+                            .clip(CircleShape)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(
+                        text = channel.name,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            }
+        }
+    }
+}
+
+fun getChannels(url: String): Array<Channel> {
+    val client = OkHttpClient()
+    val request = Request.Builder()
+        .url(url)
+        .build()
+
+    val response = try {
+        client.newCall(request).execute().body?.string()
+    } catch (e: Exception) {
+        // Handle invalid URL or network error
+        // Could use e.printStackTrace()
+        null
+    }
+
+    val channels = mutableListOf<Channel>()
+    var id = 1
+    if (response != null) {
+        val lines = response.split(Constants.NEWLINE)
+        for (i in lines.indices) {
+            if (lines[i].startsWith(Constants.LINE_TAG)) {
+                val tvgId = getTvgId(lines[i])
+                val tvgLogo = getTvgLogo(lines[i])
+                if (i + 1 < lines.size) {
+                    val location = lines[i + 1]
+                    channels.add(Channel(id, tvgLogo, tvgId, location))
+                    id++
+                }
+            }
+        }
+    }
+    return channels.toTypedArray()
+}
+
+private fun getTvgId(line: String): String {
+    return extractValue(line, Constants.ID_TAG)
+}
+
+private fun extractValue(line: String, tag: String): String {
+    val start = line.indexOf(tag) + tag.length + 1
+    val end = line.indexOf(Constants.QUOTE, start)
+    return line.substring(start, end)
+}
+
+private fun getTvgLogo(line: String): String {
+    return extractValue(line, Constants.LOGO_TAG)
+}
+
+@OptIn(UnstableApi::class)
+@Composable
+fun VideoPlayer(
+    videoUrl: String,
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+    val exoPlayer = remember {
+        ExoPlayer.Builder(context)
+            .build()
+            .apply {
+                setMediaSource(
+                    HlsMediaSource.Factory(DefaultHttpDataSource.Factory())
+                        .createMediaSource(MediaItem.fromUri(videoUrl))
+                )
+                prepare()
+                play()
+            }
+    }
+
+    DisposableEffect(exoPlayer) {
+        onDispose {
+            exoPlayer.release()
+        }
+    }
+
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            AndroidView(
+                modifier = Modifier.fillMaxSize(),
+                factory = { context ->
+                    PlayerView(context).apply {
+                        player = exoPlayer
+                        useController = true
+                        controllerShowTimeoutMs = 5000
+                    }
+                }
+            )
+        }
+    }
+}
+
+/* SettingsScreen */
+@Composable
+fun SettingsScreen(mainViewModel: MainViewModel) {
+    var newPlaylistUrl by remember { mutableStateOf(mainViewModel.currentPlaylist) }
+    var newVideoUrl by remember { mutableStateOf(mainViewModel.currentVideo) }
+    val focusManager = LocalFocusManager.current
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = Constants.SETTINGS_TITLE,
+            style = MaterialTheme.typography.headlineMedium
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        TextField(
+            value = newPlaylistUrl,
+            onValueChange = { newPlaylistUrl = it },
+            label = { Text(Constants.SETTINGS_CURRENT_PLAYLIST_ENTRY) },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    mainViewModel.currentPlaylist = newPlaylistUrl
+                    focusManager.clearFocus()
+                }
+            )
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        TextField(
+            value = newVideoUrl,
+            onValueChange = { newVideoUrl = it },
+            label = { Text(Constants.SETTINGS_CURRENT_VIDEO_ENTRY) },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    mainViewModel.currentVideo = newVideoUrl
+                    focusManager.clearFocus()
+                }
+            )
+        )
+    }
+}
+
+/* AboutScreen */
+@Composable
+fun AboutScreen(mainViewModel: MainViewModel) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = Constants.ABOUT_TITLE,
+            style = MaterialTheme.typography.headlineMedium
+        )
+        Text(
+            text = mainViewModel.message,
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
+}
+</pre>
+</body>
+</html>
