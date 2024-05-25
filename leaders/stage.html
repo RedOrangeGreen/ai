@@ -61,8 +61,11 @@
 </head>
 <body onload="loadXMLDoc()">
     <h2 class="blue">World Leaders - Click To Select</h2>
-    <p class="green">Info in this table has been read from static file <span class="indigo">' + peopleXmlFile + '</span> so may be out of date</p>
+    <p class="green" id="fileInfo">Info in this table has been read from static file <span class="indigo">people.xml</span> so may be out of date</p>
     <div id="leaders"></div>
     <div id="clickedRecord" style="text-align: center;"></div>
+    <script>
+        document.getElementById("fileInfo").innerHTML = "Info in this table has been read from static file <span class='indigo'>" + peopleXmlFile + "</span> so may be out of date";
+    </script>
 </body>
 </html>
