@@ -22,6 +22,8 @@
         }
     </style>
     <script>
+        var peopleXmlFile = "people.xml";
+
         function loadXMLDoc() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -29,7 +31,7 @@
                     myFunction(this);
                 }
             };
-            xhttp.open("GET", "people.xml", true);
+            xhttp.open("GET", peopleXmlFile, true);
             xhttp.send();
         }
         
@@ -59,7 +61,7 @@
 </head>
 <body onload="loadXMLDoc()">
     <h2 class="blue">World Leaders - Click To Select</h2>
-    <p class="green">Info in this table has been read from static file <span class="violet">people.xml</span> so may be out of date</p>
+    <p class="green">Info in this table has been read from static file <span class="violet">${peopleXmlFile}</span> so may be out of date</p>
     <div id="leaders"></div>
     <div id="clickedRecord" style="text-align: center;"></div>
 </body>
