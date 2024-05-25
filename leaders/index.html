@@ -65,16 +65,17 @@
     </script>
 </head>
 <body onload="loadXMLDoc()">
-    <h2 class="blue">World Leaders - Click To Select</h2>
+    <h2 class="blue">World Leaders - Click A Row To Select &amp; Display</h2>
     <p class="green" id="fileInfo"></p>
     <div class="button-container">
-        <button onclick="window.open('./' + peopleXmlFile, '_blank')">View people.xml</button>
+        <button onclick="window.open('./' + peopleXmlFile, '_blank')"></button>
     </div>
     <br>
     <div id="leaders"></div>
     <div id="clickedRecord" style="text-align: center;"></div>
     <script>
         document.getElementById("fileInfo").innerHTML = "The info in this table has been read from static file <span class='indigo'>" + peopleXmlFile + "</span> so may be out of date";
+        document.querySelector('.button-container button').innerHTML = "View " + peopleXmlFile;
     </script>
 </body>
 </html>
