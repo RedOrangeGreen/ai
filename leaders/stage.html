@@ -23,6 +23,7 @@
         .button-container {
             text-align: center;
             margin-top: 10px;
+            margin-bottom: 20px;
         }
     </style>
     <script>
@@ -69,10 +70,11 @@
     <div class="button-container">
         <button onclick="window.open('./' + peopleXmlFile, '_blank')">View people.xml</button>
     </div>
+    <hr>
     <div id="leaders"></div>
     <div id="clickedRecord" style="text-align: center;"></div>
     <script>
-        document.getElementById("fileInfo").innerHTML = "The Info in this table has been read from static file <span class='indigo'>" + peopleXmlFile + "</span> so may be out of date";
+        document.getElementById("fileInfo").innerHTML = "The info in this table has been read from static file <span class='indigo'>" + peopleXmlFile + "</span> so may be out of date";
     </script>
 </body>
 </html>
