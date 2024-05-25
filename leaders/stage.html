@@ -68,16 +68,16 @@
     <h2 class="blue">World Leaders - Click To Select</h2>
     <p class="green" id="fileInfo"></p>
     <div class="button-container">
-        <button onclick="window.open('./' + peopleXmlFile, '_blank')">ViewA<span class="indigo"></span>ViewB</button>
+        <button onclick="window.open('./' + peopleXmlFile, '_blank')"></button>
     </div>
     <br>
     <div id="leaders"></div>
     <div id="clickedRecord" style="text-align: center;"></div>
     <script>
-        document.getElementById("fileInfo").innerHTML = "Jimmy The info in this table has been read from static file <span class='indigo'>" + peopleXmlFile + "</span> so may be out of date";
+        document.getElementById("fileInfo").innerHTML = "Sally The info in this table has been read from static file <span class='indigo'>" + peopleXmlFile + "</span> so may be out of date";
         var buttonText = document.querySelector('.button-container button').innerHTML;
         buttonText = buttonText.replace('${peopleXmlFile}', peopleXmlFile);
-        document.querySelector('.button-container button').innerHTML = buttonText;
+        document.querySelector('.button-container button').innerHTML = "Doings";
     </script>
 </body>
 </html>
