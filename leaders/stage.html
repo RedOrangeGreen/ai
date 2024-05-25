@@ -75,9 +75,7 @@
     <div id="clickedRecord" style="text-align: center;"></div>
     <script>
         document.getElementById("fileInfo").innerHTML = "Sally The info in this table has been read from static file <span class='indigo'>" + peopleXmlFile + "</span> so may be out of date";
-        var buttonText = document.querySelector('.button-container button').innerHTML;
-        buttonText = buttonText.replace('${peopleXmlFile}', peopleXmlFile);
-        document.querySelector('.button-container button').innerHTML = "Doings";
+        document.querySelector('.button-container button').innerHTML = "Doings" + peopleXmlFile;
     </script>
 </body>
 </html>
