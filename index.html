@@ -30,6 +30,26 @@
 
         .navbar-nav .nav-link {
             display: block;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+
+        .navbar-nav .dropdown-menu {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-nav .dropdown-item {
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .dropdown-item:hover {
+            color: #007bff;
+            background-color: #e9ecef;
         }
 
         /* Main content styles */
@@ -82,8 +102,15 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="navbar-nav flex-column">
-                <a class="nav-link" href="stopwatch/index.html">Web Stopwatch</a>
-                <a class="nav-link" href="leaders/index.html">Web Leaders</a>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="webDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Web
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="webDropdown">
+                        <a class="dropdown-item" href="stopwatch/index.html">JavaScript Stopwatch</a>
+                        <a class="dropdown-item" href="leaders/index.html">AJAX Clickable Table</a>
+                    </div>
+                </div>
                 <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="androidDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                         Android
@@ -111,12 +138,6 @@
                 <div class="row">
                     <div class="col-12 text-center">
                         <h2>Welcome to AI Generated Code!</h2>
-                        <p>Hello! (English)</p>
-                        <p>Ciao! (Italian)</p>
-                        <p>Hej! (Swedish)</p>
-                        <p>สวัสดี! (Thai)</p>
-                        <p>你好! (Mandarin)</p>
-                        <p>こんにちは! (Japanese)</p>
                         <a href="https://www.youtube.com/@quasiplayground/videos" target="_blank">Associated YouTube Videos</a>
                         <div id="joke-container"></div>
                     </div>
