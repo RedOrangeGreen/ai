@@ -27,6 +27,47 @@
 </head>
 <body>
     <pre>
+#include <QApplication>
+#include <QMainWindow>
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
+#include <QPushButton>
+#include <QMessageBox>
+
+int main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+
+    // Create the main window
+    QMainWindow window;
+    window.setWindowTitle("Hello World");
+    window.resize(800, 400);
+
+    // Create the menu bar
+    QMenuBar *menuBar = window.menuBar();
+    QMenu *fileMenu = menuBar->addMenu("&File");
+    QAction *openAction = new QAction("&Open", &window);
+    fileMenu->addAction(openAction);
+    QAction *exitAction = new QAction("&Exit", &window);
+    exitAction->setShortcut(Qt::CTRL | Qt::Key_Q);
+    fileMenu->addAction(exitAction);
+    QObject::connect(exitAction, &QAction::triggered, &QApplication::quit);
+
+    // Create the "Press me" button
+    QPushButton *button = new QPushButton("Press me", &window);
+    button->setGeometry(350, 150, 100, 30); // Set the button position and size
+
+    // Connect the button's clicked signal to a lambda function
+    QObject::connect(button, &QPushButton::clicked, [&]() {
+        QMessageBox messageBox;
+        messageBox.setText("The button has been pressed");
+        messageBox.exec();
+    });
+
+    window.show();
+    return app.exec();
+}
 </pre>
 </body>
 </html>
