@@ -46,7 +46,9 @@
 
     .sub-menu {
       display: none;
-      position: static;
+      position: absolute;
+      top: -200px; /* Adjust this value to position the sub-menu above the main menu */
+      left: 0;
       background-color: #343a40;
       padding: 0.5rem;
       z-index: 1;
@@ -65,7 +67,7 @@
         <nav class="navbar navbar-dark bg-dark flex-md-column">
           <ul class="navbar-nav flex-column">
             <li class="menu-item-has-children">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">cccWeb</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">Web</a>
               <ul class="sub-menu">
                 <li><a class="nav-link" href="#">JavaScript Stopwatch</a></li>
                 <li><a class="nav-link" href="#">AJAX Clickable Table</a></li>
@@ -73,7 +75,7 @@
             </li>
 
             <li class="menu-item-has-children">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">Android</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">Android</a>
               <ul class="sub-menu">
                 <li><a class="nav-link" href="#">Stopwatch</a></li>
                 <li><a class="nav-link" href="#">SVdeoApp Stage 1: Multi</a></li>
@@ -82,7 +84,7 @@
             </li>
 
             <li class="menu-item-has-children">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">C++</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">C++</a>
               <ul class="sub-menu">
                 <li><a class="nav-link" href="#">QT5 Lean'n'Mean - Getting Started</a></li>
                 <li><a class="nav-link" href="#">QT5 Lean'n'Mean - XOR Encoding</a></li>
@@ -104,9 +106,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script>
-    function toggleSubmenu(event) {
+    function toggleSubmenu(event, menuItem) {
       event.preventDefault(); // Prevent the default link behavior
-      const submenu = event.currentTarget.nextElementSibling;
+      const submenu = menuItem.nextElementSibling;
+      const menuItemRect = menuItem.getBoundingClientRect();
+      const submenuRect = submenu.getBoundingClientRect();
+
+      // Position the sub-menu above the main menu item
+      submenu.style.left = `${menuItemRect.left}px`;
+      submenu.style.top = `${menuItemRect.top - submenuRect.height}px`;
+
       submenu.classList.toggle('show');
     }
   </script>
