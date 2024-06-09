@@ -43,6 +43,14 @@
             height: auto; /* Maintain aspect ratio */
             margin: 0 10px;
         }
+        
+        #pro-file-content {
+            display: none;
+            white-space: pre-wrap;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -50,7 +58,7 @@
     <ul>
         <li><a href="requirements.html">Requirements</a></li>
         <li><a href="main.cpp">main.cpp</a></li>
-        <li><a href="hello-world.pro">hello-world.pro</a></li>
+        <li><a href="#" id="show-pro-file">hello-world.pro</a></li>
     </ul>
     <pre id="pro-file-content"></pre>
     <p>How to use the generated files (C++/Qt5/Ubuntu):
@@ -65,13 +73,23 @@
     </div>
 
     <script>
-        // Fetch the Qt .pro file content
-        fetch('hello-world.pro')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('pro-file-content').textContent = data;
-            })
-            .catch(error => console.error(error));
+        // Get the link and content elements
+        const proFileLink = document.getElementById('show-pro-file');
+        const proFileContent = document.getElementById('pro-file-content');
+
+        // Add click event listener to the link
+        proFileLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent the default link behavior
+
+            // Fetch the Qt .pro file content
+            fetch('hello-world.pro')
+                .then(response => response.text())
+                .then(data => {
+                    proFileContent.textContent = data;
+                    proFileContent.style.display = 'block'; // Show the content
+                })
+                .catch(error => console.error(error));
+        });
     </script>
 </body>
 </html>
