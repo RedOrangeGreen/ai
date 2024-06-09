@@ -3,106 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Bootstrap Menu</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Bootstrap Left Sidebar Menu</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     .sidebar {
       height: 100vh;
-      position: fixed;
-      left: 0;
-      top: 0;
       background-color: #f8f9fa;
-      padding: 20px;
-    }
-    .submenu {
-      display: none;
     }
   </style>
 </head>
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-2">
-        <div class="sidebar">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">aaHome</a>
-              <ul class="nav flex-column ml-3 submenu">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Sub-menu 1</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Sub-menu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">About</a>
-              <ul class="nav flex-column ml-3 submenu">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Sub-menu 1</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Sub-menu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">Services</a>
-              <ul class="nav flex-column ml-3 submenu">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Sub-menu 1</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Sub-menu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">Contact</a>
-              <ul class="nav flex-column ml-3 submenu">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Sub-menu 1</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Sub-menu 2</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+      <div class="col-md-3 sidebar">
+        <nav class="nav flex-column">
+          <a class="nav-link" href="#" data-toggle="collapse" data-target="#menu1">Menu 1</a>
+          <div class="collapse" id="menu1">
+            <a class="nav-link ml-3" href="#">Sub-item 1</a>
+            <a class="nav-link ml-3" href="#">Sub-item 2</a>
+          </div>
+          <a class="nav-link" href="#" data-toggle="collapse" data-target="#menu2">Menu 2</a>
+          <div class="collapse" id="menu2">
+            <a class="nav-link ml-3" href="#">Sub-item 1</a>
+            <a class="nav-link ml-3" href="#">Sub-item 2</a>
+            <a class="nav-link ml-3" href="#">Sub-item 3</a>
+          </div>
+        </nav>
       </div>
-      <div class="col-md-10 offset-md-2">
-        <h1>Welcome to the Simple Bootstrap Menu</h1>
+      <div class="col-md-9">
+        <!-- Main content goes here -->
+        <h1>Welcome to my website!</h1>
         <p>This is the main content area.</p>
       </div>
     </div>
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    function toggleSubmenu(event, element) {
-      event.preventDefault(); // Prevent the default link behavior
-
-      // Close all open submenus
-      const openSubmenus = document.querySelectorAll('.submenu.show');
-      openSubmenus.forEach(submenu => {
-        submenu.classList.remove('show');
-        submenu.style.display = 'none';
-      });
-
-      // Toggle the clicked submenu
-      const submenu = element.nextElementSibling;
-      if (submenu.style.display === 'none') {
-        submenu.style.display = 'block';
-        submenu.classList.add('show');
-      } else {
-        submenu.style.display = 'none';
-        submenu.classList.remove('show');
-      }
-    }
+    // Add click event listeners to menu items
+    $('.nav-link').click(function() {
+      $(this).next('.collapse').collapse('toggle');
+    });
   </script>
 </body>
 </html>
