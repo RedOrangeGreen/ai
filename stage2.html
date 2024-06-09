@@ -44,16 +44,15 @@
       background-color: #343a40;
     }
 
-    .submenu {
+    .sub-menu {
       display: none;
-      position: static; /* Changed from absolute */
+      position: static;
       background-color: #343a40;
       padding: 0.5rem;
       z-index: 1;
     }
 
-    .nav-item:hover .submenu,
-    .submenu.show {
+    .sub-menu.show {
       display: block;
     }
   </style>
@@ -65,35 +64,29 @@
       <div class="col-md-2 bg-dark text-light">
         <nav class="navbar navbar-dark bg-dark flex-md-column">
           <ul class="navbar-nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">bbWeb</a>
-              <div class="submenu">
-                <ul class="list-unstyled">
-                  <li><a class="nav-link" href="#">JavaScript Stopwatch</a></li>
-                  <li><a class="nav-link" href="#">AJAX Clickable Table</a></li>
-                </ul>
-              </div>
+            <li class="menu-item-has-children">
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">cccWeb</a>
+              <ul class="sub-menu">
+                <li><a class="nav-link" href="#">JavaScript Stopwatch</a></li>
+                <li><a class="nav-link" href="#">AJAX Clickable Table</a></li>
+              </ul>
             </li>
 
-            <li class="nav-item">
+            <li class="menu-item-has-children">
               <a class="nav-link" href="#" onclick="toggleSubmenu(event)">Android</a>
-              <div class="submenu">
-                <ul class="list-unstyled">
-                  <li><a class="nav-link" href="#">Stopwatch</a></li>
-                  <li><a class="nav-link" href="#">SVdeoApp Stage 1: Multi</a></li>
-                  <li><a class="nav-link" href="#">VideoApp Stage 2: Video</a></li>
-                </ul>
-              </div>
+              <ul class="sub-menu">
+                <li><a class="nav-link" href="#">Stopwatch</a></li>
+                <li><a class="nav-link" href="#">SVdeoApp Stage 1: Multi</a></li>
+                <li><a class="nav-link" href="#">VideoApp Stage 2: Video</a></li>
+              </ul>
             </li>
 
-            <li class="nav-item">
+            <li class="menu-item-has-children">
               <a class="nav-link" href="#" onclick="toggleSubmenu(event)">C++</a>
-              <div class="submenu">
-                <ul class="list-unstyled">
-                  <li><a class="nav-link" href="#">QT5 Lean'n'Mean - Getting Started</a></li>
-                  <li><a class="nav-link" href="#">QT5 Lean'n'Mean - XOR Encoding</a></li>
-                </ul>
-              </div>
+              <ul class="sub-menu">
+                <li><a class="nav-link" href="#">QT5 Lean'n'Mean - Getting Started</a></li>
+                <li><a class="nav-link" href="#">QT5 Lean'n'Mean - XOR Encoding</a></li>
+              </ul>
             </li>
           </ul>
         </nav>
