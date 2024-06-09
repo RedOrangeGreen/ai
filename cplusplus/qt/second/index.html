@@ -52,6 +52,7 @@
         <li><a href="main.cpp">main.cpp</a></li>
         <li><a href="hello-world.pro">hello-world.pro</a></li>
     </ul>
+    <pre id="pro-file-content"></pre>
     <p>How to use the generated files (C++/Qt5/Ubuntu):
     <br>
     mkdir testqt, cd testqt, gedit main.cpp (copy in main.cpp), gedit hello-world.pro (copy in hello-world.pro), qmake, make, ./hello-world
@@ -62,5 +63,15 @@
         <img src="2.png" alt="Image 2">
         <img src="3.png" alt="Image 3">
     </div>
+
+    <script>
+        // Fetch the Qt .pro file content
+        fetch('hello-world.pro')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('pro-file-content').textContent = data;
+            })
+            .catch(error => console.error(error));
+    </script>
 </body>
 </html>
