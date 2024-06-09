@@ -14,6 +14,9 @@
       background-color: #f8f9fa;
       padding: 20px;
     }
+    .submenu {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -23,8 +26,8 @@
         <div class="sidebar">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="#">Home</a>
-              <ul class="nav flex-column ml-3">
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">Home</a>
+              <ul class="nav flex-column ml-3 submenu">
                 <li class="nav-item">
                   <a class="nav-link" href="#">Sub-menu 1</a>
                 </li>
@@ -34,8 +37,8 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-              <ul class="nav flex-column ml-3">
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">About</a>
+              <ul class="nav flex-column ml-3 submenu">
                 <li class="nav-item">
                   <a class="nav-link" href="#">Sub-menu 1</a>
                 </li>
@@ -45,8 +48,8 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-              <ul class="nav flex-column ml-3">
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">Services</a>
+              <ul class="nav flex-column ml-3 submenu">
                 <li class="nav-item">
                   <a class="nav-link" href="#">Sub-menu 1</a>
                 </li>
@@ -56,8 +59,8 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-              <ul class="nav flex-column ml-3">
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">Contact</a>
+              <ul class="nav flex-column ml-3 submenu">
                 <li class="nav-item">
                   <a class="nav-link" href="#">Sub-menu 1</a>
                 </li>
@@ -79,5 +82,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function toggleSubmenu(event) {
+      event.preventDefault(); // Prevent the default link behavior
+      const submenu = event.target.nextElementSibling;
+      submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
 </body>
 </html>
