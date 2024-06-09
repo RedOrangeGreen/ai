@@ -37,7 +37,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">aaAbout</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">About</a>
               <ul class="nav flex-column ml-3 submenu">
                 <li class="nav-item">
                   <a class="nav-link" href="#">Sub-menu 1</a>
@@ -85,8 +85,23 @@
   <script>
     function toggleSubmenu(event, element) {
       event.preventDefault(); // Prevent the default link behavior
+
+      // Close all open submenus
+      const openSubmenus = document.querySelectorAll('.submenu.show');
+      openSubmenus.forEach(submenu => {
+        submenu.classList.remove('show');
+        submenu.style.display = 'none';
+      });
+
+      // Toggle the clicked submenu
       const submenu = element.nextElementSibling;
-      submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+      if (submenu.style.display === 'none') {
+        submenu.style.display = 'block';
+        submenu.classList.add('show');
+      } else {
+        submenu.style.display = 'none';
+        submenu.classList.remove('show');
+      }
     }
   </script>
 </body>
