@@ -58,7 +58,7 @@
     <ul>
         <li><a href="requirements.html">Requirements</a></li>
         <li><a href="main.cpp">main.cpp</a></li>
-        <li><a href="#" id="show-pro-file">hello-world.pro</a></li>
+        <li><a href="#" id="show-pro-file" download="hello-world.pro">hello-world.pro</a></li>
     </ul>
     <pre id="pro-file-content"></pre>
     <p>How to use the generated files (C++/Qt5/Ubuntu):
@@ -87,6 +87,15 @@
                 .then(data => {
                     proFileContent.textContent = data;
                     proFileContent.style.display = 'block'; // Show the content
+
+                    // Create a Blob with the file content
+                    const fileBlob = new Blob([data], { type: 'text/plain' });
+
+                    // Create a temporary URL for the Blob
+                    const fileUrl = URL.createObjectURL(fileBlob);
+
+                    // Update the link's href with the temporary URL
+                    proFileLink.href = fileUrl;
                 })
                 .catch(error => console.error(error));
         });
