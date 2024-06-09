@@ -46,7 +46,7 @@
             margin: 0 10px;
         }
         
-        #pro-file-content {
+        #pro-file-content, #main-file-content {
             display: none;
             white-space: pre-wrap;
             background-color: #f0f0f0;
@@ -59,10 +59,11 @@
     <p>Requirements and AI generated code:</p>
     <ul>
         <li><a href="requirements.html">Requirements</a></li>
-        <li><a href="main.cpp">main.cpp</a></li>
+        <li><a href="#" id="show-main-file" download="main.cpp">main.cpp</a></li>
         <li><a href="#" id="show-pro-file" download="hello-world.pro">hello-world.pro</a></li>
     </ul>
     <pre id="pro-file-content"></pre>
+    <pre id="main-file-content"></pre>
     <p>How to use the generated code (C++/Qt5/Ubuntu):<br>
     mkdir testqt<br>
     cd testqt<br>
@@ -88,8 +89,10 @@
         // Get the link and content elements
         const proFileLink = document.getElementById('show-pro-file');
         const proFileContent = document.getElementById('pro-file-content');
+        const mainFileLink = document.getElementById('show-main-file');
+        const mainFileContent = document.getElementById('main-file-content');
 
-        // Add click event listener to the link
+        // Add click event listener to the pro file link
         proFileLink.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent the default link behavior
 
@@ -108,6 +111,29 @@
 
                     // Update the link's href with the temporary URL
                     proFileLink.href = fileUrl;
+                })
+                .catch(error => console.error(error));
+        });
+
+        // Add click event listener to the main file link
+        mainFileLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent the default link behavior
+
+            // Fetch the main.cpp file content
+            fetch('main.cpp')
+                .then(response => response.text())
+                .then(data => {
+                    mainFileContent.textContent = data;
+                    mainFileContent.style.display = 'block'; // Show the content
+
+                    // Create a Blob with the file content
+                    const fileBlob = new Blob([data], { type: 'text/plain' });
+
+                    // Create a temporary URL for the Blob
+                    const fileUrl = URL.createObjectURL(fileBlob);
+
+                    // Update the link's href with the temporary URL
+                    mainFileLink.href = fileUrl;
                 })
                 .catch(error => console.error(error));
         });
