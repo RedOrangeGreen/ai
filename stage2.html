@@ -37,10 +37,25 @@
 
     .navbar-nav .nav-link {
       padding-left: 0;
+      position: relative;
     }
 
     .navbar-nav .nav-link.active {
       background-color: #343a40;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      top: -100%;
+      left: 100%;
+      background-color: #343a40;
+      padding: 0.5rem;
+      z-index: 1;
+    }
+
+    .nav-item:hover .submenu {
+      display: block;
     }
   </style>
 </head>
@@ -51,11 +66,10 @@
       <div class="col-md-2 bg-dark text-light">
         <nav class="navbar navbar-dark bg-dark flex-md-column">
           <ul class="navbar-nav flex-column">
-            
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#servicesSubmenu" aria-expanded="false" aria-controls="servicesSubmenu">Web</a>
-              <div class="collapse" id="servicesSubmenu">
-                <ul class="list-unstyled ml-3">
+              <a class="nav-link" href="#">Web</a>
+              <div class="submenu">
+                <ul class="list-unstyled">
                   <li><a class="nav-link" href="#">JavaScript Stopwatch</a></li>
                   <li><a class="nav-link" href="#">AJAX Clickable Table</a></li>
                 </ul>
@@ -63,26 +77,25 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#bbbservicesSubmenu" aria-expanded="false" aria-controls="bbbservicesSubmenu">Android</a>
-              <div class="collapse" id="bbbservicesSubmenu">
-                <ul class="list-unstyled ml-3">
+              <a class="nav-link" href="#">Android</a>
+              <div class="submenu">
+                <ul class="list-unstyled">
                   <li><a class="nav-link" href="#">Stopwatch</a></li>
                   <li><a class="nav-link" href="#">SVdeoApp Stage 1: Multi</a></li>
                   <li><a class="nav-link" href="#">VideoApp Stage 2: Video</a></li>
                 </ul>
               </div>
             </li>
-            
+
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#bbbservicesSubmenu" aria-expanded="false" aria-controls="bbbservicesSubmenu">C++</a>
-              <div class="collapse" id="bbbservicesSubmenu">
-                <ul class="list-unstyled ml-3">
+              <a class="nav-link" href="#">C++</a>
+              <div class="submenu">
+                <ul class="list-unstyled">
                   <li><a class="nav-link" href="#">QT5 Lean'n'Mean - Getting Started</a></li>
                   <li><a class="nav-link" href="#">QT5 Lean'n'Mean - XOR Encoding</a></li>
                 </ul>
               </div>
             </li>
-            
           </ul>
         </nav>
       </div>
