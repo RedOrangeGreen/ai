@@ -26,7 +26,7 @@
         <div class="sidebar">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">Home</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">Home</a>
               <ul class="nav flex-column ml-3 submenu">
                 <li class="nav-item">
                   <a class="nav-link" href="#">Sub-menu 1</a>
@@ -37,7 +37,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">About</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">About</a>
               <ul class="nav flex-column ml-3 submenu">
                 <li class="nav-item">
                   <a class="nav-link" href="#">Sub-menu 1</a>
@@ -48,7 +48,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">Services</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">Services</a>
               <ul class="nav flex-column ml-3 submenu">
                 <li class="nav-item">
                   <a class="nav-link" href="#">Sub-menu 1</a>
@@ -59,7 +59,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">Contact</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">Contact</a>
               <ul class="nav flex-column ml-3 submenu">
                 <li class="nav-item">
                   <a class="nav-link" href="#">Sub-menu 1</a>
@@ -83,9 +83,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    function toggleSubmenu(event) {
+    function toggleSubmenu(event, element) {
       event.preventDefault(); // Prevent the default link behavior
-      const submenu = event.target.nextElementSibling;
+      const submenu = element.nextElementSibling;
       submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
     }
   </script>
