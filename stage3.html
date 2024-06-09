@@ -59,6 +59,18 @@
       $(this).next('.collapse').collapse('toggle');
     });
 
+    $(document).ready(function() {       
+        // Get the browser name
+        var browserName = getBrowserName();
+
+        // Update the browser info text
+        document.getElementById('browserInfo').textContent = 'You are using ' + browserName;
+
+        // Update the current date and time every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    });
+
     // Function to detect the browser name
     function getBrowserName() {
         var userAgent = navigator.userAgent;
