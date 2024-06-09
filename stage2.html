@@ -53,10 +53,6 @@
       padding: 0.5rem;
       z-index: 1;
     }
-
-    .nav-item:hover .submenu {
-      display: block;
-    }
   </style>
 </head>
 <body>
@@ -67,7 +63,7 @@
         <nav class="navbar navbar-dark bg-dark flex-md-column">
           <ul class="navbar-nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">Web</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">Web</a>
               <div class="submenu">
                 <ul class="list-unstyled">
                   <li><a class="nav-link" href="#">JavaScript Stopwatch</a></li>
@@ -77,7 +73,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">Android</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">Android</a>
               <div class="submenu">
                 <ul class="list-unstyled">
                   <li><a class="nav-link" href="#">Stopwatch</a></li>
@@ -88,7 +84,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">C++</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event)">C++</a>
               <div class="submenu">
                 <ul class="list-unstyled">
                   <li><a class="nav-link" href="#">QT5 Lean'n'Mean - Getting Started</a></li>
@@ -111,5 +107,12 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>
+    function toggleSubmenu(event) {
+      event.preventDefault(); // Prevent the default link behavior
+      const submenu = event.currentTarget.nextElementSibling;
+      submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
 </body>
 </html>
