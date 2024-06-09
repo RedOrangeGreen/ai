@@ -47,11 +47,12 @@
     .sub-menu {
       display: none;
       position: absolute;
-      top: -200px; /* Adjust this value to position the sub-menu above the main menu */
+      top: -200px;
       left: 0;
       background-color: #343a40;
       padding: 0.5rem;
       z-index: 1;
+      min-width: 200px; /* Set a minimum width for the sub-menu */
     }
 
     .sub-menu.show {
@@ -67,7 +68,7 @@
         <nav class="navbar navbar-dark bg-dark flex-md-column">
           <ul class="navbar-nav flex-column">
             <li class="menu-item-has-children">
-              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">ddWeb</a>
+              <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">Web</a>
               <ul class="sub-menu">
                 <li><a class="nav-link" href="#">JavaScript Stopwatch</a></li>
                 <li><a class="nav-link" href="#">AJAX Clickable Table</a></li>
@@ -115,6 +116,9 @@
       // Position the sub-menu above the main menu item
       submenu.style.left = `${menuItemRect.left}px`;
       submenu.style.top = `${menuItemRect.top - submenuRect.height}px`;
+
+      // Set the width of the sub-menu to match its content
+      submenu.style.width = `${submenuRect.width}px`;
 
       submenu.classList.toggle('show');
     }
