@@ -47,7 +47,6 @@
         }
         
         #pro-file-content, #main-file-content {
-            display: none;
             white-space: pre-wrap;
             background-color: #f0f0f0;
             padding: 10px;
@@ -60,9 +59,9 @@
     <ul>
         <li><a href="requirements.html">Requirements</a></li>
         <li><a href="#" id="show-main-file" download="main.cpp">main.cpp</a></li>
-        <pre id="main-file-content"></pre>
+        <pre id="main-file-content" style="display: none;"></pre>
         <li><a href="#" id="show-pro-file" download="hello-world.pro">hello-world.pro</a></li>
-        <pre id="pro-file-content"></pre>
+        <pre id="pro-file-content" style="display: none;"></pre>
     </ul>
     <p>How to use the generated code (C++/Qt5/Ubuntu):<br>
     mkdir testqt<br>
@@ -96,46 +95,54 @@
         proFileLink.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent the default link behavior
 
-            // Fetch the Qt .pro file content
-            fetch('hello-world.pro')
-                .then(response => response.text())
-                .then(data => {
-                    proFileContent.textContent = data;
-                    proFileContent.style.display = 'block'; // Show the content
+            // Toggle the visibility of the pro file content
+            proFileContent.style.display = proFileContent.style.display === 'none' ? 'block' : 'none';
 
-                    // Create a Blob with the file content
-                    const fileBlob = new Blob([data], { type: 'text/plain' });
+            // Fetch the Qt .pro file content if it's not already loaded
+            if (proFileContent.textContent === '') {
+                fetch('hello-world.pro')
+                    .then(response => response.text())
+                    .then(data => {
+                        proFileContent.textContent = data;
 
-                    // Create a temporary URL for the Blob
-                    const fileUrl = URL.createObjectURL(fileBlob);
+                        // Create a Blob with the file content
+                        const fileBlob = new Blob([data], { type: 'text/plain' });
 
-                    // Update the link's href with the temporary URL
-                    proFileLink.href = fileUrl;
-                })
-                .catch(error => console.error(error));
+                        // Create a temporary URL for the Blob
+                        const fileUrl = URL.createObjectURL(fileBlob);
+
+                        // Update the link's href with the temporary URL
+                        proFileLink.href = fileUrl;
+                    })
+                    .catch(error => console.error(error));
+            }
         });
 
         // Add click event listener to the main file link
         mainFileLink.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent the default link behavior
 
-            // Fetch the main.cpp file content
-            fetch('main.cpp')
-                .then(response => response.text())
-                .then(data => {
-                    mainFileContent.textContent = data;
-                    mainFileContent.style.display = 'block'; // Show the content
+            // Toggle the visibility of the main file content
+            mainFileContent.style.display = mainFileContent.style.display === 'none' ? 'block' : 'none';
 
-                    // Create a Blob with the file content
-                    const fileBlob = new Blob([data], { type: 'text/plain' });
+            // Fetch the main.cpp file content if it's not already loaded
+            if (mainFileContent.textContent === '') {
+                fetch('main.cpp')
+                    .then(response => response.text())
+                    .then(data => {
+                        mainFileContent.textContent = data;
 
-                    // Create a temporary URL for the Blob
-                    const fileUrl = URL.createObjectURL(fileBlob);
+                        // Create a Blob with the file content
+                        const fileBlob = new Blob([data], { type: 'text/plain' });
 
-                    // Update the link's href with the temporary URL
-                    mainFileLink.href = fileUrl;
-                })
-                .catch(error => console.error(error));
+                        // Create a temporary URL for the Blob
+                        const fileUrl = URL.createObjectURL(fileBlob);
+
+                        // Update the link's href with the temporary URL
+                        mainFileLink.href = fileUrl;
+                    })
+                    .catch(error => console.error(error));
+            }
         });
     </script>
 </body>
