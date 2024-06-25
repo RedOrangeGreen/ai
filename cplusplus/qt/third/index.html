@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project File Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .file-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .file-list li {
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            margin-bottom: 5px;
+            border-radius: 3px;
+        }
+        .file-list li:hover {
+            background-color: #e0e0e0;
+        }
+        #file-content {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Project File Viewer</h1>
+    <ul class="file-list">
+        <li onclick="loadFile('main.cpp')">main.cpp</li>
+        <li onclick="loadFile('operations.cpp')">operations.cpp</li>
+        <li onclick="loadFile('operations.h')">operations.h</li>
+        <li onclick="loadFile('encapp.pro')">encapp.pro</li>
+    </ul>
+    <div id="file-content"></div>
+
+    <script>
+        function loadFile(filename) {
+            // In a real scenario, you would fetch the file content from the server
+            // For this example, we'll use placeholder content
+            const fileContents = {
+                'main.cpp': '// Contents of main.cpp\n#include <iostream>\n\nint main() {\n    std::cout << "Hello, World!" << std::endl;\n    return 0;\n}',
+                'operations.cpp': '// Contents of operations.cpp\n#include "operations.h"\n\nint add(int a, int b) {\n    return a + b;\n}',
+                'operations.h': '// Contents of operations.h\n#ifndef OPERATIONS_H\n#define OPERATIONS_H\n\nint add(int a, int b);\n\n#endif',
+                'encapp.pro': '# Contents of encapp.pro\nQT += core\nCONFIG += c++11\nTARGET = encapp\nTEMPLATE = app\nSOURCES += main.cpp operations.cpp\nHEADERS += operations.h'
+            };
+
+            const contentDiv = document.getElementById('file-content');
+            contentDiv.textContent = fileContents[filename] || 'File content not available';
+        }
+    </script>
+</body>
+</html>
