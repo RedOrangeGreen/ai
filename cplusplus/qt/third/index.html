@@ -39,6 +39,19 @@
             border-radius: 3px;
             white-space: pre-wrap;
         }
+        .image-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            margin-left: 20px; /* Add horizontal margin */
+            margin-right: 20px; /* Add horizontal margin */
+        }
+        
+        .image-row img {
+            max-width: 33.33%; /* Set the maximum width to one-third */
+            height: auto; /* Maintain aspect ratio */
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
@@ -60,6 +73,17 @@
     </ul>
     <div id="extra-file-content"></div>
     <h2>ScreenShots</h2>
+    <div class="image-row">
+        <img src="1.png" alt="Image 1">
+        <img src="2.png" alt="Image 2">
+        <img src="3.png" alt="Image 3">
+    </div>
+    <div class="image-row">
+        <img src="4.png" alt="Image 4">
+        <img src="5.png" alt="Image 5">
+        <img src="6.png" alt="Image 6">
+    </div>
+    <h2>Using</h2>
     <script>
         function loadFile(filename) {
             fetch(filename)
