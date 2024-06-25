@@ -1,7 +1,7 @@
 QT += core gui widgets
 
 TARGET = build/encapp
-TEMPLATE = app
+DESTDIR = .
 
 SOURCES += \
     main.cpp \
@@ -9,8 +9,3 @@ SOURCES += \
 
 HEADERS += \
     operations.h
-
-# Create the build directory if it doesn't exist
-!exists($$OUT_PWD/build) {
-    mkpath($$OUT_PWD/build)
-}
