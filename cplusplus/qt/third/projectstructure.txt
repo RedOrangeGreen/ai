@@ -1,0 +1,6 @@
+project_root/
+│
+├── main.cpp
+├── operations.cpp
+├── operations.h
+└── encapp.pro
