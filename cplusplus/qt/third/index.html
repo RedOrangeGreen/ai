@@ -46,17 +46,20 @@
 
     <script>
         function loadFile(filename) {
-            // In a real scenario, you would fetch the file content from the server
-            // For this example, we'll use placeholder content
-            const fileContents = {
-                'main.cpp': '// Contents of main.cpp\n#include <iostream>\n\nint main() {\n    std::cout << "Hello, World!" << std::endl;\n    return 0;\n}',
-                'operations.cpp': '// Contents of operations.cpp\n#include "operations.h"\n\nint add(int a, int b) {\n    return a + b;\n}',
-                'operations.h': '// Contents of operations.h\n#ifndef OPERATIONS_H\n#define OPERATIONS_H\n\nint add(int a, int b);\n\n#endif',
-                'encapp.pro': '# Contents of encapp.pro\nQT += core\nCONFIG += c++11\nTARGET = encapp\nTEMPLATE = app\nSOURCES += main.cpp operations.cpp\nHEADERS += operations.h'
-            };
-
-            const contentDiv = document.getElementById('file-content');
-            contentDiv.textContent = fileContents[filename] || 'File content not available';
+            fetch(filename)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(content => {
+                    document.getElementById('file-content').textContent = content;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('file-content').textContent = 'Error loading file: ' + error.message;
+                });
         }
     </script>
 </body>
