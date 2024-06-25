@@ -36,20 +36,21 @@
 </head>
 <body>
     <h1>Requirements</h1>
-    <a href="requirements.html" target="_blank" rel="noopener noreferrer">Requirements</a>
-    <h1>Project Structure</h1>
+    <a href="requirements.html" target="_blank" rel="noopener noreferrer">Click to View</a>
+    <h1>Generated Project Structure</h1>
     <ul class="file-list">
         <li onclick="loadFile('main.cpp')">main.cpp</li>
         <li onclick="loadFile('operations.cpp')">operations.cpp</li>
         <li onclick="loadFile('operations.h')">operations.h</li>
         <li onclick="loadFile('encapp.pro')">encapp.pro</li>
     </ul>
+    div id="file-content"></div>
     <h1>Extra Files</h1>
     <ul class="file-list">
         <li onclick="loadFile('maingen1.cpp')">maingen1.cpp</li>
         <li onclick="loadFile('maingen2.cpp')">maingen2.cpp</li>
     </ul>
-    <div id="file-content"></div>
+    <div id="extra-file-content"></div>
 
     <script>
         function loadFile(filename) {
@@ -66,6 +67,22 @@
                 .catch(error => {
                     console.error('Error:', error);
                     document.getElementById('file-content').textContent = 'Error loading file: ' + error.message;
+                });
+        }
+        function loadExtraFile(filename) {
+            fetch(filename)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(content => {
+                    document.getElementById('extra-file-content').textContent = content;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('extra-file-content').textContent = 'Error loading file: ' + error.message;
                 });
         }
     </script>
