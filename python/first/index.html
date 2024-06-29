@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ubuntu Clipboard Monitor in Python using AI">
+    <meta name="keywords" content="Ubuntu, Clipboard, Monitor, Python, AI">
+    <title>Ubuntu Clipboard Monitor In Python Using AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #4a4a4a;
+            --secondary-color: #f0f0f0;
+            --hover-color: #e0e0e0;
+            --border-color: #ccc;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: var(--primary-color);
+        }
+
+        .file-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .file-list li {
+            cursor: pointer;
+            padding: 10px;
+            background-color: var(--secondary-color);
+            margin-bottom: 5px;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-list li:hover {
+            background-color: var(--hover-color);
+        }
+
+        .content {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .command-line {
+            background-color: #000;
+            color: #fff;
+            font-family: monospace;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 3px;
+            font-size: 1.5em; /* Enlarged text */
+            line-height: 1.4; /* Adjusted line height for better readability */
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .image-wrapper {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+
+        .image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .image-wrapper {
+                width: 100%;
+            }
+            .command-line {
+                font-size: 1.2em; /* Slightly smaller font size for mobile devices */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ubuntu Clipboard Monitor In Python Using AI</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Requirements</h2>
+            <a href="requirements.html" target="_blank" rel="noopener noreferrer">Click To View Requirements</a>
+        </section>
+
+        <section>
+            <h2>AI Generated File</h2>
+            <ul class="file-list">
+                <li onclick="loadFile('clipboardmonitor.py', 'main-content')" aria-label="Load clipboardmonitor.py">clipboardmonitor.py</li>
+            </ul>
+            <div id="main-content" class="content"></div>
+        </section>
+
+        <section>
+            <h2>Using</h2>
+            <div class="command-line">
+                <p>python3 clipboardmonitor.py &amp;</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Screenshots</h2>
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <img src="image1.png" alt="Screenshot 1 of Ubuntu Clipboard Monitor">
+                </div>
+                <div class="image-wrapper">
+                    <img src="image2.png" alt="Screenshot 2 of Ubuntu Clipboard Monitor">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function loadFile(filename, contentId) {
+            fetch(filename)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(content => {
+                    const contentElement = document.getElementById(contentId);
+                    contentElement.innerHTML = `<pre><code class="python">${content}</code></pre>`;
+                    hljs.highlightElement(contentElement.querySelector('code'));
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById(contentId).textContent = `Error loading file: ${error.message}. Please try again later or contact support if the problem persists.`;
+                });
+        }
+    </script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
