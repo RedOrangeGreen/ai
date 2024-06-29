@@ -23,6 +23,15 @@
             margin: 0;
             padding: 20px;
             color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        h2 {
+            font-size: 1.5em;
         }
 
         ul {
@@ -39,6 +48,7 @@
             font-family: monospace;
             user-select: all;
             cursor: text;
+            font-size: 16px;
         }
 
         .file-list {
@@ -66,6 +76,8 @@
             border-radius: 3px;
             white-space: pre-wrap;
             overflow-x: auto;
+            font-size: 16px;
+            display: none;
         }
 
         .command-line {
@@ -75,8 +87,8 @@
             padding: 20px;
             margin-top: 20px;
             border-radius: 3px;
-            font-size: 1.5em; /* Enlarged text */
-            line-height: 1.4; /* Adjusted line height for better readability */
+            font-size: 18px;
+            line-height: 1.4;
         }
 
         .image-container {
@@ -102,15 +114,18 @@
             .image-wrapper {
                 width: 100%;
             }
+            body {
+                font-size: 16px;
+            }
             .command-line {
-                font-size: 1.2em; /* Slightly smaller font size for mobile devices */
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Ubuntu Clipboard Monitor In Python Using AI</h1>
+        <h1>Ubuntu Clipboard Monitor (With Clear Button) In Python Using AI</h1>
     </header>
 
     <main>
@@ -126,7 +141,7 @@
         <section>
             <h2>AI Generated File</h2>
             <ul class="file-list">
-                <li onclick="loadFile('clipboardmonitor.py', 'main-content')" aria-label="Load clipboardmonitor.py">clipboardmonitor.py</li>
+                <li onclick="toggleFile('clipboardmonitor.py', 'main-content')" aria-label="Toggle clipboardmonitor.py">clipboardmonitor.py</li>
             </ul>
             <div id="main-content" class="content"></div>
         </section>
@@ -152,23 +167,30 @@
     </main>
 
     <script>
-        function loadFile(filename, contentId) {
-            fetch(filename)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.text();
-                })
-                .then(content => {
-                    const contentElement = document.getElementById(contentId);
-                    contentElement.innerHTML = `<pre><code class="python">${content}</code></pre>`;
-                    hljs.highlightElement(contentElement.querySelector('code'));
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById(contentId).textContent = `Error loading file: ${error.message}. Please try again later or contact support if the problem persists.`;
-                });
+        function toggleFile(filename, contentId) {
+            const contentElement = document.getElementById(contentId);
+            
+            if (contentElement.style.display === 'block') {
+                contentElement.style.display = 'none';
+            } else {
+                fetch(filename)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(content => {
+                        contentElement.innerHTML = `<pre><code class="python">${content}</code></pre>`;
+                        hljs.highlightElement(contentElement.querySelector('code'));
+                        contentElement.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        contentElement.textContent = `Error loading file: ${error.message}. Please try again later or contact support if the problem persists.`;
+                        contentElement.style.display = 'block';
+                    });
+            }
         }
     </script>
     <script>hljs.highlightAll();</script>
