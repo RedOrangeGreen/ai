@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GPT4All Install & Start, Ubuntu</title>
+    <title>GPT4All Install & Start & Uninstall, Ubuntu</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,6 +49,68 @@
 <body>
     <h1>GPT4All: Ubuntu Version, Free, Anonymous, Open Source, No API Keys Required, Runs 100% On Local Machine</h1>
 
+    <h2>If doing anything other than an initial test, replace /tmp/gpt4all in the following with a directory of your choice (/tmp is normally auto emptied by a computer restart).<br>
+    clamscan is a free command line virus scanner available for Ubuntu.</h2>
+    <h2><i>v3.0.0 July 2024</i></h2>
+    <h2>Check If PC Is Fast Enough (CPU Must Support AVX Or AVX2; RAM Ideally 16GB Or Higher As AI Models Are Loaded Into RAM)</h2>
+    <ul>
+        <li>lscpu | grep -i avx</li>
+        <li>cat /proc/meminfo | grep MemTotal</li>
+    </ul>
+
+    <h2>Installing (Using Mozilla Firefox)</h2>
+    <ul>
+        <li>https://gpt4all.io</li>
+        <li>Download for Ubuntu</li>
+        <li>cd ~/Downloads</li>
+        <li>clamscan ./gpt4all-installer-linux.run</li>
+        <li>chmod +x ./gpt4all-installer-linux.run</li>
+        <li>./gpt4all-installer-linux.run</li>
+        <li>Next &gt;</li>
+        <li>/tmp/gpt4all</li>
+        <li>Next &gt;</li>
+        <li>Next &gt;</li>
+        <li>I accept the license.</li>
+        <li>Next &gt;</li>
+        <li>Install</li>
+        <li>Finish</li>
+    </ul>
+
+    <h2>Using (Note... Answer Generation May Be Very Slooooow, Speed (Tokens/Second) Is Dependent On Your CPU And RAM)</h2>
+    <ul>
+        <li>cd /tmp/gpt4all/bin</li>
+        <li>./chat</li>
+        <li>No</li>
+        <li>No</li>
+        <li>Find Models</li>
+        <li>Models</li>
+        <li>Home</li>
+        <li>Find Models</li>
+        <li>Phi-3 Mini Instruct | Download</li>
+        <li>Home</li>
+        <li>Start Chatting</li>
+        <li>Choose a model...</li>
+        <li>Phi-3 Mini Instruct</li>
+        <li>Show me a C++ hello world program</li>
+        <li>﻿﻿Enhance with a class which has methods 'add' and 'sub', both of which accept two ints and return an int result and call both those methods</li>
+    </ul>
+
+    <h2>Uninstalling</h2>
+    <ul>
+        <li>cd /tmp/gpt4all</li>
+        <li>./maintenancetool</li>
+        <li>Remove all components</li>
+        <li>Next &gt;</li>
+        <li>Uninstall</li>
+        <li>Finish</li>
+        <li>rm -rf ~/.config/nomic.ai</li>
+        <li>rm -rf ~/.cache/nomic.ai</li>
+        <li>rm -rf ~/.local/share/nomic.ai</li>
+    </ul>
+    
+    <br>
+    <br>
+    <h2><i>v2.8.0 May 2024</i></h2>
     <h2>Check If PC Is Fast Enough (CPU Must Support AVX Or AVX2; RAM Ideally 16GB Or Higher As AI Models Are Loaded Into RAM)</h2>
     <ul>
         <li>lscpu | grep -i avx</li>
