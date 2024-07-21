@@ -80,16 +80,29 @@
             display: none;
         }
 
-        .command-line {
-            background-color: #000;
-            color: #fff;
-            font-family: monospace;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 3px;
-            font-size: 18px;
-            line-height: 1.4;
-        }
+.command-line {
+    background-color: #000;
+    color: #fff;
+    font-family: monospace;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 3px;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.line {
+    display: block;
+    cursor: pointer;
+}
+
+.line:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Optional: adds a hover effect */
+}
+
+.line.selected {
+    background-color: rgba(255, 255, 255, 0.2); /* Highlights selected line */
+}
 
         .image-container {
             display: flex;
@@ -157,16 +170,18 @@ with model.chat_session():
 
         <section>
             <h2>Using</h2>
-            <div class="command-line">
-                <p>pip install gpt4all</p>
-                <p>python3 mychatapp.py</p>
-                <p>What is a cat?</p>
-                <p>Create a C++ hello world with a function to swap two ints.</p>
-                <p>Enhance the C++ program just generated with a class containing a method to add two ints and return the int result. Also call the previously generated int swap function.</p>
-                <p>pip uninstall gpt4all</p>
-            </div>
+  <div id="command-line" class="command-line">
+    <div class="line">pip install gpt4all</div>
+    <div class="line">python3 mychatapp.py</div>
+    <div class="line">What is a cat?</div>
+      <div class="line">Create a C++ hello world with a function to swap two ints.</div>
+      <div class="line">Enhance the C++ program just generated with a class containing a method to add two ints and return the int result. Also call the previously generated int swap function.</div>
+ <div class="line">pip uninstall gpt4all</div>
+</div>
         </section>
 
+       
+        
         <section>
             <h2>Screenshot</h2>
             <div class="image-container">
@@ -202,7 +217,51 @@ with model.chat_session():
                         contentElement.style.display = 'block';
                     });
             }
+        }  
+
+document.addEventListener('DOMContentLoaded', () => {
+    const commandLine = document.getElementById('command-line');
+
+    commandLine.addEventListener('click', (event) => {
+        const clickedElement = event.target;
+
+        if (clickedElement.classList.contains('line')) {
+            // Remove selection from previously selected line
+            const previouslySelected = commandLine.querySelector('.line.selected');
+            if (previouslySelected) {
+                previouslySelected.classList.remove('selected');
+            }
+
+            // Select the clicked line
+            clickedElement.classList.add('selected');
+
+            // Create a range for the entire content of the clicked line
+            const range = document.createRange();
+            range.selectNodeContents(clickedElement);
+
+            // Clear any existing selections
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+
+            // Apply the new selection
+            selection.addRange(range);
         }
+    });
+
+    // Allow the context menu to show on the selected line
+    commandLine.addEventListener('contextmenu', (event) => {
+        const clickedElement = event.target;
+
+        if (clickedElement.classList.contains('line')) {
+            // Allow the default context menu to appear
+            // No need to prevent default here
+        } else {
+            // Prevent the context menu if it's not a line
+            event.preventDefault();
+        }
+    });
+});
+        
     </script>
     <script>hljs.highlightAll();</script>
 </body>
