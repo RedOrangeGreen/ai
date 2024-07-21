@@ -80,22 +80,23 @@
             display: none;
         }
 
-        .command-line {
-            background-color: #000;
-            color: #fff;
-            font-family: monospace;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 3px;
-            font-size: 18px;
-            line-height: 1.4;
-        }
+       .command-line {
+    background-color: #000;
+    color: #fff;
+    font-family: monospace;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 3px;
+    font-size: 18px;
+    line-height: 1.4;
+    white-space: pre; /* Preserve whitespace formatting */
+}
 
-        .line {
-            display: block;
-            cursor: pointer;
-            user-select: none; /* Prevent text selection on double-click */
-        }
+.line {
+    display: block;
+    cursor: pointer;
+    user-select: all; /* Allow single-click selection */
+}
 
         .image-container {
             display: flex;
@@ -171,12 +172,12 @@ with model.chat_session():
                 <p>Enhance the C++ program just generated with a class containing a method to add two ints and return the int result. Also call the previously generated int swap function.</p>
                 <p>pip uninstall gpt4all</p>
             </div>
-            <div id="command-line" class="command-line">
-                <span class="line">Line 1: Command or text here</span>
-                <span class="line">Line 2: Command or text here</span>
-                <span class="line">Line 3: Command or text here</span>
-                <!-- Add more lines as needed -->
-            </div>
+           <div class="command-line" contenteditable="true">
+    <div class="line">Line 1: Command or text here</div>
+    <div class="line">Line 2: Command or text here</div>
+    <div class="line">Line 3: Command or text here</div>
+    <!-- Add more lines as needed -->
+</div>
         </section>
 
        
@@ -216,22 +217,7 @@ with model.chat_session():
                         contentElement.style.display = 'block';
                     });
             }
-        }
-
-       document.addEventListener('DOMContentLoaded', (event) => {
-    const lines = document.querySelectorAll('.line');
-    
-    lines.forEach(line => {
-        line.addEventListener('click', () => {
-            const range = document.createRange();
-            range.selectNodeContents(line);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-        });
-    });
-});
-        
+        }   
     </script>
     <script>hljs.highlightAll();</script>
 </body>
