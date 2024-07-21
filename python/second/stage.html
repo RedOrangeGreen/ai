@@ -89,13 +89,20 @@
     border-radius: 3px;
     font-size: 18px;
     line-height: 1.4;
-    white-space: pre; /* Preserve whitespace formatting */
 }
 
 .line {
     display: block;
     cursor: pointer;
-    user-select: all; /* Allow single-click selection */
+    user-select: none; /* Prevents default text selection */
+}
+
+.line:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Optional: adds a hover effect */
+}
+
+.line.selected {
+    background-color: rgba(255, 255, 255, 0.2); /* Highlights selected line */
 }
 
         .image-container {
@@ -172,7 +179,7 @@ with model.chat_session():
                 <p>Enhance the C++ program just generated with a class containing a method to add two ints and return the int result. Also call the previously generated int swap function.</p>
                 <p>pip uninstall gpt4all</p>
             </div>
-           <div class="command-line" contenteditable="true">
+        <div id="command-line" class="command-line">
     <div class="line">Line 1: Command or text here</div>
     <div class="line">Line 2: Command or text here</div>
     <div class="line">Line 3: Command or text here</div>
@@ -217,7 +224,38 @@ with model.chat_session():
                         contentElement.style.display = 'block';
                     });
             }
-        }   
+        }  
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const commandLine = document.getElementById('command-line');
+
+    commandLine.addEventListener('click', (event) => {
+        const clickedElement = event.target;
+
+        if (clickedElement.classList.contains('line')) {
+            // Remove selection from previously selected line
+            const previouslySelected = commandLine.querySelector('.line.selected');
+            if (previouslySelected) {
+                previouslySelected.classList.remove('selected');
+            }
+
+            // Select the clicked line
+            clickedElement.classList.add('selected');
+
+            // Create a range for the entire content of the clicked line
+            const range = document.createRange();
+            range.selectNodeContents(clickedElement);
+
+            // Clear any existing selections
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+
+            // Apply the new selection
+            selection.addRange(range);
+        }
+    });
+});
+        
     </script>
     <script>hljs.highlightAll();</script>
 </body>
