@@ -178,8 +178,8 @@ with model.chat_session():
                 <p>Enhance the C++ program just generated with a class containing a method to add two ints and return the int result. Also call the previously generated int swap function.</p>
                 <p>pip uninstall gpt4all</p>
             </div>
-    <div id="command-line" class="command-line">
-    <div class="line">Line kkk 1: Command or text here</div>
+  <div id="command-line" class="command-line">
+    <div class="line">Line lll 1: Command or text here</div>
     <div class="line">Line 2: Command or text here</div>
     <div class="line">Line 3: Command or text here</div>
     <!-- Add more lines as needed -->
@@ -254,18 +254,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Prevent the default context menu from appearing
-    commandLine.addEventListener('contextmenu', (event) => {
-        event.preventDefault();
-    });
-
     // Allow the context menu to show on the selected line
-    commandLine.addEventListener('mouseup', (event) => {
-        if (window.getSelection().toString().length > 0) {
-            // Allow the default context menu if there is a selection
-            return;
+    commandLine.addEventListener('contextmenu', (event) => {
+        const clickedElement = event.target;
+
+        if (clickedElement.classList.contains('line')) {
+            // Allow the default context menu to appear
+            // No need to prevent default here
+        } else {
+            // Prevent the context menu if it's not a line
+            event.preventDefault();
         }
-        event.preventDefault();
     });
 });
         
