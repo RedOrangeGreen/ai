@@ -1,10 +1,3 @@
-"""
-Date: Saturday, July 27, 2024
-Time: 10:08 AM
-This script implements a simple chat interface using Tkinter
-and integrates with the GPT4All model for generating responses.
-"""
-
 import tkinter as tk
 from tkinter import scrolledtext
 from gpt4all import GPT4All
