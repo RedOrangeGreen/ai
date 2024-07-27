@@ -69,6 +69,24 @@
             background-color: var(--hover-color);
         }
 
+	    file-list2 {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .file-list2 li {
+            cursor: pointer;
+            padding: 10px;
+            background-color: var(--secondary-color);
+            margin-bottom: 5px;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-list2 li:hover {
+            background-color: var(--hover-color);
+        }
+
         .content {
             margin-top: 20px;
             padding: 10px;
@@ -291,7 +309,7 @@ root.mainloop()</li>
 
         <section>
             <h2>Perplexity AI Generated File (Click Filename To View)</h2>
-            <ul class="file-list">
+            <ul class="file-list2">
                 <li onclick="toggleFile('mychatapp2.py', 'main-content')" aria-label="Toggle mychatapp2.py">mychatapp2.py</li>
             </ul>
             <div id="main-content" class="content"></div>
