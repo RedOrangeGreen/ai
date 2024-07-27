@@ -30,42 +30,53 @@ class LLMApp:
 
         self.user_input = tk.Entry(self.input_frame, width=50)
         self.user_input.pack(side=tk.LEFT, expand=True, fill=tk.X)
-        self.user_input.bind("<Return>", self.send_message)
+        self.user_input.bind('<Return>', self.send_message)
 
         self.send_button = tk.Button(self.input_frame, text="Send", command=self.send_message)
         self.send_button.pack(side=tk.RIGHT)
 
         self.model = None
+        self.lock = threading.Lock()
 
     def load_model(self):
         def load():
             self.status_label.config(text="Loading model...")
-            self.model = GPT4All("Phi-3-mini-4k-instruct.Q4_0.gguf")
-            self.status_label.config(text="Model loaded")
-            self.load_button.config(state=tk.DISABLED)
+            try:
+                self.model = GPT4All("Phi-3-mini-4k-instruct.Q4_0.gguf")
+                self.status_label.config(text="Model loaded")
+                self.load_button.config(state=tk.DISABLED)
+            except Exception as e:
+                self.status_label.config(text=f"Error loading model: {str(e)}")
 
         threading.Thread(target=load).start()
 
     def send_message(self, event=None):
-        user_message = self.user_input.get()
+        user_message = self.user_input.get().strip()
         if user_message and self.model:
             self.display_message("You: " + user_message)
             self.user_input.delete(0, tk.END)
+            self.send_button.config(state=tk.DISABLED)
 
             def generate_response():
-                with self.model.chat_session():
-                    response = self.model.generate(user_message, max_tokens=1024)
-                self.display_message("AI: " + response)
+                try:
+                    with self.model.chat_session():
+                        response = self.model.generate(user_message, max_tokens=1024)
+                    self.display_message("AI: " + response)
+                except Exception as e:
+                    self.display_message(f"Error: {str(e)}")
+                finally:
+                    self.send_button.config(state=tk.NORMAL)
 
             threading.Thread(target=generate_response).start()
         elif not self.model:
             self.display_message("System: Please load the model first.")
 
     def display_message(self, message):
-        self.chat_display.config(state='normal')
-        self.chat_display.insert(tk.END, message + "\n\n")
-        self.chat_display.see(tk.END)
-        self.chat_display.config(state='disabled')
+        with self.lock:
+            self.chat_display.config(state='normal')
+            self.chat_display.insert(tk.END, message + "\n\n")
+            self.chat_display.see(tk.END)
+            self.chat_display.config(state='disabled')
 
 root = tk.Tk()
 app = LLMApp(root)
