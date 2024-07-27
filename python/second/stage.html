@@ -468,6 +468,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+	// Allow the context menu to show on the selected line
+    commandLine.addEventListener('contextmenu', (event) => {
+        const clickedElement = event.target;
+
+        if (clickedElement.classList.contains('line')) {
+            // Allow the default context menu to appear
+            // No need to prevent default here
+        } else {
+            // Prevent the context menu if it's not a line
+            event.preventDefault();
+        }
+    });
+	
     const commandLine2 = document.getElementById('command-line2');
 
     commandLine2.addEventListener('click', (event) => {
@@ -497,7 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Allow the context menu to show on the selected line
-    commandLine.addEventListener('contextmenu', (event) => {
+    commandLine2.addEventListener('contextmenu', (event) => {
         const clickedElement = event.target;
 
         if (clickedElement.classList.contains('line')) {
