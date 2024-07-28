@@ -443,7 +443,48 @@ function escapeHtml(text) {
 }
  
 
+document.addEventListener('DOMContentLoaded', () => {
+    const commandLineContainers = document.querySelectorAll('.command-line-container');
 
+    commandLineContainers.forEach(container => {
+        container.addEventListener('click', handleLineClick);
+        container.addEventListener('contextmenu', handleContextMenu);
+    });
+
+    function handleLineClick(event) {
+        const clickedElement = event.target;
+
+        if (clickedElement.classList.contains('line')) {
+            // Remove selection from previously selected line in all containers
+            document.querySelectorAll('.line.selected').forEach(line => {
+                line.classList.remove('selected');
+            });
+
+            // Select the clicked line
+            clickedElement.classList.add('selected');
+
+            // Create a range for the entire content of the clicked line
+            const range = document.createRange();
+            range.selectNodeContents(clickedElement);
+
+            // Clear any existing selections
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+
+            // Apply the new selection
+            selection.addRange(range);
+        }
+    }
+
+    function handleContextMenu(event) {
+        const clickedElement = event.target;
+
+        if (!clickedElement.classList.contains('line')) {
+            // Prevent the context menu if it's not a line
+            event.preventDefault();
+        }
+    }
+});
 	    
     </script>
     <script>hljs.highlightAll();</script>
