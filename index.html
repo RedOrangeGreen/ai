@@ -1,187 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Playground</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-  <style>
-    .sidebar {
-      height: 100vh;
-      background-color: #f8f9fa;
-    }
-    .bounce {
-      display: inline-block;
-      animation: bounce 0.5s ease infinite alternate;
-    }
-    @keyframes bounce {
-      to { transform: translateY(-10px); }
-    }
-    .box {
-            width: 100px;
-            height: 100px;
-            background-color: #3498db;
-            border-radius: 10px;
+    <meta charset="UTF-8">
+    <title>AI Playground</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="all">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Arvo:700|Open+Sans:400italic,400');
+        @import url('https://fast.fonts.com/cssapi/95b765fd-fae4-4f1b-8155-d8244914a5c6.css');
+
+        aside,
+        footer,
+        header,
+        nav,
+        section {
+            display: block;
         }
-  </style>
+
+        [hidden] {
+            display: none;
+        }
+
+        html {
+            font-family: sans-serif;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            margin: 0;
+            color: #0f2a36;
+            font-family: 'Open Sans', Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.25em;
+        }
+
+        a:focus {
+            outline: thin dotted;
+        }
+
+        a:active,
+        a:hover {
+            outline: 0;
+        }
+
+        h1 {
+            font-family: 'Adelle W01 Bold', 'Arvo', Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+            font-size: 91px;
+            font-weight: 500;
+            margin: 0.67em 0;
+        }
+
+        h2 {
+            color: #dd3b2a;
+            font-size: 22px;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        h3 {
+            color: #dd3b2a;
+            font-family: 'Adelle W01 Bold', 'Arvo', Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 1.25em;
+            margin: 0.5em 0;
+        }
+
+        h3+p {
+            margin-top: 0;
+        }
+
+        a {
+            color: #2babe1;
+            text-decoration: none;
+        }
+
+        abbr[title] {
+            border: none;
+        }
+
+        header {
+            margin: 0 auto;
+            max-width: 1040px;
+            position: relative;
+            text-align: center;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        header h1 {
+            border-top: 4px solid white;
+            color: #00374f;
+            display: inline-block;
+            min-height: 70px;
+            margin: 55px auto 0;
+            padding: 0 10px;
+            z-index: 2;
+        }
+
+        header h1:after {
+            background-color: #dd3b2a;
+            content: '';
+            height: 2px;
+            left: 0;
+            margin-top: -3px;
+            position: absolute;
+            width: 100%;
+            z-index: -1;
+        }
+
+        header h2 {
+            text-align: right;
+            max-width: 695px;
+            margin: -10px auto 0;
+            width: 100%;
+        }
+
+        aside {
+            background: #2babe1;
+            border-top: 5px solid #edf6ff;
+            clear: both;
+            display: block;
+            float: left;
+            margin-bottom: -5px;
+            width: 100%;
+        }
+
+        aside .wrapper {
+            background: #2babe1;
+            border-top: 5px solid #edf6ff;
+            margin: -5px auto 0;
+            max-width: 1040px;
+            padding: 40px 0 30px 0;
+            position: relative;
+            width: 100%;
+            z-index: 2;
+        }
+
+        aside .wrapper:after {
+            clear: both;
+            content: " ";
+            display: block;
+            font-size: 0;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            width: 0;
+        }
+
+        aside .wrapper h3 {
+            color: #00374f;
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        aside .wrapper a {
+            color: #edf6ff;
+        }
+
+        aside .wrapper a.designer-name {
+            color: #00374f;
+        }
+
+        aside .wrapper ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        aside .wrapper ul li {
+            margin-bottom: 12px;
+        }
+
+        aside .wrapper ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        aside .wrapper .design-selection {
+            border-right: 2px solid #edf6ff;
+            float: left;
+            margin-right: 40px;
+            width: 50%;
+        }
+
+        aside .wrapper .design-selection .design-name {
+            display: block;
+        }
+
+        aside .wrapper .zen-resources {
+            margin-top: 40px;
+        }
+
+        /* Enhancing links to be on their own line */
+        .design-name,
+        .designer-name {
+            display: block;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-3 sidebar">
-        <nav class="nav flex-column">
-          <a class="nav-link" href="#" data-toggle="collapse" data-target="#menu1">Free AI Chatbots</a>
-          <div class="collapse" id="menu1">
-            <a class="nav-link ml-3" href="http://www.perplexity.ai">Perplexity AI</a>
-            <a class="nav-link ml-3" href="http://www.you.com">you.com</a>
-            <a class="nav-link ml-3" href="http://www.bing.com/chat">Microsoft Copilot</a>
-            <a class="nav-link ml-3" href="#" data-toggle="collapse" data-target="#menu11">GPT4All</a>
-            <div class="collapse" id="menu11">
-              <a class="nav-link ml-4" href="https://gpt4all.io/index.html">Homepage</a>
-              <a class="nav-link ml-4" href="gpt4all/quickstart">Ubuntu Quickstart: Install, Run, Uninstall</a>
-            </div>
-          </div>
-          <a class="nav-link" href="#" data-toggle="collapse" data-target="#menu2">AI Generated Code</a>
-          <div class="collapse" id="menu2">
-            <a class="nav-link ml-3" href="#" data-toggle="collapse" data-target="#menu21">Webpages</a>
-            <div class="collapse" id="menu21">
-              <a class="nav-link ml-4" href="stopwatch/index.html">JavaScript Stopwatch</a>
-              <a class="nav-link ml-4" href="leaders/index.html">AJAX Clickable Table</a>
-            </div>
-            <a class="nav-link ml-3" href="#" data-toggle="collapse" data-target="#menu22">Android (Kotlin)</a>
-            <div class="collapse" id="menu22">
-              <a class="nav-link ml-4" href="androidstopwatch/index.html">Stopwatch</a>
-              <a class="nav-link ml-4" href="androidmulti/index.html">VdeoApp Stage 1: Multi</a>
-              <a class="nav-link ml-4" href="androidvideo/index.html">VideoApp Stage 2: Video</a>
-              <a class="nav-link ml-4" href="androidvideoentry/index.html">VideoApp Stage 3: VideoEntry</a>
-              <a class="nav-link ml-4" href="androidvideoimages/index.html">VideoApp Stage 4: Images</a>
-              <a class="nav-link ml-4" href="androidvideowebpagegrab/index.html">VideoApp Stage 5: WebPageGrab</a>
-              <a class="nav-link ml-4" href="androidvideoclicktoplay/index.html">VideoApp Stage 6: ClickToPlay</a>
-            </div>
-            <a class="nav-link ml-3" href="#" data-toggle="collapse" data-target="#menu23">C++ On Ubuntu Linux</a>
-            <div class="collapse" id="menu23">
-              <a class="nav-link ml-4" href="gpt4all/hello.cpp.html">GPT4All hello</a>
-              <a class="nav-link ml-4" href="cplusplus/qt/first/index.html">Qt5 Lean'n'Mean</a>
-              <a class="nav-link ml-4" href="cplusplus/qt/second/index.html">Qt5 XOR Enc/Decoding</a>
-              <a class="nav-link ml-4" href="cplusplus/qt/third/index.html">Qt5 XOR Class Into Separate File</a>
-            </div>
-            <a class="nav-link ml-3" href="#" data-toggle="collapse" data-target="#menu24">Python</a>
-            <div class="collapse" id="menu24">
-              <a class="nav-link ml-4" href="python/first/index.html">Ubuntu GUI Clipboard Monitor/Clear</a>
-              <a class="nav-link ml-4" href="python/second/index.html">GPT4All Based Chat Application</a>
-            </div>
-          </div>
-        </nav>
-      </div>
-      <div class="col-md-9">
-        <h1>Welcome to AI Playground</h1>
-        <div class="browser-info">
-            <h4 id="browserInfo"></h4>
-            <h4 id="currentDateTime"></h4>
-        </div>
-        <div id="joke-container"></div>
+    <div class="page-wrapper">
+        <section class="intro" id="intro">
+            <header role="banner">
+                <h1>AI Playground</h1>
+                <h2>Coding Using AI Chatbots</h2>
+            </header>
+        </section>
+   
         <br>
-        <br>
-        <p>All web pages, JavaScript and code examples on this site were initially generated by AI chatbots.<br> 
-        <a href="https://www.youtube.com/@aiplagro/videos" target="_blank">Here</a> are some associated YouTube videos. 
-        </p>
-        <div class="box"></div>
-        <br>
-        This site is hosted on
-        <a href="https://pages.github.com/">
-        <span class="bounce">🚀</span> 
-        <span style="animation-delay: 0.1s;" class="bounce">GitHub</span> 
-        <span style="animation-delay: 0.2s;" class="bounce">Pages</span> 
-        <span style="animation-delay: 0.3s;" class="bounce">🌟</span>
-        </a>
-      </div>
+		
+        <aside class="sidebar" role="complementary">
+            <div class="wrapper">
+                <div class="design-selection" id="design-selection">
+                    <h3 class="select">Free, No Sign-In, AI Chatbots:</h3>
+                    <nav role="navigation">
+                        <ul>
+                            <li><a href="https://www.perplexity.ai" class="design-name">Perplexity AI Free</a></li>
+                            <li><a href="https://www.you.com" class="design-name">You.com</a></li>
+                            <li><a href="https://www.bing.com/chat" class="design-name">Microsoft Copilot</a></li>
+                            <li>
+                                <a class="design-name">GPT4All</a>
+                                <a href="https://gpt4all.io/index.html" class="designer-name">Homepage</a>
+                                <a href="gpt4all/quickstart" class="designer-name">Ubuntu Quickstart: Install, Run, Uninstall</a>
+                            </li>
+                            <br><br><br><br><br><br><br><br><br><br><br><br><br>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="design-archives" id="design-archives">
+                    <h3 class="archives">AI Generated Code:</h3>
+                    <nav role="navigation">
+                        <ul>
+                            <li><a href="https://www.youtube.com/@aiplagro/videos" class="design-name">Associated YouTube Videos</a></li>
+                            <li>
+                                <a class="design-name">Webpages</a>
+                                <a href="stopwatch/index.html" class="designer-name">JavaScript Stopwatch</a>
+                                <a href="leaders/index.html" class="designer-name">AJAX Clickable Table</a>
+                            </li>
+                            <li>
+                                <a class="design-name">Android (Kotlin)</a>
+                                <a href="androidstopwatch/index.html" class="designer-name">Stopwatch</a>
+                                <a href="androidmulti/index.html" class="designer-name">VideoApp Stage 1: Multi</a>
+                                <a href="androidvideo/index.html" class="designer-name">VideoApp Stage 2: Video</a>
+                                <a href="androidvideoentry/index.html" class="designer-name">VideoApp Stage 3: VideoEntry</a>
+                                <a href="androidvideoimages/index.html" class="designer-name">VideoApp Stage 4: Images</a>
+                                <a href="androidvideowebpagegrab/index.html" class="designer-name">VideoApp Stage 5: WebPageGrab</a>
+                                <a href="androidvideoclicktoplay/index.html" class="designer-name">VideoApp Stage 6: ClickToPlay</a>
+                            </li>
+                            <li>
+                                <a class="design-name">C++ On Ubuntu Linux</a>
+                                <a href="gpt4all/hello.cpp.html" class="designer-name">GPT4All hello</a>
+                                <a href="cplusplus/qt/first/index.html" class="designer-name">Qt5 Lean'n'Mean</a>
+                                <a href="cplusplus/qt/second/index.html" class="designer-name">Qt5 XOR Enc/Decoding</a>
+                                <a href="cplusplus/qt/third/index.html" class="designer-name">Qt5 XOR Class Into Separate File</a>
+                            </li>
+                            <li>
+                                <a class="design-name">Python</a>
+                                <a href="python/first/index.html" class="designer-name">Ubuntu GUI Clipboard Monitor/Clear</a>
+                                <a href="python/second/index.html" class="designer-name">GPT4All Based Chat Application</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </aside>
     </div>
-  </div>
-
-  <script>
-    // Add click event listeners to menu items
-    $('.nav-link').click(function() {
-      $(this).next('.collapse').collapse('toggle');
-    });
-
-    $(document).ready(function() {       
-        // Get the browser name
-        var browserName = getBrowserName();
-
-        // Update the browser info text
-        document.getElementById('browserInfo').textContent = 'You are using ' + browserName;
-
-        // Update the current date and time every second
-        updateDateTime();
-        setInterval(updateDateTime, 1000);
-    });
-
-    // Function to detect the browser name
-    function getBrowserName() {
-        var userAgent = navigator.userAgent;
-        var browserName;
-
-        if (userAgent.indexOf("Edg") > -1) {
-            browserName = "Microsoft Edge";
-        } else if (userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Edg") === -1) {
-            browserName = "Google Chrome";
-        } else if (userAgent.indexOf("Firefox") > -1) {
-            browserName = "Mozilla Firefox";
-        } else if (userAgent.indexOf("Safari") > -1) {
-            browserName = "Apple Safari";
-        } else if (userAgent.indexOf("Opera") > -1) {
-            browserName = "Opera";
-        } else {
-            browserName = "Unknown";
-        }
-
-        return browserName;
-    }
-
-    // Function to update the current date and time
-    function updateDateTime() {
-        const now = new Date();
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
-        const dateTimeString = now.toLocaleString('en-US', options);
-        document.getElementById('currentDateTime').textContent = dateTimeString;
-    }
-    
-    function getJoke() {
-        fetch('https://official-joke-api.appspot.com/random_joke')
-            .then(response => response.json())
-            .then(data => {
-                const jokeContainer = document.getElementById('joke-container');
-                jokeContainer.innerHTML = `<p>${data.setup} ${data.punchline}</p>`;
-            })
-            .catch(error => {
-                console.error('Error fetching joke:', error);
-            });
-        }
-
-    // Call getJoke() initially
-    getJoke();
-
-    // Call getJoke() every 30 seconds
-    setInterval(getJoke, 30000);
-
-    // Select the box element
-    const box = document.querySelector('.box');
-
-    // Create a GSAP animation
-    gsap.to(box, {
-        duration: 2,           // Duration of 2 seconds
-        x: 300,                // Move 300 pixels to the right
-        rotation: 360,         // Rotate 360 degrees
-        backgroundColor: '#e74c3c', // Change color to red
-        scale: 1.5,            // Scale the box to 1.5 times its size
-        ease: "power1.inOut",  // Easing function
-        repeat: -1,            // Repeat indefinitely
-        yoyo: true             // Reverse the animation on repeat
-    });
-  </script>
 </body>
+
 </html>
