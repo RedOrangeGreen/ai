@@ -63,7 +63,7 @@
         <li>sudo docker run -d -v ollama:/root/.ollama -p 11434:11434 --name aidoings ollama/ollama</li>
     </ul>
 
-    <h2>Use: 'Exec' A Command In The Container (First 'Exec' Is Much Slower Than Subsequent As It Downloads The AI Model)</h2>
+    <h2>Use: Invoke llama3 In The Container Image (First Invoke Takes Minutes As It Downloads The AI Model)</h2>
     <ul>
         <li>sudo docker exec -it aidoings ollama run llama3</li>
         <li>What is a dinosaur and are any alive today?</li>
