@@ -56,11 +56,10 @@
    AI generated 'for a 5 year old' definition of 'Docker'..."Docker is like a special toy box that helps keep computer programs organized, a Docker image is a packed box of everything needed to play a game, and a Docker container is when you take that box out to play with it!".
    </h2>
 
-    <h2>Install: Download Docker And The Ollama Image (ollama/ollama), Run The Image In A Container (aidoings)</h2>
+    <h2>Install: Add Docker, Start Docker, Download And Run The Ollama Image (ollama/ollama) In A Container (aidoings)</h2>
     <ul>
         <li>sudo apt install docker.io</li>
         <li>sudo systemctl start docker</li>
-        <li>sudo docker pull ollama/ollama</li>
         <li>sudo docker run -d -v ollama:/root/.ollama -p 11434:11434 --name aidoings ollama/ollama</li>
     </ul>
 
