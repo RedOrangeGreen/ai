@@ -72,7 +72,7 @@
 
     <script async>
         // Fetch the contents of test.cpp and display them
-        fetch('test.cpp')
+        fetch('useai.cpp')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('File not found');
@@ -83,7 +83,7 @@
                 document.getElementById('file-contents').textContent = data;
             })
             .catch(error => {
-                console.error('Error fetching test.cpp:', error);
+                console.error('Error fetching useai.cpp:', error);
                 document.getElementById('file-contents').textContent = 'Error: Unable to load file contents.';
             });
     </script>
