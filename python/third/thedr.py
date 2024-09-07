@@ -10,10 +10,10 @@ Development Environment: Ubuntu 24.04.01 LTS
 Specification (Ask AI Chatbot These Questions To Generate Code)
 ---------------------------------------------------------------
 What are the common questions a doctors asks to determine symptoms?
-Show me a python application to ask these questions and store the symptoms
+Show me a python application to ask these questions one after the other and store the symptoms
 Add a PyQt6 wrapper
 Add code to create a single question which is passed into the GPT4All SDK to ask for a suggested diagnosis given all the symptoms. Use the "Phi-3-mini-4k-instruct.Q4_0.gguf" LLM model (exact case as shown)
-Enhance with a button to load the LLM model
+Enhance with buttons to load and unload the LLM model
 Enhance with a "Patient Diagnosis" summary which shows the answer
 
 Using The Generated Code
@@ -32,167 +32,178 @@ deactivate
 rm -rf ./myenv
 """
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QTextEdit, QMessageBox, QScrollArea
-from PyQt6.QtCore import QThread, pyqtSignal, Qt
+import datetime
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QTextEdit, QScrollArea, QMessageBox, QDialog
+from PyQt6.QtCore import Qt
 from gpt4all import GPT4All
 
-class ModelLoader(QThread):
-    finished = pyqtSignal(GPT4All)
-    error = pyqtSignal(str)
+class DiagnosisSummaryDialog(QDialog):
+    def __init__(self, symptoms, diagnosis, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Patient Diagnosis Summary")
+        self.setGeometry(200, 200, 600, 400)
+        
+        layout = QVBoxLayout()
+        
+        summary_text = QTextEdit()
+        summary_text.setReadOnly(True)
+        
+        # Construct the summary
+        summary = "Patient Diagnosis Summary\n\n"
+        summary += "Symptoms:\n"
+        for key, value in symptoms.items():
+            if key != "timestamp":
+                summary += f"- {key.replace('_', ' ').title()}: {value}\n"
+        
+        summary += "\nSuggested Diagnosis:\n"
+        summary += diagnosis
+        
+        summary_text.setPlainText(summary)
+        layout.addWidget(summary_text)
+        
+        close_button = QPushButton("Close")
+        close_button.clicked.connect(self.accept)
+        layout.addWidget(close_button)
+        
+        self.setLayout(layout)
 
-    def run(self):
-        try:
-            model = GPT4All("Phi-3-mini-4k-instruct.Q4_0.gguf")
-            self.finished.emit(model)
-        except Exception as e:
-            self.error.emit(str(e))
-
-class SymptomGatherer(QWidget):
+class SymptomChecker(QWidget):
     def __init__(self):
         super().__init__()
-        self.initUI()
+        self.questions = [
+            "What is your main symptom?",
+            "When did your symptoms start?",
+            "Are the symptoms constant or do they come and go?",
+            "Are the symptoms getting better, worse, or staying the same?",
+            "Does anything seem to make your symptoms worse?",
+            "Does anything make your symptoms better?",
+            "Have you tried any treatments or remedies so far? If so, which ones?",
+            "How are these symptoms affecting your daily activities?",
+            "Have you experienced any recent changes in your life or health?",
+            "Are you taking any medications, including over-the-counter drugs or supplements?",
+            "Do you have any known allergies or medical conditions?",
+            "Have you ever experienced similar symptoms before?",
+            "Does anyone in your family have a history of similar issues?",
+            "What is your diet like?",
+            "How much sleep are you getting?",
+            "What is your stress level like?"
+        ]
+        self.current_question = 0
         self.symptoms = {}
         self.model = None
+        self.initUI()
 
     def initUI(self):
-        main_layout = QVBoxLayout()
+        self.setWindowTitle('Symptom Checker')
+        self.setGeometry(100, 100, 800, 600)
 
-        scroll_area = QScrollArea()
-        scroll_area.setWidgetResizable(True)
-        scroll_content = QWidget()
-        layout = QVBoxLayout(scroll_content)
+        layout = QVBoxLayout()
 
-        self.questions = [
-            "What are your main symptoms?",
-            "When did your symptoms start?",
-            "How long have you been experiencing these symptoms?",
-            "On a scale of 1-10, how severe are your symptoms?",
-            "How often do you experience these symptoms?",
-            "Does anything seem to trigger or worsen your symptoms?",
-            "Does anything make your symptoms better?",
-            "Are you experiencing any other associated symptoms?",
-            "How are these symptoms affecting your daily activities?",
-            "Have you experienced similar symptoms before?",
-            "Are you currently taking any medications?",
-            "Have there been any recent changes or stressors in your life?"
-        ]
-
-        self.inputs = []
-
-        for question in self.questions:
-            layout.addWidget(QLabel(question))
-            input_field = QLineEdit()
-            layout.addWidget(input_field)
-            self.inputs.append(input_field)
-
-        self.submit_button = QPushButton('Submit')
-        self.submit_button.clicked.connect(self.submit_symptoms)
-        self.submit_button.setEnabled(False)
-        layout.addWidget(self.submit_button)
-
-        self.summary = QTextEdit()
-        self.summary.setReadOnly(True)
-        layout.addWidget(QLabel("Symptom Summary:"))
-        layout.addWidget(self.summary)
-
-        self.diagnosis = QTextEdit()
-        self.diagnosis.setReadOnly(True)
-        layout.addWidget(QLabel("AI Response:"))
-        layout.addWidget(self.diagnosis)
-
-        self.patient_diagnosis = QTextEdit()
-        self.patient_diagnosis.setReadOnly(True)
-        layout.addWidget(QLabel("Patient Diagnosis:"))
-        layout.addWidget(self.patient_diagnosis)
-
+        # Add buttons for loading and unloading the model
+        button_layout = QHBoxLayout()
         self.load_model_button = QPushButton('Load LLM Model')
         self.load_model_button.clicked.connect(self.load_model)
-        layout.addWidget(self.load_model_button)
+        button_layout.addWidget(self.load_model_button)
 
-        scroll_area.setWidget(scroll_content)
-        main_layout.addWidget(scroll_area)
+        self.unload_model_button = QPushButton('Unload LLM Model')
+        self.unload_model_button.clicked.connect(self.unload_model)
+        self.unload_model_button.setEnabled(False)
+        button_layout.addWidget(self.unload_model_button)
 
-        self.setLayout(main_layout)
-        self.setWindowTitle('Symptom Gatherer')
-        self.setGeometry(300, 300, 600, 800)
+        layout.addLayout(button_layout)
+
+        self.question_label = QLabel(self.questions[self.current_question])
+        layout.addWidget(self.question_label)
+
+        self.answer_input = QLineEdit()
+        layout.addWidget(self.answer_input)
+
+        self.next_button = QPushButton('Next')
+        self.next_button.clicked.connect(self.next_question)
+        layout.addWidget(self.next_button)
+
+        self.result_text = QTextEdit()
+        self.result_text.setReadOnly(True)
+        
+        scroll_area = QScrollArea()
+        scroll_area.setWidget(self.result_text)
+        scroll_area.setWidgetResizable(True)
+        layout.addWidget(scroll_area)
+
+        self.setLayout(layout)
 
     def load_model(self):
-        self.load_model_button.setEnabled(False)
-        self.load_model_button.setText('Loading...')
+        try:
+            self.model = GPT4All("Phi-3-mini-4k-instruct.Q4_0.gguf")
+            self.load_model_button.setEnabled(False)
+            self.unload_model_button.setEnabled(True)
+            QMessageBox.information(self, "Model Loaded", "LLM model has been loaded successfully.")
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to load the model: {str(e)}")
+
+    def unload_model(self):
+        if self.model:
+            del self.model
+            self.model = None
+            self.load_model_button.setEnabled(True)
+            self.unload_model_button.setEnabled(False)
+            QMessageBox.information(self, "Model Unloaded", "LLM model has been unloaded.")
+
+    def next_question(self):
+        answer = self.answer_input.text().strip()
+        if answer:
+            question_key = self.questions[self.current_question].lower().replace(" ", "_").replace("?", "")
+            self.symptoms[question_key] = answer
+            self.current_question += 1
+            self.answer_input.clear()
+
+            if self.current_question < len(self.questions):
+                self.question_label.setText(self.questions[self.current_question])
+            else:
+                self.finish_questionnaire()
+
+    def finish_questionnaire(self):
+        self.symptoms["timestamp"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
-        self.loader = ModelLoader()
-        self.loader.finished.connect(self.on_model_loaded)
-        self.loader.error.connect(self.on_model_error)
-        self.loader.start()
+        result = "Symptom Information Collected:\n\n"
+        for key, value in self.symptoms.items():
+            result += f"{key.replace('_', ' ').title()}: {value}\n"
 
-    def on_model_loaded(self, model):
-        self.model = model
-        self.load_model_button.setText('Model Loaded')
-        self.submit_button.setEnabled(True)
-        QMessageBox.information(self, "Success", "LLM model loaded successfully!")
+        self.result_text.setText(result)
+        self.question_label.setText("Questionnaire Completed")
+        self.answer_input.setEnabled(False)
+        self.next_button.setEnabled(False)
 
-    def on_model_error(self, error_msg):
-        self.load_model_button.setEnabled(True)
-        self.load_model_button.setText('Load LLM Model')
-        QMessageBox.critical(self, "Error", f"Failed to load model: {error_msg}")
+        # Save to file
+        with open("symptoms_record.txt", "w") as file:
+            file.write(result)
 
-    def submit_symptoms(self):
-        self.symptoms = {}
-        for question, input_field in zip(self.questions, self.inputs):
-            key = question.lower().replace(" ", "_").replace("?", "")
-            self.symptoms[key] = input_field.text()
+        # Get diagnosis suggestion if model is loaded
+        if self.model:
+            diagnosis = self.get_diagnosis_suggestion()
+            self.result_text.append("\n\nSuggested Diagnosis:\n" + diagnosis)
+            
+            # Show the diagnosis summary dialog
+            summary_dialog = DiagnosisSummaryDialog(self.symptoms, diagnosis, self)
+            summary_dialog.exec()
+        else:
+            self.result_text.append("\n\nNote: LLM model is not loaded. Load the model to get a diagnosis suggestion.")
 
-        self.display_symptoms()
-        self.get_diagnosis()
+    def get_diagnosis_suggestion(self):
+        symptoms_list = [f"{key.replace('_', ' ')}: {value}" for key, value in self.symptoms.items() if key != "timestamp"]
+        prompt = f"""Given the following symptoms:
+{', '.join(symptoms_list)}
 
-    def display_symptoms(self):
-        summary = "Symptom Summary:\n\n"
-        for question, answer in self.symptoms.items():
-            summary += f"{question.replace('_', ' ').capitalize()}: {answer}\n"
+What is a possible diagnosis? Provide a brief explanation for your suggestion."""
+
+        with self.model.chat_session():
+            response = self.model.generate(prompt, max_tokens=200)
         
-        self.summary.setText(summary)
-
-    def get_diagnosis(self):
-        if self.model is None:
-            QMessageBox.warning(self, "Warning", "Please load the LLM model first.")
-            return
-
-        prompt = f"""Given the following symptoms, please suggest a possible diagnosis. 
-        Provide your response in the following format:
-        Possible Diagnosis: [Your suggested diagnosis]
-        Explanation: [A brief explanation of why you suggest this diagnosis]
-        Recommended Actions: [Suggested next steps for the patient]
-
-        Remember, this is not a definitive medical opinion and the patient should consult a healthcare professional for accurate diagnosis and treatment.
-
-        Symptoms:
-        {self.summary.toPlainText()}
-
-        Diagnosis:"""
-        
-        response = self.model.generate(prompt, max_tokens=300)
-        
-        self.diagnosis.setText(response)
-        self.format_patient_diagnosis(response)
-
-    def format_patient_diagnosis(self, ai_response):
-        sections = ["Possible Diagnosis:", "Explanation:", "Recommended Actions:"]
-        formatted_diagnosis = ""
-
-        for section in sections:
-            start = ai_response.find(section)
-            if start != -1:
-                end = ai_response.find(next((s for s in sections if s != section), ""), start)
-                if end == -1:
-                    end = len(ai_response)
-                content = ai_response[start:end].strip()
-                formatted_diagnosis += f"<b>{content.split(':', 1)[0]}:</b><br>{content.split(':', 1)[1].strip()}<br><br>"
-
-        self.patient_diagnosis.setHtml(formatted_diagnosis)
+        return response.strip()
 
 def main():
     app = QApplication(sys.argv)
-    ex = SymptomGatherer()
+    ex = SymptomChecker()
     ex.show()
     sys.exit(app.exec())
 
