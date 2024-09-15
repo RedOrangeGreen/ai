@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceX Dragon GUI</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        button, input {
+            margin: 10px;
+            padding: 10px;
+            font-size: 18px;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="ignition">Ignition</button>
+        <br>
+        <input type="range" id="boosters" min="0" max="100" value="0">
+        <span id="boosterValue">0</span>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('ignition').addEventListener('click', async () => {
+            const response = await fetch('/ignition', { method: 'POST' });
+            const text = await response.text();
+            document.getElementById('message').textContent = text;
+        });
+
+        document.getElementById('boosters').addEventListener('input', async (event) => {
+            const value = event.target.value;
+            const response = await fetch('/boosters?value=' + value, { method: 'POST' });
+            const text = await response.text();
+            document.getElementById('boosterValue').textContent = text;
+        });
+    </script>
+</body>
+</html>
