@@ -15,7 +15,7 @@ Using The Generated Code
 ------------------------
 Create a new directory
 Download crow_all.h from https://crowcpp.org/master/
-Download spacexgui.html from 
+Download spacexgui.html from https://redorangegreen.github.io/ai/cplusplus/spacex/first
 Check that directory contains files crow_all.h, spacexgui.html, spacexgui.cpp
 sudo apt install build-essential
 sudo apt install --no-install-recommends libasio-dev
