@@ -21,7 +21,7 @@ sudo apt install build-essential
 sudo apt install --no-install-recommends libasio-dev
 g++ spacexgui.cpp -o spacexgui -lpthread
 ./spacexgui
-To test, using any browser to open http://127.0.0.1:5050
+To test use any browser to open http://127.0.0.1:5050
 */
 #include "crow_all.h"
 #include <fstream>
