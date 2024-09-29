@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Free AI Chatbots - AI Playground</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">AI Playground</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li><a href="index.html"><i class="fa fa-dashboard"></i> Free AI Chatbots</a></li>
+            <li><a href="generatedcode.html"><i class="fa fa-wrench"></i> AI Generated Code</a></li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Free AI Chatbots <small>Free, No Sign-In AI Chatbots.</small></h1>
+            <h4>You want an AI chatbot that's truly free? $0, anonymous, no sign up, instant use.</h4>
+            <br>
+            <h2>Websites</h2>
+            <h4>All the following free websites additionally offer 'Pro' upgrade options for $s.</h4>
+            <br>
+            <h4><a href="https://www.perplexity.ai/">Perplexity AI [unlimited queries per topic using Chrome]</a></h4>
+            <h4><a href="https://www.you.com">You.com (delete cookies, reload, click 'X' or 'Skip' top right to bypass dialogs) [11 queries per topic using Chrome]</a></h4>
+            <h4><a href="https://www.bing.com/chat">Microsoft Copilot [10 queries per topic using Edge, 4 queries per topic using Chrome]</a></h4>
+            <br>
+            <h2>Downloaded And Run Locally</h2>
+            <h4>The more powerful your computer (RAM, CPU, GPU), the faster these applications generate answers.</h4>
+            <h3>GPT4ALL</h3>
+            <h4><a href="https://gpt4all.io/index.html">Homepage</a></h4>
+            <h4><a href="gpt4all/quickstart">Ubuntu Quickstart: Install, Run, Uninstall</a></h4>
+            <h3>Ollama</h3>
+            <h4><a href="https://ollama.com">Homepage</a></h4>
+            <h4><a href="ollama/quickstart">Ubuntu Quickstart: Install, Use, Uninstall</a></h4>
+          </div>
+        </div><!-- /.row -->
+
+      </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+
+    <!-- JavaScript -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+  </body>
+</html>
