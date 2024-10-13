@@ -1,5 +1,30 @@
 #!/bin/bash
 
+# Bash script to install, run (Using Meta's llama3.2:1b) and uninstall Ollama
+# Free, fast, anonymous AI chat running on your computer has now arrived!
+#
+# Platform
+# --------
+# Ubuntu Linux 24.04.1 LTS
+#
+# Using
+# -----
+# chmod +x ./ollama.sh
+# ./ollama.sh
+#
+# Development And Testing
+# -----------------------
+# Pilot: AI Playground (Quasimodo) https://redorangegreen.github.io/ai
+# Copilot: Perplexity AI Free https://www.perplexity.ai
+
+function check_ollama_installed() {
+    if command -v ollama &> /dev/null; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 function install_ollama() {
     echo "Welcome to the Ollama installation script."
     read -p "Do you want to proceed with the installation? (y/n): " choice
@@ -21,7 +46,7 @@ function install_ollama() {
 function chat_ollama() {
     MODEL_NAME="llama3.2:1b"
 
-    if ! command -v ollama &> /dev/null; then
+    if ! check_ollama_installed; then
         echo "Ollama is not installed."
         return
     fi
@@ -34,7 +59,7 @@ function chat_ollama() {
 }
 
 function uninstall_ollama() {
-    if ! command -v ollama &> /dev/null; then
+    if ! check_ollama_installed; then
         echo "Ollama is not installed."
         return
     fi
@@ -96,7 +121,13 @@ while true; do
     read -p "Enter your choice (1-4): " choice
 
     case $choice in
-        1) install_ollama ;;
+        1) 
+            if check_ollama_installed; then
+                echo "Ollama is already installed."
+            else
+                install_ollama
+            fi
+            ;;
         2) chat_ollama ;;
         3) uninstall_ollama ;;
         4) echo "Exiting..."; exit 0 ;;
