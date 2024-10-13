@@ -14,8 +14,8 @@
 #
 # Development And Testing
 # -----------------------
-# Pilot: AI Playground (Quasimodo) https://redorangegreen.github.io/ai
-# Copilot: Perplexity AI Free https://www.perplexity.ai
+# Pilot: AI Playground (Quasimodo), https://redorangegreen.github.io/ai
+# Copilot: Perplexity AI Free, https://www.perplexity.ai
 
 function check_ollama_installed() {
     if command -v ollama &> /dev/null; then
