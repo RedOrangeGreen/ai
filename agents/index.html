@@ -75,52 +75,34 @@
             <h4>AI generated bodies and 'personality'?</h4>
             <h4><a href="https://github.com/RedOrangeGreen/ai/tree/main/agents/aiwomen" target="_blank" rel="noopener noreferrer">GitHub Website</a></h4>
 
-<pre>
-Project Structure:
-project_root/
-├── public/
-│   ├── css/
-│   │   └── style.css
-│   └── js/
-│       └── script.js
-├── templates/
-│   └── index.html
-├── crow.h
-├── main.cpp
-├── Makefile
-└── ollama.sh
-
-crow.h is Version 1.2.0 downloaded as crow_all.h from https://github.com/CrowCpp/Crow/releases/tag/v1.2.0
-
-Install And Run Ollama AI (Homepage https://ollama.com) In Terminal1:
-chmod +x ./ollama.sh
-./ollama.sh
-1. Install Ollama
-2. Chat with Ollama
-
-Build And Run Agent In Terminal2 And Use Agent In Browser:
-sudo apt install build-essential
-sudo apt install --no-install-recommends libasio-dev
-make
-./aiwomen
-http://127.0.0.1:18080
-</pre>
+            <!-- Following only works on a web server, not locally --> 
+            <pre id="readmeContent"></pre>
             
            
           </div>
         </div><!-- /.row -->
 
-    <div class="image-container">
-        <img src="woman1.png" alt="Woman 1">
-        <img src="woman2.png" alt="Woman 2">
-        <img src="woman3.png" alt="Woman 3">
-    </div>
+        <div class="image-container">
+          <img src="woman1.png" alt="Woman 1">
+          <img src="woman2.png" alt="Woman 2">
+          <img src="woman3.png" alt="Woman 3">
+        </div>
     
       </div><!-- /#page-wrapper -->
 
     </div><!-- /#wrapper -->
 
     <!-- JavaScript -->
+    <script>
+      fetch('aiwomen/readme.txt')
+        .then(response => response.text())
+        .then(data => {
+        document.getElementById('readmeContent').textContent = data;
+      })
+      .catch(error => {
+        document.getElementById('readmeContent').textContent = 'Error loading the file.';
+      });
+    </script>
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>
 
