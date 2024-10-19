@@ -20,6 +20,7 @@ project_root/
 crow.h is Version 1.2.0 downloaded as crow_all.h from https://github.com/CrowCpp/Crow/releases/tag/v1.2.0
 
 Install And Run Ollama AI (Homepage https://ollama.com) In Terminal1:
+chmod +x ./ollama.sh
 ./ollama.sh
 1. Install Ollama
 2. Chat with Ollama
