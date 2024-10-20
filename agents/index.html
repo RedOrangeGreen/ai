@@ -16,17 +16,20 @@
     <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
     
     <style>
-        .image-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .image-container img {
-            max-width: 30%;
-            height: auto;
-        }
+      .image-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .image-container img {
+        max-width: 30%;
+        height: auto;
+      }
+      .hidden {
+        display: none;
+      }
     </style>
     
   </head>
@@ -82,7 +85,7 @@
           </div>
         </div><!-- /.row -->
 
-        <div class="image-container">
+        <div class="image-container hidden">
           <img src="woman1.png" alt="Woman 1">
           <img src="woman2.png" alt="Woman 2">
           <img src="woman3.png" alt="Woman 3">
@@ -97,10 +100,14 @@
       fetch('aiwomen/readme.txt')
         .then(response => response.text())
         .then(data => {
-        document.getElementById('readmeContent').textContent = data;
+          document.getElementById('readmeContent').textContent = data;
+          // Show the image container after content is loaded
+          document.querySelector('.image-container').classList.remove('hidden');
       })
       .catch(error => {
         document.getElementById('readmeContent').textContent = 'Error loading the file.';
+        // Optionally, you can still show the images even if there's an error
+        document.querySelector('.image-container').classList.remove('hidden');
       });
     </script>
     <script src="js/jquery-1.10.2.js"></script>
