@@ -52,7 +52,8 @@ from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 from PyQt6.QtGui import QFont
 
 class AIWorker(QThread):
-    finished = pyqtSignal(str)
+    word_received = pyqtSignal(str)
+    finished = pyqtSignal()
     error = pyqtSignal(str)
 
     def __init__(self, model, question):
@@ -62,77 +63,18 @@ class AIWorker(QThread):
 
     def run(self):
         try:
-            response = ollama.chat(model=self.model, messages=[
-                {
-                    'role': 'user',
-                    'content': self.question,
-                },
-            ])
-            content = response['message']['content']
-            self.finished.emit(content)
+            stream = ollama.chat(
+                model=self.model,
+                messages=[{'role': 'user', 'content': self.question}],
+                stream=True
+            )
+            for chunk in stream:
+                if 'content' in chunk.get('message', {}):
+                    content = chunk['message']['content']
+                    self.word_received.emit(content)
+            self.finished.emit()
         except Exception as e:
             self.error.emit(str(e))
-
-class CustomDialog(QDialog):
-    def __init__(self, parent, title, message):
-        super().__init__(parent)
-        
-        self.setWindowTitle(title)
-        self.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.FramelessWindowHint)
-        
-        self.setStyleSheet("""
-            QDialog {
-                background-color: white;
-                border: 2px solid #888888;
-            }
-            #titleLabel {
-                background-color: #f0f0f0;
-                border-bottom: 1px solid #888888;
-                padding: 5px;
-                font-weight: bold;
-            }
-            QPushButton {
-                background-color: #f0f0f0;
-                border: 1px solid #888888;
-                padding: 5px;
-            }
-            QPushButton:hover {
-                background-color: #e0e0e0;
-            }
-        """)
-        
-        layout = QVBoxLayout(self)
-        
-        title_bar = QHBoxLayout()
-        title_label = QLabel(title)
-        title_label.setObjectName("titleLabel")
-        title_bar.addWidget(title_label)
-        
-        close_button = QPushButton("X")
-        close_button.setFixedSize(30, 30)
-        close_button.clicked.connect(self.close)
-        title_bar.addWidget(close_button)
-        
-        layout.addLayout(title_bar)
-        
-        message_label = QLabel(message)
-        message_label.setWordWrap(True)
-        layout.addWidget(message_label)
-        
-        self.setLayout(layout)
-
-    def showEvent(self, event):
-        if self.parent():
-            self.move(self.parent().geometry().center() - self.rect().center())
-        super().showEvent(event)
-
-    def mousePressEvent(self, event):
-        self.oldPos = event.globalPosition().toPoint()
-
-    def mouseMoveEvent(self, event):
-        delta = event.globalPosition().toPoint() - self.oldPos
-        self.move(self.x() + delta.x(), self.y() + delta.y())
-        self.oldPos = event.globalPosition().toPoint()
 
 class SimpleLoadingDialog(QDialog):
     def __init__(self, parent=None):
@@ -179,115 +121,11 @@ class SimpleLoadingDialog(QDialog):
             self.move(self.parent().geometry().center() - self.rect().center())
         super().showEvent(event)
 
-class AboutDialog(QDialog):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        self.setFixedSize(400, 330)
-        
-        main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(0, 0, 0, 0)
-        
-        title_bar = QWidget(self)
-        title_bar.setFixedHeight(30)
-        title_bar.setStyleSheet("""
-            background-color: #3498db;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        """)
-        title_bar_layout = QHBoxLayout(title_bar)
-        title_bar_layout.setContentsMargins(10, 0, 10, 0)
-        
-        title_label = QLabel("About Ollama Chat Interface")
-        title_label.setStyleSheet("color: white; font-weight: bold;")
-        title_bar_layout.addWidget(title_label)
-        
-        close_button = QPushButton("X")
-        close_button.setFixedSize(20, 20)
-        close_button.setStyleSheet("""
-            QPushButton {
-                background-color: #e74c3c;
-                color: white;
-                border: none;
-                border-radius: 10px;
-                font-family: Arial;
-                font-size: 16px;
-                font-weight: bold;
-                padding: 0;
-                margin: 0;
-                line-height: 20px;
-            }
-            QPushButton:hover {
-                background-color: #c0392b;
-            }
-        """)
-        close_button.clicked.connect(self.close)
-        title_bar_layout.addWidget(close_button)
-        
-        main_layout.addWidget(title_bar)
-        
-        content_layout = QVBoxLayout()
-        content_layout.setContentsMargins(20, 20, 20, 20)
-        
-        title_label = QLabel("Ollama Chat Interface")
-        title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title_label.setStyleSheet("""
-            font-size: 18px;
-            font-weight: bold;
-            color: #2c3e50;
-            padding: 5px;
-        """)
-        
-        content_layout.addWidget(title_label)
-        
-        version_label = QLabel("Version 1.0")
-        version_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        
-        author_label = QLabel("Created by Your Name")
-        author_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        
-        description_label = QLabel("This application provides a user-friendly interface "
-                                   "for interacting with Ollama AI models.")
-        description_label.setWordWrap(True)
-        description_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        
-        ok_button = QPushButton("OK")
-        ok_button.clicked.connect(self.accept)
-        
-        content_layout.addWidget(version_label)
-        content_layout.addWidget(author_label)
-        content_layout.addSpacing(10)
-        content_layout.addWidget(description_label)
-        content_layout.addSpacing(20)
-        content_layout.addWidget(ok_button)
-        
-        main_layout.addLayout(content_layout)
-        
-        self.setStyleSheet("""
-            QDialog {
-                background-color: #f0f0f0;
-                border: 2px solid #3498db;
-                border-radius: 10px;
-            }
-            QPushButton {
-                background-color: #3498db;
-                color: white;
-                padding: 5px 15px;
-                border: none;
-                border-radius: 4px;
-            }
-            QPushButton:hover {
-                background-color: #2980b9;
-            }
-        """)
-        
-        self.oldPos = self.pos()
-    
     def mousePressEvent(self, event):
         self.oldPos = event.globalPosition().toPoint()
 
     def mouseMoveEvent(self, event):
-        delta = QPoint(event.globalPosition().toPoint() - self.oldPos)
+        delta = event.globalPosition().toPoint() - self.oldPos
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.oldPos = event.globalPosition().toPoint()
 
@@ -328,11 +166,8 @@ class ChatWindow(QMainWindow):
 
         layout.addLayout(input_layout)
 
-        self.word_timer = QTimer(self)
-        self.word_timer.timeout.connect(self.print_next_word)
-        self.current_words = []
-
         self.loading_dialog = None
+        self.current_response = ""
 
     def create_menu_bar(self):
         menu_bar = QMenuBar(self)
@@ -351,7 +186,13 @@ class ChatWindow(QMainWindow):
         about_action.triggered.connect(self.show_about_dialog)
 
     def show_about_dialog(self):
-        about_dialog = AboutDialog(self)
+        about_dialog = QDialog(self)
+        about_dialog.setFixedSize(300, 200)
+        about_dialog.setStyleSheet("border: 2px solid black;")
+        layout = QVBoxLayout(about_dialog)
+        about_label = QLabel("Ollama Chat Interface\nVersion 1.0\n\nCreated by Your Name")
+        about_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(about_label)
         about_dialog.exec()
 
     def send_question(self):
@@ -368,42 +209,44 @@ class ChatWindow(QMainWindow):
         self.loading_dialog.show()
 
         self.worker = AIWorker(model, question)
-        self.worker.finished.connect(self.handle_response)
+        self.worker.word_received.connect(self.handle_word)
+        self.worker.finished.connect(self.handle_response_finished)
         self.worker.error.connect(self.handle_error)
         self.worker.start()
 
-    def handle_response(self, content):
+        self.chat_display.insertPlainText("AI: ")
+        self.current_response = ""
+
+    def handle_word(self, word):
+        self.current_response += word
+        if self.print_mode.currentText() == "Word-by-Word":
+            if self.loading_dialog:
+                self.loading_dialog.close()
+                self.loading_dialog = None
+            self.chat_display.insertPlainText(word)
+            self.scroll_to_bottom()
+        
+    def handle_response_finished(self):
+        if self.print_mode.currentText() == "Full":
+            self.chat_display.insertPlainText(self.current_response)
+        self.chat_display.insertPlainText("\n\n")
+        self.scroll_to_bottom()
+        self.current_response = ""
+        
         if self.loading_dialog:
             self.loading_dialog.close()
             self.loading_dialog = None
-        if self.print_mode.currentText() == "Full":
-            self.append_to_chat("AI", content)
-        else:
-            self.current_words = content.split()
-            self.chat_display.insertPlainText("AI: ")
-            self.word_timer.start(100)
 
     def handle_error(self, error_message):
         if self.loading_dialog:
             self.loading_dialog.close()
             self.loading_dialog = None
-        if "model not found" in error_message:
-            model = self.model_selector.currentText()
-            dialog = CustomDialog(self, "Model Not Found", f"The model '{model}' was not found. Please pull it first using 'ollama pull {model}'.")
-        else:
-            dialog = CustomDialog(self, "Error", f"An error occurred: {error_message}")
-        
-        dialog.exec()
-
-    def print_next_word(self):
-        if self.current_words:
-            word = self.current_words.pop(0)
-            self.chat_display.insertPlainText(word + " ")
-            self.scroll_to_bottom()
-        else:
-            self.word_timer.stop()
-            self.chat_display.insertPlainText("\n\n")
-            self.scroll_to_bottom()
+        error_dialog = QDialog(self)
+        error_dialog.setWindowTitle("Error")
+        error_layout = QVBoxLayout(error_dialog)
+        error_label = QLabel(f"An error occurred: {error_message}")
+        error_layout.addWidget(error_label)
+        error_dialog.exec()
 
     def append_to_chat(self, sender, message):
         self.chat_display.append(f"{sender}: {message}\n")
