@@ -47,7 +47,7 @@ import sys
 import ollama
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                              QPushButton, QTextEdit, QLineEdit, QComboBox, QDialog, QLabel,
-                             QMenuBar, QMenu, QFrame)
+                             QMenuBar, QMenu)
 from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 from PyQt6.QtGui import QFont
 
@@ -90,22 +90,15 @@ class SimpleLoadingDialog(QDialog):
                 padding: 10px;
             }
         """)
-        
         layout = QVBoxLayout(self)
         self.message_label = QLabel("Generating response...")
-        
         font = QFont("Courier")
         font.setPointSize(16)
         self.message_label.setFont(font)
-        
         self.message_label.setFixedSize(250, 40)
-        
         layout.addWidget(self.message_label)
-        
         self.setLayout(layout)
-        
         self.setFixedSize(300, 80)
-        
         self.dots = 0
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_dots)
@@ -134,78 +127,61 @@ class ChatWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Ollama Chat Interface")
         self.setGeometry(100, 100, 800, 600)
- 
         self.create_menu_bar()
-
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         layout = QVBoxLayout(central_widget)
-
         self.chat_display = QTextEdit()
         self.chat_display.setReadOnly(True)
         layout.addWidget(self.chat_display)
-
         input_layout = QHBoxLayout()
-        
         self.question_input = QLineEdit()
         self.question_input.setPlaceholderText("Enter your question here...")
         self.question_input.returnPressed.connect(self.send_question)
         input_layout.addWidget(self.question_input, 1)
-
         self.model_selector = QComboBox()
         self.model_selector.addItems(["llama3.2:1b"])
         input_layout.addWidget(self.model_selector)
-
         self.print_mode = QComboBox()
         self.print_mode.addItems(["Word-by-Word", "Full"])
         input_layout.addWidget(self.print_mode)
-
         self.send_button = QPushButton("Send")
         self.send_button.clicked.connect(self.send_question)
         input_layout.addWidget(self.send_button)
-
         layout.addLayout(input_layout)
-
         self.loading_dialog = None
         self.current_response = ""
 
     def create_menu_bar(self):
         menu_bar = QMenuBar(self)
         self.setMenuBar(menu_bar)
-
         file_menu = QMenu("&File", self)
         menu_bar.addMenu(file_menu)
-
         exit_action = file_menu.addAction("&Exit")
         exit_action.triggered.connect(self.close)
-
         help_menu = QMenu("&Help", self)
         menu_bar.addMenu(help_menu)
-
         about_action = help_menu.addAction("&About")
         about_action.triggered.connect(self.show_about_dialog)
 
     def show_about_dialog(self):
         about_dialog = QDialog(self)
         about_dialog.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        about_dialog.setFixedSize(300, 200)  # Back to original size
+        about_dialog.setFixedSize(300, 200)
         about_dialog.setStyleSheet("""
             QDialog {
                 background-color: #E0E0E0;
                 border: 1px solid #999999;
             }
         """)
-    
         layout = QVBoxLayout(about_dialog)
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)  # Remove spacing between widgets
-    
-        # Custom title bar
+        layout.setSpacing(0)
         title_bar = QWidget()
-        title_bar.setFixedHeight(30)  # Set a fixed height for the title bar
+        title_bar.setFixedHeight(30)
         title_bar.setStyleSheet("background-color: #4CAF50;")
         title_bar_layout = QHBoxLayout(title_bar)
-        title_bar_layout.setContentsMargins(10, 0, 0, 0)  # Add left padding
+        title_bar_layout.setContentsMargins(10, 0, 0, 0)
         title_label = QLabel("About")
         title_label.setStyleSheet("color: white; font-weight: bold;")
         close_button = QPushButton("×")
@@ -226,18 +202,13 @@ class ChatWindow(QMainWindow):
         title_bar_layout.addWidget(title_label)
         title_bar_layout.addStretch()
         title_bar_layout.addWidget(close_button)
-    
         layout.addWidget(title_bar)
-    
-        # Content
         content_widget = QWidget()
         content_layout = QVBoxLayout(content_widget)
         about_label = QLabel("Ollama Simple Chat Interface\nVersion 1.0\n\nCreated by AI Playground (Quasimodo)")
         about_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         content_layout.addWidget(about_label)
-    
         layout.addWidget(content_widget)
-    
         about_dialog.exec()
 
     def send_question(self):
@@ -249,16 +220,13 @@ class ChatWindow(QMainWindow):
 
     def get_and_print_response(self, question):
         model = self.model_selector.currentText()
-        
         self.loading_dialog = SimpleLoadingDialog(self)
         self.loading_dialog.show()
-
         self.worker = AIWorker(model, question)
         self.worker.word_received.connect(self.handle_word)
         self.worker.finished.connect(self.handle_response_finished)
         self.worker.error.connect(self.handle_error)
         self.worker.start()
-
         self.chat_display.insertPlainText("AI: ")
         self.current_response = ""
 
@@ -277,7 +245,6 @@ class ChatWindow(QMainWindow):
         self.chat_display.insertPlainText("\n\n")
         self.scroll_to_bottom()
         self.current_response = ""
-        
         if self.loading_dialog:
             self.loading_dialog.close()
             self.loading_dialog = None
@@ -286,7 +253,6 @@ class ChatWindow(QMainWindow):
         if self.loading_dialog:
             self.loading_dialog.close()
             self.loading_dialog = None
-    
         error_dialog = QDialog(self)
         error_dialog.setWindowTitle("Error")
         error_dialog.setStyleSheet("""
@@ -298,15 +264,11 @@ class ChatWindow(QMainWindow):
                 background-color: #C0C0C0;
             }
         """)
-    
         error_layout = QVBoxLayout(error_dialog)
         error_label = QLabel(f"An error occurred: {error_message}")
-        error_label.setWordWrap(True)  # Allow text to wrap
+        error_label.setWordWrap(True)
         error_layout.addWidget(error_label)
-    
-        # Set a minimum size for the dialog
         error_dialog.setMinimumSize(300, 150)
-    
         error_dialog.exec()
 
     def append_to_chat(self, sender, message):
