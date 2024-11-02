@@ -188,11 +188,21 @@ class ChatWindow(QMainWindow):
     def show_about_dialog(self):
         about_dialog = QDialog(self)
         about_dialog.setFixedSize(300, 200)
-        about_dialog.setStyleSheet("border: 2px solid black;")
+        about_dialog.setStyleSheet("""
+            QDialog {
+                background-color: #E0E0E0;
+                border: 2px solid black;
+            }
+            QDialog::title {
+                background-color: #C0C0C0;
+            }
+        """)
+    
         layout = QVBoxLayout(about_dialog)
         about_label = QLabel("Ollama Chat Interface\nVersion 1.0\n\nCreated by Your Name")
         about_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(about_label)
+    
         about_dialog.exec()
 
     def send_question(self):
@@ -241,11 +251,27 @@ class ChatWindow(QMainWindow):
         if self.loading_dialog:
             self.loading_dialog.close()
             self.loading_dialog = None
+    
         error_dialog = QDialog(self)
         error_dialog.setWindowTitle("Error")
+        error_dialog.setStyleSheet("""
+            QDialog {
+                background-color: #E0E0E0;
+                border: 2px solid black;
+            }
+            QDialog::title {
+                background-color: #C0C0C0;
+            }
+        """)
+    
         error_layout = QVBoxLayout(error_dialog)
         error_label = QLabel(f"An error occurred: {error_message}")
+        error_label.setWordWrap(True)  # Allow text to wrap
         error_layout.addWidget(error_label)
+    
+        # Set a minimum size for the dialog
+        error_dialog.setMinimumSize(300, 150)
+    
         error_dialog.exec()
 
     def append_to_chat(self, sender, message):
