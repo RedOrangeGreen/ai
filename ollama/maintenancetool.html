@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Ollama Maintenance Tool (A Bash Script)</title>
+    <title>Ollama Maintenance Tool</title>
     <style>
         :root {
             --primary-color: #4CAF50;
@@ -19,6 +19,7 @@
             padding: 20px;
             line-height: 1.6;
             color: var(--text-color);
+            background-color: #f0f0f0;
         }
 
         h1, h2 {
@@ -32,6 +33,61 @@
             overflow-x: auto;
             white-space: pre-wrap;
             word-wrap: break-word;
+        }
+
+        .container {
+            width: 600px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .text-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .text {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .copy-btn {
+            padding: 5px 10px;
+            border: none;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .message.show {
+            opacity: 1;
         }
 
         .download-btn {
@@ -58,25 +114,44 @@
 </head>
 <body>
     <header>
-        <h1>Ollama Maintenance Tool (A Bash Script)</h1>
+        <h1>Ollama Maintenance Tool (ollama.sh)</h1>
     </header>
     
     <main>
         <p>Using Ubuntu 24.04.1 LTS (or compatible)...</p>
-        <p>Click the link below to download Ollama Maintenance Tool (a Bash script):</p>
-        <a href="../agents/aiwomen/ollama.sh" download class="download-btn" aria-label="Download ollama.sh">Download ollama.sh</a>
-        <p>chmod +x ./ollama.sh</p>
-        <p>./ollama.sh</p>
-        <p>1. Install Ollama</p>
-        <p>2. Chat With Ollama (Using Default Model: llama3.2:1b)</p>
+
+        <!-- Copy to clipboard section -->
+        <div class="container">
+            <div class="text-line">
+                <span class="text"><a href="../agents/aiwomen/ollama.sh" download class="download-btn" aria-label="Download ollama.sh">Download ollama.sh</a></span>
+            </div>
+            <div class="text-line">
+                <span class="text">chmod +x ./ollama.sh</span>
+                <button class="copy-btn" onclick="copyText(event)">Copy</button>
+            </div>
+            <div class="text-line">
+                <span class="text">./ollama.sh</span>
+                <button class="copy-btn" onclick="copyText(event)">Copy</button>
+            </div>
+            <div class="text-line">
+                <span class="text">1. Install Ollama</span>
+            </div>
+			<div class="text-line">
+                <span class="text">2. Chat With Ollama (Using Default Model: llama3.2:1b)</span>
+            </div>
+        </div>
+
         <h2>Contents of ollama.sh</h2>
         <pre id="sh-contents">
             <!-- The contents of ollama.sh will be displayed here -->
         </pre>
-
+		
     </main>
 
+    <div id="message" class="message">Text copied to clipboard!</div>
+
     <script async>
+        // Fetch and display contents of the ollama.sh file
         function fetchFileContents(filename, elementId) {
             fetch(filename)
                 .then(response => {
@@ -95,6 +170,37 @@
         }
 
         fetchFileContents('../agents/aiwomen/ollama.sh', 'sh-contents');
+
+        // JavaScript function to copy text to clipboard
+        async function copyText(event) {
+            const textToCopy = event.target.previousElementSibling.textContent;
+            const messageElement = document.getElementById('message');
+
+            try {
+                // Use the Clipboard API to write text to the clipboard
+                await navigator.clipboard.writeText(textToCopy);
+
+                // Show the message
+                messageElement.textContent = 'Text copied to clipboard!';
+                messageElement.classList.add('show');
+
+                // Hide the message after 1 second
+                setTimeout(() => {
+                    messageElement.classList.remove('show');
+                }, 1000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+
+                // Show failure message
+                messageElement.textContent = 'Failed to copy text!';
+                messageElement.classList.add('show');
+
+                // Hide the message after 1 second
+                setTimeout(() => {
+                    messageElement.classList.remove('show');
+                }, 1000);
+            }
+        }
     </script>
 </body>
 </html>
