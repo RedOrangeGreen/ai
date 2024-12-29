@@ -181,7 +181,7 @@
                 await navigator.clipboard.writeText(textToCopy);
 
                 // Show the message
-                messageElement.textContent = 'Text copied to clipboard!';
+                messageElement.textContent = 'Text copied to clipboard';
                 messageElement.classList.add('show');
 
                 // Hide the message after 1 second
@@ -189,10 +189,9 @@
                     messageElement.classList.remove('show');
                 }, 1000);
             } catch (err) {
-                console.error('Failed to copy text: ', err);
 
                 // Show failure message
-                messageElement.textContent = 'Failed to copy text!';
+                messageElement.textContent = 'Failed to copy text';
                 messageElement.classList.add('show');
 
                 // Hide the message after 1 second
