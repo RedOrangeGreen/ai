@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Bash script to install, run (AI chat with) and uninstall Ollama (and the friendlier Open-WebUI interface) to provide a locally running AI chatbot.
-# Either a default AI Large Language Model (LLM) can be used (Meta's 'fast' llama3.2:1b) or other LLMs can be selected.
+# Bash script to install, run (AI chat with) and uninstall Ollama (and optionally the friendlier Open-WebUI interface) to provide a locally running AI chatbot.
+# Ollama requires a installed large language model (LLM) - either a default model (Meta's 'fast' llama3.2:1b) or various other models can be selected. 
 #
 # Platform
 # --------
@@ -207,6 +207,9 @@ function select_model() {
 install_open_webui() {
     echo "Preparing to install Open-WebUI..."
     if get_confirmation "Are you sure you want to install Open-WebUI?"; then
+        echo "Purging pip cache..."
+        pip cache purge || { echo "Error: Failed to purge pip cache"; return 1; }
+
         echo "Checking Python installation..."
         if ! command_exists python3; then
             echo "Error: Python 3 is not installed. Please install Python 3.11 or above and try again."
@@ -316,4 +319,3 @@ while true; do
     echo
     read -p "Press Enter to return to the main menu..."
 done
-
