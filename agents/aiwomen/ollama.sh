@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Bash script to install, run (AI chat with) and uninstall Ollama (and optionally the friendlier Open-WebUI interface) to provide a locally running AI chatbot.
-# Ollama requires a installed large language model (LLM) - either a default model (Meta's 'fast' llama3.2:1b) or various other models can be selected. 
+# Ollama requires an installed large language model (LLM) - either a default model (Meta's 'fast' llama3.2:1b) or various other models can be selected. 
 #
 # Platform
 # --------
