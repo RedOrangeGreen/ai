@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Bash script to install, run (AI chat with) and uninstall Ollama.
-# Either a default LLM can be used (Meta's 'fast' llama3.2:1b) or other models selected.
+# Bash script to install, run (AI chat with) and uninstall Ollama (and the friendlier Open-WebUI interface) to provide a locally running AI chatbot.
+# Either a default AI Large Language Model (LLM) can be used (Meta's 'fast' llama3.2:1b) or other LLMs can be selected.
 #
 # Platform
 # --------
@@ -16,6 +16,8 @@
 # -----------------------
 # Pilot: AI Playground (Quasimodo), https://redorangegreen.github.io/ai
 # Copilot: Perplexity AI Free, https://www.perplexity.ai
+
+set -e
 
 # Clear the terminal screen
 clear
@@ -38,6 +40,32 @@ MODEL_DESCRIPTIONS=(
     "Microsoft phi3.5 3.8B"
 )
 MODEL_NAME="$DEFAULT_MODEL_NAME"
+
+# Function to display the date and time header
+display_header() {
+    current_date=$(date "+%d %B %Y %H:%M:%S")
+    echo "========================================"
+    echo "  Ollama and Open-WebUI Manager"
+    echo "  $current_date"
+    echo "========================================"
+    echo
+}
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Function to get user confirmation
+get_confirmation() {
+    local prompt="$1"
+    local response
+    read -p "$prompt (y/n): " response
+    case "$response" in
+        [yY]) return 0 ;;
+        *) return 1 ;;
+    esac
+}
 
 function check_ollama_installed() {
     if command -v ollama &> /dev/null; then
@@ -175,15 +203,88 @@ function select_model() {
     fi
 }
 
+# Function to install Open-WebUI
+install_open_webui() {
+    echo "Preparing to install Open-WebUI..."
+    if get_confirmation "Are you sure you want to install Open-WebUI?"; then
+        echo "Checking Python installation..."
+        if ! command_exists python3; then
+            echo "Error: Python 3 is not installed. Please install Python 3.11 or above and try again."
+            return 1
+        fi
+
+        echo "Checking Python version..."
+        python_version=$(python3 -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
+        if [ "$(printf '%s\n' "3.11" "$python_version" | sort -V | head -n1)" != "3.11" ]; then
+            echo "Error: Python version 3.11 or above is required. Current version: $python_version"
+            return 1
+        fi
+
+        echo "Creating virtual environment..."
+        python3 -m venv open-webui-env || { echo "Error: Failed to create virtual environment"; return 1; }
+
+        echo "Activating virtual environment..."
+        source open-webui-env/bin/activate || { echo "Error: Failed to activate virtual environment"; return 1; }
+
+        echo "Installing Open-WebUI..."
+        pip install open-webui || { echo "Error: Failed to install Open WebUI"; return 1; }
+
+        echo "Upgrading required modules..."
+        pip install -U Pillow pyopenssl || { echo "Error: Failed to upgrade required modules"; return 1; }
+
+        echo "Open-WebUI installed successfully."
+    else
+        echo "Installation cancelled."
+    fi
+}
+
+# Function to start Open-WebUI
+start_open_webui() {
+    echo "Preparing to start Open-WebUI..."
+    if get_confirmation "Are you sure you want to start Open-WebUI?"; then
+        if [ -d "open-webui-env" ]; then
+            echo "Activating virtual environment..."
+            source open-webui-env/bin/activate
+            echo "Starting Open-WebUI server..."
+            open-webui serve || { echo "Error: Failed to start Open WebUI server"; return 1; }
+        else
+            echo "Error: Open-WebUI environment not found. Please install it first."
+        fi
+    else
+        echo "Start operation cancelled."
+    fi
+}
+
+# Function to uninstall Open-WebUI
+uninstall_open_webui() {
+    echo "Checking for Open-WebUI installation..."
+    if [ -d "open-webui-env" ]; then
+        if get_confirmation "Are you sure you want to uninstall Open-WebUI?"; then
+            echo "Removing Open-WebUI environment..."
+            rm -rf open-webui-env
+            echo "Open-WebUI uninstalled successfully."
+        else
+            echo "Uninstallation cancelled."
+        fi
+    else
+        echo "Open-WebUI is not installed."
+    fi
+}
+
 while true; do
-    echo "Ollama Management Script"
+    clear
+    display_header
+    echo "Ollama and Open-WebUI Management Script"
     echo "1. Install Ollama"
     echo "2. Chat With Ollama (Using Default Model: $DEFAULT_MODEL_NAME)"
     echo "3. Chat With Ollama (Choose Model)"
     echo "4. Uninstall Ollama"
-    echo "5. Exit"
+    echo "5. Install Open-WebUI"
+    echo "6. Start Open-WebUI"
+    echo "7. Uninstall Open-WebUI"
+    echo "8. Exit"
     
-    read -p "Enter your choice (1-5): " choice
+    read -p "Enter your choice (1-8): " choice
 
     case $choice in
         1) 
@@ -205,9 +306,14 @@ while true; do
             fi
             ;;
         4) uninstall_ollama ;;
-        5) echo "Exiting..."; exit 0 ;;
-        *) echo "Invalid choice. Please enter a number between 1 and 5." ;;
+        5) install_open_webui ;;
+        6) start_open_webui ;;
+        7) uninstall_open_webui ;;
+        8) echo "Exiting..."; exit 0 ;;
+        *) echo "Invalid choice. Please enter a number between 1 and 8." ;;
     esac
 
     echo
+    read -p "Press Enter to return to the main menu..."
 done
+
