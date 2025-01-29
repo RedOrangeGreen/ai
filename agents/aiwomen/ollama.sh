@@ -15,7 +15,8 @@
 # Development And Testing
 # -----------------------
 # Pilot: AI Playground (Quasimodo), https://redorangegreen.github.io/ai
-# Copilot: Perplexity AI Free, https://www.perplexity.ai
+# Copilot: ChatGPT 4o mini, https://chatgpt.com
+# Last Code Update: Wed 29 Jan 2025, added the Deepseek-R1 1.5B model
 
 set -e
 
@@ -32,12 +33,14 @@ MODEL_NAMES=(
     "llama3.2"
     "gemma2:2b"
     "phi3.5"
+    "deepseek-r1:1.5b"
 )
 MODEL_DESCRIPTIONS=(
     "Meta Llama 3.2 1B"
     "Meta Llama 3.2 3B"
     "Google gemma2 2B"
     "Microsoft phi3.5 3.8B"
+    "DeepSeek-R1 1.5B"
 )
 MODEL_NAME="$DEFAULT_MODEL_NAME"
 
