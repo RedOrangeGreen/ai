@@ -1,1 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Bare Metal Setup Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            margin: 2rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: #60a5fa;
+            margin-bottom: 1.5rem;
+        }
+        pre {
+            background: #1a202c;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            position: relative;
+            overflow-x: auto;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        code {
+            color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #60a5fa;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: #3b82f6;
+        }
+        .highlight {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+        p {
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Bare Metal Setup (C++) on Ubuntu Live USB</h1>
+        <p>Follow these steps to set up and run an AI model using llama.cpp on Ubuntu 24.04.3 LTS Live USB.</p>
+        <pre>
+            <code id="codeBlock">
+cd /home/ubuntu/Public
+sudo apt install -y git build-essential cmake libcurl4-openssl-dev libssl-dev
+git clone https://github.com/ggml-org/llama.cpp
+cd llama.cpp
+cmake -B build
+cmake --build build --config Release
+./build/bin/llama-cli -hf ggml-org/gemma-3-1b-it-GGUF
+<span class="highlight">In one sentence, what is a cat?</span>
+<span class="highlight">In one sentence, why is the sky blue?</span>
+[CNTRL+C] to exit
+vi ./tools/main/main.cpp
+<span class="highlight">Change LOG("\n> "); to LOG("\nWhat do you want to know dude? ");</span>
+cmake --build build --config Release
+./build/bin/llama-cli -hf ggml-org/gemma-3-1b-it-GGUF
+            </code>
+            <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+        </pre>
+    </div>
 
+    <script>
+        function copyCode() {
+            const code = document.getElementById('codeBlock').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Code copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
