@@ -233,7 +233,7 @@ int main(int argc, char **argv) {
 
     return 0;
 }</textarea>
-        <button class="save-btn" onclick="saveFile(1)">Save This Tab</button>
+        <button class="save-btn" onclick="saveFile(1, "main.cpp")">Save This Tab</button>
     </div>
 
     <div class="content">
@@ -264,7 +264,7 @@ cmake --build .
 
 cd ..
 echo "Build finished. The executable is in build/main"</textarea>
-        <button class="save-btn" onclick="saveFile(2)">Save This Tab</button>
+        <button class="save-btn" onclick="saveFile(2, "build.sh")">Save This Tab</button>
     </div>
 
     <div class="content">
@@ -283,7 +283,7 @@ add_executable(main main.cpp)
 # Link against llama library
 target_include_directories(main PRIVATE llama.cpp/include llama.cpp/ggml/include)
 target_link_libraries(main PRIVATE llama)</textarea>
-        <button class="save-btn" onclick="saveFile(3)">Save This Tab</button>
+        <button class="save-btn" onclick="saveFile(3, "CMakeLists.txt")">Save This Tab</button>
     </div>
 
     <div class="content">
@@ -334,19 +334,21 @@ function switchTab(index) {
     contents[index].classList.add('active');
 }
 
-function saveFile(index) {
-    const text = document.getElementById("text" + index).value;
-    const filename = `tab${index + 1}.txt`;
+function saveFile(index, customName) {
+  const text = document.getElementById("text" + index).value;
+  const filename = customName && customName.trim()
+    ? customName.trim()
+    : `tab${index + 1}.txt`;
 
-    const dataUrl = "data:text/plain;charset=utf-8," + encodeURIComponent(text);
-    const link = document.createElement("a");
-    link.setAttribute("href", dataUrl);
-    link.setAttribute("download", filename);
-    link.style.display = "none";
+  const dataUrl = "data:text/plain;charset=utf-8," + encodeURIComponent(text);
+  const link = document.createElement("a");
+  link.setAttribute("href", dataUrl);
+  link.setAttribute("download", filename);
+  link.style.display = "none";
 
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 </script>
 
