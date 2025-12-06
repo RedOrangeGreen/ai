@@ -233,7 +233,7 @@ int main(int argc, char **argv) {
 
     return 0;
 }</textarea>
-        <button class="save-btn" onclick="saveFile(1, "main.cpp")">Save This Tab</button>
+        <button class="save-btn" onclick="saveFile(1, 'main.cpp')">Save This Tab</button>
     </div>
 
     <div class="content">
@@ -264,7 +264,7 @@ cmake --build .
 
 cd ..
 echo "Build finished. The executable is in build/main"</textarea>
-        <button class="save-btn" onclick="saveFile(2, "build.sh")">Save This Tab</button>
+        <button class="save-btn" onclick="saveFile(2, 'build.sh')">Save This Tab</button>
     </div>
 
     <div class="content">
@@ -283,7 +283,7 @@ add_executable(main main.cpp)
 # Link against llama library
 target_include_directories(main PRIVATE llama.cpp/include llama.cpp/ggml/include)
 target_link_libraries(main PRIVATE llama)</textarea>
-        <button class="save-btn" onclick="saveFile(3, "CMakeLists.txt")">Save This Tab</button>
+        <button class="save-btn" onclick="saveFile(3, 'CMakeLists.txt')">Save This Tab</button>
     </div>
 
     <div class="content">
