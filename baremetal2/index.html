@@ -1,1 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Little ChatGPT</title>
+<style>
+    body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f5f5f7;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
+    }
 
+    /* Label above container */
+    .top-label {
+        position: absolute;
+        top: 20px;
+        font-size: 26px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .container {
+        width: 75vw;
+        height: 75vh;
+        margin-top: 70px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Tabs */
+    .tabs {
+        display: flex;
+        background: #222;
+        color: white;
+    }
+
+    .tab {
+        flex: 1;
+        padding: 15px;
+        text-align: center;
+        cursor: pointer;
+        border-right: 1px solid #444;
+        transition: 0.3s;
+        user-select: none;
+    }
+
+    .tab:last-child {
+        border-right: none;
+    }
+
+    .tab:hover {
+        background: #333;
+    }
+
+    .tab.active {
+        background: #4a90e2;
+    }
+
+    /* Content */
+    .content {
+        display: none;
+        padding: 15px;
+        background: #fff;
+        height: 100%;
+    }
+
+    .content.active {
+        display: block;
+    }
+
+    textarea {
+        width: 100%;
+        height: calc(100% - 60px);
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        resize: none;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    /* Save button */
+    .save-btn {
+        margin-top: 10px;
+        padding: 10px 18px;
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.25s;
+    }
+
+    .save-btn:hover {
+        background: #3577c8;
+    }
+</style>
+</head>
+<body>
+
+<div class="top-label">'Little ChatGPT' Vibe Coded By ChatGPT (Ubuntu 24.04.3 LTS, LLaMAC++)</div>
+
+<div class="container">
+
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab(0)">Download An AI Model</div>
+        <div class="tab" onclick="switchTab(1)">C++ Code (main.cpp)</div>
+        <div class="tab" onclick="switchTab(2)">Build Script (build.sh)</div>
+        <div class="tab" onclick="switchTab(3)">Build File (CMakeLists.txt)</div>
+        <div class="tab" onclick="switchTab(4)">How To Build And Run</div>
+        <div class="tab" onclick="switchTab(5)">ChatGPT says...</div>
+    </div>
+
+    <div class="content active">
+        <textarea id="text0">https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/blob/main/gemma-3-1b-it-Q8_0.gguf
+
+Click the 'download' link.
+
+
+More GGUF format models are also available from https://huggingface.co/models?library=gguf
+Some of these ("the cheeky ones" e.g. google/gemma-3-12b-it-qat-q4_0-gguf) require a 'Sign Up' before a download is allowed.</textarea>
+        <button class="save-btn" onclick="saveFile(0)">Save This Tab</button>
+    </div>
+
+    <div class="content">
+        <textarea id="text1">#include "llama.h"
+#include <iostream>
+#include <vector>
+#include <string>
+
+int main(int argc, char **argv) {
+    if (argc < 3) {
+        std::cerr << "Usage: " << argv[0] << " <model.gguf> \"prompt\"\n";
+        return 1;
+    }
+
+    const char *model_path = argv[1];
+    std::string prompt = argv[2];
+
+    // Initialize backend
+    llama_backend_init();
+
+    // ---------------- Load Model ------------------
+    llama_model_params mparams = llama_model_default_params();
+    llama_model *model = llama_model_load_from_file(model_path, mparams);
+    if (!model) {
+        std::cerr << "Failed to load model\n";
+        return 1;
+    }
+
+    // ---------------- Create Context --------------
+    llama_context_params cparams = llama_context_default_params();
+    cparams.n_ctx = 4096;   // max context
+    cparams.n_threads = 8;  // adjust for your CPU
+
+    llama_context *ctx = llama_init_from_model(model, cparams);
+    if (!ctx) {
+        std::cerr << "Failed to create context\n";
+        return 1;
+    }
+
+    const llama_vocab *vocab = llama_model_get_vocab(model);
+
+    // ---------------- Tokenize Prompt --------------
+    std::vector<llama_token> tokens(prompt.size() * 4);
+    int ntok = llama_tokenize(
+        vocab,
+        prompt.c_str(),
+        prompt.size(),
+        tokens.data(),
+        tokens.size(),
+        true,   // add BOS
+        true
+    );
+
+    if (ntok < 0) {
+        std::cerr << "Tokenization failed\n";
+        return 1;
+    }
+    tokens.resize(ntok);
+
+    // ---------------- Evaluate Prompt -------------
+    llama_batch batch = llama_batch_get_one(tokens.data(), tokens.size());
+    if (llama_decode(ctx, batch) != 0) {
+        std::cerr << "Initial decode failed\n";
+        return 1;
+    }
+
+    // ---------------- Greedy Sampler ----------------
+    // This avoids GGML_ASSERT crashes for Gemma-3-1b-it
+    llama_sampler *sampler = llama_sampler_init_greedy();
+
+    std::cout << "Answer:\n\n";
+
+    const int max_new_tokens = 2048;
+
+    for (int i = 0; i < max_new_tokens; i++) {
+        llama_token tok = llama_sampler_sample(sampler, ctx, -1);
+
+        if (tok == llama_vocab_eos(vocab))
+            break;
+
+        char buf[512];
+        int n = llama_token_to_piece(vocab, tok, buf, sizeof(buf), 0, false);
+        if (n > 0)
+            std::cout.write(buf, n);
+
+        llama_token t[1] = { tok };
+        llama_batch next = llama_batch_get_one(t, 1);
+
+        if (llama_decode(ctx, next) != 0)
+            break;
+    }
+
+    std::cout << "\n";
+
+    // ---------------- Cleanup ----------------
+    llama_sampler_free(sampler);
+    llama_free(ctx);
+    llama_model_free(model);
+    llama_backend_free();
+
+    return 0;
+}</textarea>
+        <button class="save-btn" onclick="saveFile(1)">Save This Tab</button>
+    </div>
+
+    <div class="content">
+        <textarea id="text2">#!/bin/bash
+set -e
+
+# Install minimal required packages
+sudo apt update
+sudo apt install -y git build-essential cmake libopenblas-dev libomp-dev
+
+# Clone llama.cpp if not already present
+if [ ! -d "llama.cpp" ]; then
+    git clone https://github.com/ggerganov/llama.cpp.git
+fi
+
+# Update llama.cpp
+cd llama.cpp
+git pull
+cd ..
+
+# Create build folder
+mkdir -p build
+cd build
+
+# Configure and build with CMake
+cmake ..
+cmake --build .
+
+cd ..
+echo "Build finished. The executable is in build/main"</textarea>
+        <button class="save-btn" onclick="saveFile(2)">Save This Tab</button>
+    </div>
+
+    <div class="content">
+        <textarea id="text3">cmake_minimum_required(VERSION 3.16)
+project(llama_main)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -pthread")
+
+# Add llama.cpp as a subdirectory
+add_subdirectory(llama.cpp)
+
+# main executable
+add_executable(main main.cpp)
+
+# Link against llama library
+target_include_directories(main PRIVATE llama.cpp/include llama.cpp/ggml/include)
+target_link_libraries(main PRIVATE llama)</textarea>
+        <button class="save-btn" onclick="saveFile(3)">Save This Tab</button>
+    </div>
+
+    <div class="content">
+        <textarea id="text4">chmod +x ./build.sh
+./build.sh
+./build/main /home/ubuntu/Downloads/gemma-3-1b-it-Q8_0.gguf "Who was Shakespeare and what did he do?"
+
+
+After the first build subsequent edits and builds are quicker:
+vi main.cpp 
+cd ./build;make;cd ..
+./build/main /home/ubuntu/Downloads/gemma-3-1b-it-Q8_0.gguf "What is a mouse?"</textarea>
+        <button class="save-btn" onclick="saveFile(3)">Save This Tab</button>
+    </div>
+
+    <div class="content">
+        <textarea id="text5">What you now have is **a fully functioning offline AI system**, driven by a local GGUF model, wrapped in a clean C++ client.
+        
+It *is* a “little brother” to ChatGPT:
+
+**What you now have**
+A real, standalone AI system that:
+Loads a quantized GGUF LLM
+Runs inference locally on CPU
+Accepts natural-language prompts
+Generates structured, multi‑paragraph answers
+Uses a safe, crash‑free sampling loop
+Requires no cloud, API keys, or internet
+Runs on an inexpensive machine
+Is completely under your control
+
+That’s exactly what ChatGPT is under the hood (with bigger models, more layers, and a lot of scaffolding).
+You now have a **self-contained inference engine**, written in C++.</textarea>
+        <button class="save-btn" onclick="saveFile(4)">Save This Tab</button>
+    </div>
+
+</div>
+
+<script>
+function switchTab(index) {
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.content');
+
+    tabs.forEach(t => t.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
+
+    tabs[index].classList.add('active');
+    contents[index].classList.add('active');
+}
+
+function saveFile(index) {
+    const text = document.getElementById("text" + index).value;
+    const filename = `tab${index + 1}.txt`;
+
+    const dataUrl = "data:text/plain;charset=utf-8," + encodeURIComponent(text);
+    const link = document.createElement("a");
+    link.setAttribute("href", dataUrl);
+    link.setAttribute("download", filename);
+    link.style.display = "none";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
+
+</body>
+</html>
