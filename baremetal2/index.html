@@ -130,7 +130,7 @@ Click the 'download' link.
 
 More GGUF format models are also available from https://huggingface.co/models?library=gguf
 Some of these ("the cheeky ones" e.g. google/gemma-3-12b-it-qat-q4_0-gguf) require a 'Sign Up' before a download is allowed.</textarea>
-        <button class="save-btn" onclick="saveFile(0)">Save This Tab</button>
+        <button class="save-btn" onclick="saveFile(0, 'models.txt')">Save This Tab</button>
     </div>
 
     <div class="content">
@@ -296,7 +296,7 @@ After the first build subsequent edits and builds are quicker:
 vi main.cpp 
 cd ./build;make;cd ..
 ./build/main ~/Downloads/gemma-3-1b-it-Q8_0.gguf "What is a mouse?"</textarea>
-        <button class="save-btn" onclick="saveFile(3)">Save This Tab</button>
+        <button class="save-btn" onclick="saveFile(3, 'howtobuild.txt')">Save This Tab</button>
     </div>
 
     <div class="content">
@@ -317,7 +317,7 @@ Is completely under your control
 
 That’s exactly what ChatGPT is under the hood (with bigger models, more layers, and a lot of scaffolding).
 You now have a **self-contained inference engine**, written in C++.</textarea>
-        <button class="save-btn" onclick="saveFile(4)">Save This Tab</button>
+        <button class="save-btn" onclick="saveFile(4, 'chatgptinfo.txt')">Save This Tab</button>
     </div>
 
 </div>
