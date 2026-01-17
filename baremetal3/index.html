@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LLaMAC++ Stage 3</title>
+<style>
+    body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f5f5f7;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
+    }
+
+    /* Label above container */
+    .top-label {
+        position: absolute;
+        top: 20px;
+        font-size: 26px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .container {
+        width: 75vw;
+        height: 75vh;
+        margin-top: 70px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Tabs */
+    .tabs {
+        display: flex;
+        background: #222;
+        color: white;
+    }
+
+    .tab {
+        flex: 1;
+        padding: 15px;
+        text-align: center;
+        cursor: pointer;
+        border-right: 1px solid #444;
+        transition: 0.3s;
+        user-select: none;
+    }
+
+    .tab:last-child {
+        border-right: none;
+    }
+
+    .tab:hover {
+        background: #333;
+    }
+
+    .tab.active {
+        background: #4a90e2;
+    }
+
+    /* Content */
+    .content {
+        display: none;
+        padding: 15px;
+        background: #fff;
+        height: 100%;
+    }
+
+    .content.active {
+        display: block;
+    }
+
+    textarea {
+        width: 100%;
+        height: calc(100% - 60px);
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        resize: none;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    /* Save button */
+    .save-btn {
+        margin-top: 10px;
+        padding: 10px 18px;
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.25s;
+    }
+
+    .save-btn:hover {
+        background: #3577c8;
+    }
+</style>
+</head>
+<body>
+
+<div class="top-label">Stage 2: Enhanced Vibe Coding By Grok (Ubuntu 24.04.3 LTS, LLaMAC++)</div>
+
+<div class="container">
+
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab(0)">Download An AI Model</div>
+        <div class="tab" onclick="switchTab(1)">C++ Code (main.cpp)</div>
+        <div class="tab" onclick="switchTab(2)">Build Script (build.sh)</div>
+        <div class="tab" onclick="switchTab(3)">Build File (CMakeLists.txt)</div>
+        <div class="tab" onclick="switchTab(4)">How To Build And Run</div>
+        <div class="tab" onclick="switchTab(5)">Summary</div>
+    </div>
+
+    <div class="content active">
+        <textarea id="text0">https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/blob/main/gemma-3-1b-it-Q8_0.gguf
+
+Click the 'download' link.
+
+
+More GGUF format models are also available from https://huggingface.co/models?library=gguf
+Some of these ("the cheeky ones" e.g. google/gemma-3-12b-it-qat-q4_0-gguf) require a 'Sign Up' before a download is allowed.</textarea>
+        <button class="save-btn" onclick="saveFile(0, 'models.txt')">Save This Tab</button>
+    </div>
+
+    <div class="content">
+        <textarea id="text1">#include "llama.h"
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+
+bool is_quiet = false;               // our own output (prompt + generation)
+bool suppress_llama_log = false;     // llama.cpp internal logs
+
+void log(const std::string& msg) {
+    if (!is_quiet) {
+        std::cout << msg;
+        std::cout.flush();
+    }
+}
+
+void log_line(const std::string& msg) {
+    if (!is_quiet) {
+        std::cout << msg << "\n";
+    }
+}
+
+// Modern null logger compatible with current llama.cpp / ggml
+static void null_log_callback(enum ggml_log_level level, const char * text, void * user_data) {
+    (void) level;
+    (void) text;
+    (void) user_data;
+    // Do nothing → silence all llama.cpp logs
+}
+
+int main(int argc, char **argv) {
+    if (argc < 3) {
+        std::cerr << "Usage: " << argv[0] << " <model.gguf> \"prompt\" [output.txt] [-q] [-L]\n";
+        std::cerr << "Options:\n";
+        std::cerr << "  -q, --quiet          suppress console output of prompt & generated answer\n";
+        std::cerr << "  -L, --no-llama-log   suppress llama.cpp internal logs (loading, sched_reserve, timings, etc.)\n";
+        std::cerr << "  output.txt           optional: save prompt + answer to this file\n";
+        return 1;
+    }
+
+    const char* model_path = argv[1];
+    std::string prompt = argv[2];
+
+    std::string output_filename;
+    is_quiet = false;
+    suppress_llama_log = false;
+
+    // Parse optional arguments (scanning from left to right after the required args)
+    for (int i = 3; i < argc; ++i) {
+        std::string arg = argv[i];
+        if (arg == "-q" || arg == "--quiet") {
+            is_quiet = true;
+        } else if (arg == "-L" || arg == "--no-llama-log") {
+            suppress_llama_log = true;
+        } else if (output_filename.empty()) {
+            output_filename = arg;
+        } else {
+            std::cerr << "Error: too many arguments or unknown flag '" << arg << "'\n";
+            return 1;
+        }
+    }
+
+    // Disable llama.cpp logging **very early** — before model/context creation
+    if (suppress_llama_log) {
+        llama_log_set(null_log_callback, nullptr);
+    }
+
+    bool save_to_file = !output_filename.empty();
+
+    std::ofstream outfile;
+    if (save_to_file) {
+        outfile.open(output_filename, std::ios::out);
+        if (!outfile.is_open()) {
+            std::cerr << "Error: cannot open output file '" << output_filename << "'\n";
+            return 1;
+        }
+        outfile << "Question:\n" << prompt << "\n\n";
+        outfile << "Answer:\n\n";
+    }
+
+    if (!is_quiet) {
+        std::cout << "Question:\n" << prompt << "\n\n";
+        std::cout << "Answer:\n\n";
+    }
+
+    // ---------------- Initialize backend ----------------
+    llama_backend_init();
+
+    // ---------------- Load Model ------------------
+    llama_model_params mparams = llama_model_default_params();
+    llama_model *model = llama_model_load_from_file(model_path, mparams);
+    if (!model) {
+        std::cerr << "Failed to load model\n";
+        if (save_to_file) outfile.close();
+        return 1;
+    }
+
+    // ---------------- Create Context --------------
+    llama_context_params cparams = llama_context_default_params();
+    cparams.n_ctx     = 4096;
+    cparams.n_threads = 8;           // adjust as needed
+
+    llama_context *ctx = llama_init_from_model(model, cparams);
+    if (!ctx) {
+        std::cerr << "Failed to create context\n";
+        llama_model_free(model);
+        if (save_to_file) outfile.close();
+        return 1;
+    }
+
+    const llama_vocab *vocab = llama_model_get_vocab(model);
+
+    // ---------------- Tokenize Prompt --------------
+    std::vector<llama_token> tokens(prompt.size() * 4);
+    int ntok = llama_tokenize(
+        vocab,
+        prompt.c_str(),
+        prompt.size(),
+        tokens.data(),
+        tokens.size(),
+        true,  // add BOS
+        true   // special tokens
+    );
+
+    if (ntok < 0) {
+        std::cerr << "Tokenization failed\n";
+        llama_free(ctx);
+        llama_model_free(model);
+        if (save_to_file) outfile.close();
+        return 1;
+    }
+    tokens.resize(ntok);
+
+    // ---------------- Evaluate Prompt -------------
+    llama_batch batch = llama_batch_get_one(tokens.data(), tokens.size());
+    if (llama_decode(ctx, batch) != 0) {
+        std::cerr << "Initial decode failed\n";
+        llama_free(ctx);
+        llama_model_free(model);
+        if (save_to_file) outfile.close();
+        return 1;
+    }
+
+    // ---------------- Greedy sampling ----------------
+    llama_sampler *sampler = llama_sampler_init_greedy();
+
+    std::string answer;
+
+    const int max_new_tokens = 2048;
+
+    for (int i = 0; i < max_new_tokens; ++i) {
+        llama_token tok = llama_sampler_sample(sampler, ctx, -1);
+
+        if (tok == llama_vocab_eos(vocab))
+            break;
+
+        char buf[512];
+        int n = llama_token_to_piece(vocab, tok, buf, sizeof(buf), 0, false);
+        if (n <= 0) continue;
+
+        // Output to console (unless quiet)
+        if (!is_quiet) {
+            std::cout.write(buf, n);
+            std::cout.flush();
+        }
+
+        // Collect for file
+        if (save_to_file) {
+            answer.append(buf, n);
+        }
+
+        // Feed token back to context
+        llama_token t[1] = { tok };
+        llama_batch next = llama_batch_get_one(t, 1);
+        if (llama_decode(ctx, next) != 0) {
+            break;
+        }
+    }
+
+    if (!is_quiet) {
+        std::cout << "\n";
+    }
+
+    // Write answer to file if requested
+    if (save_to_file) {
+        outfile << answer << "\n";
+        outfile.close();
+        if (!is_quiet) {
+            std::cout << "\n(Saved to: " << output_filename << ")\n";
+        }
+    }
+
+    // ---------------- Cleanup ----------------
+    llama_sampler_free(sampler);
+    llama_free(ctx);
+    llama_model_free(model);
+    llama_backend_free();
+
+    return 0;
+}</textarea>
+        <button class="save-btn" onclick="saveFile(1, 'main.cpp')">Save This Tab</button>
+    </div>
+
+    <div class="content">
+        <textarea id="text2">#!/bin/bash
+set -e
+
+# Install minimal required packages
+sudo apt update
+sudo apt install -y git build-essential cmake libopenblas-dev libomp-dev
+
+# Clone llama.cpp if not already present
+if [ ! -d "llama.cpp" ]; then
+    git clone https://github.com/ggerganov/llama.cpp.git
+fi
+
+# Update llama.cpp
+cd llama.cpp
+git pull
+cd ..
+
+# Create build folder
+mkdir -p build
+cd build
+
+# Configure and build with CMake
+cmake ..
+cmake --build .
+
+cd ..
+echo "Build finished. The executable is in build/main"</textarea>
+        <button class="save-btn" onclick="saveFile(2, 'build.sh')">Save This Tab</button>
+    </div>
+
+    <div class="content">
+        <textarea id="text3">cmake_minimum_required(VERSION 3.16)
+project(llama_main)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -pthread")
+
+# Add llama.cpp as a subdirectory
+add_subdirectory(llama.cpp)
+
+# main executable
+add_executable(main main.cpp)
+
+# Link against llama library
+target_include_directories(main PRIVATE llama.cpp/include llama.cpp/ggml/include)
+target_link_libraries(main PRIVATE llama)</textarea>
+        <button class="save-btn" onclick="saveFile(3, 'CMakeLists.txt')">Save This Tab</button>
+    </div>
+
+    <div class="content">
+        <textarea id="text4">chmod +x ./build.sh
+./build.sh
+./build/main ~/Downloads/gemma-3-1b-it-Q8_0.gguf "Explain quantum computing" 
+
+
+After the first build subsequent edits and builds are quicker:
+vi main.cpp 
+cd ./build;make;cd ..
+./build/main ~/Downloads/gemma-3-1b-it-Q8_0.gguf "Explain quantum computing"
+
+
+Other examples...
+# Normal run
+./build/main ~/Downloads/gemma-3-1b-it-Q8_0.gguf "Who was Shakespeare?"
+
+# Quiet + no llama.cpp logs + save to file
+./build/main ~/Downloads/gemma-3-1b-it-Q8_0.gguf "Tell me a joke" output.txt -q -L
+
+# Only hide llama.cpp spam (still see prompt & generation)
+./build/main ~/Downloads/gemma-3-1b-it-Q8_0.gguf  "In a sentence, what is a mouse" -L</textarea>
+        <button class="save-btn" onclick="saveFile(4, 'howtobuild.txt')">Save This Tab</button>
+    </div>
+
+    <div class="content">
+        <textarea id="text5">Enhancements since last stage:
+        
+Optional saving of question and answer to a file.
+Optional quiet modes for LLaMAC++ diagnostics (-L) and answer generation (-q)</textarea>
+        <button class="save-btn" onclick="saveFile(5, 'summary.txt')">Save This Tab</button>
+    </div>
+
+</div>
+
+<script>
+function switchTab(index) {
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.content');
+
+    tabs.forEach(t => t.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
+
+    tabs[index].classList.add('active');
+    contents[index].classList.add('active');
+}
+
+function saveFile(index, customName) {
+  const text = document.getElementById("text" + index).value;
+  const filename = customName && customName.trim()
+    ? customName.trim()
+    : `tab${index + 1}.txt`;
+
+  const dataUrl = "data:text/plain;charset=utf-8," + encodeURIComponent(text);
+  const link = document.createElement("a");
+  link.setAttribute("href", dataUrl);
+  link.setAttribute("download", filename);
+  link.style.display = "none";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+</script>
+
+</body>
+</html>
