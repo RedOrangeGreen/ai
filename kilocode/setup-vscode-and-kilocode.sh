@@ -29,9 +29,15 @@ else
     echo "→ snapd already installed."
 fi
 
-# Refresh core snap (helps avoid classic confinement issues)
-echo "→ Refreshing snap core..."
-sudo snap refresh core || true
+# ────────────────────────────────────────────────
+# 1b. Refresh core snap (if present)
+# ────────────────────────────────────────────────
+if snap list 2>/dev/null | grep -q '^core '; then
+    echo "→ Refreshing snap core..."
+    sudo snap refresh core >/dev/null 2>&1 || true
+else
+    echo "→ 'core' snap not installed; skipping core refresh."
+fi
 
 # ────────────────────────────────────────────────
 # 2. Install Visual Studio Code (official snap)
@@ -48,11 +54,21 @@ fi
 # Publisher: kilocode    ID: kilocode.Kilo-Code
 # ────────────────────────────────────────────────
 echo "→ Installing Kilo Code extension..."
-code --install-extension kilocode.Kilo-Code || {
-    echo "⚠  Extension install failed. Trying force-refresh method..."
-    sudo snap refresh code
-    code --install-extension kilocode.Kilo-Code --force
-}
+if ! command -v code >/dev/null 2>&1; then
+    echo "⚠  VS Code CLI not available yet."
+    echo "   Tip: Start VS Code once, close it, then re-run this script"
+else
+    if ! code --install-extension kilocode.Kilo-Code >/dev/null 2>&1; then
+        echo "⚠  Extension install failed. Trying force-refresh method..."
+        sudo snap refresh code >/dev/null 2>&1 || true
+        if ! code --install-extension kilocode.Kilo-Code --force >/dev/null 2>&1; then
+            echo "⚠  Extension install still failing; please install from VS Code UI:"
+            echo "   1. Open VS Code"
+            echo "   2. Go to Extensions"
+            echo "   3. Search for 'Kilo Code' (kilocode.Kilo-Code)"
+        fi
+    fi
+fi
 
 # ────────────────────────────────────────────────
 # 4. Optional but strongly recommended companions
@@ -60,6 +76,16 @@ code --install-extension kilocode.Kilo-Code || {
 echo "→ Installing git + basic build tools (very useful with Kilo)..."
 sudo apt update
 sudo apt install -y git build-essential curl wget
+
+# ────────────────────────────────────────────────
+# 5. Quick snap / VS Code health check
+# ────────────────────────────────────────────────
+echo ""
+echo "→ Snap info summary:"
+snap version || true
+echo ""
+echo "→ VS Code snap status:"
+snap list code 2>/dev/null || echo "   VS Code snap not listed (install may have failed)."
 
 # ────────────────────────────────────────────────
 # Final instructions
@@ -72,6 +98,7 @@ echo ""
 echo "Next steps:"
 echo "  1. Launch VS Code:     code"
 echo "                         (or search 'Visual Studio Code' in menu)"
+echo "  2. If 'code' is not found, log out and back in, or reboot."
 echo ""
 
 exit 0
