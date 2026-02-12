@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# setup-kilocode-on-ubuntu-live.sh
-# -------------------------------
+# setup-vscode-and-kilocode.sh
+# ----------------------------
 # Installs VS Code (snap), Kilo Code extension + useful basics
 # Best run in Ubuntu Live USB session
 #
@@ -11,8 +11,8 @@
 set -euo pipefail
 
 echo "┌──────────────────────────────────────────────────────┐"
-echo "│        Kilo Code + VS Code setup for Ubuntu Live     │"
-echo "│               (snap-based • 2026 friendly)           │"
+echo "│         VS Code + Kilo Code setup for Ubuntu         │"
+echo "│             (snap-based • 2026 friendly)             │"
 echo "└──────────────────────────────────────────────────────┘"
 echo ""
 
@@ -72,16 +72,6 @@ echo ""
 echo "Next steps:"
 echo "  1. Launch VS Code:     code"
 echo "                         (or search 'Visual Studio Code' in menu)"
-echo ""
-echo "  2. On first launch Kilo Code usually shows a welcome / sign-in screen"
-echo "     → Sign in (GitHub / Google / email) or bring your own API keys"
-echo "     → You get free credits on signup via Kilo"
-echo ""
-echo "  3. Optional: open a folder or terminal in VS Code and try:"
-echo "        Ctrl+Shift+P → Kilo Code: New Task"
-echo ""
-echo "Enjoy agentic coding with Kilo! 🚀"
-echo "     https://kilo.ai     https://github.com/Kilo-Org/kilocode"
 echo ""
 
 exit 0
