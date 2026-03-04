@@ -1,197 +1,252 @@
-#!/usr/bin/env bash
-set -euo pipefail
-trap 'echo "Error on line $LINENO"; exit 1' ERR
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>kiloauth.sh – Fully Autonomous AI-Generated 2FA Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-PROJECT_NAME="qt_multi_totp_viewer"
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px 20px;
+            color: #2c3e50;
+        }
 
-echo "=== Qt6 Multi-TOTP Viewer Bootstrap (Final) ==="
-echo ""
+        .container {
+            max-width: 950px;
+            margin: auto;
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 14px;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+        }
 
-# ------------------------------------------------------------
-# OS CHECK
-# ------------------------------------------------------------
-if ! command -v apt >/dev/null 2>&1; then
-    echo "This script supports Debian/Ubuntu systems only."
-    exit 1
-fi
+        h1 { margin-top: 0; font-size: 2.2rem; }
+        h2 { margin-top: 50px; color: #34495e; }
 
-# ------------------------------------------------------------
-# IDEMPOTENCY CHECK
-# ------------------------------------------------------------
-if [ -d "$PROJECT_NAME" ]; then
-    echo "Directory '$PROJECT_NAME' already exists."
-    echo "Remove it first if you want to regenerate."
-    exit 0
-fi
+        p { font-size: 1.05rem; line-height: 1.7; }
 
-# ------------------------------------------------------------
-# INSTALL DEPENDENCIES
-# ------------------------------------------------------------
-echo "Updating packages..."
-sudo apt update -y
+        .subtitle {
+            font-size: 1.15rem;
+            color: #555;
+            margin-top: -10px;
+        }
 
-echo "Installing Qt6 + build tools..."
-sudo apt install -y \
-    nodejs npm \
-    build-essential g++ cmake \
-    libgl1-mesa-dev libglx-dev \
-    qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qtcreator
+        .button-group {
+            margin: 35px 0;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
 
-# ------------------------------------------------------------
-# INSTALL KILO IF MISSING
-# ------------------------------------------------------------
-if ! command -v kilo >/dev/null 2>&1; then
-    echo "Installing Kilo CLI..."
-    sudo npm install -g @kilocode/cli@latest
-fi
+        .btn {
+            padding: 14px 30px;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+        }
 
-# ------------------------------------------------------------
-# CONFIGURE KILO
-# ------------------------------------------------------------
-mkdir -p ~/.config/kilo ~/.kilocode/cli
+        .btn-view { background: #3498db; }
+        .btn-view:hover { background: #2c80b4; }
 
-cat > ~/.config/kilo/opencode.json <<EOF
-{
-  "\$schema": "https://app.kilo.ai/config.json"
+        .btn-download { background: #27ae60; }
+        .btn-download:hover { background: #1e8c4d; }
+
+        .process {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            line-height: 1.8;
+            margin-top: 20px;
+        }
+
+        .highlight { font-weight: 600; }
+
+        code {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        a.external {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a.external:hover { text-decoration: underline; }
+
+        .highlight-box {
+            background: #e8f4fd;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        /* ===== MODAL STYLES ===== */
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .modal-content {
+            background: #1e1e1e;
+            width: 100%;
+            max-width: 1000px;
+            max-height: 85vh;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .modal-header {
+            background: #111;
+            color: #fff;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .close-btn:hover { color: #fff; }
+
+        .modal-body {
+            padding: 25px;
+            overflow: auto;
+            color: #dcdcdc;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 30px; }
+            .modal { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>kiloauth.sh</h1>
+
+    <p class="subtitle">
+        Fully Autonomous AI-Generated Multi-Account TOTP (2FA) Application
+    </p>
+
+    <div class="button-group">
+        <button class="btn btn-view" onclick="openModal()">View kiloauth.sh</button>
+        <a href="kiloauth.sh" download="kiloAuth.sh" class="btn btn-download">
+            Download kiloauth.sh
+        </a>
+    </div>
+
+    <h2>Project Overview</h2>
+
+    <p>
+        <strong>kiloauth.sh</strong> is an AI-generated automation script that builds a
+        fully functional multi-account TOTP desktop application.
+        The final output is a compiled binary named <strong>MultiTOTPViewer</strong>.
+    </p>
+
+    <div class="highlight-box">
+        <strong>Please Note:</strong>
+        <ul>
+            <li>100% free of charge</li>
+            <li>Completely anonymously</li>
+            <li>Using a free LLM model</li>
+            <li>No account sign-in required</li>
+            <li>No API keys used</li>
+            <li>No paid services involved</li>
+        </ul>
+    </div>
+
+    <footer>
+        This page documents an AI-assisted autonomous software generation workflow.
+        Always independently audit security software before production use.
+    </footer>
+
+</div>
+
+<!-- MODAL -->
+
+<div id="scriptModal" class="modal" onclick="outsideClick(event)">
+    <div class="modal-content">
+        <div class="modal-header">
+            kiloauth.sh
+            <button class="close-btn" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body" id="scriptContent">
+            Loading...
+        </div>
+    </div>
+</div>
+
+<script>
+function openModal() {
+    const modal = document.getElementById("scriptModal");
+    const content = document.getElementById("scriptContent");
+
+    modal.style.display = "flex";
+    content.textContent = "Loading...";
+
+    fetch("kiloauth.sh")
+        .then(response => response.text())
+        .then(data => {
+            content.textContent = data;
+        })
+        .catch(() => {
+            content.textContent = "Unable to load script.";
+        });
 }
-EOF
 
-cat > ~/.kilocode/cli/config.json <<EOF
-{
-  "version": "1.0.0",
-  "autoApproval": {
-    "enabled": true,
-    "write": { "enabled": true },
-    "shell": { "enabled": true },
-    "mcp": { "enabled": true },
-    "default": { "enabled": true }
-  }
+function closeModal() {
+    document.getElementById("scriptModal").style.display = "none";
 }
-EOF
 
-# ------------------------------------------------------------
-# CREATE PROJECT DIRECTORY
-# ------------------------------------------------------------
-mkdir "$PROJECT_NAME"
-cd "$PROJECT_NAME"
+function outsideClick(event) {
+    const modalContent = document.querySelector(".modal-content");
+    if (!modalContent.contains(event.target)) {
+        closeModal();
+    }
+}
+</script>
 
-echo ""
-echo "=== Generating Qt6 Project (Programmatic UI, Headers Fixed) ==="
-echo ""
-
-kilo run --auto "Create a complete Qt6 Widgets application in the CURRENT DIRECTORY.
-
-STRICT REQUIREMENTS:
-
-- Use Qt6 only.
-- Include all necessary headers: QHeaderView, QDateTime, QTimer, QTableWidget, QLabel, QSettings, QVector, QMainWindow, QPushButton, QVBoxLayout, QMessageBox, QInputDialog, QCryptographicHash
-- Do NOT use QRegExp.
-- Do NOT use QCryptographicHash::hmac.
-- Implement HMAC-SHA1 manually using QCryptographicHash.
-- Use QByteArray for password hashes and XOR operations.
-- Programmatic UI only (no .ui files).
-
-Application Requirements:
-
-- Up to 5 TOTP secrets
-- QSettings persistence
-- Optional master password (SHA-256 + 'fixed-2026-salt')
-- RFC 4648 Base32 decode (clean string via QString then convert to QByteArray)
-- RFC 6238 TOTP (HMAC-SHA1, 30s, 6 digits)
-- Pre-add example: 'Test (Google)' / 'JBSWY3DPEHPK3PXP'
-- Table: Name | Current TOTP | Time Left
-- Add/Edit/Delete buttons
-- 1-second update timer
-- Title: 'Multi TOTP Viewer'
-- Size: 780x520
-
-CMakeLists.txt must include:
-- set(CMAKE_AUTOMOC ON)
-- find_package(Qt6 REQUIRED COMPONENTS Widgets)
-- target_link_libraries(... Qt6::Widgets)
-"
-
-# ------------------------------------------------------------
-# VALIDATION STEP
-# ------------------------------------------------------------
-echo ""
-echo "=== Validating Generated Code ==="
-
-# Check for Qt5 APIs
-if grep -R "QRegExp" . >/dev/null; then
-    echo "ERROR: QRegExp detected (Qt5 API). Aborting."
-    exit 1
-fi
-
-# Check for invalid QCryptographicHash::hmac usage (ignore comments)
-if grep -R "QCryptographicHash::hmac" . | grep -vE '^\s*//|/\*|^\s*\*'; then
-    echo "ERROR: Invalid QCryptographicHash::hmac usage detected. Aborting."
-    exit 1
-else
-    echo "Manual HMAC implementation detected."
-fi
-
-# Optional check for manual HMAC implementation presence
-if ! (grep -R -E "iKeyPad|ipad" . >/dev/null && grep -R -E "oKeyPad|opad" . >/dev/null); then
-    echo "WARNING: Manual HMAC implementation not clearly detected. Verify totp.cpp manually."
-fi
-
-# ------------------------------------------------------------
-# CONFIGURE CMAKE
-# ------------------------------------------------------------
-echo ""
-echo "=== Configuring CMake ==="
-
-mkdir -p build
-cd build
-
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
-
-echo ""
-echo "=== Building Project ==="
-cmake --build .
-
-# ------------------------------------------------------------
-# DETECT EXECUTABLE FOR FIRST RUN
-# ------------------------------------------------------------
-echo ""
-EXECUTABLE=$(find . -maxdepth 1 -type f -executable -name 'Multi*Viewer' | head -n1)
-if [ -z "$EXECUTABLE" ]; then
-    echo "ERROR: Could not find built executable."
-else
-    echo "=== First Run (creates QSettings config) ==="
-    "$EXECUTABLE" || true
-fi
-
-cd ..
-
-# ------------------------------------------------------------
-# DETECT CONFIG FILE CREATED BY FIRST RUN
-# ------------------------------------------------------------
-CONFIG_FILE="$HOME/.config/TOTPViewer/MultiTOTPViewer.conf"
-if [ -f "$CONFIG_FILE" ]; then
-    echo ""
-    echo "Configuration stored at:"
-    echo "  $CONFIG_FILE"
-else
-    echo ""
-    echo "Configuration file not yet created. Run the application and save/add entries to generate it:"
-    echo "  cd $PROJECT_NAME/build"
-    echo "  $EXECUTABLE"
-fi
-
-# ------------------------------------------------------------
-# DONE
-# ------------------------------------------------------------
-echo ""
-echo "=== Build Complete ==="
-echo ""
-echo "Run with:"
-echo "  cd $PROJECT_NAME/build"
-echo "  $EXECUTABLE"
-echo ""
-echo "Security note:"
-echo "  Secrets stored via QSettings are plain text."
-echo "  Master password restricts UI only."
-echo ""
-echo "Done."
+</body>
+</html>
