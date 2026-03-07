@@ -4,7 +4,7 @@ trap 'echo "Error on line $LINENO"; exit 1' ERR
 
 PROJECT_NAME="qt_multi_totp_viewer"
 
-echo "=== Qt6 Multi-TOTP Viewer Bootstrap (Final) ==="
+echo "=== Qt6 Multi-TOTP Viewer Bootstrap (Graphical Countdown, No Master Password) ==="
 echo ""
 
 # ------------------------------------------------------------
@@ -76,7 +76,7 @@ mkdir "$PROJECT_NAME"
 cd "$PROJECT_NAME"
 
 echo ""
-echo "=== Generating Qt6 Project (Programmatic UI, Headers Fixed) ==="
+echo "=== Generating Qt6 Project (Programmatic UI, Graphical Countdown) ==="
 echo ""
 
 kilo run --auto "Create a complete Qt6 Widgets application in the CURRENT DIRECTORY.
@@ -84,26 +84,29 @@ kilo run --auto "Create a complete Qt6 Widgets application in the CURRENT DIRECT
 STRICT REQUIREMENTS:
 
 - Use Qt6 only.
-- Include all necessary headers: QHeaderView, QDateTime, QTimer, QTableWidget, QLabel, QSettings, QVector, QMainWindow, QPushButton, QVBoxLayout, QMessageBox, QInputDialog, QCryptographicHash
+- Include all necessary headers: QHeaderView, QDateTime, QTimer, QTableWidget, QLabel, QSettings, QVector, QMainWindow, QPushButton, QVBoxLayout, QMessageBox, QInputDialog, QCryptographicHash, QProgressBar
 - Do NOT use QRegExp.
 - Do NOT use QCryptographicHash::hmac.
 - Implement HMAC-SHA1 manually using QCryptographicHash.
-- Use QByteArray for password hashes and XOR operations.
+- Use QByteArray for password hashes and XOR operations where applicable.
 - Programmatic UI only (no .ui files).
 
 Application Requirements:
 
-- Up to 5 TOTP secrets
-- QSettings persistence
-- Optional master password (SHA-256 + 'fixed-2026-salt')
-- RFC 4648 Base32 decode (clean string via QString then convert to QByteArray)
-- RFC 6238 TOTP (HMAC-SHA1, 30s, 6 digits)
-- Pre-add example: 'Test (Google)' / 'JBSWY3DPEHPK3PXP'
-- Table: Name | Current TOTP | Time Left
-- Add/Edit/Delete buttons
-- 1-second update timer
-- Title: 'Multi TOTP Viewer'
-- Size: 780x520
+- Display up to 5 TOTP secrets.
+- Use QSettings for persistence.
+- Do NOT include or prompt for any master password or encryption.
+- RFC 4648 Base32 decoding (via QString → QByteArray).
+- RFC 6238 TOTP (HMAC-SHA1, 30s, 6 digits).
+- Pre-add example: 'Test (Google)' / 'JBSWY3DPEHPK3PXP'.
+- Table columns: Name | Current TOTP | Time Left.
+- The 'Time Left' column must use a graphical bar (QProgressBar) instead of numbers.
+- The bar should visually represent remaining seconds in the 30-second window.
+- Bars update every second with color changes (green >15s, orange 6–15s, red ≤5s).
+- Add/Edit/Delete buttons for managing entries.
+- 1-second update timer for codes and bars.
+- Title: 'Multi TOTP Viewer'.
+- Default window size: 780x520.
 
 CMakeLists.txt must include:
 - set(CMAKE_AUTOMOC ON)
@@ -192,6 +195,6 @@ echo "  $EXECUTABLE"
 echo ""
 echo "Security note:"
 echo "  Secrets stored via QSettings are plain text."
-echo "  Master password restricts UI only."
 echo ""
 echo "Done."
+
