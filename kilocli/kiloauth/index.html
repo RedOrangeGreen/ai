@@ -1,286 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>kiloauth.sh – Fully Autonomous AI-Generated 2FA Application</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>kiloauth.sh – Fully Autonomous AI-Generated 2FA Application</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 40px 20px;
+  color: #2c3e50;
+}
+.container {
+  max-width: 950px;
+  margin: auto;
+  background: #ffffff;
+  padding: 50px;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+}
+h1 { margin-top: 0; font-size: 2.2rem; }
+h2 { margin-top: 50px; color: #34495e; }
+p { font-size: 1.05rem; line-height: 1.7; }
+.subtitle {
+  font-size: 1.15rem;
+  color: #555;
+  margin-top: -10px;
+}
+.button-group {
+  margin: 35px 0;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 14px 30px;
+  font-size: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+  border: none;
+}
+.btn-view { background: #3498db; }
+.btn-view:hover { background: #2c80b4; }
+.btn-download { background: #27ae60; }
+.btn-download:hover { background: #1e8c4d; }
+.process {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  line-height: 1.8;
+  margin-top: 20px;
+}
+.highlight { font-weight: 600; }
+code {
+  background: #272822;
+  color: #f8f8f2;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+footer {
+  margin-top: 60px;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+a.external {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+a.external:hover { text-decoration: underline; }
+.highlight-box {
+  background: #e8f4fd;
+  padding: 25px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
 
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 40px 20px;
-            color: #2c3e50;
-        }
+/* Image directly below the button group */
+.button-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 10px auto 0;
+}
 
-        .container {
-            max-width: 950px;
-            margin: auto;
-            background: #ffffff;
-            padding: 50px;
-            border-radius: 14px;
-            box-shadow: 0 10px 28px rgba(0,0,0,0.08);
-        }
-
-        h1 { margin-top: 0; font-size: 2.2rem; }
-        h2 { margin-top: 50px; color: #34495e; }
-
-        p { font-size: 1.05rem; line-height: 1.7; }
-
-        .subtitle {
-            font-size: 1.15rem;
-            color: #555;
-            margin-top: -10px;
-        }
-
-        .button-group {
-            margin: 35px 0;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 14px 30px;
-            font-size: 1rem;
-            border-radius: 8px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            transition: 0.2s ease-in-out;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-view { background: #3498db; }
-        .btn-view:hover { background: #2c80b4; }
-
-        .btn-download { background: #27ae60; }
-        .btn-download:hover { background: #1e8c4d; }
-
-        .process {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 12px;
-            line-height: 1.8;
-            margin-top: 20px;
-        }
-
-        .highlight { font-weight: 600; }
-
-        code {
-            background: #272822;
-            color: #f8f8f2;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 0.95rem;
-        }
-
-        footer {
-            margin-top: 60px;
-            font-size: 0.9rem;
-            color: #7f8c8d;
-        }
-
-        a.external {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        a.external:hover { text-decoration: underline; }
-
-        .highlight-box {
-            background: #e8f4fd;
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 30px;
-        }
-
-        /* ===== MODAL STYLES ===== */
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            inset: 0;
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(4px);
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
-
-        .modal-content {
-            background: #1e1e1e;
-            width: 100%;
-            max-width: 1000px;
-            max-height: 85vh;
-            border-radius: 14px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-        }
-
-        .modal-header {
-            background: #111;
-            color: #fff;
-            padding: 18px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: #aaa;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .close-btn:hover { color: #fff; }
-
-        .modal-body {
-            padding: 25px;
-            overflow: auto;
-            color: #dcdcdc;
-            font-family: Consolas, Monaco, monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            white-space: pre;
-        }
-
-        @media (max-width: 768px) {
-            .container { padding: 30px; }
-            .modal { padding: 20px; }
-        }
-    </style>
+/* ===== MODAL STYLES ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.modal-content {
+  background: #1e1e1e;
+  width: 100%;
+  max-width: 1000px;
+  max-height: 85vh;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.modal-header {
+  background: #111;
+  color: #fff;
+  padding: 18px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+.close-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.close-btn:hover { color: #fff; }
+.modal-body {
+  padding: 25px;
+  overflow: auto;
+  color: #dcdcdc;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre;
+}
+@media (max-width: 768px) {
+  .container { padding: 30px; }
+  .modal { padding: 20px; }
+}
+</style>
 </head>
 <body>
-
 <div class="container">
+  <h1>kiloauth.sh</h1>
+  <p class="subtitle">
+    AI-Generated Multi-Account TOTP (2FA) Application Using Qt 6/C++
+  </p>
 
-    <h1>kiloauth.sh</h1>
+  <div class="button-group">
+    <button class="btn btn-view" onclick="openModal()">View kiloauth.sh</button>
+    <a href="https://redorangegreen.github.io/ai/kilocli/kiloauth/kiloauth.sh"
+       download="kiloauth.sh"
+       class="btn btn-download">
+      Download kiloauth.sh
+    </a>
+  </div>
 
-    <p class="subtitle">
-        AI-Generated Multi-Account TOTP (2FA) Application Using Qt 6/C++
-    </p>
+  <!-- Image directly below button group -->
+  <img src="orangezone.png" alt="Orange Zone" class="button-image">
 
-    <div class="button-group">
-        <button class="btn btn-view" onclick="openModal()">View kiloauth.sh</button>
-        <a href="kiloauth.sh" download="kiloauth.sh" class="btn btn-download">
-            Download kiloauth.sh
-        </a>
-    </div>
+  <h2>Project Overview</h2>
+  <p>
+    <strong>kiloauth.sh</strong> is an AI-generated automation script that builds a
+    functional multi-account TOTP desktop application using Qt 6/C++.
+    The final output is a compiled binary named <strong>MultiTOTPViewer</strong>
+  </p>
 
-    <h2>Project Overview</h2>
+  <div class="highlight-box">
+    <strong>Please Note:</strong><br><br>
+    This demo project was created:
+    <ul>
+      <li>100% free of charge</li>
+      <li>Completely anonymously</li>
+      <li>Using a free LLM model</li>
+      <li>No account sign-in required</li>
+      <li>No API keys used</li>
+    </ul>
+  </div>
 
+  <h2>Build Environment</h2>
+  <p>
+    Ubuntu Linux 24.04.4 LTS (Live USB)<br>
+    Standard Bash Shell<br>
+  </p>
+
+  <h2>Autonomous AI Build Process</h2>
+  <h3>
+    Create shell script containing requirements (using AI chatbots to help) then run shell script to create App.
+    The shell script downloads Kilo CLI and all required/associated development tools then invokes Kilo CLI to
+    generate and build code into a binary App however it chooses.
+  </h3>
+
+  <div class="process">
     <p>
-        <strong>kiloauth.sh</strong> is an AI-generated automation script that builds a
-        functional multi-account TOTP desktop application using Qt 6/C++.
-        The final output is a compiled binary named <strong>MultiTOTPViewer</strong>
+      <span class="highlight">Step 1 – Human Intent &amp Instruction Synthesis:</span><br>
+      Define high-level product goals and convert these into a shell script (kiloauth.sh) containing structured engineering plans and
+      automation logic, using AI chatbots to help create the script..
     </p>
-
-    <div class="highlight-box">
-        <strong>Please Note:</strong><br><br>
-        This demo project was created:
-        <ul>
-            <li>100% free of charge</li>
-            <li>Completely anonymously</li>
-            <li>Using a free LLM model</li>
-            <li>No account sign-in required</li>
-            <li>No API keys used</li>
-        </ul>
-    </div>
-
-    <h2>Build Environment</h2>
-
     <p>
-        Ubuntu Linux 24.04.4 LTS (Live USB)<br>
-        Standard Bash Shell<br>
+      <span class="highlight">Step 2 – Script Execution:</span><br>
+      Invoke the shell script locally using:
+      <br>
+      <code>bash ./kiloauth.sh</code>
     </p>
+    <p>
+      <span class="highlight">Step 3 – Code Generation &amp Assembly:</span><br>
+      <a href="https://kilo.ai/cli" target="_blank" rel="noopener noreferrer" class="external">
+        Kilo CLI
+      </a>
+      executes the build instructions and generates the working application, a compiled Linux binary called <strong>MultiTOTPViewer</strong>
+    </p>
+  </div>
 
-    <h2>Autonomous AI Build Process</h2>
-    <h3>Create shell script containing requirements (using AI chatbots to help) then run shell script to create App. The shell script downloads Kilo CLI and all required/associated development tools then invokes Kilo CLI to generate and build code into a binary App however it chooses.</h3>
-
-    <div class="process">
-
-        <p>
-            <span class="highlight">Step 1 – Human Intent &amp Instruction Synthesis:</span><br>
-            Define high-level product goals and convert these into a shell script (kiloauth.sh) containing structured engineering plans and
-            automation logic, using AI chatbots to help create the script..
-        </p>
-
-        <p>
-            <span class="highlight">Step 2 – Script Execution:</span><br>
-            Invoke the shell script locally using:
-            <br>
-            <code>bash ./kiloauth.sh</code>
-        </p>
-
-        <p>
-            <span class="highlight">Step 3 – Code Generation & Assembly:</span><br>
-            <a href="https://kilo.ai/cli" target="_blank" rel="noopener noreferrer" class="external">
-                Kilo CLI
-            </a>
-            executes the build instructions and generates the working application, a compiled Linux binary called <strong>MultiTOTPViewer</strong>
-        </p>
-
-    </div>
-    
-    <footer>
-        This page documents an AI-assisted autonomous software generation workflow, the software generated is development level and experimental.
-    </footer>
-
+  <footer>
+    This page documents an AI-assisted autonomous software generation workflow, the software generated is development level and experimental.
+  </footer>
 </div>
 
 <!-- MODAL -->
-
 <div id="scriptModal" class="modal" onclick="outsideClick(event)">
-    <div class="modal-content">
-        <div class="modal-header">
-            kiloauth.sh
-            <button class="close-btn" onclick="closeModal()">×</button>
-        </div>
-        <div class="modal-body" id="scriptContent">
-            Loading...
-        </div>
+  <div class="modal-content">
+    <div class="modal-header">
+      kiloauth.sh
+      <button class="close-btn" onclick="closeModal()">×</button>
     </div>
+    <div class="modal-body" id="scriptContent">
+      Loading...
+    </div>
+  </div>
 </div>
 
 <script>
 function openModal() {
-    const modal = document.getElementById("scriptModal");
-    const content = document.getElementById("scriptContent");
-
-    modal.style.display = "flex";
-    content.textContent = "Loading...";
-
-    fetch("kiloauth.sh")
-        .then(response => response.text())
-        .then(data => {
-            content.textContent = data;
-        })
-        .catch(() => {
-            content.textContent = "Unable to load script.";
-        });
+  const modal = document.getElementById("scriptModal");
+  const content = document.getElementById("scriptContent");
+  modal.style.display = "flex";
+  content.textContent = "Loading...";
+  fetch("kiloauth.sh")
+    .then(response => response.text())
+    .then(data => {
+      content.textContent = data;
+    })
+    .catch(() => {
+      content.textContent = "Unable to load script.";
+    });
 }
-
 function closeModal() {
-    document.getElementById("scriptModal").style.display = "none";
+  document.getElementById("scriptModal").style.display = "none";
 }
-
 function outsideClick(event) {
-    const modalContent = document.querySelector(".modal-content");
-    if (!modalContent.contains(event.target)) {
-        closeModal();
-    }
+  const modalContent = document.querySelector(".modal-content");
+  if (!modalContent.contains(event.target)) {
+    closeModal();
+  }
 }
 </script>
-
 </body>
 </html>
