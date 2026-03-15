@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View script</title>
+</head>
+<body>
+  <h2 id="title"></h2>
+  <pre id="code"></pre>
+
+  <script>
+    // Get ?file=setup.sh from the URL
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get('file') || '';
+
+    // Only allow specific filenames
+    const allowed = ['setup.sh', 'run.sh'];
+    if (!allowed.includes(file)) {
+      document.getElementById('title').textContent = 'Invalid file';
+    } else {
+      document.getElementById('title').textContent = file;
+
+      fetch('kilocli/' + file)
+        .then(r => r.text())
+        .then(text => {
+          document.getElementById('code').textContent = text;
+        });
+    }
+  </script>
+</body>
+</html>
