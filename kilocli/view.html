@@ -9,19 +9,18 @@
   <pre id="code"></pre>
 
   <script>
-    // Get ?file=setup.sh from the URL
     const params = new URLSearchParams(window.location.search);
     const file = params.get('file') || '';
 
-    // Only allow specific filenames
     const allowed = ['setup.sh', 'run.sh'];
+
     if (!allowed.includes(file)) {
       document.getElementById('title').textContent = 'Invalid file';
     } else {
       document.getElementById('title').textContent = file;
 
-      // Load from kilocli/<file>
-      fetch('kilocli/' + file)
+      // view.html is already in kilocli/, so this points to kilocli/setup.sh etc.
+      fetch(file)
         .then(r => r.text())
         .then(text => {
           document.getElementById('code').textContent = text;
