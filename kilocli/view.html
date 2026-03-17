@@ -12,7 +12,8 @@
     const params = new URLSearchParams(window.location.search);
     const file = params.get('file') || '';
 
-    const allowed = ['setup.sh', 'run.sh'];
+    // Add every file you want to be viewable here
+    const allowed = ['setup.sh', 'run.sh', 'kilo-prompt.txt'];
 
     if (!allowed.includes(file)) {
       document.getElementById('title').textContent = 'Invalid file';
