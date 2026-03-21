@@ -1,0 +1,33 @@
+1. main.py - The game source code
+2. dist/FlappyKiloPig - The compiled executable (runs standalone)
+3. highscore.xml - Saved high scores (optional)
+
+To continue in future with Kilo CLI:
+
+Ask Kilo to:
+1. Read main.py to understand the codebase
+2. Run the game with: cd /path/to/project && ./dist/FlappyKiloPig
+
+To rebuild the executable (if needed):
+pip install pyinstaller numpy
+pyinstaller --onefile --console --name FlappyKiloPig main.py
+
+The dist/FlappyKiloPig executable can run directly without any dependencies installed.
+
+---
+The sounds are generated at runtime using Python's numpy library - they are synthesized mathematically rather than being pre-recorded audio files. 
+
+The code in main.py creates:
+- Whoosh - frequency sweep with noise for flapping
+- Chime - two-tone (880Hz + 1318Hz) for scoring
+- Explosion - noise + low rumble for game over
+- Power-up - rising frequency sweep for level up
+- Hit sound - punchy impact for boss hits
+- Fanfare - musical notes for victory
+
+The executable generates them itself when it runs. This keeps the project very portable!
+
+The only files you need are:
+- main.py
+- dist/FlappyKiloPig 
+- highscore.xml (optional)
