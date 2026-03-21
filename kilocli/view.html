@@ -13,7 +13,7 @@
     const file = params.get('file') || '';
 
     // Add every file you want to be viewable here
-    const allowed = ['setup.sh', 'run.sh', 'kilo-prompt.txt', 'main.py'];
+    const allowed = ['setup.sh', 'run.sh', 'kilo-prompt.txt', 'kilopig/main.py'];
 
     if (!allowed.includes(file)) {
       document.getElementById('title').textContent = 'Invalid file';
