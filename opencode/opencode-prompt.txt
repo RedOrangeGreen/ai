@@ -1,0 +1,193 @@
+You are an expert software engineer. Build a complete, polished, playable Tetris game from scratch.
+
+## General Requirements
+- Language: JavaScript
+- Environment: Browser (HTML + CSS + JS)
+- No external frameworks or libraries
+- No external assets (no images, no audio files)
+- Output must include:
+  - index.html
+  - styles.css
+  - script.js
+- The game must run by simply opening index.html
+
+---
+
+## Gameplay Features
+
+### Core Mechanics
+- Standard 10x20 grid
+- All 7 tetromino shapes (I, O, T, S, Z, J, L)
+- 7-bag randomization system
+- Gravity-based falling pieces
+- Controls:
+  - Move left/right
+  - Rotate (clockwise at minimum)
+  - Soft drop
+  - Hard drop
+
+### Collision & Placement
+- Accurate collision detection (walls, floor, stacked blocks)
+- Lock delay (optional but preferred)
+- Spawn new piece correctly
+
+### Line Clearing
+- Detect and remove full rows
+- Shift above rows downward
+- Handle multi-line clears properly
+
+### Scoring & Progression
+- Score system:
+  - Single, Double, Triple, Tetris
+- Increase difficulty (speed up over time or per level)
+- Display score and level
+
+### Game States
+- Start screen
+- Playing state
+- Pause/resume
+- Game over + restart
+
+---
+
+## Audio System (CRITICAL FEATURE)
+
+Use the **Web Audio API only** to generate ALL sounds and music procedurally.
+
+### Architecture
+- Create a dedicated `AudioManager` class/module
+- Separate:
+  - Sound Effects (SFX)
+  - Background Music (BGM)
+- Use a single shared AudioContext
+
+---
+
+## Sound Effects (SFX)
+
+Implement synthesized sounds using oscillators + gain envelopes.
+
+### Events & Sound Design
+- Move → very short “tick” (high-frequency square wave)
+- Rotate → soft click (triangle wave)
+- Soft Drop → subtle repeating tone (quiet, not annoying)
+- Hard Drop → strong “thump” (low-frequency sine burst)
+- Piece Lock → soft impact
+- Line Clear:
+  - Single → short tone
+  - Multi-line → richer chord or layered tones
+- Game Over → descending tones
+- Level Up → short ascending arpeggio
+
+### Requirements
+- Very low latency
+- Volume control
+- Avoid audio overlap clutter (manage polyphony)
+
+---
+
+## Procedural Background Music (BGM)
+
+### Core Requirements
+- Fully generated in real time (no audio files)
+- Loop seamlessly
+- Retro / arcade style (inspired by classic puzzle games)
+
+### Music Design
+- Tempo: ~100–140 BPM
+- Time signature: 4/4
+- Use a repeating pattern system
+
+### Implementation Approach
+Use Web Audio API to build a simple sequencer:
+
+#### 1. Timing System
+- Use a scheduler (setInterval or precise audio scheduling)
+- Maintain BPM timing grid
+
+#### 2. Instruments (all synthesized)
+- Bass:
+  - Sine or square wave
+  - Simple repeating bassline
+- Melody:
+  - Square or triangle wave
+  - Short looping motif
+- Harmony (optional):
+  - Light chords or intervals
+- Percussion (optional but recommended):
+  - Kick: low-frequency sine burst
+  - Hi-hat: filtered noise
+
+#### 3. Pattern System
+- Define note sequences as arrays (e.g., frequencies or MIDI-like values)
+- Loop patterns every few bars
+- Slight variation every loop (optional)
+
+#### 4. Adaptive Music (IMPORTANT)
+- Increase tempo slightly as level increases
+- Optionally increase intensity (more notes or layers)
+
+---
+
+## Audio Controls
+- M key → mute/unmute ALL audio
+- Separate volume levels:
+  - Master volume
+  - Music volume
+  - SFX volume (optional)
+- Display audio status in UI
+
+---
+
+## UI / UX
+- Clean, centered layout
+- Show:
+  - Score
+  - Level
+  - Next piece preview
+  - Audio status (muted/unmuted)
+- Subtle visual feedback:
+  - Line clear animation
+  - Game over state
+
+---
+
+## Code Quality
+- Modular structure:
+  - Game logic
+  - Rendering
+  - Input handling
+  - AudioManager (SFX + BGM)
+- Use classes or clearly separated modules
+- Comment key systems:
+  - Game loop
+  - Collision detection
+  - Audio scheduling
+
+---
+
+## Bonus Features (if possible)
+- Ghost piece
+- Hold piece
+- Combo scoring
+- Particle effects on line clear
+- Smooth animations using requestAnimationFrame
+
+---
+
+## Output Format
+- Provide complete code for:
+  - index.html
+  - styles.css
+  - script.js
+- Code must be fully functional without modification
+- No placeholders or missing parts
+
+---
+
+## Goal
+Deliver a smooth, responsive Tetris clone with:
+- Tight gameplay
+- Polished visuals
+- Responsive sound effects
+- Seamless, retro-style procedural background music that enhances immersion without distraction
