@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="start-screen" class="screen">
+            <h1>TETRIS</h1>
+            <p>Press ENTER to Start</p>
+                <div class="controls-section">
+                    <h3>CONTROLS</h3>
+                    <div class="arrow-keys">
+                        <span class="key-group">
+                            <span class="key">←</span>
+                            <span class="key">→</span>
+                            <span class="key-label">Move</span>
+                        </span>
+                        <span class="key-group">
+                            <span class="key">↑</span>
+                            <span class="key-label">Rotate</span>
+                        </span>
+                        <span class="key-group">
+                            <span class="key">↓</span>
+                            <span class="key-label">Soft Drop</span>
+                        </span>
+                    </div>
+                    <div class="other-keys">
+                        <span class="key">SPACE</span> Hard Drop
+                        <span class="key">C</span> Hold Piece
+                        <span class="key">P</span> Pause
+                        <span class="key">M</span> Mute
+                    </div>
+                </div>
+        </div>
+        
+        <div id="pause-screen" class="screen hidden">
+            <h1>PAUSED</h1>
+            <p>Press P to Resume</p>
+        </div>
+        
+        <div id="game-over-screen" class="screen hidden">
+            <h1>GAME OVER</h1>
+            <p id="final-score">Score: 0</p>
+            <p>Press ENTER to Restart</p>
+        </div>
+        
+        <div id="game-board">
+            <canvas id="game-canvas"></canvas>
+            <canvas id="ghost-canvas"></canvas>
+        </div>
+        
+        <div id="side-panel">
+            <div class="panel-section">
+                <h2>SCORE</h2>
+                <p id="score">0</p>
+            </div>
+            <div class="panel-section">
+                <h2>LEVEL</h2>
+                <p id="level">1</p>
+            </div>
+            <div class="panel-section">
+                <h2>LINES</h2>
+                <p id="lines">0</p>
+            </div>
+            <div class="panel-section">
+                <h2>NEXT</h2>
+                <canvas id="next-canvas"></canvas>
+            </div>
+            <div class="panel-section">
+                <h2>HOLD</h2>
+                <canvas id="hold-canvas"></canvas>
+            </div>
+            <div class="panel-section">
+                <h2>AUDIO</h2>
+                <p id="audio-status">🔊 ON</p>
+                <input type="range" id="volume-slider" min="0" max="100" value="50" tabindex="-1">
+            </div>
+        </div>
+    </div>
+    
+    <div id="line-clear-overlay" class="hidden"></div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
