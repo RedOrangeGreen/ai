@@ -1,0 +1,20 @@
+Read and follow the instructions in ./opencode-prompt.txt
+Rotate not working
+Score not working
+Score seems to be increasing when down is pressed, no other time
+Score definately going up by 1 each time I press down arrow
+Can you remove the score increase for each down arrow press
+What does Hold do?
+Update the front screen instructions with this info
+When/how is a level completed?
+Update the front screen with this info
+On the start screen and when paused I can see the play screen dimmed and 'frozen' behind, make it invisible in both cases
+I can still see the left side on the start screen (which has score, level etc.) - it's dimmed but still visible
+The arrow based instructions on the start screen are very small, make them bigger so a user can easily see the functions of the arrow keys
+The score is always incrementing when doing a hard drop, remove this
+Add a slider control on the play screen to control the volume, in addition to the mute control
+The audio level adjusts ok but the slider seems 'sticky', make it move much easier with mouse left click and drag
+Make the loudest volume much louder than current
+Audio start mid point nice and loud but gets softer moving both left and right - far right should be loudest
+Audio slider gone sticky again
+Key presses (arrow pressing) to adjust tetris pieces is moving audio slider
