@@ -1,2 +1,0 @@
-Read index.html, script.js and styles.css to understand the codebase
-Add the text "Created by Opencode", spinning and animated, somewhere on the first screen
