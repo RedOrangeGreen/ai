@@ -1,0 +1,6 @@
+Read index.html, script.js and styles.css to understand the codebase
+Add the animated text "Created by Opencode" somewhere on the first screen
+Change the background music so that it only plays for 5 seconds then slow fades to zero volume at the start of each new level
+Keep the start screen as is but make the play screen background more vibrant and interesting
+The play screen background seem to change as I'm playing, keep it static
+Make the text of 'Created by Opencode' on the start screen bigger and reposition it vertically below the 'TETRIS' text and above the 'Press ENTER to Start' text, repositioning text elements as required for an even spaced layout
