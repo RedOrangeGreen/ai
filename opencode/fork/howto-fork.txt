@@ -1,0 +1,7 @@
+sudo apt update
+sudo apt install -y curl
+curl -fsSL https://opencode.ai/install | bash
+source ~/.bashrc
+opencode
+Read and follow the instructions in ./opencode-fork.txt
+

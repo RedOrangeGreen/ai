@@ -1,0 +1,172 @@
+# OpenCode CLI Fork Setup & Enhancement Guide
+
+## ALL STEPS ARE COMPULSORY — NO SKIPPING ALLOWED
+
+Failure to complete any step results in an INVALID fork.
+
+---
+
+Step 1: Fork and clone into CURRENT directory
+
+Clone the opencode repository directly into new directory './opencode-fork' from your GitHub account.
+
+---
+
+Step 2: Sync repository
+
+Ensure the project is on the latest main branch and fully up to date with origin.
+
+---
+
+Step 3: Inspect project structure
+
+Review:
+
+* Root package.json
+* packages/ directory contents
+
+You MUST understand project layout before proceeding.
+
+---
+
+Step 4: Restrict to CLI-only workspace
+
+Edit package.json so that workspaces ONLY includes:
+
+"workspaces": [
+"packages/cli"
+]
+
+You MUST remove or ignore:
+
+* apps/web
+* packages/ui
+* ALL frontend-related code
+
+---
+
+Step 5: Install CLI dependencies ONLY
+
+Install dependencies strictly for the CLI workspace.
+
+---
+
+Step 6: Lint and format check
+
+Run linting and formatting checks on the CLI codebase.
+
+---
+
+Step 7: Refactor to CLI-only
+
+You MUST:
+
+* Remove ALL frontend/UI dependencies
+* Replace browser-specific libraries
+* Delete unused files and dead code
+
+---
+
+Step 8: REQUIRED FEATURE — Fork Identity Command
+
+Add the following function to the CLI:
+
+function showForkInfo() {
+console.log("OpenCode CLI - Fork Edition");
+console.log("Version: 1.0.0");
+console.log("Status: fork");
+}
+
+Hook into CLI argument handling:
+
+const args = process.argv.slice(2);
+
+if (args[0] === "info") {
+showForkInfo();
+process.exit(0);
+}
+
+REQUIRED RESULT when running:
+opencode-fork info
+
+Output MUST be:
+
+OpenCode CLI - Fork Edition
+Version: 1.0.0
+Status: fork
+
+---
+
+Step 9: Run tests
+
+Execute the CLI test suite and ensure all tests pass.
+
+---
+
+Step 10: Clean dependencies
+
+Review and clean unused or outdated dependencies in the CLI workspace.
+
+---
+
+Step 11: Build CLI
+
+Build the CLI package and verify successful output.
+
+---
+
+Step 12: Rename build output
+
+Rename the build output directory to:
+
+opencode-fork
+
+---
+
+Step 13: Generate project report
+
+Generate:
+
+* changes.log (commit history)
+* diff.patch (code differences)
+
+You MUST also create changes.html including:
+
+* Commit history
+* Code differences
+* Summary of CLI-only transformation
+
+---
+
+Step 14: Run and verify CLI
+
+You MUST verify:
+
+* CLI starts successfully
+
+---
+
+FINAL VALIDATION CRITERIA (MANDATORY)
+
+Your fork is ONLY valid if ALL conditions are met:
+
+* Repository cloned into current directory (.)
+* CLI-only workspace enforced
+* No frontend code remains
+* opencode-fork info works correctly
+* No new window/browser is opened
+* CLI builds successfully
+* Report files generated
+
+---
+
+NON-COMPLIANCE
+
+If ANY step is skipped:
+
+* Fork is INVALID
+* Requirements NOT met
+* Process must be restarted
+
+---
+
