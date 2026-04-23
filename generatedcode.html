@@ -58,6 +58,33 @@
             asked OpenCode to analyse the latest kernel source code for any bugs and issues and it completed in a couple of minutes, generating an nice little <a href="opencode/linuxkernel/homework_for_Linus.html">HTML report</a>.
             Report correct? Don't know, haven't checked, but 'looks' like it could be. Everything free and anonymous.    
             </h4>
+            <table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Severity</th>
+      <th>File</th>
+      <th>Line(s)</th>
+      <th>Issue Description</th>
+      <th>Recommendation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>High</td>
+      <td>kernel/sched/topology.c</td>
+      <td>2077</td>
+      <td>sizeof(void *) * nr_levels could overflow on systems with high core counts</td>
+      <td>Use safe_add_overflow() or check for overflow before multiplication.</td>
+    </tr>
+    <tr>
+      <td>High</td>
+      <td>kernel/sched/topology.c</td>
+      <td>2086</td>
+      <td>nr_node_ids * sizeof(void *) multiplication could overflow</td>
+      <td>Add overflow checking before allocation size calculation.</td>
+    </tr>
+  </tbody>
+</table>
             <br>
             <h4><b>2. Terminal, Interactive: Clipboard Monitor, Python</b></h4>
             <h4>Been after a simple 'Windows 10' like clipboard monitor for Ubuntu for ages that is tiny, simple to install/use and open source. OpenCode to the rescue, a little bit of free AI agentic vibe coding and "Ta-da"...</h4>
