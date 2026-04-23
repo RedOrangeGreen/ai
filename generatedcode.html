@@ -58,30 +58,30 @@
             asked OpenCode to analyse the latest kernel source code for any bugs and issues and it completed in a couple of minutes, generating an nice little <a href="opencode/linuxkernel/homework_for_Linus.html">HTML report</a>.
             Report correct? Don't know, haven't checked, but 'looks' like it could be. Everything free and anonymous.    
             </h4>
-            <table border="1" cellpadding="6" cellspacing="0">
+            <table style="border-collapse: collapse; width: 100%; max-width: 700px; font-size: 12px; table-layout: fixed;">
   <thead>
     <tr>
-      <th>Severity</th>
-      <th>File</th>
-      <th>Line(s)</th>
-      <th>Issue Description</th>
-      <th>Recommendation</th>
+      <th style="border: 1px solid #ccc; padding: 4px; width: 10%;">Severity</th>
+      <th style="border: 1px solid #ccc; padding: 4px; width: 25%;">File</th>
+      <th style="border: 1px solid #ccc; padding: 4px; width: 10%;">Line(s)</th>
+      <th style="border: 1px solid #ccc; padding: 4px; width: 30%;">Issue Description</th>
+      <th style="border: 1px solid #ccc; padding: 4px; width: 25%;">Recommendation</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>High</td>
-      <td>kernel/sched/topology.c</td>
-      <td>2077</td>
-      <td>sizeof(void *) * nr_levels could overflow on systems with high core counts</td>
-      <td>Use safe_add_overflow() or check for overflow before multiplication.</td>
+      <td style="border: 1px solid #ccc; padding: 4px;">High</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">kernel/sched/topology.c</td>
+      <td style="border: 1px solid #ccc; padding: 4px;">2077</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">sizeof(void *) * nr_levels could overflow on systems with high core counts</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">Use safe_add_overflow() or check for overflow before multiplication.</td>
     </tr>
     <tr>
-      <td>High</td>
-      <td>kernel/sched/topology.c</td>
-      <td>2086</td>
-      <td>nr_node_ids * sizeof(void *) multiplication could overflow</td>
-      <td>Add overflow checking before allocation size calculation.</td>
+      <td style="border: 1px solid #ccc; padding: 4px;">High</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">kernel/sched/topology.c</td>
+      <td style="border: 1px solid #ccc; padding: 4px;">2086</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">nr_node_ids * sizeof(void *) multiplication could overflow</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">Add overflow checking before allocation size calculation.</td>
     </tr>
   </tbody>
 </table>
