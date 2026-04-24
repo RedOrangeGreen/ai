@@ -53,99 +53,7 @@
             <h3>OpenCode On Ubuntu Linux</h3>
             <h4><a href="https://opencode.ai/">OpenCode</a> is an open-source terminal-based AI coding agent, it was one of the first polished, practical agents to be released. <a href="https://kilo.ai/cli">Kilo CLI</a> is a 'fork' of OpenCode.</h4>
             <br>
-            <h4><b>1. Terminal, Interactive: Linux Kernel, Rust</b></h4>
-            <h4>Friday, 24 Apr 2026</h4>
-            <h4>There's been some controversy about using some 'Rust' source code in the Linux kernel, in addition to the traditional, decades old, faithful 'C'. 
-Now it's in I've just had OpenCode 'ave an AI agentic look at it, it found some interesting (including some critical) issues, it only took a few seconds to produce it's <a href="opencode/linuxkernel/Linux_rust_naughty_naughty.html">report</a>. I can't comment on the issues as I've never coded in Rust!
-            </h4>
-            <table style="font-size: 12px; border-collapse: collapse; width: 100%;" border="1" cellpadding="6">
-  <thead>
-    <tr>
-      <th>Severity</th>
-      <th>Issue</th>
-      <th>File</th>
-      <th>Lines</th>
-      <th>Description</th>
-      <th>Impact</th>
-      <th>Recommendation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>CRITICAL</strong></td>
-      <td>Memory Alignment Limitation in Vmalloc/KVmalloc</td>
-      <td>rust/kernel/alloc/allocator.rs</td>
-      <td>154-157, 178-181</td>
-      <td>
-        // TODO: Support alignments larger than PAGE_SIZE.<br>
-        if (layout.align() &gt; bindings::PAGE_SIZE) {<br>
-        &nbsp;&nbsp;pr_warn!("Vmalloc does not support alignments larger than PAGE_SIZE yet.\n");<br>
-        &nbsp;&nbsp;return Err(AllocError);<br>
-        }
-      </td>
-      <td>
-        The Vmalloc and KVmalloc allocators fail with a warning (not an error) when alignment requirements exceed PAGE_SIZE.
-        This can lead to subtle bugs where allocation appears to succeed but the alignment constraint is silently ignored.
-      </td>
-      <td>
-        Either properly support large alignments or fail more explicitly.
-        Consider returning a more specific error type that indicates the limitation.
-      </td>
-    </tr>
-
-    <tr>
-      <td><strong>CRITICAL</strong></td>
-      <td>Potential Reference Count Initialization Error</td>
-      <td>rust/kernel/sync/arc.rs</td>
-      <td>331</td>
-      <td>
-        In the into_unique_or_drop method:<br><br>
-        unsafe { core::ptr::write(refcount, bindings::REFCOUNT_INIT(1)) };
-      </td>
-      <td>
-        Potential for incorrect reference count initialization leading to use-after-free or memory leaks.
-      </td>
-      <td>
-        Ensure REFCOUNT_INIT is used correctly with proper pointer semantics.
-        Validate initialization logic and consider safer abstractions if possible.
-      </td>
-    </tr>
-
-    <tr>
-      <td><strong>CRITICAL</strong></td>
-      <td>Silent Error Dropping in KVec Tests</td>
-      <td>rust/kernel/alloc/kvec.rs</td>
-      <td>233-235</td>
-      <td>
-        In the test code:<br><br>
-        v.push(1, GFP_KERNEL);<br>
-        assert!(!v.is_empty());
-      </td>
-      <td>
-        If allocation fails, the test will silently pass with incorrect assumptions about the vector's state.
-      </td>
-      <td>
-        Handle the Result returned by push explicitly.
-        Use expect() or assert on the result to ensure failures are caught.
-      </td>
-    </tr>
-  </tbody>
-</table>
-            <h4>AI Agentic, although having immense power is sometimes like a 'Star Trek V'ger child' in it's choices, for some reason it initially choose and downloaded version 6.4 of the kernel and looked at that rather than 7.0. I spotted that and asked it to redo!</h4>
-            <h4>The report was generated free and anonymous (of course!) on a 24.04 Ubuntu Live USB...</h4>
-            <pre style="background:#f4f4f4; padding:10px; border-radius:5px;">
-<code>sudo apt update
-sudo apt install curl -y
-curl -fsSL https://opencode.ai/install | bash
-source ~/.bashrc
-opencode
-Download and extract the latest Linux source code from https://github.com/torvalds/linux, understand the codebase in subdirectory rust, find any bugs, memory leaks, bad programming practices and areas for improvement in the files in this directory then generate a report file Linux_rust_naughty_naughty.html detailing all issues and possible improvements found.
-The report states that the kernel version is v6.14, I thought the latest vesion was 7.0?
-Output all the queries I entered to file queries.txt</code>
-</pre>
-            <h4>Before AI Agentic, some software developers were given the status of 'well paid and respected gods' due to their extensive, important and specific coding knowledge and experience, AI has ripped that away and reduced them to mere mortals whose code can be analysed and improved in seconds. AI Agentic has made coding a dead-end path for humans but programmers now obsolete have a new role - they move up a tier to direct, supervise, instruct and approve AI systems.</h4>
-            <br>
-            <h4><b>2. Terminal, Interactive: Linux Kernel, C</b></h4>
+            <h4><b>1. Terminal, Interactive: Linux Kernel, C</b></h4>
             <h4>Thursday, 23 Apr 2026</h4>
             <h4>For about 30 years the Linux kernel has been a Finnish black art, impenetrable 'C' code than no one dare venture near. AI Agentic solves that - I
             asked OpenCode to analyse the latest kernel source code for any bugs and issues and it completed in a couple of minutes, generating a nice little <a href="opencode/linuxkernel/homework_for_Linus.html">HTML report</a>.
@@ -190,7 +98,7 @@ opencode
 Download and extract the latest Linux source code from https://github.com/torvalds/linux, understand the codebase in subdirectory kernel, find any bugs, memory leaks, bad programming practices and areas for improvement in the files in this directory then generate a report file homework_for_Linus.html detailing all issues and possible improvements found.</code>
 </pre>
             <br>
-            <h4><b>3. Terminal, Interactive: Clipboard Monitor, Python</b></h4>
+            <h4><b>2. Terminal, Interactive: Clipboard Monitor, Python</b></h4>
             <h4>Been after a simple 'Windows 10' like clipboard monitor for Ubuntu for ages that is tiny, simple to install/use and open source. OpenCode to the rescue, a little bit of free AI agentic vibe coding and "Ta-da"...</h4>
             <h4>
               <a href="opencode/clipboard/clipboard_monitor.py" download="clipboard_monitor.py">clipboard_monitor.py</a>
@@ -207,7 +115,7 @@ Download and extract the latest Linux source code from https://github.com/torval
             <h4>but enabled if something on it...</h4>
             <img src="opencode/clipboard/clipboard3.png" width="400"><br>
             <br>
-            <h4><b>4. Terminal, Interactive: Code Snippets, C++</b></h4>
+            <h4><b>3. Terminal, Interactive: Code Snippets, C++</b></h4>
             <h4>A teeny-weeny C++ program that issues a single query to OpenCode and displays the result. Possibly useful when developing and you want a quick snippet of code rather than Google or 'Stack Overflow' searching.<br>
               Makefile and C++ code both generated by Opencode. Everything 'Free as in air' and anonymous of course, no sign-ins, no API Keys.
             </h4>
@@ -224,7 +132,7 @@ Download and extract the latest Linux source code from https://github.com/torval
             <h4>Read Makefile and snippet.cpp to understand the codebase then install all build tools required to build the codebase</h4>
             <img src="opencode/snippet/snippet.png" width="700"><br>
             <br>
-            <h4><b>5. Terminal, Interactive: Self-Forking The OpenCode Terminal</b></h4>
+            <h4><b>4. Terminal, Interactive: Self-Forking The OpenCode Terminal</b></h4>
             <h4>How to 'fork' the OpenCode terminal and all associated functionality using OpenCode itself; self-reproduction will a little extra at birth!<br>
                 All 'Free as in air' or course; free tool, free model, anonymous, no sign-ins, no API keys. The <a href="https://github.com/anomalyco/opencode/blob/dev/LICENSE">MIT Licence</a> used by OpenCode means that any/all parts of the tool and all associated source code can be obtained and used whenever, however, by anyone, without paying a single cent.<br>
                 Developed and tested on Ubuntu 24.04.4 LTS Live USB.
@@ -246,7 +154,7 @@ Download and extract the latest Linux source code from https://github.com/torval
             <img src="opencode/fork/running.png" width="600"><br>
             <img src="opencode/fork/exit.png" width="600"><br>
             <br>
-            <h4><b>6. Terminal, Interactive: Tetris, HTML/JavaScript/CSS Webpage</b></h4>
+            <h4><b>5. Terminal, Interactive: Tetris, HTML/JavaScript/CSS Webpage</b></h4>
             <h4>A 'Tetris' clone running on a webpage, 100% AI vibe coded, the initial app taking about 30 mins. Has sprites, sounds, music, levels, usual stuff. Some complex JavaScript and CSS generated by the AI here but not checked or reviewed by me at all - my vibes were very high level. Vibed the code on the 'ultimate sandbox' - Ubuntu 24.04.4 LTS Live USB - saving files to external media mid session. When using a Live USB any changes to the system (e.g. saved browser cookies, new files, file changes) are lost on power off - 'you ain't permanently saving or changing anything on my machine mate'. Obviously everything 'free as in air' - free tool, free model, anonymous, no sign-ins, no API keys.</h4>
             <img src="opencode/tetris/1.png" alt="Tetris Start Screen" width="800">
             <img src="opencode/tetris/2.png" alt="Tetris Play Screen" width="800">
