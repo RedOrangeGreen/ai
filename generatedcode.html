@@ -1,303 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>Coding Using AI - AI Playground</title>
+    <title>Coding Using AI - AI Playground</title>
 
-  <link href="css/bootstrap.css" rel="stylesheet">
-  <link href="css/sb-admin.css" rel="stylesheet">
-  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
-  <style>
-    body {
-      line-height: 1.5;
-      padding-top: 70px;
-    }
+    <style>
+      body {
+        line-height: 1.5;
+        padding-top: 70px;
+      }
 
-    .page-intro {
-      margin-bottom: 20px;
-    }
+      .page-intro {
+        margin-bottom: 20px;
+      }
 
-    .page-intro p {
-      margin: 0 0 10px;
-    }
+      .page-intro p {
+        margin: 0 0 10px;
+      }
 
-    details.project {
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 10px 14px;
-      margin: 14px 0;
-      background: #fff;
-    }
+      details.project {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 10px 14px;
+        margin: 14px 0;
+        background: #fff;
+      }
 
-    details.project > summary {
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: 700;
-      outline: none;
-    }
+      details.project > summary {
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 700;
+        outline: none;
+      }
 
-    details.project > summary::-webkit-details-marker {
-      display: none;
-    }
+      details.project > summary::-webkit-details-marker {
+        display: none;
+      }
 
-    details.project > summary::before {
-      content: "▸";
-      display: inline-block;
-      width: 1em;
-      margin-right: 6px;
-    }
+      details.project > summary::before {
+        content: "▸";
+        display: inline-block;
+        width: 1em;
+        margin-right: 6px;
+      }
 
-    details.project[open] > summary::before {
-      content: "▾";
-    }
+      details.project[open] > summary::before {
+        content: "▾";
+      }
 
-    .project-body {
-      margin-top: 12px;
-    }
+      .project-body {
+        margin-top: 12px;
+      }
 
-    .project-body img {
-      max-width: 100%;
-      height: auto;
-      margin: 8px 0 12px;
-      display: block;
-    }
+      .project-body img {
+        max-width: 100%;
+        height: auto;
+        margin: 8px 0 12px;
+        display: block;
+      }
 
-    .link-row a {
-      display: inline-block;
-      margin-right: 12px;
-      margin-bottom: 6px;
-    }
+      .link-row a {
+        display: inline-block;
+        margin-right: 12px;
+        margin-bottom: 6px;
+      }
 
-    pre code {
-      white-space: pre-wrap;
-    }
+      pre code {
+        white-space: pre-wrap;
+      }
 
-    table.report-table {
-      border-collapse: collapse;
-      width: 100%;
-      max-width: 900px;
-      font-size: 12px;
-      table-layout: fixed;
-    }
+      table.report-table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 900px;
+        font-size: 12px;
+        table-layout: fixed;
+      }
 
-    table.report-table th,
-    table.report-table td {
-      border: 1px solid #ccc;
-      padding: 6px;
-      vertical-align: top;
-      word-wrap: break-word;
-    }
+      table.report-table th,
+      table.report-table td {
+        border: 1px solid #ccc;
+        padding: 6px;
+        vertical-align: top;
+        word-wrap: break-word;
+      }
 
-    .section-title {
-      margin-top: 25px;
-      margin-bottom: 10px;
-    }
-  </style>
-</head>
+      .section-title {
+        margin-top: 25px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
 
-<body>
+  <body>
 
-<!-- TOP NAVBAR -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
+  <!-- TOP NAVIGATION (matches main page) -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
 
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNav">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNav">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-      <a class="navbar-brand" href="index.html">AI Playground</a>
+        <a class="navbar-brand" href="index.html">AI Playground</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html"><i class="fa fa-comments"></i> AI Chatbots</a></li>
+          <li class="active"><a href="generatedcode.html"><i class="fa fa-code"></i> Coding with AI</a></li>
+        </ul>
+      </div>
+
     </div>
+  </nav>
 
-    <div class="collapse navbar-collapse" id="mainNav">
-      <ul class="nav navbar-nav">
-        <li><a href="index.html"><i class="fa fa-comments"></i> AI Chatbots</a></li>
-        <li class="active"><a href="generatedcode.html"><i class="fa fa-code"></i> Coding with AI</a></li>
-      </ul>
-    </div>
+  <div id="wrapper">
 
-  </div>
-</nav>
+    <div id="page-wrapper">
+      <div class="row">
+        <div class="col-lg-12">
 
-<div id="wrapper">
+          <h1>Coding Using AI</h1>
 
-  <div id="page-wrapper">
-    <div class="row">
-      <div class="col-lg-12">
+          <div class="page-intro">
+            <p><strong>AI engineering is about creating applications that use AI models to make predictions, understand language, analyze data, or automate tasks.</strong></p>
+            <p><a href="https://www.youtube.com/@aiplagro/videos">Associated YouTube Videos</a></p>
+          </div>
 
-        <h1>Coding Using AI</h1>
+          <h2 class="section-title">OpenCode On Ubuntu Linux</h2>
 
-        <div class="page-intro">
-          <p><strong>AI engineering is about creating applications that use AI models to make predictions, understand language, analyze data, or automate tasks.</strong></p>
-          <p><a href="https://www.youtube.com/@aiplagro/videos">Associated YouTube Videos</a></p>
-        </div>
+          <p>
+            <a href="https://opencode.ai/">OpenCode</a> is an open-source terminal-based AI coding agent, and
+            <a href="https://kilo.ai/cli">Kilo CLI</a> is a fork of OpenCode.
+          </p>
 
-        <h2 class="section-title">OpenCode On Ubuntu Linux</h2>
+          <!-- ===== FULL ORIGINAL CONTENT RESTORED BELOW ===== -->
 
-        <p>
-          <a href="https://opencode.ai/">OpenCode</a> is an open-source terminal-based AI coding agent, and
-          <a href="https://kilo.ai/cli">Kilo CLI</a> is a fork of OpenCode.
-        </p>
+          <details class="project" open>
+            <summary>1. Terminal, Interactive: Linux Kernel, C</summary>
+            <div class="project-body">
 
-        <!-- ===================== PROJECT 1 ===================== -->
-        <details class="project" open>
-          <summary>1. Terminal, Interactive: Linux Kernel, C</summary>
-          <div class="project-body">
-            <p><strong>Thursday, 23 Apr 2026</strong></p>
+              <p><strong>Thursday, 23 Apr 2026</strong></p>
 
-            <p>
-              For about 30 years the Linux kernel has been a Finnish black art, impenetrable C code that no one dare venture near. AI agentic coding changes that. I asked OpenCode to analyse the latest kernel source code for bugs and issues, and it completed in a couple of minutes, generating a report.
-            </p>
+              <p>
+                For about 30 years the Linux kernel has been a Finnish black art, impenetrable C code that no one dare venture near. AI agentic coding changes that. I asked OpenCode to analyse the latest kernel source code for bugs and issues, and it completed in a couple of minutes, generating a report.
+              </p>
 
-            <p>Some interesting integer overflow risks from section 4 of the report:</p>
+              <p>Some interesting integer overflow risks from section 4 of the report:</p>
 
-            <table class="report-table">
-              <thead>
-                <tr>
-                  <th>Severity</th>
-                  <th>File</th>
-                  <th>Line(s)</th>
-                  <th>Issue Description</th>
-                  <th>Recommendation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>High</td>
-                  <td>kernel/sched/topology.c</td>
-                  <td>2077</td>
-                  <td>sizeof(void *) * nr_levels could overflow on systems with high core counts.</td>
-                  <td>Use safe_add_overflow() or check for overflow before multiplication.</td>
-                </tr>
-                <tr>
-                  <td>High</td>
-                  <td>kernel/sched/topology.c</td>
-                  <td>2086</td>
-                  <td>nr_node_ids * sizeof(void *) multiplication could overflow.</td>
-                  <td>Add overflow checking before allocation size calculation.</td>
-                </tr>
-              </tbody>
-            </table>
+              <table class="report-table">
+                <thead>
+                  <tr>
+                    <th>Severity</th>
+                    <th>File</th>
+                    <th>Line(s)</th>
+                    <th>Issue Description</th>
+                    <th>Recommendation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>High</td>
+                    <td>kernel/sched/topology.c</td>
+                    <td>2077</td>
+                    <td>sizeof(void *) * nr_levels could overflow on systems with high core counts.</td>
+                    <td>Use safe_add_overflow() or check for overflow before multiplication.</td>
+                  </tr>
+                  <tr>
+                    <td>High</td>
+                    <td>kernel/sched/topology.c</td>
+                    <td>2086</td>
+                    <td>nr_node_ids * sizeof(void *) multiplication could overflow.</td>
+                    <td>Add overflow checking before allocation size calculation.</td>
+                  </tr>
+                </tbody>
+              </table>
 
-            <p>Report: <a href="opencode/linuxkernel/homework_for_Linus.html">HTML report</a></p>
+              <p>Report: <a href="opencode/linuxkernel/homework_for_Linus.html">HTML report</a></p>
 
-            <p>This report was generated using a Ubuntu 24.04 Live USB:</p>
+              <p>This report was generated using a Ubuntu 24.04 Live USB:</p>
 
-            <pre><code>sudo apt update
+              <pre><code>sudo apt update
 sudo apt install curl -y
 curl -fsSL https://opencode.ai/install | bash
 source ~/.bashrc
 opencode
-Download Linux source from https://github.com/torvalds/linux
-Analyse kernel directory and generate report.</code></pre>
-          </div>
-        </details>
+Download and analyse Linux kernel source code and generate report.</code></pre>
 
-        <!-- ===================== PROJECT 2 ===================== -->
-        <details class="project">
-          <summary>2. Terminal, Interactive: Clipboard Monitor, Python</summary>
-          <div class="project-body">
-            <p>
-              Been after a simple Windows 10 style clipboard monitor for Ubuntu for ages. OpenCode to the rescue.
-            </p>
-
-            <div class="link-row">
-              <a href="opencode/clipboard/clipboard_monitor.py" download>clipboard_monitor.py</a>
-              <a href="kilocli/view.html?file=../opencode/clipboard/clipboard_monitor.py">View</a>
             </div>
+          </details>
 
-            <p>Usage: python3 clipboard_monitor.py</p>
+          <details class="project">
+            <summary>2. Terminal, Interactive: Clipboard Monitor, Python</summary>
+            <div class="project-body">
 
-            <img src="opencode/clipboard/clipboard1.png">
-            <img src="opencode/clipboard/clipboard2.png">
-            <img src="opencode/clipboard/clipboard3.png">
-          </div>
-        </details>
+              <p>
+                Been after a simple Windows 10 style clipboard monitor for Ubuntu for ages. OpenCode to the rescue.
+              </p>
 
-        <!-- ===================== PROJECT 3 ===================== -->
-        <details class="project">
-          <summary>3. Terminal, Interactive: Code Snippets, C++</summary>
-          <div class="project-body">
-            <p>A tiny C++ tool to query OpenCode for quick snippets.</p>
+              <div class="link-row">
+                <a href="opencode/clipboard/clipboard_monitor.py" download>clipboard_monitor.py</a>
+                <a href="kilocli/view.html?file=../opencode/clipboard/clipboard_monitor.py">View</a>
+              </div>
 
-            <div class="link-row">
-              <a href="opencode/snippet/Makefile">Makefile</a>
-              <a href="kilocli/view.html?file=../opencode/snippet/Makefile">View</a>
+              <p>Usage: python3 clipboard_monitor.py</p>
+
+              <img src="opencode/clipboard/clipboard1.png">
+              <img src="opencode/clipboard/clipboard2.png">
+              <img src="opencode/clipboard/clipboard3.png">
+
             </div>
+          </details>
 
-            <div class="link-row">
-              <a href="opencode/snippet/snippet.cpp">snippet.cpp</a>
-              <a href="kilocli/view.html?file=../opencode/snippet/snippet.cpp">View</a>
+          <details class="project">
+            <summary>3. Terminal, Interactive: Code Snippets, C++</summary>
+            <div class="project-body">
+
+              <p>
+                A tiny C++ program that issues a single query to OpenCode and displays the result.
+              </p>
+
+              <div class="link-row">
+                <a href="opencode/snippet/Makefile">Makefile</a>
+                <a href="kilocli/view.html?file=../opencode/snippet/Makefile">View</a>
+              </div>
+
+              <div class="link-row">
+                <a href="opencode/snippet/snippet.cpp">snippet.cpp</a>
+                <a href="kilocli/view.html?file=../opencode/snippet/snippet.cpp">View</a>
+              </div>
+
             </div>
-          </div>
-        </details>
+          </details>
 
-        <!-- ===================== PROJECT 4 ===================== -->
-        <details class="project">
-          <summary>4. Terminal, Interactive: Self-Forking OpenCode</summary>
-          <div class="project-body">
-            <p>Self-reproducing OpenCode fork experiment.</p>
+          <details class="project">
+            <summary>4. Terminal, Interactive: Self-Forking OpenCode</summary>
+            <div class="project-body">
 
-            <div class="link-row">
-              <a href="opencode/fork/howto-fork.txt">howto-fork.txt</a>
+              <p>Self-forking OpenCode experiment.</p>
+
+              <div class="link-row">
+                <a href="opencode/fork/howto-fork.txt">howto-fork.txt</a>
+              </div>
+
+              <img src="opencode/fork/taskcomplete.png">
+              <img src="opencode/fork/info.png">
+              <img src="opencode/fork/running.png">
+
             </div>
+          </details>
 
-            <img src="opencode/fork/taskcomplete.png">
-            <img src="opencode/fork/info.png">
-            <img src="opencode/fork/running.png">
-          </div>
-        </details>
+          <details class="project">
+            <summary>5. Terminal, Interactive: Tetris Web App</summary>
+            <div class="project-body">
 
-        <!-- ===================== PROJECT 5 ===================== -->
-        <details class="project">
-          <summary>5. Terminal, Interactive: Tetris Web App</summary>
-          <div class="project-body">
-            <p>AI-generated full Tetris clone with audio and levels.</p>
+              <p>AI-generated Tetris clone with music, levels, and sprites.</p>
 
-            <img src="opencode/tetris/1.png">
-            <img src="opencode/tetris/2.png">
+              <img src="opencode/tetris/1.png">
+              <img src="opencode/tetris/2.png">
 
-            <p><a href="opencode/tetris/webpage/">Play</a></p>
-          </div>
-        </details>
+              <p><a href="opencode/tetris/webpage/">Play Tetris</a></p>
 
-        <h2 class="section-title">Kilo CLI On Ubuntu Linux</h2>
-
-        <p><a href="https://kilo.ai/cli">Kilo CLI</a> is a fork of OpenCode.</p>
-
-        <details class="project">
-          <summary>Flappy KiloPig</summary>
-          <div class="project-body">
-            <img src="kilocli/kilopig/flappykilopig.png">
-
-            <div class="link-row">
-              <a href="kilocli/kilopig/main.py">main.py</a>
             </div>
-          </div>
-        </details>
+          </details>
 
-        <h2 class="section-title">Python On Ubuntu Linux</h2>
-        <p><a href="python/fourth/index.html">Ollama Chat App</a></p>
+          <h2 class="section-title">Kilo CLI On Ubuntu Linux</h2>
 
-        <h2 class="section-title">C++ On Ubuntu Linux</h2>
-        <p><a href="baremetal/index.html">LLaMAC++ Projects</a></p>
+          <p>
+            <a href="https://kilo.ai/cli">Kilo CLI</a> is a fork of OpenCode.
+          </p>
 
+          <details class="project">
+            <summary>Flappy KiloPig</summary>
+            <div class="project-body">
+
+              <img src="kilocli/kilopig/flappykilopig.png">
+
+              <div class="link-row">
+                <a href="kilocli/kilopig/main.py">main.py</a>
+              </div>
+
+            </div>
+          </details>
+
+          <h2 class="section-title">Python On Ubuntu Linux</h2>
+          <p><a href="python/fourth/index.html">Ollama Chat App</a></p>
+
+          <h2 class="section-title">C++ On Ubuntu Linux</h2>
+          <p><a href="baremetal/index.html">LLaMAC++ Projects</a></p>
+
+        </div>
       </div>
     </div>
+
   </div>
 
-</div>
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/bootstrap.js"></script>
 
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
-
-</body>
+  </body>
 </html>
