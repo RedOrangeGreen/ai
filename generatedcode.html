@@ -1,219 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding Using AI - AI Playground</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <link href="css/bootstrap.css" rel="stylesheet">
-  <link href="css/sb-admin.css" rel="stylesheet">
-  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <title>Coding Using AI - AI Playground</title>
 
-  <style>
-    .panel-title a { display:block; text-decoration:none; }
-    .panel-title a:after {
-      font-family: FontAwesome;
-      content: "\f078";
-      float:right;
-    }
-    .panel-title a.collapsed:after {
-      content: "\f054";
-    }
-  </style>
-</head>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
 
-<body>
-<div id="wrapper">
+    <!-- Add custom CSS here -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+  </head>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="index.html">AI Playground</a>
-  </div>
+  <body>
 
-  <div class="collapse navbar-collapse navbar-ex1-collapse">
-    <ul class="nav navbar-nav side-nav">
-      <li><a href="index.html"><i class="fa fa-dashboard"></i> Free AI Chatbots</a></li>
-      <li><a href="generatedcode.html"><i class="fa fa-wrench"></i> Coding Using AI</a></li>
-    </ul>
-  </div>
-</nav>
+    <div id="wrapper">
 
-<div id="page-wrapper">
-<div class="row">
-<div class="col-lg-12">
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">AI Playground</a>
+        </div>
 
-<h1>Coding Using AI</h1>
-<h4>"AI engineering is about creating applications that use AI models..."</h4>
-<h4><a href="https://www.youtube.com/@aiplagro/videos">Associated YouTube Videos</a></h4>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li><a href="index.html"><i class="fa fa-dashboard"></i> Free AI Chatbots</a></li>
+            <li><a href="generatedcode.html"><i class="fa fa-wrench"></i> Coding Using AI</a></li>
+          </ul>
+                    
+        </div><!-- /.navbar-collapse -->
+      </nav>
 
-<div class="panel-group" id="accordion">
+      <div id="page-wrapper">
 
-<!-- ================= OpenCode ================= -->
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">
-<a data-toggle="collapse" data-parent="#accordion" href="#opencode">OpenCode On Ubuntu Linux</a>
-</h3>
-</div>
-
-<div id="opencode" class="panel-collapse collapse in">
-<div class="panel-body">
-
-<!-- ✅ YOUR ORIGINAL CONTENT STARTS (unchanged) -->
-
-<h4><a href="https://opencode.ai/">OpenCode</a> is an open-source terminal-based AI coding agent...</h4>
-
-<h4><b>1. Terminal, Interactive: Linux Kernel, C</b></h4>
-<h4>Thursday, 23 Apr 2026</h4>
-
-<h4>For about 30 years the Linux kernel...</h4>
-
-<!-- table preserved -->
-<table style="border-collapse: collapse; width: 100%; max-width: 700px; font-size: 12px;">
-<thead>
-<tr>
-<th>Severity</th><th>File</th><th>Line(s)</th><th>Issue</th><th>Recommendation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>High</td>
-<td>kernel/sched/topology.c</td>
-<td>2077</td>
-<td>sizeof(void *) * nr_levels could overflow</td>
-<td>Use safe_add_overflow()</td>
-</tr>
-</tbody>
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Coding Using AI</h1>
+            <h4>"AI engineering is about creating applications that use AI models to make predictions, understand language, analyze data, or automate tasks."</h4>
+            <h4><a href="https://www.youtube.com/@aiplagro/videos">Associated YouTube Videos</a></h4>
+            <h3>OpenCode On Ubuntu Linux</h3>
+            <h4><a href="https://opencode.ai/">OpenCode</a> is an open-source terminal-based AI coding agent, it was one of the first polished, practical agents to be released. <a href="https://kilo.ai/cli">Kilo CLI</a> is a 'fork' of OpenCode.</h4>
+            <br>
+            <h4><b>1. Terminal, Interactive: Linux Kernel, C</b></h4>
+            <h4>Thursday, 23 Apr 2026</h4>
+            <h4>For about 30 years the Linux kernel has been a Finnish black art, impenetrable 'C' code than no one dare venture near. AI Agentic solves that - I
+            asked OpenCode to analyse the latest kernel source code for any bugs and issues and it completed in a couple of minutes, generating a nice little <a href="opencode/linuxkernel/homework_for_Linus.html">HTML report</a>.
+            Report correct? Don't know, haven't checked, but 'looks' like it could be. Everything free and anonymous.    
+            </h4>
+            <h4>Some interesting 'Integer Overflow Risks' from section 4 of the report...</h4>
+            <table style="border-collapse: collapse; width: 100%; max-width: 700px; font-size: 12px; table-layout: fixed;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ccc; padding: 4px; width: 10%;">Severity</th>
+      <th style="border: 1px solid #ccc; padding: 4px; width: 25%;">File</th>
+      <th style="border: 1px solid #ccc; padding: 4px; width: 10%;">Line(s)</th>
+      <th style="border: 1px solid #ccc; padding: 4px; width: 30%;">Issue Description</th>
+      <th style="border: 1px solid #ccc; padding: 4px; width: 25%;">Recommendation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 4px;">High</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">kernel/sched/topology.c</td>
+      <td style="border: 1px solid #ccc; padding: 4px;">2077</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">sizeof(void *) * nr_levels could overflow on systems with high core counts</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">Use safe_add_overflow() or check for overflow before multiplication.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 4px;">High</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">kernel/sched/topology.c</td>
+      <td style="border: 1px solid #ccc; padding: 4px;">2086</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">nr_node_ids * sizeof(void *) multiplication could overflow</td>
+      <td style="border: 1px solid #ccc; padding: 4px; word-wrap: break-word;">Add overflow checking before allocation size calculation.</td>
+    </tr>
+  </tbody>
 </table>
-
-<pre><code>sudo apt update
+            <br>
+            <h4>This report was generated using a Ubuntu 24.04 Live USB:</h4>
+            <pre style="background:#f4f4f4; padding:10px; border-radius:5px;">
+<code>sudo apt update
 sudo apt install curl -y
 curl -fsSL https://opencode.ai/install | bash
-opencode</code></pre>
+source ~/.bashrc
+opencode
+Download and extract the latest Linux source code from https://github.com/torvalds/linux, understand the codebase in subdirectory kernel, find any bugs, memory leaks, bad programming practices and areas for improvement in the files in this directory then generate a report file homework_for_Linus.html detailing all issues and possible improvements found.</code>
+</pre>
+            <br>
+            <h4><b>2. Terminal, Interactive: Clipboard Monitor, Python</b></h4>
+            <h4>Been after a simple 'Windows 10' like clipboard monitor for Ubuntu for ages that is tiny, simple to install/use and open source. OpenCode to the rescue, a little bit of free AI agentic vibe coding and "Ta-da"...</h4>
+            <h4>
+              <a href="opencode/clipboard/clipboard_monitor.py" download="clipboard_monitor.py">clipboard_monitor.py</a>
+              <a href="kilocli/view.html?file=../opencode/clipboard/clipboard_monitor.py">View</a>
+            </h4>
+            <h4>Usage: python3 ./clipboard_monitor.py</h4>
+            <br>
+            <h4>Missing required package auto detected and installed...</h4>
+            <img src="opencode/clipboard/clipboard1.png" width="400"><br>
+            <br>
+            <h4>'Clear clipboard' button greyed out if clipboard empty...</h4>
+            <img src="opencode/clipboard/clipboard2.png" width="400"><br>
+            <br>
+            <h4>but enabled if something on it...</h4>
+            <img src="opencode/clipboard/clipboard3.png" width="400"><br>
+            <br>
+            <h4><b>3. Terminal, Interactive: Code Snippets, C++</b></h4>
+            <h4>A teeny-weeny C++ program that issues a single query to OpenCode and displays the result. Possibly useful when developing and you want a quick snippet of code rather than Google or 'Stack Overflow' searching.<br>
+              Makefile and C++ code both generated by Opencode. Everything 'Free as in air' and anonymous of course, no sign-ins, no API Keys.
+            </h4>
+            <h4>
+              <a href="opencode/snippet/Makefile" download="Makefile">Makefile</a>
+              <a href="kilocli/view.html?file=../opencode/snippet/Makefile">View</a>
+            </h4>
+            <h4>
+              <a href="opencode/snippet/snippet.cpp" download="snippet.cpp">snippet.cpp</a>
+              <a href="kilocli/view.html?file=../opencode/snippet/snippet.cpp">View</a>
+            </h4>
+            <h4>Before attempting a first make, install Opencode then get it to have a gander at the codebase (Enter the 'Read Makefile...' line):</h4>
+            <h4>sudo apt update;sudo apt install -y curl;curl -fsSL https://opencode.ai/install | bash;source ~/.bashrc;opencode</h4>
+            <h4>Read Makefile and snippet.cpp to understand the codebase then install all build tools required to build the codebase</h4>
+            <img src="opencode/snippet/snippet.png" width="700"><br>
+            <br>
+            <h4><b>4. Terminal, Interactive: Self-Forking The OpenCode Terminal</b></h4>
+            <h4>How to 'fork' the OpenCode terminal and all associated functionality using OpenCode itself; self-reproduction will a little extra at birth!<br>
+                All 'Free as in air' or course; free tool, free model, anonymous, no sign-ins, no API keys. The <a href="https://github.com/anomalyco/opencode/blob/dev/LICENSE">MIT Licence</a> used by OpenCode means that any/all parts of the tool and all associated source code can be obtained and used whenever, however, by anyone, without paying a single cent.<br>
+                Developed and tested on Ubuntu 24.04.4 LTS Live USB.
+            </h4>
+            <h4>
+              <a href="opencode/fork/howto-fork.txt" download="howto-fork.txt">howto-fork.txt</a>
+              <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt">View</a>
+            </h4>
+            <h4>
+              <a href="opencode/fork/opencode-fork.txt" download="opencode-fork.txt">opencode-fork.txt</a>
+              <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt">View</a>
+            </h4>
+            <h4>The baby is born...</h4>
+            <img src="opencode/fork/taskcomplete.png" width="700">
+            <h4>Oh look, it's been given a little something extra it's mother (<a href="https://github.com/anomalyco/opencode">the OpenCode repository on GitHub</a>) doesn't have...</h4>
+            <img src="opencode/fork/info.png" width="600">
+            <h4>but everything else works as expected...</h4>
+            <img src="opencode/fork/invoke.png" width="600"><br>
+            <img src="opencode/fork/running.png" width="600"><br>
+            <img src="opencode/fork/exit.png" width="600"><br>
+            <br>
+            <h4><b>5. Terminal, Interactive: Tetris, HTML/JavaScript/CSS Webpage</b></h4>
+            <h4>A 'Tetris' clone running on a webpage, 100% AI vibe coded, the initial app taking about 30 mins. Has sprites, sounds, music, levels, usual stuff. Some complex JavaScript and CSS generated by the AI here but not checked or reviewed by me at all - my vibes were very high level. Vibed the code on the 'ultimate sandbox' - Ubuntu 24.04.4 LTS Live USB - saving files to external media mid session. When using a Live USB any changes to the system (e.g. saved browser cookies, new files, file changes) are lost on power off - 'you ain't permanently saving or changing anything on my machine mate'. Obviously everything 'free as in air' - free tool, free model, anonymous, no sign-ins, no API keys.</h4>
+            <img src="opencode/tetris/1.png" alt="Tetris Start Screen" width="800">
+            <img src="opencode/tetris/2.png" alt="Tetris Play Screen" width="800">
+            <br>
+            <h4>Preparing To Vibe</h4>
+            <h4>
+              <a href="opencode/setup.sh" download="setup.sh">setup.sh</a>
+              <a href="kilocli/view.html?file=../opencode/setup.sh">View</a>
+            </h4>
+            <h4>
+              <a href="opencode/run.sh" download="run.sh">run.sh</a>
+              <a href="kilocli/view.html?file=../opencode/run.sh">View</a>
+            </h4>
+            <img src="opencode/tetris/opencodescreen.png" alt="OpenCode Screen" width="500">
+            <br>
+            <h4>Vibe Session 1 (Initial App Creation)</h4>
+            <h4><i>Vibes</i></h4>
+            <h4>
+              <a href="opencode/tetris/vibes.txt" download="vibes.txt">vibes.txt</a>
+              <a href="kilocli/view.html?file=../opencode/tetris/vibes.txt">View</a>
+            </h4>
+            <h4>
+              <a href="opencode/tetris/opencode-prompt.txt" download="opencode-prompt.txt">opencode-prompt.txt</a>
+              <a href="kilocli/view.html?file=../opencode/tetris/opencode-prompt.txt">View</a>
+            </h4>
+            <h4><i>Generated Code</i></h4>
+            <h4>
+              <a href="opencode/tetris/webpage/index.html" download="index.html">index.html</a>
+              <a href="kilocli/view.html?file=../opencode/tetris/webpage/index.html">View</a>
+            </h4>
+            <h4>
+              <a href="opencode/tetris/webpage/script.js" download="script.js">script.js</a>
+              <a href="kilocli/view.html?file=../opencode/tetris/webpage/script.js">View</a>
+            </h4>
+            <h4>
+              <a href="opencode/tetris/webpage/styles.css" download="styles.css">styles.css</a>
+              <a href="kilocli/view.html?file=../opencode/tetris/webpage/styles.css">View</a>
+            </h4>
+            <h4><a href="opencode/tetris/webpage/" target="_blank">Play Vibe Session 1 Tetris</a></h4>
+            <br>
+            <h4>Vibe Session 2 (Enhancements; Hours, Days, 'Whenever' Later)</h4>
+            <h4><i>Vibes</i></h4>
+            <h4>
+              <a href="opencode/tetris/vibes-next.txt" download="vibes-next.txt">vibes-next.txt</a>
+              <a href="kilocli/view.html?file=../opencode/tetris/vibes-next.txt">View</a>
+            </h4>
+            <h4><i>Generated Code</i></h4>
+            <h4>
+              <a href="opencode/tetris/webpage-next/index.html" download="index.html">index.html</a>
+              <a href="kilocli/view.html?file=../opencode/tetris/webpage-next/index.html">View</a>
+            </h4>
+            <h4>
+              <a href="opencode/tetris/webpage-next/script.js" download="script.js">script.js</a>
+              <a href="kilocli/view.html?file=../opencode/tetris/webpage-next/script.js">View</a>
+            </h4>
+            <h4>
+              <a href="opencode/tetris/webpage-next/styles.css" download="styles.css">styles.css</a>
+              <a href="kilocli/view.html?file=../opencode/tetris/webpage-next/styles.css">View</a>
+            </h4>
+            <h4><a href="opencode/tetris/webpage-next/" target="_blank">Play Vibe Session 2 Tetris</a></h4>
+            <br>
+            <h3>Kilo CLI On Ubuntu Linux</h3>
+            <h4><a href="https://kilo.ai/cli">Kilo CLI</a> is an open-source command-line tool, a 'fork' built directly on top of <a href="https://opencode.ai/">OpenCode</a>, for running free AI coding agents directly from a terminal; allowing planning, editing, debugging, and automated code generation &amp; compilation without opening a graphical IDE. Paid options also available.</h4>
+            <br>
+            <h4><b>1. Terminal, Interactive: Flappy KiloPig, Python</b></h4>
+            <h4>A 'Flappy Bird' clone 100% AI vibe coded in a couple of hours using Kilo CLI; has sprites, animation, physics, scrolling, scoring (with high score save to an .xml file), sound, levels, end boss etc. How does the code work? Couldn't tell you as I've only glanced at it briefly, all coding, testing and binary packaging by Kilo CLI following very high level entered prompts. I asked Kilo CLI to use 'Pygame' as the Python library for writing the game as I'd heard of this although never used it, still haven't!</h4>
+            <img src="kilocli/kilopig/flappykilopig.png" alt="FlappyKiloPig">
+            <h4>
+              <a href="kilocli/kilopig/main.py">main.py</a>
+              <a href="kilocli/view.html?file=kilopig/main.py">View</a>
+            </h4>
+            <h4>
+              <a href="kilocli/kilopig/highscore.xml" download="highscore.xml">
+                 highscore.xml
+              </a>
+              <a href="kilocli/view.html?file=kilopig/highscore.xml">View</a>
+            </h4>
+            <h4>
+              <a href="kilocli/kilopig/files.txt" download="files.txt">
+                 files.txt
+              </a>
+              <a href="kilocli/view.html?file=kilopig/files.txt">View</a>
+            </h4>
+            <h4><a href="https://github.com/RedOrangeGreen/ai/releases/download/V1.0/FlappyKiloPig">FlappyKiloPig</a></h4>
+            <h4>chmod +x ./FlappyKiloPig && ./FlappyKiloPig</h4>
+            <br>
+            <h4><b>2. Terminal, Interactive: hello world, C++ &amp; Python</b></h4>
+            <h4>
+              <a href="kilocli/setup.sh">setup.sh</a>
+              <a href="kilocli/view.html?file=setup.sh">View</a>
+            </h4>
+            <h4>
+              <a href="kilocli/run.sh">run.sh</a>
+              <a href="kilocli/view.html?file=run.sh">View</a>
+            </h4>
+            <h4>
+              <a href="kilocli/kilo-prompt.txt" download>kilo-prompt.txt</a>
+              <a href="kilocli/view.html?file=kilo-prompt.txt">View</a>
+            </h4>
+            <h4>1) bash ./setup.sh 2) bash ./run.sh 3) Enter "Read and follow the instructions in ./kilo-prompt.txt"</h4>
+            <br>
+            <h4><b>3. One-shot, Non-Interactive</b></h4>
+            <h4><a href="kilocli/kiloauth/">kiloauth.sh</a> Shell script (created with help from AI chatbots) to download, install &amp; use Kilo CLI to create, build and run a 'Goggle Authenticator like' desktop app using Qt6/C++. Everything free and anonymous of course; free AI model, no sign-in, no API keys.</h4>
+            <br>
+            <h3>Kilo Code On Ubuntu Linux</h3>
+            <h4><a href="https://kilo.ai/">Kilo Code</a> is an open-source AI-powered coding agent, a 'fork' of <a href="https://roocode.com">Roo Code</a>, used as an extension inside Visual Studio Code; it supports all languages including Python and C++. Paid options also available and other graphical IDEs supported.</h4>
+            <h4><a href="kilocode/setup-vscode-and-kilocode.sh">setup-vscode-and-kilocode.sh</a> Installs/reinstalls Visual Studio Code and the Kilo Code extension, ready to go. $0, anonymous, no sign ins, no API keys.</h4>
+            <h4><a href="kilocode/testapp.html">Getting Started</a> How to create a first Python/C++ mixed language test app using Visual Studio Code and the Kilo Code extension.</h4>
+            <h3>Python On Ubuntu Linux</h3>
+            <h4><a href="python/fourth/index.html">Ollama Based Chat Application</a></h4>
+            <h4>Using 'Python Bindings for llama.cpp': <a href="llama_cpp_python/setup.sh">setup.sh</a> <a href="llama_cpp_python/my_wikipedia_script.py">my_wikipedia_script.py</a> <a href="https://github.com/abetlen/llama-cpp-python">Homepage</a></h4>
+            <h3>C++ On Ubuntu Linux</h3>
+            <h4><a href="cplusplus/qt/first/index.html">Qt5 Lean'n'Mean</a></h4>
+            <h4><a href="baremetal/index.html">LLaMAC++ 1: First compile, run and edit</a></h4>
+            <h4><a href="baremetal2/index.html">LLaMAC++ 2: 'Little ChatGPT'</a></h4>
+            <h4><a href="baremetal3/index.html">LLaMAC++ 3: Enhancements to 'Little ChatGPT', including Save-2-File</a></h4>
+          </div>
+        </div><!-- /.row -->
 
-<h4><b>2. Clipboard Monitor</b></h4>
-<h4>
-<a href="opencode/clipboard/clipboard_monitor.py">clipboard_monitor.py</a>
-<a href="kilocli/view.html?file=../opencode/clipboard/clipboard_monitor.py">View</a>
-</h4>
+      </div><!-- /#page-wrapper -->
 
-<img src="opencode/clipboard/clipboard1.png" width="400">
+    </div><!-- /#wrapper -->
 
-<h4><b>3. Code Snippets</b></h4>
-<h4>
-<a href="opencode/snippet/snippet.cpp">snippet.cpp</a>
-</h4>
+    <!-- JavaScript -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
 
-<h4><b>4. Self Fork</b></h4>
-<img src="opencode/fork/taskcomplete.png" width="600">
-
-<h4><b>5. Tetris</b></h4>
-<img src="opencode/tetris/1.png" width="600">
-
-<!-- ✅ YOUR ORIGINAL CONTENT ENDS -->
-
-</div>
-</div>
-</div>
-
-<!-- ================= Kilo CLI ================= -->
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">
-<a data-toggle="collapse" data-parent="#accordion" href="#kilocli" class="collapsed">
-Kilo CLI On Ubuntu Linux
-</a>
-</h3>
-</div>
-
-<div id="kilocli" class="panel-collapse collapse">
-<div class="panel-body">
-
-<!-- KEEP ALL ORIGINAL CONTENT HERE -->
-<h4>Kilo CLI is an open-source command-line tool...</h4>
-
-<img src="kilocli/kilopig/flappykilopig.png">
-
-<h4>
-<a href="kilocli/kilopig/main.py">main.py</a>
-</h4>
-
-</div>
-</div>
-</div>
-
-<!-- ================= Kilo Code ================= -->
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">
-<a data-toggle="collapse" data-parent="#accordion" href="#kilocode" class="collapsed">
-Kilo Code On Ubuntu Linux
-</a>
-</h3>
-</div>
-
-<div id="kilocode" class="panel-collapse collapse">
-<div class="panel-body">
-
-<h4><a href="kilocode/setup-vscode-and-kilocode.sh">setup script</a></h4>
-
-</div>
-</div>
-</div>
-
-<!-- ================= Python ================= -->
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">
-<a data-toggle="collapse" data-parent="#accordion" href="#python" class="collapsed">
-Python On Ubuntu Linux
-</a>
-</h3>
-</div>
-
-<div id="python" class="panel-collapse collapse">
-<div class="panel-body">
-
-<h4><a href="python/fourth/index.html">Ollama Chat App</a></h4>
-
-</div>
-</div>
-</div>
-
-<!-- ================= C++ ================= -->
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">
-<a data-toggle="collapse" data-parent="#accordion" href="#cpp" class="collapsed">
-C++ On Ubuntu Linux
-</a>
-</h3>
-</div>
-
-<div id="cpp" class="panel-collapse collapse">
-<div class="panel-body">
-
-<h4><a href="cplusplus/qt/first/index.html">Qt5 Lean'n'Mean</a></h4>
-
-</div>
-</div>
-</div>
-
-</div> <!-- accordion -->
-
-</div>
-</div>
-</div>
-
-</div>
-
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.js"></script>
-
-</body>
+  </body>
 </html>
