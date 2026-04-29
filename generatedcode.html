@@ -10,14 +10,11 @@
   <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
   <style>
-    .panel-title a {
-      display: block;
-      text-decoration: none;
-    }
+    .panel-title a { display:block; text-decoration:none; }
     .panel-title a:after {
       font-family: FontAwesome;
       content: "\f078";
-      float: right;
+      float:right;
     }
     .panel-title a.collapsed:after {
       content: "\f054";
@@ -26,179 +23,192 @@
 </head>
 
 <body>
-
 <div id="wrapper">
 
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">AI Playground</a>
-    </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="index.html">AI Playground</a>
+  </div>
 
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <ul class="nav navbar-nav side-nav">
-        <li><a href="index.html"><i class="fa fa-dashboard"></i> Free AI Chatbots</a></li>
-        <li><a href="generatedcode.html"><i class="fa fa-wrench"></i> Coding Using AI</a></li>
-      </ul>
-    </div>
-  </nav>
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+      <li><a href="index.html"><i class="fa fa-dashboard"></i> Free AI Chatbots</a></li>
+      <li><a href="generatedcode.html"><i class="fa fa-wrench"></i> Coding Using AI</a></li>
+    </ul>
+  </div>
+</nav>
 
-  <div id="page-wrapper">
-    <div class="row">
-      <div class="col-lg-12">
+<div id="page-wrapper">
+<div class="row">
+<div class="col-lg-12">
 
-        <h1>Coding Using AI</h1>
-        <h4>"AI engineering is about creating applications that use AI models..."</h4>
-        <h4><a href="https://www.youtube.com/@aiplagro/videos">Associated YouTube Videos</a></h4>
+<h1>Coding Using AI</h1>
+<h4>"AI engineering is about creating applications that use AI models..."</h4>
+<h4><a href="https://www.youtube.com/@aiplagro/videos">Associated YouTube Videos</a></h4>
 
-        <div class="panel-group" id="accordion">
+<div class="panel-group" id="accordion">
 
-          <!-- OpenCode -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#opencode">
-                  OpenCode On Ubuntu Linux
-                </a>
-              </h3>
-            </div>
-            <div id="opencode" class="panel-collapse collapse in">
-              <div class="panel-body">
+<!-- ================= OpenCode ================= -->
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">
+<a data-toggle="collapse" data-parent="#accordion" href="#opencode">OpenCode On Ubuntu Linux</a>
+</h3>
+</div>
 
-                <h4><a href="https://opencode.ai/">OpenCode</a> is an open-source terminal-based AI coding agent...</h4>
+<div id="opencode" class="panel-collapse collapse in">
+<div class="panel-body">
 
-                <h4><b>1. Linux Kernel Analysis</b></h4>
-                <h4>AI analysed Linux kernel and generated HTML report.</h4>
+<!-- ✅ YOUR ORIGINAL CONTENT STARTS (unchanged) -->
 
-                <table style="border-collapse: collapse; width:100%; font-size:12px;">
-                  <thead>
-                    <tr>
-                      <th>Severity</th><th>File</th><th>Line</th><th>Issue</th><th>Fix</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>High</td>
-                      <td>kernel/sched/topology.c</td>
-                      <td>2077</td>
-                      <td>Integer overflow risk</td>
-                      <td>Check before multiply</td>
-                    </tr>
-                  </tbody>
-                </table>
+<h4><a href="https://opencode.ai/">OpenCode</a> is an open-source terminal-based AI coding agent...</h4>
 
-                <pre><code>sudo apt update
+<h4><b>1. Terminal, Interactive: Linux Kernel, C</b></h4>
+<h4>Thursday, 23 Apr 2026</h4>
+
+<h4>For about 30 years the Linux kernel...</h4>
+
+<!-- table preserved -->
+<table style="border-collapse: collapse; width: 100%; max-width: 700px; font-size: 12px;">
+<thead>
+<tr>
+<th>Severity</th><th>File</th><th>Line(s)</th><th>Issue</th><th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High</td>
+<td>kernel/sched/topology.c</td>
+<td>2077</td>
+<td>sizeof(void *) * nr_levels could overflow</td>
+<td>Use safe_add_overflow()</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>sudo apt update
 sudo apt install curl -y
 curl -fsSL https://opencode.ai/install | bash
 opencode</code></pre>
 
-                <h4><b>2. Clipboard Monitor (Python)</b></h4>
-                <h4><a href="opencode/clipboard/clipboard_monitor.py">Download script</a></h4>
-                <img src="opencode/clipboard/clipboard1.png" width="400">
+<h4><b>2. Clipboard Monitor</b></h4>
+<h4>
+<a href="opencode/clipboard/clipboard_monitor.py">clipboard_monitor.py</a>
+<a href="kilocli/view.html?file=../opencode/clipboard/clipboard_monitor.py">View</a>
+</h4>
 
-                <h4><b>3. Code Snippets (C++)</b></h4>
-                <h4><a href="opencode/snippet/snippet.cpp">snippet.cpp</a></h4>
+<img src="opencode/clipboard/clipboard1.png" width="400">
 
-                <h4><b>4. Self-Forking OpenCode</b></h4>
-                <img src="opencode/fork/taskcomplete.png" width="600">
+<h4><b>3. Code Snippets</b></h4>
+<h4>
+<a href="opencode/snippet/snippet.cpp">snippet.cpp</a>
+</h4>
 
-                <h4><b>5. Tetris Web App</b></h4>
-                <img src="opencode/tetris/1.png" width="600">
+<h4><b>4. Self Fork</b></h4>
+<img src="opencode/fork/taskcomplete.png" width="600">
 
-              </div>
-            </div>
-          </div>
+<h4><b>5. Tetris</b></h4>
+<img src="opencode/tetris/1.png" width="600">
 
-          <!-- Kilo CLI -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#kilocli" class="collapsed">
-                  Kilo CLI On Ubuntu Linux
-                </a>
-              </h3>
-            </div>
-            <div id="kilocli" class="panel-collapse collapse">
-              <div class="panel-body">
+<!-- ✅ YOUR ORIGINAL CONTENT ENDS -->
 
-                <h4>Kilo CLI is a fork of OpenCode...</h4>
+</div>
+</div>
+</div>
 
-                <h4><b>Flappy KiloPig</b></h4>
-                <img src="kilocli/kilopig/flappykilopig.png" width="500">
+<!-- ================= Kilo CLI ================= -->
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">
+<a data-toggle="collapse" data-parent="#accordion" href="#kilocli" class="collapsed">
+Kilo CLI On Ubuntu Linux
+</a>
+</h3>
+</div>
 
-                <h4><a href="kilocli/kilopig/main.py">main.py</a></h4>
+<div id="kilocli" class="panel-collapse collapse">
+<div class="panel-body">
 
-                <h4><b>Hello World Setup</b></h4>
-                <h4><a href="kilocli/setup.sh">setup.sh</a></h4>
+<!-- KEEP ALL ORIGINAL CONTENT HERE -->
+<h4>Kilo CLI is an open-source command-line tool...</h4>
 
-              </div>
-            </div>
-          </div>
+<img src="kilocli/kilopig/flappykilopig.png">
 
-          <!-- Kilo Code -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#kilocode" class="collapsed">
-                  Kilo Code On Ubuntu Linux
-                </a>
-              </h3>
-            </div>
-            <div id="kilocode" class="panel-collapse collapse">
-              <div class="panel-body">
+<h4>
+<a href="kilocli/kilopig/main.py">main.py</a>
+</h4>
 
-                <h4>VS Code extension for AI coding.</h4>
-                <h4><a href="kilocode/setup-vscode-and-kilocode.sh">Setup Script</a></h4>
+</div>
+</div>
+</div>
 
-              </div>
-            </div>
-          </div>
+<!-- ================= Kilo Code ================= -->
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">
+<a data-toggle="collapse" data-parent="#accordion" href="#kilocode" class="collapsed">
+Kilo Code On Ubuntu Linux
+</a>
+</h3>
+</div>
 
-          <!-- Python -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#python" class="collapsed">
-                  Python On Ubuntu Linux
-                </a>
-              </h3>
-            </div>
-            <div id="python" class="panel-collapse collapse">
-              <div class="panel-body">
+<div id="kilocode" class="panel-collapse collapse">
+<div class="panel-body">
 
-                <h4><a href="python/fourth/index.html">Chat App</a></h4>
+<h4><a href="kilocode/setup-vscode-and-kilocode.sh">setup script</a></h4>
 
-              </div>
-            </div>
-          </div>
+</div>
+</div>
+</div>
 
-          <!-- C++ -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#cpp" class="collapsed">
-                  C++ On Ubuntu Linux
-                </a>
-              </h3>
-            </div>
-            <div id="cpp" class="panel-collapse collapse">
-              <div class="panel-body">
+<!-- ================= Python ================= -->
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">
+<a data-toggle="collapse" data-parent="#accordion" href="#python" class="collapsed">
+Python On Ubuntu Linux
+</a>
+</h3>
+</div>
 
-                <h4><a href="cplusplus/qt/first/index.html">Qt App</a></h4>
+<div id="python" class="panel-collapse collapse">
+<div class="panel-body">
 
-              </div>
-            </div>
-          </div>
+<h4><a href="python/fourth/index.html">Ollama Chat App</a></h4>
 
-        </div>
+</div>
+</div>
+</div>
 
-      </div>
-    </div>
-  </div>
+<!-- ================= C++ ================= -->
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">
+<a data-toggle="collapse" data-parent="#accordion" href="#cpp" class="collapsed">
+C++ On Ubuntu Linux
+</a>
+</h3>
+</div>
+
+<div id="cpp" class="panel-collapse collapse">
+<div class="panel-body">
+
+<h4><a href="cplusplus/qt/first/index.html">Qt5 Lean'n'Mean</a></h4>
+
+</div>
+</div>
+</div>
+
+</div> <!-- accordion -->
+
+</div>
+</div>
+</div>
 
 </div>
 
