@@ -1,78 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore free AI chatbots and local AI tools. No sign-up required.">
+  <title>AI Playground – Free AI Tools</title>
 
-    <title>Free AI Chatbots - AI Playground</title>
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f5f5f5;
+    }
 
-    <!-- Add custom CSS here -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-  </head>
+    .panel {
+      margin-bottom: 20px;
+      transition: all 0.15s ease;
+    }
 
-  <body>
+    .panel:hover {
+      transform: translateY(-2px);
+    }
 
-    <div id="wrapper">
+    .label {
+      margin-right: 5px;
+    }
 
-      <!-- Sidebar -->
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">AI Playground</a>
+    #search {
+      margin-bottom: 20px;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #777;
+      padding-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">AI Playground</a>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div id="page-wrapper">
+    <div class="container-fluid">
+
+      <h1>Free AI Tools</h1>
+      <p class="lead">$0 • Anonymous • Instant use</p>
+
+      <!-- Search -->
+      <input type="text" id="search" class="form-control" placeholder="Search tools...">
+
+      <!-- Web AI -->
+      <h2><i class="fa fa-globe"></i> Web-Based AI Chatbots</h2>
+
+      <div class="row">
+
+        <div class="col-md-4 tool">
+          <div class="panel panel-default">
+            <div class="panel-heading"><strong><i class="fa fa-comments"></i> ChatGPT</strong></div>
+            <div class="panel-body">
+              General-purpose AI assistant for chat, writing, and coding.<br><br>
+              <span class="label label-success">Free</span>
+              <span class="label label-info">Optional login</span><br><br>
+              <a href="https://www.chatgpt.com" target="_blank" class="btn btn-primary btn-xs">
+                Open <i class="fa fa-external-link"></i>
+              </a>
+            </div>
+          </div>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
-            <li><a href="index.html"><i class="fa fa-dashboard"></i> Free AI Chatbots</a></li>
-            <li><a href="generatedcode.html"><i class="fa fa-wrench"></i> Coding Using AI</a></li>
-          </ul>
-          
-        </div><!-- /.navbar-collapse -->
-      </nav>
-
-      <div id="page-wrapper">
-
-        <div class="row">
-          <div class="col-lg-12">
-            <h1>Free AI Chatbots</h1>
-            <h4>$0, anonymous, instant use.</h4>
-            <h3>Websites, optional sign-in for more features</h3>
-            <h4><a href="https://www.chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a></h4>
-            <h4><a href="https://www.bing.com/chat" target="_blank" rel="noopener noreferrer">Microsoft Copilot</a></h4>
-            <h4><a href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer">Perplexity</a></h4>
-            <h4><a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google Search</a></h4>
-            <h4><a href="https://www.grok.com" target="_blank" rel="noopener noreferrer">Grok</a></h4>            
-            <h3>Ollama, download and run locally on your machine</h3>
-            <h4>Supports gemma4 and many other models.</h4>
-            <h4><a href="https://ollama.com">Homepage</a></h4>
-            <h3>llama.cpp, download and run locally on your machine</h3>
-            <h4>AI bare metal, download, compile and modify using C++. Use 'any' model of your choice, including uncensored.</h4>
-            <h4>Many well know AI tools including 'Ollama' and 'LM Studio' are wrappers built on top of llama.cpp.</h4>
-            <h4><a href="https://github.com/ggml-org/llama.cpp">Homepage</a></h4>
-            <h4><a href="baremetal/index.html">Ubuntu Live USB Quickstart</a></h4>
+        <div class="col-md-4 tool">
+          <div class="panel panel-default">
+            <div class="panel-heading"><strong><i class="fa fa-search"></i> Microsoft Copilot</strong></div>
+            <div class="panel-body">
+              AI integrated with web search and Microsoft services.<br><br>
+              <span class="label label-success">Free</span>
+              <span class="label label-info">Optional login</span><br><br>
+              <a href="https://www.bing.com/chat" target="_blank" class="btn btn-primary btn-xs">
+                Open <i class="fa fa-external-link"></i>
+              </a>
+            </div>
           </div>
-        </div><!-- /.row -->
+        </div>
 
-      </div><!-- /#page-wrapper -->
+        <div class="col-md-4 tool">
+          <div class="panel panel-default">
+            <div class="panel-heading"><strong><i class="fa fa-lightbulb-o"></i> Perplexity</strong></div>
+            <div class="panel-body">
+              AI search engine with cited answers.<br><br>
+              <span class="label label-success">Free</span>
+              <span class="label label-info">Optional login</span><br><br>
+              <a href="https://www.perplexity.ai" target="_blank" class="btn btn-primary btn-xs">
+                Open <i class="fa fa-external-link"></i>
+              </a>
+            </div>
+          </div>
+        </div>
 
-    </div><!-- /#wrapper -->
+        <div class="col-md-4 tool">
+          <div class="panel panel-default">
+            <div class="panel-heading"><strong><i class="fa fa-google"></i> Google AI Search</strong></div>
+            <div class="panel-body">
+              AI-enhanced search results from Google.<br><br>
+              <span class="label label-success">Free</span><br><br>
+              <a href="https://www.google.com/aimode" target="_blank" class="btn btn-primary btn-xs">
+                Open <i class="fa fa-external-link"></i>
+              </a>
+            </div>
+          </div>
+        </div>
 
-  
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
+        <div class="col-md-4 tool">
+          <div class="panel panel-default">
+            <div class="panel-heading"><strong><i class="fa fa-android"></i> Grok</strong></div>
+            <div class="panel-body">
+              Conversational AI from xAI.<br><br>
+              <span class="label label-success">Free</span><br><br>
+              <a href="https://www.grok.com" target="_blank" class="btn btn-primary btn-xs">
+                Open <i class="fa fa-external-link"></i>
+              </a>
+            </div>
+          </div>
+        </div>
 
-  </body>
+      </div>
+
+      <!-- Local AI -->
+      <h2><i class="fa fa-laptop"></i> Run AI Locally</h2>
+
+      <div class="alert alert-info">
+        These tools run AI models directly on your computer for privacy and offline use.
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6 tool">
+          <div class="panel panel-default">
+            <div class="panel-heading"><strong><i class="fa fa-download"></i> Ollama</strong></div>
+            <div class="panel-body">
+              Simple way to run models locally.<br><br>
+              <span class="label label-warning">Local</span>
+              <span class="label label-default">Beginner-friendly</span><br><br>
+              <a href="https://ollama.com" target="_blank" class="btn btn-primary btn-xs">
+                Homepage
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 tool">
+          <div class="panel panel-default">
+            <div class="panel-heading"><strong><i class="fa fa-code"></i> llama.cpp</strong></div>
+            <div class="panel-body">
+              High-performance C++ engine for running LLMs locally.<br><br>
+              <span class="label label-warning">Local</span>
+              <span class="label label-danger">Advanced</span><br><br>
+              <a href="https://github.com/ggml-org/llama.cpp" target="_blank" class="btn btn-primary btn-xs">
+                GitHub
+              </a>
+              <a href="baremetal/index.html" class="btn btn-default btn-xs">
+                Quickstart
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <footer class="text-center">
+        <hr>
+        <p>© 2026 AI Playground • Simple directory of free AI tools</p>
+      </footer>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.js"></script>
+
+<script>
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".tool").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+  });
+</script>
+
+</body>
 </html>
