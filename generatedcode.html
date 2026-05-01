@@ -158,6 +158,19 @@ All seem aligned correctly apart from '# GGUF model (4.96 GB)' - only one horizo
               <p>'Allow once' highlighted in OpenCode awaiting my input: Changed to 'Allow always' using right arrow key, Enter</p>
               <p>'Confirm' highlighted in OpenCode awaiting my input: Enter</p>
 
+              <pre><code>When running the agent I see...
+=== Price Agent ===
+Asking agent to get current prices of gold, silver, and oil...
+
+
+Final Response: <|tool_call>call:get_prices{}<tool_call|>
+
+=== Done ===
+~llama_context:        CPU compute buffer size is 522.0020 MiB, matches expectation of 522.0020 MiB
+Worked ok, got prices once then exited, enhance so that gets prices 5 times, a second wait between each price grab.
+Change agent so that rather than getting commodity prices, get 5 current International news headlines from an RSS feed, display them as readable text, pause 2 seconds and repeat forever.
+Prepare the current code so that it can be easily modified further on another machine - create a new directory called rssagent containing all the source, makefiles and anything else required for a clean build on that new machine. Create an html file called rssagent.html detailing the contents of rssagent and how to build on the new machine.</code></pre>
+
             </details>
             
             <details class="project">
