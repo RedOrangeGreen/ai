@@ -136,12 +136,17 @@
                   Using Ubuntu 26.04 LTS Live USB
                 </p>
 
-                <pre><code>sudo apt update
+                <pre><code>udo apt update
 sudo apt install curl -y
 curl -fsSL https://opencode.ai/install | bash
 source ~/.bashrc
 opencode
-</code></pre>
+1) Download and extract the latest llama.cpp source code from GitHub (https://github.com/ggml-org/llama.cpp), understand the codebase, download the gemma4 GGUF model (the smallest available) from HuggingFace (https://huggingface.co/), build llama.cpp, test that the downloaded GGUF works with the built llama.cpp 2) Download and extract the latest Mozilla Agent.cpp source code from GitHub (https://github.com/mozilla-ai/agent.cpp), understand the codebase, build agent.cpp, integrating with the built llama.cpp to create a very simple example agent which gets and displays the current price of gold, silver and oil 3) Generate an HTML file AgentDetails.html detailing what has been built, what the agent does and how to start it.
+Resolve compilation errors
+Resolve remaining compilation errors
+Fix code
+Make the following report improvements .. Ubuntu version mentioned in report is wrong, I'm using 26.04 LTS, vertically align the start of comments in the File Structure section (most are ok but a few are out by a space or two)
+                </code></pre>
             </details>
             
             <details class="project">
