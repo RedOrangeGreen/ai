@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS Agent - Build Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #7f8c8d;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        code {
+            background: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .file-structure {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+        }
+        .command {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: "Courier New", monospace;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .required {
+            background: #e74c3c;
+            color: white;
+        }
+        .optional {
+            background: #f39c12;
+            color: white;
+        }
+        .included {
+            background: #2ecc71;
+            color: white;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>RSS Agent - Build Documentation</h1>
+    
+    <div class="section">
+        <h2>Overview</h2>
+        <p>The <strong>rssagent</strong> directory contains a self-contained news headline fetcher using LLM (Large Language Model) with tool calling. It fetches 5 current international news headlines from BBC World News RSS feed and displays them using a locally-running Gemma 4 LLM.</p>
+        
+        <p><strong>Key Features:</strong></p>
+        <ul>
+            <li>Runs forever with 2-second delays between news fetches</li>
+            <li>Fetches headlines from BBC World News RSS feed via Python script</li>
+            <li>Uses Gemma 4 LLM for natural language processing</li>
+            <li>Easy to modify for different news sources or use cases</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Directory Contents</h2>
+        
+        <h3>Complete File Listing</h3>
+        <div class="file-structure">
+<pre>
+rssagent/
+├── CMakeLists.txt          # <span class="status included">INCLUDED</span> CMake build configuration
+├── README.md              # <span class="status included">INCLUDED</span> Build instructions and documentation
+├── rssagent.html         # <span class="status included">INCLUDED</span> This documentation file
+│
+├── src/                  # <span class="status included">INCLUDED</span> Core agent.cpp source files
+│   ├── agent.cpp        # Agent loop implementation
+│   ├── agent.h          # Agent class header
+│   ├── model.cpp        # LLM model interaction + Gemma 4 tool call parsing
+│   ├── model.h          # Model class header
+│   ├── callbacks.h      # Callback definitions
+│   ├── error.h          # Error handling
+│   ├── tool.h           # Tool interface
+│   └── tool_result.h   # Tool result structures
+│
+├── deps/                 # <span class="status included">INCLUDED</span> Dependencies (llama.cpp common)
+│   ├── chat.h           # Chat template parsing
+│   ├── chat.cpp         # Chat template implementation
+│   ├── chat-peg-parser.h
+│   ├── chat-peg-parser.cpp
+│   ├── chat-auto-parser-generator.cpp
+│   ├── chat-auto-parser-helpers.h
+│   ├── chat-auto-parser-helpers.cpp
+│   ├── chat-diff-analyzer.cpp
+│   ├── common.cpp
+│   ├── common.h
+│   ├── console.cpp
+│   ├── console.h
+│   ├── debug.cpp
+│   ├── debug.h
+│   ├── arg.cpp
+│   └── arg.h
+│
+└── example/              # <span class="status included">INCLUDED</span> Example application
+    ├── rssagent.cpp     # Main application (NewsTool + infinite loop)
+    └── fetch_news.py    # Python script to fetch BBC RSS feed
+</pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>What's NOT Included (Required on New Machine)</h2>
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Status</th>
+                <th>Description</th>
+                <th>Where to Get</th>
+            </tr>
+            <tr>
+                <td>llama.cpp</td>
+                <td><span class="status required">REQUIRED</span></td>
+                <td>LLM inference engine (C/C++)</td>
+                <td><code>git clone https://github.com/ggml-org/llama.cpp.git</code></td>
+            </tr>
+            <tr>
+                <td>Gemma 4 GGUF Model</td>
+                <td><span class="status required">REQUIRED</span></td>
+                <td>Q4_K_M quantized model (~4.96 GB)</td>
+                <td><code>https://huggingface.co/ggml-org/gemma-4-E4B-it-GGUF</code></td>
+            </tr>
+            <tr>
+                <td>Python 3</td>
+                <td><span class="status required">REQUIRED</span></td>
+                <td>For RSS feed parsing (urllib, xml.etree)</td>
+                <td>System package: <code>apt install python3</code></td>
+            </tr>
+            <tr>
+                <td>Build Tools</td>
+                <td><span class="status required">REQUIRED</span></td>
+                <td>cmake, g++, make, git</td>
+                <td>System packages: <code>apt install build-essential cmake git</code></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Step-by-Step Build Instructions</h2>
+        
+        <h3>1. Transfer rssagent Directory to New Machine</h3>
+        <div class="command">
+# On original machine:<br>
+tar -czf rssagent.tar.gz rssagent/<br>
+scp rssagent.tar.gz user@newmachine:/home/user/<br>
+<br>
+# On new machine:<br>
+cd /home/user<br>
+tar -xzf rssagent.tar.gz<br>
+cd rssagent
+        </div>
+
+        <h3>2. Install Prerequisites (Ubuntu/Debian)</h3>
+        <div class="command">
+sudo apt update<br>
+sudo apt install -y build-essential cmake git python3 curl
+        </div>
+
+        <h3>3. Clone and Build llama.cpp</h3>
+        <div class="command">
+# Clone llama.cpp (can be outside rssagent directory)<br>
+cd /home/user<br>
+git clone https://github.com/ggml-org/llama.cpp.git<br>
+cd llama.cpp<br>
+<br>
+# Build with Release mode<br>
+cmake -B build -DCMAKE_BUILD_TYPE=Release<br>
+cmake --build build --config Release -j$(nproc)<br>
+<br>
+# This creates:<br>
+#   build/bin/libllama.so<br>
+#   build/bin/libllama-common.so
+        </div>
+
+        <h3>4. Download Gemma 4 GGUF Model</h3>
+        <div class="command">
+mkdir -p /home/user/models<br>
+cd /home/user/models<br>
+<br>
+# Download using HuggingFace (requires huggingface-cli or manual download)<br>
+# Option A: Using wget (direct link may vary)<br>
+wget https://huggingface.co/ggml-org/gemma-4-E4B-it-GGUF/resolve/main/gemma-4-E4B-it-Q4_K_M.gguf<br>
+<br>
+# Option B: Manual download from:<br>
+# https://huggingface.co/ggml-org/gemma-4-E4B-it-GGUF/tree/main
+        </div>
+
+        <h3>5. Build rssagent</h3>
+        <div class="command">
+cd /home/user/rssagent<br>
+mkdir build && cd build<br>
+<br>
+# Option A: llama.cpp is in ../llama.cpp (relative to rssagent)<br>
+cmake ..<br>
+<br>
+# Option B: Specify llama.cpp path<br>
+cmake -DLLAMA_LIB_PATH=/home/user/llama.cpp/build/bin ..<br>
+<br>
+# Build<br>
+make -j$(nproc)<br>
+<br>
+# Result: ./rssagent executable
+        </div>
+
+        <h3>6. Run the RSS Agent</h3>
+        <div class="command">
+cd /home/user/rssagent/build<br>
+<br>
+# Make sure Python script is executable<br>
+chmod +x ../example/fetch_news.py<br>
+<br>
+# Run (replace with actual model path)<br>
+./rssagent /home/user/models/gemma-4-E4B-it-Q4_K_M.gguf<br>
+<br>
+# Press Ctrl+C to stop (runs forever)
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Expected Output</h2>
+        <div class="command">
+=== News Agent - Getting Headlines Forever ===<br>
+Press Ctrl+C to stop<br>
+<br>
+--- News Check #1 ---<br>
+Response: The 5 current international news headlines are:<br>
+1. Myanmar ex-leader Aung San Suu Kyi moved to house arrest<br>
+2. Oil price hits highest since 2022<br>
+3. Islamist group tightens blockade on Mali capital<br>
+4. Israel intercepts Gaza flotilla near Crete<br>
+5. US House votes to end government shutdown<br>
+<br>
+Waiting 2 seconds...<br>
+<br>
+--- News Check #2 ---<br>
+... (continues forever until Ctrl+C)<br>
+<br>
+=== Done ===
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Files to Modify for Customization</h2>
+        <table>
+            <tr>
+                <th>File</th>
+                <th>Purpose</th>
+                <th>What to Modify</th>
+            </tr>
+            <tr>
+                <td><code>example/rssagent.cpp</code></td>
+                <td>Main application</td>
+                <td>
+                    - Change news source (modify Python script call)<br>
+                    - Adjust delay: <code>std::this_thread::sleep_for(std::chrono::seconds(2))</code><br>
+                    - Change prompt for different queries<br>
+                    - Modify infinite loop behavior
+                </td>
+            </tr>
+            <tr>
+                <td><code>example/fetch_news.py</code></td>
+                <td>RSS feed parser</td>
+                <td>
+                    - Change RSS URL for different news source<br>
+                    - Modify XML parsing for different feed formats<br>
+                    - Add more headlines or filtering
+                </td>
+            </tr>
+            <tr>
+                <td><code>src/model.cpp</code></td>
+                <td>Model interaction</td>
+                <td>
+                    - Modify Gemma 4 tool call regex (line ~190)<br>
+                    - Adjust model parameters (temperature, top_p, etc.)<br>
+                    - Change response parsing logic
+                </td>
+            </tr>
+            <tr>
+                <td><code>src/agent.cpp</code></td>
+                <td>Agent loop</td>
+                <td>
+                    - Modify tool call handling<br>
+                    - Change how tool results are processed<br>
+                    - Add more sophisticated agent behaviors
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Model Configuration</h2>
+        <p>The default model configuration in <code>rssagent.cpp</code>:</p>
+        <div class="command">
+config.n_ctx = 2048;      // Context length<br>
+config.n_batch = 512;     // Batch size<br>
+config.temp = 0.7;        // Temperature (randomness)<br>
+config.top_p = 0.9;       // Nucleus sampling<br>
+config.top_k = 40;         // Top-k sampling
+        </div>
+        <p>Modify these in <code>rssagent.cpp</code> main() function to change model behavior.</p>
+    </div>
+
+    <div class="section">
+        <h2>Troubleshooting</h2>
+        <h3>Common Issues</h3>
+        <table>
+            <tr>
+                <th>Issue</th>
+                <th>Solution</th>
+            </tr>
+            <tr>
+                <td>llama.cpp libraries not found</td>
+                <td>Set <code>-DLLAMA_LIB_PATH=/path/to/llama.cpp/build/bin</code> when running cmake</td>
+            </tr>
+            <tr>
+                <td>Python script fails to fetch RSS</td>
+                <td>Check internet connection, verify Python 3 is installed with urllib and xml modules</td>
+            </tr>
+            <tr>
+                <td>Model fails to load</td>
+                <td>Verify GGUF model path is correct, check model file is not corrupted</td>
+            </tr>
+            <tr>
+                <td>Gemma 4 tool call parsing fails</td>
+                <td>Check regex in <code>src/model.cpp</code>, may need adjustment for different model output format</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>License Information</h2>
+        <p>This project uses code from:</p>
+        <ul>
+            <li><strong>agent.cpp (Mozilla)</strong> - Check original repo for license</li>
+            <li><strong>llama.cpp (ggml-org)</strong> - MIT License</li>
+            <li><strong>Gemma 4 (Google)</strong> - Apache 2.0 License</li>
+        </ul>
+        <p>Refer to original repositories for complete license details.</p>
+    </div>
+
+    <footer style="text-align: center; margin-top: 40px; color: #7f8c8d; font-size: 0.9em;">
+        <p>Generated on April 30, 2026 | RSS Agent - Self-Contained News Headline Fetcher</p>
+        <p>Package prepared for deployment to new machine</p>
+    </footer>
+</body>
+</html>
