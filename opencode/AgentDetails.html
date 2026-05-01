@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Details - Price Agent</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #7f8c8d;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        code {
+            background: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .completed {
+            background: #2ecc71;
+            color: white;
+        }
+        .file-structure {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+        }
+        .command {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: "Courier New", monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Agent Details - Price Agent</h1>
+    
+    <div class="section">
+        <h2>Overview</h2>
+        <p>This project demonstrates the integration of <strong>llama.cpp</strong> and <strong>agent.cpp</strong> to create a local AI agent that can fetch international news headlines from BBC RSS feed using a locally-running Large Language Model (LLM).</p>
+        
+        <h3>Components Built:</h3>
+        <ul>
+            <li><span class="status completed">COMPLETED</span> llama.cpp - LLM inference engine (C/C++)</li>
+            <li><span class="status completed">COMPLETED</span> agent.cpp - Agent framework for local agents (C++)</li>
+            <li><span class="status completed">COMPLETED</span> Gemma 4 E4B - GGUF quantized model (4.96 GB)</li>
+            <li><span class="status completed">COMPLETED</span> News Agent - Custom agent that fetches BBC news headlines</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>What Was Built</h2>
+        
+        <h3>1. llama.cpp</h3>
+        <p>llama.cpp is a C/C++ library for LLM inference with minimal setup and state-of-the-art performance. It enables running LLMs locally on CPU and GPU.</p>
+        <ul>
+            <li><strong>Source:</strong> <code>https://github.com/ggml-org/llama.cpp</code></li>
+            <li><strong>Version:</strong> Latest master branch (commit 660b1b4)</li>
+            <li><strong>Build type:</strong> Release with OpenMP support</li>
+            <li><strong>Output:</strong> Shared libraries (<code>libllama.so</code>, <code>libllama-common.so</code>, etc.)</li>
+        </ul>
+
+        <h3>2. Gemma 4 E4B GGUF Model</h3>
+        <p>The smallest Gemma 4 model quantized to Q4_K_M format for efficient local inference.</p>
+        <ul>
+            <li><strong>Model:</strong> google/gemma-4-E4B-it</li>
+            <li><strong>Format:</strong> GGUF v3, Q4_K_M quantization</li>
+            <li><strong>Size:</strong> 4.96 GB</li>
+            <li><strong>Source:</strong> <code>https://huggingface.co/ggml-org/gemma-4-E4B-it-GGUF</code></li>
+            <li><strong>Context:</strong> 131,072 tokens</li>
+            <li><strong>Parameters:</strong> ~8B active parameters (MoE architecture)</li>
+        </ul>
+
+        <h3>3. agent.cpp</h3>
+        <p>Mozilla's agent.cpp provides building blocks for creating local agents that use llama.cpp for LLM inference. It supports tool calling, callbacks, and agent loops.</p>
+        <ul>
+            <li><strong>Source:</strong> <code>https://github.com/mozilla-ai/agent.cpp</code></li>
+            <li><strong>Version:</strong> Latest main branch</li>
+            <li><strong>Integration:</strong> Bundled with compatible llama.cpp (submodule)</li>
+            <li><strong>Features:</strong> Tool support, agent loops, callbacks, memory management</li>
+        </ul>
+
+        <h3>4. News Agent Example</h3>
+        <p>A custom agent that demonstrates tool usage - it fetches 5 current international news headlines from BBC World News RSS feed. Runs forever with 2-second delays.</p>
+        <ul>
+            <li><strong>Location:</strong> <code>/home/ubuntu/Downloads/agent.cpp-main/examples/price-agent/</code></li>
+            <li><strong>Tool:</strong> <code>get_news</code> - Fetches 5 headlines from BBC RSS feed</li>
+            <li><strong>Loop:</strong> Runs forever with 2-second delay between headline fetches</li>
+            <li><strong>Output:</strong> Agent uses LLM to interpret user request and call the tool</li>
+            <li><strong>RSS Parser:</strong> Uses Python script to fetch and parse BBC RSS feed</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>File Structure</h2>
+        <div class="file-structure">
+<pre>
+/home/ubuntu/Downloads/
+├── llama.cpp-master/              # llama.cpp source and build
+│   ├── build/                     # Build output (libraries and binaries)
+│   │   ├── bin/libllama.so        # Main llama library
+│   │   ├── bin/libllama-common.so # Common utilities
+│   │   └── ...
+│   └── src/                       # llama.cpp source code
+│
+├── agent.cpp-main/                # agent.cpp source and build
+│   ├── build/                     # Build output
+│   │   ├── price-agent            # Price agent executable
+│   │   ├── libagent.a             # Agent library
+│   │   ├── libmodel.a             # Model library
+│   │   └── ...
+│   ├── src/                       # agent.cpp source
+│   │   ├── agent.h
+│   │   ├── model.h
+│   │   └── tool.h
+│   └── examples/
+│       └── price-agent/
+│           ├── price_agent.cpp    # Price agent source code
+│           └── CMakeLists.txt
+│
+├── models/
+│   └── gemma-4-E4B-it-Q4_K_M.gguf # GGUF model (4.96 GB)
+│
+└── AgentDetails.html              # This documentation file
+</pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>How to Start the Agent</h2>
+        
+        <h3>Prerequisites</h3>
+        <ul>
+            <li>Linux system (tested on Ubuntu 26.04 LTS)</li>
+            <li>Build tools: cmake, g++, make, git</li>
+            <li>llama.cpp and agent.cpp built (already done)</li>
+            <li>Gemma 4 E4B GGUF model downloaded</li>
+        </ul>
+
+        <h3>Running the News Agent</h3>
+        <p>The agent executable is located at:</p>
+        <div class="command">
+$ /home/ubuntu/Downloads/agent.cpp-main/build/price-agent \<br>
+  /home/ubuntu/Downloads/models/gemma-4-E4B-it-Q4_K_M.gguf
+        </div>
+
+        <h3>Expected Output</h3>
+        <div class="command">
+=== News Agent - Getting Headlines Forever ===<br>
+Press Ctrl+C to stop<br>
+<br>
+--- News Check #1 ---<br>
+[Tool Call] get_news with args: {}<br>
+[Tool Result] get_news returned: {"headlines":["headline1","headline2",...],"source":"BBC World News RSS"}<br>
+<br>
+Response: The 5 current international news headlines are:<br>
+1. Myanmar ex-leader Aung San Suu Kyi moved to house arrest<br>
+2. Oil price hits highest since 2022<br>
+3. Islamist group tightens blockade on Mali capital<br>
+4. Israel intercepts Gaza flotilla near Crete<br>
+5. US House votes to end government shutdown<br>
+<br>
+Waiting 2 seconds...<br>
+<br>
+--- News Check #2 ---<br>
+... (continues forever until Ctrl+C)<br>
+<br>
+=== Done ===
+        </div>
+
+        <h3>Build Commands (if rebuilding)</h3>
+        <div class="command">
+# Build llama.cpp<br>
+cd /home/ubuntu/Downloads/llama.cpp-master<br>
+cmake -B build -DCMAKE_BUILD_TYPE=Release<br>
+cmake --build build --config Release -j$(nproc)<br>
+<br>
+# Build agent.cpp with price-agent example<br>
+cd /home/ubuntu/Downloads/agent.cpp-main<br>
+rm -rf build && mkdir build && cd build<br>
+cmake -DAGENT_CPP_BUILD_EXAMPLES=ON -DAGENT_CPP_BUNDLED_LLAMA=ON ..<br>
+cmake --build . --target price-agent -j$(nproc)<br>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Agent Functionality</h2>
+        
+        <h3>What the Agent Does (Runs Forever with 2-Second Delays)</h3>
+        <ol>
+            <li><strong>Loop:</strong> Runs forever, each time fetching 5 current news headlines</li>
+            <li><strong>2-Second Delay:</strong> Waits 2 seconds between each news check</li>
+            <li><strong>RSS Fetch:</strong> Python script fetches BBC World News RSS feed</li>
+            <li><strong>LLM Processing:</strong> The Gemma 4 model processes the prompt and decides to use the <code>get_news</code> tool</li>
+            <li><strong>Tool Execution:</strong> The <code>NewsTool::execute()</code> returns headlines in JSON format</li>
+            <li><strong>Response Generation:</strong> The LLM formats the tool result into a human-readable response</li>
+            <li><strong>Model Reset:</strong> KV cache is reset between runs for fresh context</li>
+        </ol>
+
+        <h3>Tool Definition</h3>
+        <div class="command">
+Tool Name: get_news<br>
+Description: Get 5 current international news headlines from BBC World News RSS feed.<br>
+Parameters: None required<br>
+Returns: JSON with headlines array, source, and timestamp<br>
+<br>
+Example return value:<br>
+{<br>
+  "headlines": ["headline1", "headline2", "headline3", "headline4", "headline5"],<br>
+  "source": "BBC World News RSS",<br>
+  "timestamp": "Thu Apr 30 16:45:00 2026",<br>
+  "count": 5<br>
+}
+        </div>
+
+        <h3>Code Highlights</h3>
+        <ul>
+            <li><strong>NewsTool class:</strong> Inherits from <code>agent_cpp::Tool</code> and implements <code>execute()</code> method</li>
+            <li><strong>RSS Feed:</strong> Uses Python script to fetch BBC World News RSS feed</li>
+            <li><strong>Infinite Loop:</strong> Agent runs forever with 2-second delays between each news grab</li>
+            <li><strong>Model Reset:</strong> <code>Model::reset()</code> clears KV cache between runs for fresh context</li>
+            <li><strong>Agent loop:</strong> Uses <code>agent_cpp::Agent::run_loop()</code> to process messages and handle tool calls</li>
+            <li><strong>Model config:</strong> 2048 context length, temperature 0.7, top_p 0.9, top_k 40</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Build Summary</h2>
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+            <tr style="background-color: #3498db; color: white;">
+                <th>Component</th>
+                <th>Status</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>llama.cpp download</td>
+                <td><span class="status completed">COMPLETED</span></td>
+                <td>Cloned from GitHub (master branch)</td>
+            </tr>
+            <tr>
+                <td>llama.cpp build</td>
+                <td><span class="status completed">COMPLETED</span></td>
+                <td>Release build with OpenMP, shared libraries generated</td>
+            </tr>
+            <tr>
+                <td>Gemma 4 model</td>
+                <td><span class="status completed">COMPLETED</span></td>
+                <td>Q4_K_M GGUF (4.96 GB) from HuggingFace</td>
+            </tr>
+            <tr>
+                <td>agent.cpp download</td>
+                <td><span class="status completed">COMPLETED</span></td>
+                <td>Cloned from GitHub with bundled llama.cpp</td>
+            </tr>
+            <tr>
+                <td>agent.cpp build</td>
+                <td><span class="status completed">COMPLETED</span></td>
+                <td>With price-agent example, linked against llama.cpp</td>
+            </tr>
+            <tr>
+                <td>News Agent - Tool parsing</td>
+                <td><span class="status completed">COMPLETED</span></td>
+                <td>Added Gemma 4 tool call format parsing in model.cpp</td>
+            </tr>
+            <tr>
+                <td>News Agent - RSS integration</td>
+                <td><span class="status completed">COMPLETED</span></td>
+                <td>Python script fetches BBC headlines, agent displays them</td>
+            </tr>
+            <tr>
+                <td>News Agent - Infinite loop</td>
+                <td><span class="status completed">COMPLETED</span></td>
+                <td>Runs forever with 2-second delays between news grabs</td>
+            </tr>
+            <tr>
+                <td>News Agent - Model reset</td>
+                <td><span class="status completed">COMPLETED</span></td>
+                <td>Added Model::reset() to clear KV cache between runs</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Future Enhancements</h2>
+        <ul>
+            <li>Add more news sources (CNN, Reuters, Al Jazeera, etc.)</li>
+            <li>Allow user to specify news category (politics, technology, sports, etc.)</li>
+            <li>Implement interactive chat loop for custom news queries</li>
+            <li>Add sentiment analysis for headlines</li>
+            <li>Support multiple LLM models and compare performance</li>
+            <li>Add option to specify number of headlines via command-line arguments</li>
+            <li>Cache headlines to avoid re-fetching within short timeframes</li>
+        </ul>
+    </div>
+
+    <footer style="text-align: center; margin-top: 40px; color: #7f8c8d; font-size: 0.9em;">
+        <p>Generated on April 30, 2026 | Built with llama.cpp + agent.cpp</p>
+        <p>Last Updated: News Agent - Fetches BBC headlines forever with 2-second delays</p>
+    </footer>
+</body>
+</html>
