@@ -134,13 +134,23 @@
               <p>ClamTk is a free and open-source graphical interface for the ClamAV command-line antivirus software program for Linux desktop users. Although the project was officialy retired in 2024, the tool is still well used but users many consider the interface 'functional' albeit non-intuitive compared to modern apps.</a></p>
               <p>AI Agentic development can fix that in a few minutes!</a></p>
               <p>Using Linux 26.04 Live USB, start with this...</a></p>
+             
+              <p>Do this...</a></p>
               <div class="project-body">
-                                <pre><code>sudo apt update
+                                <pre><code>cd ~/Downloads
+sudo apt update
 sudo apt install curl -y
 curl -fsSL https://opencode.ai/install | bash
 source ~/.bashrc
 opencode
-</code></pre>
+Download the latest version of ClamTK from https://github.com/dave-theunsub/clamtk, understand the codebase, completely change the front GUI screen to a modern layout and style of your choice, build a new executable, call the executable clamtkrefresh, output an HTML file clamtkrefresh.html detailing the changes made and how to build and run clamtkrefresh.
+./clamtkrefresh looks identical to ./clamtk - where are the GUI changes?
+Can you make the selection items on the front screen slightly smaller and the main window slightly bigger so that I can see all options when the application is started without needing to scroll
+Create a source tree for clamtkreresh called clamtkrefreshcode suitable for uploading as a GitHub repository
+Output all the user prompts entered in this session to file userprompts.txt
+Make all the actions options on the front GUI screen the same size, width and height 
+Some of the cards are still different dimensions (e.g. 'Preferences' has a smaller width than 'Update'). Make all 11 cards have an identical width and height - use the current largest card width and largest card height for this.
+Form userprompts.txt and clamtkrefreshcode using given the latest code</code></pre>
 
               </div>
             </details>
