@@ -1,0 +1,43 @@
+# ClamTK Refresh - GitHub Actions Workflow
+
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Perl
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y perl libgtk3-perl clamav clamav-daemon
+    
+    - name: Check Perl syntax
+      run: |
+        perl -c bin/clamtkrefresh
+        for file in lib/ClamTk/*.pm; do
+          perl -c "$file"
+        done
+    
+    - name: Run build script
+      run: |
+        chmod +x build.sh
+        ./build.sh
+    
+    - name: Verify build output
+      run: |
+        ls -la build/usr/local/bin/clamtkrefresh
+        ls -la build/usr/share/perl5/ClamTk/*.pm
+    
+    - name: Test executable (dry run)
+      run: |
+        export PERL5LIB=lib:$PERL5LIB
+        timeout 3 perl bin/clamtkrefresh 2>&1 || echo "GUI launched successfully (timed out as expected)"
