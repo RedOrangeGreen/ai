@@ -1,0 +1,87 @@
+#!/usr/bin/perl
+#
+# ClamTk Refresh, copyright (C) 2004-2024 Dave M, Refreshed 2026
+#
+# This file is part of ClamTk
+# https://github.com/dave-theunsub/clamtk/
+# https://gitlab.com/dave_m/clamtk/
+#
+# ClamTk is free software; you can redistribute it and/or modify it
+# under the terms of either:
+#
+# a) the GNU General Public License as published by the Free Software
+# Foundation; either version 1, or (at your option) any later version, or
+#
+# b) the "Artistic License".
+#
+
+use utf8;
+$| = 1;
+
+# Set local lib path BEFORE any module loading
+BEGIN {
+    use FindBin qw($Bin);
+    my $local_lib = "$Bin/clamtk-master/lib";
+    
+    # Get original @INC (but remove any system ClamTk paths)
+    my @original_inc = @INC;
+    my @clean_inc = ();
+    foreach my $path (@original_inc) {
+        if ($path !~ /clamtk/i && $path !~ /ClamTk/) {
+            push @clean_inc, $path;
+        }
+    }
+    
+    # Set @INC with OUR lib FIRST, then system paths
+    @INC = ($local_lib, @clean_inc);
+}
+
+use ClamTk::Analysis;
+use ClamTk::App;
+use ClamTk::Assistant;
+use ClamTk::GUI;
+use ClamTk::History;
+use ClamTk::Icons;
+use ClamTk::Network;
+use ClamTk::Prefs;
+use ClamTk::Results;
+use ClamTk::Scan;
+use ClamTk::Schedule;
+use ClamTk::Settings;
+use ClamTk::Shortcuts;
+use ClamTk::Startup;
+use ClamTk::Update;
+use ClamTk::Quarantine;
+use ClamTk::Whitelist;
+
+use Encode 'decode';
+use Locale::gettext;
+use POSIX 'locale_h';
+textdomain( 'clamtk' );
+setlocale( LC_ALL, '' );
+
+setlocale( LC_TIME, 'C' );
+bind_textdomain_codeset( 'clamtk', 'UTF-8' );
+
+my $arg = decode( 'utf8', $ARGV[ 0 ] );
+
+my $trash_dir = ClamTk::App->get_path( 'trash_dir' );
+if ( $arg eq '//' ) {
+    $arg = $trash_dir;
+} elsif ( $arg =~ m#^//(.*?)$# ) {
+    my $trash_dir_files = ClamTk::App->get_path( 'trash_dir_files' );
+    if ( -e "$trash_dir_files/$1" ) {
+        $arg = "$trash_dir_files/$1";
+    }
+}
+
+ClamTk::Prefs->structure;
+ClamTk::Prefs->custom_prefs;
+
+if ( !$arg or !-e $arg ) {
+    ClamTk::GUI->start_gui();
+} else {
+    ClamTk::Scan->filter( $arg, 1, 'startup' );
+}
+
+# End.
