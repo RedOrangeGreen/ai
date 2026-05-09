@@ -135,8 +135,27 @@
                 <p>
                   Not just a code generator, OpenCode can also perform as a general AI chatbot. I got it to generate optimal commands for installing ‘stuff needed to develop a lean'n'mean C++ AI agent on Ubuntu Linux’ (i.e. the ‘llama.cpp’ C/C++ AI interference engine, the ‘agent.cpp’ Mozilla agent framework and the Google Gemma 4 LLM from Hugging Face). All installed local, everything free and anonymous of course, I used a Ubuntu 26.04 LTS Live USB. Here’s the commands...
                 </p>
-                <pre><code>Placeholder
-                </code></pre>
+                <pre><code># 1. Install dependencies
+sudo apt update && sudo apt install cmake build-essential wget git -y
+
+# 2. Clone repo with submodules
+rm -rf ~/dev/agent.cpp
+mkdir -p ~/dev && cd ~/dev
+git clone --recursive https://github.com/mozilla-ai/agent.cpp && cd agent.cpp
+
+# 3. Download Gemma4 model
+wget -N https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q4_K_M.gguf
+
+# 4. Update llama.cpp submodule to latest master (supports Gemma4)
+git submodule update --remote deps/llama.cpp
+
+# 5. Build
+rm -rf build
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DAGENT_CPP_BUILD_EXAMPLES=ON
+cmake --build build -j"$(nproc)"
+
+# 6. Run with Gemma4 model
+./build/shell-example -m gemma-4-E2B-it-Q4_K_M.gguf</code></pre>
               </div>
             </details>
 
