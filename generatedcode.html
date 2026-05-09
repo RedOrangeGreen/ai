@@ -135,17 +135,18 @@
                 <p>
                   Not just a code generator, OpenCode can also perform as a general AI chatbot.<br> 
                   Firstly, I asked it to define an AI agent in easy to undestand programming terms, its answer was...<br>
-                  An AI agent is:
+                  <pre>
+An AI agent is:
+
 while True:
     observe environment      # get input / state
     ask LLM: "what next?"    # decide action
     execute action           # run tool / speak / move
     store result             # feed back to context
-
-                <br>
-                I then got it to generate optimal commands for installing ‘stuff needed to develop a lean'n'mean C++ AI agent on Ubuntu Linux’ (i.e. the ‘llama.cpp’ C/C++ AI inference engine, the ‘agent.cpp’ Mozilla agent framework and the Google Gemma 4 LLM from Hugging Face). All installed local, everything free and anonymous of course, I used a Ubuntu 26.04 LTS Live USB. Here’s the commands...
+</pre>
+                  <br>
+                  I then got it to generate optimal commands for installing ‘stuff needed to develop a lean'n'mean C++ AI agent on Ubuntu Linux’ (i.e. the ‘llama.cpp’ C/C++ AI inference engine, the ‘agent.cpp’ Mozilla agent framework and the Google Gemma 4 LLM from Hugging Face). All installed local, everything free and anonymous of course, I used a Ubuntu 26.04 LTS Live USB. Here’s the commands...
                 </p>
-                
                   <pre><code># 1. Install dependencies
 sudo apt update && sudo apt install cmake build-essential wget git -y
 
