@@ -143,9 +143,17 @@ while True:
     ask LLM: "what next?"    # decide action
     execute action           # run tool / speak / move
     store result             # feed back to context
-</pre>
+                    
+The LLM acts as the "brain" deciding what to do each iteration. The agent loop handles calling tools, feeding results back in, and deciding when to stop.
+
+The two key differences from a raw LLM call:
+1. **Stateful** — it maintains conversation history across turns
+2. **Can act** — it calls functions (search, calculator, file ops, etc.) and feeds results back into the loop
+
+It's a `while` loop driven by an LLM at each step.
+                  </pre>
                   <br>
-                  I then got it to generate optimal commands for installing ‘stuff needed to develop a lean'n'mean C++ AI agent on Ubuntu Linux’ (i.e. the ‘llama.cpp’ C/C++ AI inference engine, the ‘agent.cpp’ Mozilla agent framework and the Google Gemma 4 LLM from Hugging Face). All installed local, everything free and anonymous of course, I used a Ubuntu 26.04 LTS Live USB. Here’s the commands...
+                  Next I got it to generate optimal commands for installing ‘stuff needed to develop a lean'n'mean C++ AI agent on Ubuntu Linux’ (i.e. the ‘llama.cpp’ C/C++ AI inference engine, the ‘agent.cpp’ Mozilla agent framework and the Google Gemma 4 LLM from Hugging Face). All installed local, everything free and anonymous of course, I used a Ubuntu 26.04 LTS Live USB. Here’s the commands...
                 </p>
                   <pre><code># 1. Install dependencies
 sudo apt update && sudo apt install cmake build-essential wget git -y
