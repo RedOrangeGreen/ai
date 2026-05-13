@@ -155,27 +155,18 @@ It's a `while` loop driven by an LLM at each step.</pre>
                   Next I asked OpenCode to generate a sequence of optimal commands for installing ‘stuff needed to develop a lean'n'mean C++ AI agent on Ubuntu Linux’ (i.e. the ‘<a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>’ C/C++ AI inference engine, the ‘<a href="https://github.com/mozilla-ai/agent.cpp">agent.cpp</a>’ Mozilla agent framework and the Google Gemma 4 LLM from <a href="https://huggingface.co/">Hugging Face</a>). All installed local, everything free and anonymous at all stages (including running) of course.<br> 
                   I used a Ubuntu 26.04 LTS Live USB to test the generated commands which are here...
                 </p>
-                  <pre><code># 1. Install dependencies
-sudo apt update && sudo apt install cmake build-essential wget git -y
-
-# 2. Clone repo with submodules
-rm -rf ~/dev/agent.cpp
-mkdir -p ~/dev && cd ~/dev
-git clone --recursive https://github.com/mozilla-ai/agent.cpp && cd agent.cpp
-
-# 3. Download Gemma4 model
-wget -N https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q4_K_M.gguf
-
-# 4. Update llama.cpp submodule to latest master (supports Gemma4)
-git submodule update --remote deps/llama.cpp
-
-# 5. Build
-rm -rf build
-cmake -B build -DCMAKE_BUILD_TYPE=Release -DAGENT_CPP_BUILD_EXAMPLES=ON
-cmake --build build -j"$(nproc)"
-
-# 6. Run with Gemma4 model
-./build/shell-example -m gemma-4-E2B-it-Q4_K_M.gguf</code></pre>
+                  <pre><code>sudo apt update && \
+sudo apt install -y git build-essential cmake wget && \
+git clone https://github.com/mozilla-ai/agent.cpp.git && \
+cd agent.cpp && \
+git submodule update --init --recursive && \
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DAGENT_CPP_BUILD_EXAMPLES=ON && \
+cmake --build build -j$(nproc) && \
+mkdir -p models && \
+wget -O models/granite-4.0-micro-Q4_K_M.gguf \
+https://huggingface.co/ibm-granite/granite-4.0-micro-GGUF/resolve/main/granite-4.0-micro-Q4_K_M.gguf && \
+echo "Starting shell-example..." && \
+./build/shell-example -m models/granite-4.0-micro-Q4_K_M.gguf</code></pre>
                 
               <p>Enter the above and provided the latest cloned llama.cpp/agent.cpp code builds, you'll have a locally running 'Ollama style' AI chatbot running in an agent framework... </p>
               <img src="opencode/agentdevkit/starting.png" alt="Examnple agent start" width="900">
