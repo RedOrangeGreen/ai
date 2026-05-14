@@ -193,7 +193,7 @@ def main():
 if __name__ == "__main__":
     main()</code></pre>
                 <br>
-                <p>OpenCode generated single command to copy'n'paste which installs all packages required, downloads the Google Gemma 4 LLM and runs langchain_app.py using the LLM. All free and anonymous of cource:</p>
+                <p>OpenCode generated single command which installs all packages required, downloads the Google Gemma 4 LLM and runs langchain_app.py using the LLM. All free and anonymous of cource:</p>
                 <pre><code>mkdir -p models && sudo apt install python3-pip python3-venv wget -y && python3 -m venv venv && source venv/bin/activate && pip install langchain-core langchain-community llama-cpp-python && wget -O models/gemma-4-E2B-it-Q8_0.gguf https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf && python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
                 <img src="opencode/langchain/langchainrunning.png" alt="LangChain running" width="1000">
             </details>
