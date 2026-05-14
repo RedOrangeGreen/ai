@@ -133,9 +133,12 @@
               <summary>1. Terminal, Interactive: LLama.cpp Revisited, C++</summary>
               <div class="project-body">
                 <p>
-                  Single command to download llama.cpp, build it (and the 'llama-cli' example tool) then download the Gemma 4 LLM. Tested on a Ubuntu 26.04 LTS Live USB. All free.
+                  OpenCode generated single command to download llama.cpp, build it (and the 'llama-cli' example tool) then download the Gemma 4 LLM. Tested on a Ubuntu 26.04 LTS Live USB. All free.
                 </p>
                 <pre><code>sudo apt update && sudo apt install -y git build-essential cmake wget libcurl4-openssl-dev && test -d llama.cpp || git clone https://github.com/ggerganov/llama.cpp.git && cd llama.cpp && git submodule update --init --recursive && cmake -B build -G "Unix Makefiles" -DLLAMA_CURL=ON && cmake --build build -j $(nproc) --target llama-cli && mkdir -p models && test -f models/gemma-4-E2B-it-Q8_0.gguf || wget -O models/gemma-4-E2B-it-Q8_0.gguf https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf</code></pre>
+                <p>
+                  and a command to run the built llama-cli...
+                </p>
                 <pre><code>./build/bin/llama-cli -m ./models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
                 <img src="opencode/llamarevisited/llamarevisited.png" alt="Llama.cpp running" width="1000">
             </details>
