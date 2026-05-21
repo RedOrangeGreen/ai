@@ -132,9 +132,10 @@
             <details class="project" open>
               <summary>1. Terminal, Interactive: Ubuntu Native AI Inference Snap Manager, Python</summary>
               <div class="project-body">
-                <p><a href="https://documentation.ubuntu.com/inference-snaps/">Inference snaps</a> are a new (still in Beta but available and working) addition to Ubuntu offering quick, easy and free local install of a hardware-optimized AI Inference engine and various LLM models. Using a CPU only, for me it's the fastest local AI I've seen, matching the speed of commercial cloud based AI chatbots such as ChatGPT. The easiest way to get started is to open a terminal and enter the following commands...</p>
+                <p><a href="https://documentation.ubuntu.com/inference-snaps/">Inference snaps</a> are a new (still in Beta but available and working) addition to Ubuntu offering a quick, easy and free local install of a hardware-optimized AI Inference engine and various LLM models. Using a CPU only, for me it's the fastest local AI I've seen, matching the speed of commercial cloud based AI chatbots such as ChatGPT. The easiest way to get started is to open a terminal and enter the following commands...</p>
                 <pre><code>sudo snap install gemma3 --beta
 gemma3 chat</code></pre>
+                <p>Only the gemma3 model installed on my machine, it currently (May 2026) occasionally generates errors, including repeating tokens at the end of an answer, but offers 'speed, speed, speed' at a level unseen until now for CPU inference.</p
                 <p>Terminal, Web and 'OpenAI API' interfaces are provided out of the box so I got OpenCode to knock up a little Python/GTK manager for the lot...</p>
                 <div class="link-row">
                   <a href="opencode/aisnapmanager/ai-snap-manager.py" download="ai-snap-manager.py">ai-snap-manager.py</a>
