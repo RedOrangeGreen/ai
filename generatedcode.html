@@ -257,26 +257,26 @@
 
     <aside class="sidebar">
       <h3>Contents</h3>
-      <a href="#section6">OpenCode Self-Forking Example</a>
+      <a href="#section6">Local AI Terminal Examples</a>
     </aside>
 
     <div>
 
-      <!-- SECTION 6 RESTORED -->
+      <!-- UPDATED SECTION 6 -->
       <section id="section6" class="guide-section">
 
-        <h2>1. Example: Self-Forking the OpenCode Terminal</h2>
+        <h2>1. Examples: Local AI Coding & Terminal Workflows</h2>
 
         <p>
-          This example demonstrates how to use an AI-assisted workflow
-          to fork and reproduce an entire interactive terminal environment.
+          Real-world demonstrations of using AI tools, Python, and terminal workflows
+          to build fast, local, privacy‑preserving AI systems.
         </p>
 
-        <details class="project">
-
+        <!-- EXAMPLE 1 -->
+        <details class="project" open>
           <summary class="custom-summary">
             <div class="summary-left">
-              <span>1. Terminal, Interactive: Self-Forking The OpenCode Terminal</span>
+              <span>1. Terminal, Interactive: Ubuntu Native AI Inference Snap Manager, Python</span>
             </div>
             <i class="fa-solid fa-chevron-down summary-chevron"></i>
           </summary>
@@ -284,21 +284,142 @@
           <div class="project-body">
 
             <p>
-              How to fork the OpenCode terminal and all associated functionality.
+              <a href="https://documentation.ubuntu.com/inference-snaps/">Inference snaps</a>
+              are a new (still in Beta but available and working) addition to Ubuntu offering a quick,
+              easy and free local install of a hardware‑optimized AI inference engine and various LLM models.
+              Using CPU only, it’s the fastest local AI I’ve seen — matching the speed of commercial cloud
+              chatbots such as ChatGPT.
+            </p>
+
+            <p>The easiest way to get started is to open a terminal and enter:</p>
+
+            <pre><code>sudo snap install gemma3 --beta
+gemma3 chat</code></pre>
+
+            <p>
+              Only the <strong>gemma3</strong> model installed on my machine. As of May 2026 it occasionally
+              generates errors (including repeating tokens at the end of an answer), but offers
+              <em>speed, speed, speed</em> at a level unseen until now for CPU inference.
+            </p>
+
+            <p>
+              Terminal, Web and “OpenAI API” interfaces are provided out of the box, so I asked OpenCode
+              to generate a small Python/GTK manager for all of them:
             </p>
 
             <div class="link-row">
-              <a href="opencode/fork/howto-fork.txt" download>howto-fork.txt</a>
-              <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt">View</a>
+              <a href="opencode/aisnapmanager/ai-snap-manager.py" download="ai-snap-manager.py">ai-snap-manager.py</a>
+              <a href="kilocli/view.html?file=../opencode/aisnapmanager/ai-snap-manager.py">View</a>
             </div>
 
-            <div class="link-row">
-              <a href="opencode/fork/opencode-fork.txt" download>opencode-fork.txt</a>
-              <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt">View</a>
-            </div>
+            <p>Run using:</p>
+            <pre><code>python3 ./ai-snap-manager.py</code></pre>
 
-            <img src="opencode/fork/taskcomplete.png" alt="Fork complete">
-            <img src="opencode/fork/info.png" alt="Fork info">
+            <img src="opencode/aisnapmanager/aisnapmanager1.png"
+                 alt="AI Snap Manager running 1" width="600">
+            <img src="opencode/aisnapmanager/aisnapmanager2.png"
+                 alt="AI Snap Manager running 2" width="1000">
+
+          </div>
+        </details>
+
+        <!-- EXAMPLE 2 -->
+        <details class="project">
+          <summary class="custom-summary">
+            <div class="summary-left">
+              <span>2. Terminal, Interactive: LangChain, Python</span>
+            </div>
+            <i class="fa-solid fa-chevron-down summary-chevron"></i>
+          </summary>
+
+          <div class="project-body">
+
+            <p>
+              I saw “LangChain” mentioned in relation to AI engineering.  
+              <em>What’s that?</em> I wondered.  
+              One question to Google Gemini followed by a two‑minute OpenCode session answered everything.
+              OpenCode makes using LangChain (which allows Python apps to use LLMs with extra tooling)
+              a zero‑coding doddle.
+            </p>
+
+            <p>
+              OpenCode generated
+              <a href="opencode/langchain/langchain_app.py" download="langchain_app.py">langchain_app.py</a>:
+            </p>
+
+            <pre><code>#!/usr/bin/env python3
+"""LangChain app using llama.cpp via llama-cpp-python."""
+
+import sys
+import argparse
+from pathlib import Path
+
+from langchain_community.llms import LlamaCpp
+from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHandler
+from langchain_core.prompts import PromptTemplate
+
+
+def build_llm(model_path: str, n_gpu_layers: int = 0, n_ctx: int = 2048):
+    return LlamaCpp(
+        model_path=model_path,
+        temperature=0.7,
+        max_tokens=512,
+        n_ctx=n_ctx,
+        n_gpu_layers=n_gpu_layers,
+        n_threads=8,
+        n_batch=512,
+        f16_kv=True,
+        verbose=False,
+        callbacks=CallbackManager([StreamingStdOutCallbackHandler()]),
+    )
+
+
+def main():
+    parser = argparse.ArgumentParser(description="LangChain + llama.cpp")
+    parser.add_argument("model", type=str, help="Path to GGUF model file")
+    parser.add_argument("--gpu-layers", type=int, default=0, help="GPU offload layers")
+    parser.add_argument(
+        "--prompt",
+        type=str,
+        default="Explain quantum computing in one sentence.",
+        help="Prompt to send to the model",
+    )
+    parser.add_argument("--ctx", type=int, default=2048, help="Context window size")
+    args = parser.parse_args()
+
+    if not Path(args.model).exists():
+        print(f"Error: model file not found: {args.model}", file=sys.stderr)
+        sys.exit(1)
+
+    llm = build_llm(args.model, args.gpu_layers, args.ctx)
+
+    prompt = PromptTemplate.from_template(
+        "You are a helpful assistant.\n\nUser: {question}\nAssistant:"
+    )
+    chain = prompt | llm
+
+    print(f"\n--- Prompt ---\n{args.prompt}\n--- Response ---")
+    chain.invoke({"question": args.prompt})
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+
+            <p>
+              OpenCode also generated a single command that installs all dependencies,
+              downloads the Google Gemma‑4 LLM, and runs <code>langchain_app.py</code>.
+              Tested on Ubuntu 26.04 LTS Live USB:
+            </p>
+
+            <pre><code>mkdir -p models && sudo apt install python3-pip python3-venv wget -y && \
+python3 -m venv venv && source venv/bin/activate && \
+pip install langchain-core langchain-community llama-cpp-python && \
+wget -O models/gemma-4-E2B-it-Q8_0.gguf \
+https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf && \
+python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
+
+            <img src="opencode/langchain/langchainrunning.png"
+                 alt="LangChain running" width="1000">
 
           </div>
         </details>
