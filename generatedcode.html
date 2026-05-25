@@ -257,7 +257,7 @@
 
     <aside class="sidebar">
       <h3>Contents</h3>
-      <a href="#section6">Local AI Terminal Examples</a>
+      <a href="#section6">OpenCode On Ubuntu Linux Examples</a>
     </aside>
 
     <div>
@@ -265,7 +265,7 @@
       <!-- UPDATED SECTION 6 -->
       <section id="section6" class="guide-section">
 
-        <h2>1. Examples: Local AI Coding & Terminal Workflows</h2>
+        <h2>OpenCode On Ubuntu Linux Examples</h2>
 
         <p>
           Real-world demonstrations of using AI tools, Python, and terminal workflows
@@ -385,7 +385,7 @@ def main():
         help="Prompt to send to the model",
     )
     parser.add_argument("--ctx", type=int, default=2048, help="Context window size")
-    args = parser.parse_args()
+    args = parser.parse_args();
 
     if not Path(args.model).exists():
         print(f"Error: model file not found: {args.model}", file=sys.stderr)
