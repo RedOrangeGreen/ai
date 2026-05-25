@@ -423,7 +423,47 @@ python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
           </div>
         </details>
+        
+<!-- EXAMPLE 3 -->
+<details class="project">
+  <summary class="custom-summary">
+    <div class="summary-left">
+      <span>3. Terminal, Interactive: Llama.cpp Revisited, C++</span>
+    </div>
+    <i class="fa-solid fa-chevron-down summary-chevron"></i>
+  </summary>
 
+  <div class="project-body">
+
+    <p>
+      OpenCode generated a single command to download
+      <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>,
+      build it (including the <code>llama-cli</code> example tool),
+      then download the Google Gemma‑4 LLM.
+      Tested on Ubuntu 26.04 LTS Live USB. All free.
+    </p>
+
+<pre><code>sudo apt update && sudo apt install -y git build-essential cmake wget libcurl4-openssl-dev && \
+test -d llama.cpp || git clone https://github.com/ggerganov/llama.cpp.git && \
+cd llama.cpp && git submodule update --init --recursive && \
+cmake -B build -G "Unix Makefiles" -DLLAMA_CURL=ON && \
+cmake --build build -j $(nproc) --target llama-cli && \
+mkdir -p models && \
+test -f models/gemma-4-E2B-it-Q8_0.gguf || \
+wget -O models/gemma-4-E2B-it-Q8_0.gguf \
+https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf</code></pre>
+
+    <p>Run the built CLI using:</p>
+
+<pre><code>./build/bin/llama-cli -m ./models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
+
+    <img src="opencode/llamarevisited/llamarevisited.png"
+         alt="Llama.cpp running" width="1000">
+
+  </div>
+</details>
+
+        
       </section>
 
     </div>
