@@ -1,746 +1,459 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Playground – Coding Guide</title>
 
-    <title>AI Playground - Coding With AI</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
 
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+  <style>
+    /* Same design system as main page */
+    :root {
+      --bg-body: #050816;
+      --bg-elevated: #0b1020;
+      --bg-elevated-soft: #0f172a;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --accent-strong: #0ea5e9;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.7);
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.25s ease-out;
+    }
 
-    <style>
-      body {
-        line-height: 1.5;
-      }
-      .page-intro {
-        margin-bottom: 20px;
-      }
-      .page-intro p {
-        margin: 0 0 10px;
-      }
-      details.project {
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        padding: 10px 14px;
-        margin: 14px 0;
-        background: #fff;
-      }
-      details.project > summary {
-        cursor: pointer;
-        font-size: 18px;
-        font-weight: 700;
-        outline: none;
-      }
-      details.project > summary::-webkit-details-marker {
-        display: none;
-      }
-      details.project > summary::before {
-        content: "▸";
-        display: inline-block;
-        width: 1em;
-        margin-right: 6px;
-        transition: transform 0.15s ease-in-out;
-      }
-      details.project[open] > summary::before {
-        content: "▾";
-      }
-      .project-body {
-        margin-top: 12px;
-      }
-      .project-body h4,
-      .project-body h5,
-      .project-body p {
-        margin-top: 0;
-      }
-      .project-body img {
-        max-width: 100%;
-        height: auto;
-        margin: 8px 0 12px;
-        display: block;
-      }
-      .link-row a {
-        display: inline-block;
-        margin-right: 12px;
-        margin-bottom: 6px;
-      }
-      pre code {
-        white-space: pre-wrap;
-      }
-      table.report-table {
-        border-collapse: collapse;
-        width: 100%;
-        max-width: 900px;
-        font-size: 12px;
-        table-layout: fixed;
-      }
-      table.report-table th,
-      table.report-table td {
-        border: 1px solid #ccc;
-        padding: 6px;
-        vertical-align: top;
-        word-wrap: break-word;
-      }
-      .section-title {
-        margin-top: 25px;
-        margin-bottom: 10px;
-      }
-    </style>
-  </head>
+    body {
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+    }
 
-  <body>
-    <div id="wrapper">
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">AI Playground</a>
+    /* Navbar */
+    .nav-blur {
+      backdrop-filter: blur(18px);
+      background: rgba(15, 23, 42, 0.92);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .nav-pill {
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      transition: var(--transition-fast);
+    }
+
+    .nav-pill.active,
+    .nav-pill:hover {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.6);
+      color: #e5e7eb;
+      transform: translateY(-1px);
+    }
+
+    /* Page shell */
+    .page-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 6.5rem 1.25rem 3.5rem;
+    }
+
+    /* Hero */
+    .hero-title {
+      font-size: clamp(2.2rem, 3vw + 1.2rem, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      max-width: 40rem;
+      font-size: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    /* Layout: sidebar + content */
+    .guide-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .guide-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 6rem;
+      align-self: start;
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .sidebar h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 0.4rem 0;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      transition: var(--transition-fast);
+    }
+
+    .sidebar a:hover {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    /* Guide content */
+    .guide-section {
+      margin-bottom: 2.5rem;
+      padding: 1.4rem 1.6rem;
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .guide-section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .guide-section p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    /* Code blocks */
+    pre {
+      background: #0f172a;
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-x: auto;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    code {
+      color: #93c5fd;
+      font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md fixed-top nav-blur">
+    <div class="container-fluid" style="max-width: 1120px">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <div style="width:26px;height:26px;border-radius:999px;background:radial-gradient(circle at top,#38bdf8,#0f172a);display:flex;align-items:center;justify-content:center;color:#0b1120;">
+          <i class="fa-solid fa-bolt"></i>
         </div>
+        <span>AI Playground</span>
+      </a>
 
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <!-- CHANGED: horizontal top navigation -->
-          <ul class="nav navbar-nav">
-            <li><a href="index.html"><i class="fa fa-comments"></i> Free AI Tools</a></li>
-            <li class="active"><a href="generatedcode.html"><i class="fa fa-code"></i> Coding With AI</a></li>
-          </ul>
-        </div>
-      </nav>
+      <button class="navbar-toggler text-light border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <i class="fa-solid fa-bars"></i>
+      </button>
 
-      <div id="page-wrapper">
-        <div class="row">
-          <div class="col-lg-12">
-            <h1>Coding With AI</h1>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-md-center gap-1">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link p-0">
+              <span class="nav-pill">
+                <i class="fa-solid fa-comments"></i>
+                Free AI Tools
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="generatedcode.html" class="nav-link p-0">
+              <span class="nav-pill active">
+                <i class="fa-solid fa-code"></i>
+                Coding With AI
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-            <div class="page-intro">
-              <p><strong>AI engineering is about creating applications that use AI models to make predictions, understand language, analyze data, or automate tasks.</strong></p>              
-              <p><a href="https://www.youtube.com/@aiplagro/videos">Associated YouTube Videos</a></p>
-            </div>
+  <!-- Page -->
+  <main class="page-shell">
 
-            <h2 class="section-title">OpenCode On Ubuntu Linux</h2>
-            <p>
-              <a href="https://opencode.ai/">OpenCode</a> is an open-source terminal-based AI coding agent, and
-              <a href="https://kilo.ai/cli">Kilo CLI</a> is a fork of OpenCode.
-            </p>
+    <!-- Hero -->
+    <header>
+      <h1 class="hero-title">
+        <span>AI Coding Guide</span>
+      </h1>
+      <p class="hero-subtitle">
+        Practical workflows, prompt patterns, and real‑world examples for using AI as a coding partner.  
+        Learn how to structure prompts, debug with AI, generate components, and build faster.
+      </p>
+    </header>
 
-            <details class="project" open>
-              <summary>1. Terminal, Interactive: Ubuntu Native AI Inference Snap Manager, Python</summary>
-              <div class="project-body">
-                <p><a href="https://documentation.ubuntu.com/inference-snaps/">Inference snaps</a> are a new (still in Beta but available and working) addition to Ubuntu offering a quick, easy and free local install of a hardware-optimized AI Inference engine and various LLM models. Using a CPU only, for me it's the fastest local AI I've seen, matching the speed of commercial cloud based AI chatbots such as ChatGPT. The easiest way to get started is to open a terminal and enter the following commands...</p>
-                <pre><code>sudo snap install gemma3 --beta
-gemma3 chat</code></pre>
-                <p>Only the gemma3 model installed on my machine, it currently (May 2026) occasionally generates errors, including repeating tokens at the end of an answer, but offers 'speed, speed, speed' at a level unseen until now for CPU inference.</p
-                <p>Terminal, Web and 'OpenAI API' interfaces are provided out of the box so I got OpenCode to knock up a little Python/GTK manager for the lot...</p>
-                <div class="link-row">
-                  <a href="opencode/aisnapmanager/ai-snap-manager.py" download="ai-snap-manager.py">ai-snap-manager.py</a>
-                  <a href="kilocli/view.html?file=../opencode/aisnapmanager/ai-snap-manager.py">View</a>
-                </div>
-                <p>Run using: python3 ./ai-snap-manager.py</p>
-                <img src="opencode/aisnapmanager/aisnapmanager1.png" alt="AI Snap Manager running 1" width="600">
-                <img src="opencode/aisnapmanager/aisnapmanager2.png" alt="AI Snap Manager running 2" width="1000">
-              </div>
-            </details>
-            
-            <details class="project">
-              <summary>2. Terminal, Interactive: LangChain, Python</summary>
-              <div class="project-body">
-                <p>Saw 'LangChain' mentioned in relation to AI engineering. What's that? I said. One question to Google Gemini followed by a two minute OpenCode session answered my question! OpenCode makes using LangChain (which allows use of an LLM from Python with knobs on) a zero coding doddle!</p>
-                <br>
-                <p>OpenCode generated <a href="opencode/langchain/langchain_app.py" download="langchain_app.py">langchain_app.py</a>:</p>
-                <pre><code>#!/usr/bin/env python3
-"""LangChain app using llama.cpp via llama-cpp-python."""
+    <!-- Layout -->
+    <div class="guide-layout">
 
-import sys
-import argparse
-from pathlib import Path
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <h3>Contents</h3>
+        <a href="#section1">Getting Started</a>
+        <a href="#section2">Prompt Patterns</a>
+        <a href="#section3">Debugging with AI</a>
+        <a href="#section4">Refactoring Workflows</a>
+        <a href="#section5">Generating Components</a>
+        <a href="#section6">OpenCode Self‑Forking Example</a>
+      </aside>
 
-from langchain_community.llms import LlamaCpp
-from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHandler
-from langchain_core.prompts import PromptTemplate
+      <!-- Content -->
+      <div>
 
+        <!-- Section 1 -->
+        <section id="section1" class="guide-section">
+          <h2>1. Getting Started</h2>
+          <p>
+            AI coding works best when you treat the model like a junior developer:
+            give it context, constraints, examples, and a clear goal.
+          </p>
 
-def build_llm(model_path: str, n_gpu_layers: int = 0, n_ctx: int = 2048):
-    return LlamaCpp(
-        model_path=model_path,
-        temperature=0.7,
-        max_tokens=512,
-        n_ctx=n_ctx,
-        n_gpu_layers=n_gpu_layers,
-        n_threads=8,
-        n_batch=512,
-        f16_kv=True,
-        verbose=False,
-        callbacks=CallbackManager([StreamingStdOutCallbackHandler()]),
-    )
-
-
-def main():
-    parser = argparse.ArgumentParser(description="LangChain + llama.cpp")
-    parser.add_argument("model", type=str, help="Path to GGUF model file")
-    parser.add_argument("--gpu-layers", type=int, default=0, help="GPU offload layers")
-    parser.add_argument(
-        "--prompt",
-        type=str,
-        default="Explain quantum computing in one sentence.",
-        help="Prompt to send to the model",
-    )
-    parser.add_argument("--ctx", type=int, default=2048, help="Context window size")
-    args = parser.parse_args()
-
-    if not Path(args.model).exists():
-        print(f"Error: model file not found: {args.model}", file=sys.stderr)
-        sys.exit(1)
-
-    llm = build_llm(args.model, args.gpu_layers, args.ctx)
-
-    prompt = PromptTemplate.from_template(
-        "You are a helpful assistant.\n\nUser: {question}\nAssistant:"
-    )
-    chain = prompt | llm
-
-    print(f"\n--- Prompt ---\n{args.prompt}\n--- Response ---")
-    chain.invoke({"question": args.prompt})
-
-
-if __name__ == "__main__":
-    main()</code></pre>
-                <br>
-                <p>OpenCode generated single command which 'does all the doings for LangChain' - installs all packages required, downloads the Google Gemma 4 LLM and runs langchain_app.py using the just downloaded LLM. All free and anonymous of course, tested on a Ubuntu 26.04 LTS Live USB:</p>
-                <pre><code>mkdir -p models && sudo apt install python3-pip python3-venv wget -y && python3 -m venv venv && source venv/bin/activate && pip install langchain-core langchain-community llama-cpp-python && wget -O models/gemma-4-E2B-it-Q8_0.gguf https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf && python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
-                <img src="opencode/langchain/langchainrunning.png" alt="LangChain running" width="1000">
-            </details>
-            
-            <details class="project">
-              <summary>3. Terminal, Interactive: LLama.cpp Revisited, C++</summary>
-              <div class="project-body">
-                <p>
-                  OpenCode generated single command to download <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>, build it (and the 'llama-cli' example tool) then download the Google Gemma 4 LLM. Tested on a Ubuntu 26.04 LTS Live USB. All free.
-                </p>
-                <pre><code>sudo apt update && sudo apt install -y git build-essential cmake wget libcurl4-openssl-dev && test -d llama.cpp || git clone https://github.com/ggerganov/llama.cpp.git && cd llama.cpp && git submodule update --init --recursive && cmake -B build -G "Unix Makefiles" -DLLAMA_CURL=ON && cmake --build build -j $(nproc) --target llama-cli && mkdir -p models && test -f models/gemma-4-E2B-it-Q8_0.gguf || wget -O models/gemma-4-E2B-it-Q8_0.gguf https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf</code></pre>
-                <p>
-                  and a command to run the built llama-cli...
-                </p>
-                <pre><code>./build/bin/llama-cli -m ./models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
-                <img src="opencode/llamarevisited/llamarevisited.png" alt="Llama.cpp running" width="1000">
-            </details>
-            
-            <details class="project">
-              <summary>4. Terminal, Interactive: Agent Development Setup, C++</summary>
-              <div class="project-body">
-                <p>
-                  Not just a code generator, OpenCode is also a general AI chatbot. I asked it to define an 'AI agent' in easy to undestand programming terms, its answer was...<br>
-                  <pre>
-An AI agent is:
-
-while True:
-    observe environment      # get input / state
-    ask LLM: "what next?"    # decide action
-    execute action           # run tool / speak / move
-    store result             # feed back to context
-                    
-The LLM acts as the "brain" deciding what to do each iteration. The agent loop handles calling tools, feeding results back in, and deciding when to stop.
-
-The two key differences from a raw LLM call:
-1. **Stateful** — it maintains conversation history across turns
-2. **Can act** — it calls functions (search, calculator, file ops, etc.) and feeds results back into the loop
-
-It's a `while` loop driven by an LLM at each step.</pre>
-                  
-                  I then asked ChatGPT to help me define commands for installing ‘stuff needed to develop a lean'n'mean C++ AI agent on Ubuntu Linux’ (i.e. the ‘<a href="https://github.com/mozilla-ai/agent.cpp">agent.cpp</a>’ Mozilla agent framework which invokes the ‘<a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>’ C/C++ AI inference engine as a sub-component) along with a micro IBM 'Granite' LLM downloaded from <a href="https://huggingface.co/">Hugging Face</a> for testing. All installed local, everything free and anonymous at all stages (including running) of course.<br> 
-                  I used a Ubuntu 26.04 LTS Live USB to test the generated commands which are here...
-                </p>
-                  <pre><code>sudo apt update && \
-sudo apt install -y git build-essential cmake wget && \
-git clone https://github.com/mozilla-ai/agent.cpp.git && \
-cd agent.cpp && \
-git submodule update --init --recursive && \
-cmake -B build -DCMAKE_BUILD_TYPE=Release -DAGENT_CPP_BUILD_EXAMPLES=ON && \
-cmake --build build -j$(nproc) && \
-mkdir -p models && \
-wget -O models/granite-4.0-micro-Q4_K_M.gguf \
-https://huggingface.co/ibm-granite/granite-4.0-micro-GGUF/resolve/main/granite-4.0-micro-Q4_K_M.gguf && \
-echo "Starting shell-example..." && \
-./build/shell-example -m models/granite-4.0-micro-Q4_K_M.gguf</code></pre>
-                
-              <p>Enter the above and you'll have a locally running 'Ollama style' AI chatbot running in an agent framework... </p>
-              <img src="opencode/agentdevkit/starting.png" alt="Examnple agent start" width="1000">
-              <img src="opencode/agentdevkit/running.png" alt="Example agent running" width="1000">
-              <p>LLMs and code versions need to be chosen careful carefully when using agent.cpp with llama.cpp else compilations can conflict and results can fail - a modern version of DLL hell!</p>
-              </div>
-            </details>
-
-            <details class="project">
-              <summary>5. Terminal, Interactive: World News (RSS) Agent, C++ (llama.cpp + Mozilla agent.cpp) </summary>
-              <div class="project-body">
-                <p>C++ or higher-level frameworks for AI agent development?<a href="kb/agentdevoptions.html"> Here's a handy comparison table.</a></p>
-                <p>
-                  Using Ubuntu 26.04 LTS Live USB. All free and anonymous, no coding by me, full power, full speed, AI agent written in C++. OpenCode did everything including all the Internet downloading, creating files and directories, source editing, source code building, resolving compilation errors, testing, functionality changes upon my request and final packaging. I watched TV as OpenCode was doing its stuff (specifically reruns of 'Some Mothers Do 'Ave 'Em' and 'The Avengers' (starring Linda Thorson)!).   
-                </p>
-
-                <pre><code>sudo apt update
-sudo apt install curl -y
-curl -fsSL https://opencode.ai/install | bash
-source ~/.bashrc
-opencode
-1) Download and extract the latest llama.cpp source code from GitHub (https://github.com/ggml-org/llama.cpp), understand the codebase, download the gemma4 GGUF model (the smallest available) from HuggingFace (https://huggingface.co/), build llama.cpp, test that the downloaded GGUF works with the built llama.cpp 2) Download and extract the latest Mozilla Agent.cpp source code from GitHub (https://github.com/mozilla-ai/agent.cpp), understand the codebase, build agent.cpp, integrating with the built llama.cpp to create a very simple example agent which gets and displays the current price of gold, silver and oil 3) Generate an HTML file AgentDetails.html detailing what has been built, what the agent does and how to start it.
-Resolve compilation errors
-Resolve remaining compilation errors
-Fix code
-Make the following report improvements .. Ubuntu version mentioned in report is wrong, I'm using 26.04 LTS, vertically align the start of comments in the File Structure section (most are ok but a few are out by a space or two)</code></pre>
-
-                <p>I accidentally closed OpenCode using Ctrl+C ("pressing Ctrl+C in OpenCode currently acts as an immediate exit command rather than the standard 'copy' shortcut, which is a known issue") - oh no! No need to panic, how to instantly session resume using '-s ses_&lt;sessionid&gt;' was handily displayed on the terminal at exit. Phew!</p>
-
-                <pre>opencode -s ses_&lt;sessionid&gt;
-Please continue and fix vertical alignment, looks like you've stopped doing actions
-All seem aligned correctly apart from '# GGUF model (4.96 GB)' - only one horizontal space (not two as current) needed in front of that<code></code></pre>
-
-              <p>'Allow once' highlighted in OpenCode awaiting my input: I pressed Enter</p>
-              <p>'Allow once' highlighted in OpenCode awaiting my input: I pressed Enter</p>
-              <p>'Allow once' highlighted in OpenCode awaiting my input: I changed this to 'Allow always' using then right arrow key then pressed Enter</p>
-              <p>'Confirm' highlighted in OpenCode awaiting my input: I pressed Enter</p>
-
-              <pre><code>When running the agent I see...
-=== Price Agent ===
-Asking agent to get current prices of gold, silver, and oil...
-
-
-Final Response: <|tool_call>call:get_prices{}<tool_call|>
-
-=== Done ===
-~llama_context:        CPU compute buffer size is 522.0020 MiB, matches expectation of 522.0020 MiB
-Worked ok, got prices once then exited, enhance so that gets prices 5 times, a second wait between each price grab.
-Change agent so that rather than getting commodity prices, get 5 current International news headlines from an RSS feed, display them as readable text, pause 2 seconds and repeat forever.
-Prepare the current code so that it can be easily modified further on another machine - create a new directory called rssagent containing all the source, makefiles and anything else required for a clean build on that new machine. Create an html file called rssagent.html detailing the contents of rssagent and how to build on the new machine.</code></pre>
-
-                <p>Minor Oops, I didn't spot that the title in the generated Report should've been 'RSS Agent' rather than 'Price Agent' and name of the generated binary 'rss-agent' rather than 'price-agent' due to the requirements change late on, neither did OpenCode!</p>
-
-                <p><a href="opencode/newsagent/AgentDetails.html">Generated 'What Built' Report</a></p>
-                <p><a href="opencode/newsagent/rssagent/rssagent.html">Generated 'How To Use On Another Machine' Report</a></p>
-                <p>The agent running:</p>
-                <img src="opencode/newsagent/newsagent1.png" alt="News Agent how to start">
-                <img src="opencode/newsagent/newsagent2.png" alt="News Agent running">
-
-                <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/newsagent/rssagent" target="_blank">'GitHub repository style' source tree.</a>
-                <p>A handy rssagent.tar.gz which was also generated by OpenCode is in the parent directory of this source tree.</p>
-              </div>
-            </details>
-
-            <details class="project">
-              <summary>6. Terminal, Interactive: Code Snippets, C++</summary>
-              <div class="project-body">
-                <p>
-                  A tiny C++ program that issues a single query to OpenCode and displays the result. Possibly useful when you want a quick snippet of code rather than Google or Stack Overflow searching.
-                </p>
-
-                <p>Makefile and C++ code were both generated by OpenCode.</p>
-
-                <div class="link-row">
-                  <a href="opencode/snippet/Makefile" download="Makefile">Makefile</a>
-                  <a href="kilocli/view.html?file=../opencode/snippet/Makefile">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="opencode/snippet/snippet.cpp" download="snippet.cpp">snippet.cpp</a>
-                  <a href="kilocli/view.html?file=../opencode/snippet/snippet.cpp">View</a>
-                </div>
-
-                <p>Before attempting a first make, install OpenCode then get it to inspect the codebase:</p>
-
-                <p>sudo apt update; sudo apt install -y curl; curl -fsSL https://opencode.ai/install | bash; source ~/.bashrc; opencode</p>
-
-                <p>Read Makefile and snippet.cpp to understand the codebase then install all build tools required to build the codebase.</p>
-
-                <img src="opencode/snippet/snippet.png" alt="Code snippet app screenshot" width="700">
-              </div>
-            </details>
-            
-            <details class="project">
-              <summary>7. Terminal, Interactive: Linux Kernel, C</summary>
-              <div class="project-body">
-                <p><strong>Thursday, 23 Apr 2026</strong></p>
-                <p>
-                  For about 30 years the Linux kernel has been a Finnish black art, impenetrable C code that no one dare venture near. AI agentic coding changes that. I asked OpenCode to analyse the latest kernel source code for bugs and issues, and it completed in a couple of minutes, generating a report.
-                </p>
-
-                <p>Some interesting integer overflow risks from section 4 of the report:</p>
-
-                <table class="report-table">
-                  <thead>
-                    <tr>
-                      <th style="width: 10%;">Severity</th>
-                      <th style="width: 25%;">File</th>
-                      <th style="width: 10%;">Line(s)</th>
-                      <th style="width: 30%;">Issue Description</th>
-                      <th style="width: 25%;">Recommendation</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>High</td>
-                      <td>kernel/sched/topology.c</td>
-                      <td>2077</td>
-                      <td>sizeof(void *) * nr_levels could overflow on systems with high core counts.</td>
-                      <td>Use safe_add_overflow() or check for overflow before multiplication.</td>
-                    </tr>
-                    <tr>
-                      <td>High</td>
-                      <td>kernel/sched/topology.c</td>
-                      <td>2086</td>
-                      <td>nr_node_ids * sizeof(void *) multiplication could overflow.</td>
-                      <td>Add overflow checking before allocation size calculation.</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <p>Report: <a href="opencode/linuxkernel/homework_for_Linus.html">HTML report</a></p>
-
-                <p>This report was generated using a Ubuntu 24.04 Live USB:</p>
-
-                <pre><code>sudo apt update
-sudo apt install curl -y
-curl -fsSL https://opencode.ai/install | bash
-source ~/.bashrc
-opencode
-Download and extract the latest Linux source code from https://github.com/torvalds/linux, understand the codebase in subdirectory kernel, find any bugs, memory leaks, bad programming practices and areas for improvement in the files in this directory then generate a report file homework_for_Linus.html detailing all issues and possible improvements found.</code></pre>
-              </div>
-            </details>
-
-            <details class="project">
-              <summary>8. Terminal, Interactive: ClamAV GTK Control Application, Python</summary>
-              <div class="project-body">
-                <p>
-                  knocked up in a couple of minutes using OpenCode, here's a lighwight Python application, using GTK for the GUI, which calls the ClamAV tool to scan files and irectories for known viruses.
-                  Just scans, doesn't remove or quarantine; could easily be extended to do these actions as ClamAV supports them.<br>
-                  Why GTK? - Tkinter is older style cross platform, PySide/PyQt is modern style cross platform, GTK is current GNOME native.  
-                </p>
-                <img src="https://raw.githubusercontent.com/RedOrangeGreen/clamav-gtk/main/clamav-gtk.png" alt="ClamAV GTK Control">
-                <p>This app was generated on a Ubuntu 26.04 LTS Live USB, free and anonymous, by entering the following:</p>
-                <pre><code>cd ~/Downloads
-sudo apt update
-sudo apt install curl -y
-curl -fsSL https://opencode.ai/install | bash
-source ~/.bashrc
-opencode
-Create a Python app which uses GTK to control and use the ClamAV antivirus tool on ubuntu
-Enhance to allow a single file to be selected and scanned
-Enhance so that if ClamAV isn't installed, the command to install it is shown on the warning dialog when a Scan is attempted
-Tried an update, got Updating...
-   ERROR: Problem with internal logger (UpdateLogFile = /var/log/clamav/freshclam.log).
-   ERROR: initialize: libfreshclam init failed.
-   ERROR: Initialization error!
-   ERROR: Failed to lock the log file /var/log/clamav/freshclam.log: Resource temporarily unavailable
-   
-   Update failed (code 2)
-The update works but I am getting a prompt to authenticate three times during the update, is it possible to only authenticate once at the start of the operation
-Add comments at the top indicating the program author (i.e. you!), the date of creation and usage info
-Output all prompts entered to prompts.txt
+          <pre><code>// Good starter prompt
+You are helping me build a small web app.
+Tech stack: HTML, CSS, JS.
+Goal: A responsive landing page.
+Constraints:
+- No external frameworks
+- Keep CSS under 200 lines
+- Include a hero section and 3 feature cards
 </code></pre>
+        </section>
 
-                <p>I've popped the generated code into the following proper 'big boy's pants style' GitHub repository (apart from the image file all files were generated by OpenCode):</p>
-                <a href="https://github.com/RedOrangeGreen/clamav-gtk" target="_blank">GitHub repository</a>
+        <!-- Section 2 -->
+        <section id="section2" class="guide-section">
+          <h2>2. Prompt Patterns</h2>
+          <p>
+            These reusable patterns help you get consistent results across tasks.
+          </p>
+
+          <pre><code>// Pattern: "Improve this"
+Improve the following function.
+Keep the same behaviour.
+Explain the changes after the code.
+
+function add(a, b) {
+  return a + b;
+}
+</code></pre>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="section3" class="guide-section">
+          <h2>3. Debugging with AI</h2>
+          <p>
+            AI is excellent at spotting logic errors, missing edge cases, and
+            mismatched assumptions.
+          </p>
+
+          <pre><code>// Pattern: "Find the bug"
+Here is a function that behaves incorrectly.
+Describe the bug, then fix it.
+
+function getUser(id) {
+  if (id = 0) {
+    return null;
+  }
+  return { id };
+}
+</code></pre>
+        </section>
+
+        <!-- Section 4 -->
+        <section id="section4" class="guide-section">
+          <h2>4. Refactoring Workflows</h2>
+          <p>
+            AI can refactor code into cleaner, more modular structures while
+            preserving behaviour.
+          </p>
+
+          <pre><code>// Pattern: "Refactor safely"
+Refactor this code.
+Keep behaviour identical.
+Split into smaller functions.
+Add comments explaining each part.
+</code></pre>
+        </section>
+
+        <!-- Section 5 -->
+        <section id="section5" class="guide-section">
+          <h2>5. Generating Components</h2>
+          <p>
+            Use AI to generate UI components, backend handlers, or utility
+            functions quickly.
+          </p>
+
+          <pre><code>// Pattern: "Generate a component"
+Generate a responsive card component.
+Inputs:
+- title
+- description
+- icon
+Output:
+- HTML
+- CSS
+- JS (if needed)
+</code></pre>
+        </section>
+
+        <!-- Section 6: OpenCode Example -->
+        <section id="section6" class="guide-section">
+          <h2>6. Example: Self‑Forking the OpenCode Terminal</h2>
+          <p>
+            This example demonstrates how to use an AI‑assisted workflow to fork and
+            reproduce an entire interactive terminal environment — including its own
+            source code — using only the OpenCode tool itself.
+          </p>
+
+          <details class="project" style="
+              margin-top: 1.2rem;
+              border-radius: 14px;
+              background: rgba(15,23,42,0.9);
+              border: 1px solid rgba(148,163,184,0.35);
+              padding: 1rem 1.2rem;
+              box-shadow: 0 10px 30px rgba(15,23,42,0.7);
+              transition: all 0.25s ease-out;
+            ">
+            <summary style="
+                cursor: pointer;
+                font-size: 1rem;
+                font-weight: 600;
+                color: var(--accent);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+              ">
+              <i class="fa-solid fa-terminal"></i>
+              12. Terminal, Interactive: Self‑Forking The OpenCode Terminal
+            </summary>
+
+            <div class="project-body" style="margin-top: 1rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.55;">
+              <p>
+                How to fork the OpenCode terminal and all associated functionality using
+                OpenCode itself. Self‑reproduction with a little extra at birth.
+              </p>
+
+              <p>
+                All free and open source; free tool, free model, anonymous, no sign‑ins,
+                no API keys. The
+                <a href="https://github.com/anomalyco/opencode/blob/dev/LICENSE" target="_blank" style="color: var(--accent);">
+                  MIT Licence
+                </a>
+                used by OpenCode means any part of the tool and associated source code
+                can be obtained and used by anyone.
+              </p>
+
+              <p>Developed and tested on Ubuntu 24.04.4 LTS Live USB.</p>
+
+              <div class="link-row" style="display: flex; gap: 1rem; margin: 1rem 0;">
+                <a href="opencode/fork/howto-fork.txt" download="howto-fork.txt" style="color: var(--accent);">
+                  howto-fork.txt
+                </a>
+                <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt" style="color: var(--accent);">
+                  View
+                </a>
               </div>
-            </details>
 
-            <details class="project">
-              <summary>9. Terminal, Interactive: Clipboard Monitor, Python</summary>
-              <div class="project-body">
-                <p>
-                  Been after a simple Windows 10 style clipboard monitor for Ubuntu for ages that is tiny, simple to install and open source. OpenCode to the rescue.
-                </p>
-
-                <div class="link-row">
-                  <a href="opencode/clipboard/clipboard_monitor.py" download="clipboard_monitor.py">clipboard_monitor.py</a>
-                  <a href="kilocli/view.html?file=../opencode/clipboard/clipboard_monitor.py">View</a>
-                </div>
-
-                <p>Usage: python3 ./clipboard_monitor.py</p>
-                <p>Missing required package auto detected and installed...</p>
-
-                <img src="opencode/clipboard/clipboard1.png" alt="Clipboard monitor install screen" width="400">
-
-                <p>'Clear clipboard' button greyed out if clipboard empty...</p>
-
-                <img src="opencode/clipboard/clipboard2.png" alt="Clipboard monitor empty clipboard" width="400">
-
-                <p>But enabled if something is on it...</p>
-
-                <img src="opencode/clipboard/clipboard3.png" alt="Clipboard monitor populated clipboard" width="400">
+              <div class="link-row" style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                <a href="opencode/fork/opencode-fork.txt" download="opencode-fork.txt" style="color: var(--accent);">
+                  opencode-fork.txt
+                </a>
+                <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt" style="color: var(--accent);">
+                  View
+                </a>
               </div>
-            </details>
-            
-            <details class="project">
-              <summary>10. Terminal, Interactive: ClamTk GUI Refresh, Perl</summary>
-              <p>ClamTk is a free and open-source graphical interface for the ClamAV command-line antivirus program. Although the project was officialy retired in 2024, the tool is still well used but many users consider the GUI interface 'functional' rather than 'modern'.</a></p>
-              <p>AI Agentic development can fix that in a few minutes, free and anonymous!</a></p>
-              <p>Using a Ubuntu 26.04 Live USB, start with the latest version of ClamTk...</a></p>
-              <img src="opencode/clamtkrefresh/clamtkcurrent.png" alt="ClamTk current">
-              <p>do this...</a></p>
-              <div class="project-body">
-                                <pre><code>cd ~/Downloads
-sudo apt update
-sudo apt install curl -y
-curl -fsSL https://opencode.ai/install | bash
-source ~/.bashrc
-opencode
-Download the latest version of ClamTK from https://github.com/dave-theunsub/clamtk, understand the codebase, completely change the front GUI screen to a modern layout and style of your choice, build a new executable, call the executable clamtkrefresh, output an HTML file clamtkrefresh.html detailing the changes made and how to build and run clamtkrefresh.
-./clamtkrefresh looks identical to ./clamtk - where are the GUI changes?
-Can you make the selection items on the front screen slightly smaller and the main window slightly bigger so that I can see all options when the application is started without needing to scroll
-Create a source tree for clamtkreresh called clamtkrefreshcode suitable for uploading as a GitHub repository
-Output all the user prompts entered in this session to file userprompts.txt
-Make all the actions options on the front GUI screen the same size, width and height 
-Some of the cards are still different dimensions (e.g. 'Preferences' has a smaller width than 'Update'). Make all 11 cards have an identical width and height - use the current largest card width and largest card height for this.
-Form userprompts.txt and clamtkrefreshcode using given the latest code</code></pre>
 
-              <p>and you'll get this...</a></p>
-              <img src="opencode/clamtkrefresh/clamtkrefresh1.png" alt="ClamTk refresh1">
-              <img src="opencode/clamtkrefresh/clamtkrefresh2.png" alt="ClamTk refresh2">
-              <p>Here's the updated source code. The changes are in lib/ClamTk/GUI.pm</a></p>
-              <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/clamtkrefresh/clamtkrefreshcode" target="_blank">ClamTk Refresh Source Code Changes</a>
-              </div>
-            </details>
-            
-            <details class="project">
-              <summary>11. Terminal, Interactive: Tetris, HTML/JavaScript/CSS Webpage</summary>
-              <div class="project-body">
-                <p>
-                  A Tetris clone running on a webpage, 100% AI vibe coded, the initial app taking about 30 minutes. It has sprites, sounds, music, levels, and the usual stuff.
-                </p>
+              <p>The baby is born…</p>
 
-                <p>
-                  The code was generated on Ubuntu 24.04.4 LTS Live USB and saved to external media mid session.
-                </p>
+              <img src="opencode/fork/taskcomplete.png" alt="Fork task complete" style="max-width: 100%; border-radius: 12px; margin: 1rem 0;">
 
-                <img src="opencode/tetris/1.png" alt="Tetris start screen" width="800">
-                <img src="opencode/tetris/2.png" alt="Tetris play screen" width="800">
+              <p>
+                It has been given a little something extra its mother
+                (<a href="https://github.com/anomalyco/opencode" target="_blank" style="color: var(--accent);">
+                  the OpenCode repository on GitHub
+                </a>)
+                does not have…
+              </p>
 
-                <p>Preparing to vibe:</p>
+              <img src="opencode/fork/info.png" alt="Fork info" style="max-width: 100%; border-radius: 12px; margin: 1rem 0;">
 
-                <div class="link-row">
-                  <a href="opencode/setup.sh" download="setup.sh">setup.sh</a>
-                  <a href="kilocli/view.html?file=../opencode/setup.sh">View</a>
-                </div>
+              <p>But everything else works as expected…</p>
 
-                <div class="link-row">
-                  <a href="opencode/run.sh" download="run.sh">run.sh</a>
-                  <a href="kilocli/view.html?file=../opencode/run.sh">View</a>
-                </div>
+              <img src="opencode/fork/invoke.png" alt="Fork invoke" style="max-width: 100%; border-radius: 12px; margin: 1rem 0;">
+              <img src="opencode/fork/running.png" alt="Fork running" style="max-width: 100%; border-radius: 12px; margin: 1rem 0;">
+              <img src="opencode/fork/exit.png" alt="Fork exit" style="max-width: 100%; border-radius: 12px; margin: 1rem 0;">
+            </div>
+          </details>
+        </section>
 
-                <img src="opencode/tetris/opencodescreen.png" alt="OpenCode screen" width="500">
-
-                <p>Vibe Session 1 (Initial App Creation)</p>
-                <p><em>Vibes</em></p>
-
-                <div class="link-row">
-                  <a href="opencode/tetris/vibes.txt" download="vibes.txt">vibes.txt</a>
-                  <a href="kilocli/view.html?file=../opencode/tetris/vibes.txt">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="opencode/tetris/opencode-prompt.txt" download="opencode-prompt.txt">opencode-prompt.txt</a>
-                  <a href="kilocli/view.html?file=../opencode/tetris/opencode-prompt.txt">View</a>
-                </div>
-
-                <p><em>Generated Code</em></p>
-
-                <div class="link-row">
-                  <a href="opencode/tetris/webpage/index.html" download="index.html">index.html</a>
-                  <a href="kilocli/view.html?file=../opencode/tetris/webpage/index.html">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="opencode/tetris/webpage/script.js" download="script.js">script.js</a>
-                  <a href="kilocli/view.html?file=../opencode/tetris/webpage/script.js">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="opencode/tetris/webpage/styles.css" download="styles.css">styles.css</a>
-                  <a href="kilocli/view.html?file=../opencode/tetris/webpage/styles.css">View</a>
-                </div>
-
-                <p><a href="opencode/tetris/webpage/" target="_blank">Play Vibe Session 1 Tetris</a></p>
-
-                <p>Vibe Session 2 (Enhancements; Hours, Days, Whenever Later)</p>
-                <p><em>Vibes</em></p>
-
-                <div class="link-row">
-                  <a href="opencode/tetris/vibes-next.txt" download="vibes-next.txt">vibes-next.txt</a>
-                  <a href="kilocli/view.html?file=../opencode/tetris/vibes-next.txt">View</a>
-                </div>
-
-                <p><em>Generated Code</em></p>
-
-                <div class="link-row">
-                  <a href="opencode/tetris/webpage-next/index.html" download="index.html">index.html</a>
-                  <a href="kilocli/view.html?file=../opencode/tetris/webpage-next/index.html">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="opencode/tetris/webpage-next/script.js" download="script.js">script.js</a>
-                  <a href="kilocli/view.html?file=../opencode/tetris/webpage-next/script.js">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="opencode/tetris/webpage-next/styles.css" download="styles.css">styles.css</a>
-                  <a href="kilocli/view.html?file=../opencode/tetris/webpage-next/styles.css">View</a>
-                </div>
-
-                <p><a href="opencode/tetris/webpage-next/" target="_blank">Play Vibe Session 2 Tetris</a></p>
-              </div>
-            </details>
-
-            <details class="project">
-              <summary>12. Terminal, Interactive: Self-Forking The OpenCode Terminal</summary>
-              <div class="project-body">
-                <p>
-                  How to fork the OpenCode terminal and all associated functionality using OpenCode itself. Self-reproduction with a little extra at birth.
-                </p>
-
-                <p>
-                  All free and open source; free tool, free model, anonymous, no sign-ins, no API keys. The
-                  <a href="https://github.com/anomalyco/opencode/blob/dev/LICENSE">MIT Licence</a>
-                  used by OpenCode means any part of the tool and associated source code can be obtained and used by anyone.
-                </p>
-
-                <p>Developed and tested on Ubuntu 24.04.4 LTS Live USB.</p>
-
-                <div class="link-row">
-                  <a href="opencode/fork/howto-fork.txt" download="howto-fork.txt">howto-fork.txt</a>
-                  <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="opencode/fork/opencode-fork.txt" download="opencode-fork.txt">opencode-fork.txt</a>
-                  <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt">View</a>
-                </div>
-
-                <p>The baby is born...</p>
-
-                <img src="opencode/fork/taskcomplete.png" alt="Fork task complete" width="700">
-
-                <p>
-                  It has been given a little something extra its mother
-                  (<a href="https://github.com/anomalyco/opencode">the OpenCode repository on GitHub</a>) does not have...
-                </p>
-
-                <img src="opencode/fork/info.png" alt="Fork info" width="600">
-
-                <p>But everything else works as expected...</p>
-
-                <img src="opencode/fork/invoke.png" alt="Fork invoke" width="600">
-                <img src="opencode/fork/running.png" alt="Fork running" width="600">
-                <img src="opencode/fork/exit.png" alt="Fork exit" width="600">
-              </div>
-            </details>
-            
-            <h2 class="section-title">Kilo CLI On Ubuntu Linux</h2>
-            <p>
-              <a href="https://kilo.ai/cli">Kilo CLI</a> is an open-source command-line tool, a fork built directly on top of
-              <a href="https://opencode.ai/">OpenCode</a>, for running free AI coding agents directly from a terminal. Paid options are also available.
-            </p>
-
-            <details class="project">
-              <summary>1. Terminal, Interactive: Flappy KiloPig, Python</summary>
-              <div class="project-body">
-                <p>
-                  A Flappy Bird clone, 100% AI vibe coded in a couple of hours using Kilo CLI. It has sprites, animation, physics, scrolling, scoring, sound, levels, and an end boss.
-                </p>
-
-                <p>I asked Kilo CLI to use Pygame, although I had never used it before.</p>
-
-                <img src="kilocli/kilopig/flappykilopig.png" alt="Flappy KiloPig" width="800">
-
-                <div class="link-row">
-                  <a href="kilocli/kilopig/main.py">main.py</a>
-                  <a href="kilocli/view.html?file=kilopig/main.py">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="kilocli/kilopig/highscore.xml" download="highscore.xml">highscore.xml</a>
-                  <a href="kilocli/view.html?file=kilopig/highscore.xml">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="kilocli/kilopig/files.txt" download="files.txt">files.txt</a>
-                  <a href="kilocli/view.html?file=kilopig/files.txt">View</a>
-                </div>
-
-                <p><a href="https://github.com/RedOrangeGreen/ai/releases/download/V1.0/FlappyKiloPig">FlappyKiloPig</a></p>
-
-                <p>chmod +x ./FlappyKiloPig && ./FlappyKiloPig</p>
-              </div>
-            </details>
-
-            <details class="project">
-              <summary>2. Terminal, Interactive: hello world, C++ & Python</summary>
-              <div class="project-body">
-                <div class="link-row">
-                  <a href="kilocli/setup.sh">setup.sh</a>
-                  <a href="kilocli/view.html?file=setup.sh">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="kilocli/run.sh">run.sh</a>
-                  <a href="kilocli/view.html?file=run.sh">View</a>
-                </div>
-
-                <div class="link-row">
-                  <a href="kilocli/kilo-prompt.txt" download>kilo-prompt.txt</a>
-                  <a href="kilocli/view.html?file=kilo-prompt.txt">View</a>
-                </div>
-
-                <p>1) bash ./setup.sh 2) bash ./run.sh 3) Enter "Read and follow the instructions in ./kilo-prompt.txt"</p>
-              </div>
-            </details>
-
-            <details class="project">
-              <summary>3. One-shot, Non-Interactive</summary>
-              <div class="project-body">
-                <p>
-                  <a href="kilocli/kiloauth/">kiloauth.sh</a> is a shell script created with help from AI chatbots to download, install, and use Kilo CLI to create, build, and run a Google Authenticator-like desktop app using Qt6/C++.
-                </p>
-              </div>
-            </details>
-
-            <h2 class="section-title">Kilo Code On Ubuntu Linux</h2>
-            <p>
-              <a href="https://kilo.ai/">Kilo Code</a> is an open-source AI-powered coding agent, a fork of
-              <a href="https://roocode.com">Roo Code</a>, used as an extension inside Visual Studio Code.
-            </p>
-
-            <p>
-              <a href="kilocode/setup-vscode-and-kilocode.sh">setup-vscode-and-kilocode.sh</a> installs or reinstalls Visual Studio Code and the Kilo Code extension.
-            </p>
-
-            <p><a href="kilocode/testapp.html">Getting Started</a> explains how to create a first Python/C++ mixed-language test app.</p>
-
-            <h2 class="section-title">Python On Ubuntu Linux</h2>
-            <p><a href="python/fourth/index.html">Ollama Based Chat Application</a></p>
-
-            <p>
-              Using Python bindings for llama.cpp:
-              <a href="llama_cpp_python/setup.sh">setup.sh</a>
-              <a href="llama_cpp_python/my_wikipedia_script.py">my_wikipedia_script.py</a>
-              <a href="https://github.com/abetlen/llama-cpp-python">Homepage</a>
-            </p>
-
-            <h2 class="section-title">C++ On Ubuntu Linux</h2>
-            <p><a href="cplusplus/qt/first/index.html">Qt5 Lean'n'Mean</a></p>
-            <p><a href="baremetal/index.html">LLaMAC++ 1: First compile, run and edit</a></p>
-            <p><a href="baremetal2/index.html">LLaMAC++ 2: 'Little ChatGPT'</a></p>
-            <p><a href="baremetal3/index.html">LLaMAC++ 3: Enhancements to 'Little ChatGPT', including Save-2-File</a></p>
-
-          </div>
-        </div>
       </div>
     </div>
 
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
-  </body>
+    <!-- Footer -->
+    <footer>
+      <span>AI Playground • Coding Guide</span>
+      <span>2026</span>
+    </footer>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
