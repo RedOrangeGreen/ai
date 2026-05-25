@@ -423,8 +423,7 @@ python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
           </div>
         </details>
-        
-<!-- EXAMPLE 3 -->
+ <!-- EXAMPLE 3 -->
 <details class="project">
   <summary class="custom-summary">
     <div class="summary-left">
@@ -436,33 +435,23 @@ python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
   <div class="project-body">
 
     <p>
-      OpenCode generated a single command to download
-      <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>,
-      build it (including the <code>llama-cli</code> example tool),
-      then download the Google Gemma‑4 LLM.
-      Tested on Ubuntu 26.04 LTS Live USB. All free.
+      OpenCode generated single command to download
+      <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>, build it
+      (and the 'llama-cli' example tool) then download the Google Gemma 4 LLM.
+      Tested on a Ubuntu 26.04 LTS Live USB. All free.
     </p>
 
-<pre><code>sudo apt update && sudo apt install -y git build-essential cmake wget libcurl4-openssl-dev && \
-test -d llama.cpp || git clone https://github.com/ggerganov/llama.cpp.git && \
-cd llama.cpp && git submodule update --init --recursive && \
-cmake -B build -G "Unix Makefiles" -DLLAMA_CURL=ON && \
-cmake --build build -j $(nproc) --target llama-cli && \
-mkdir -p models && \
-test -f models/gemma-4-E2B-it-Q8_0.gguf || \
-wget -O models/gemma-4-E2B-it-Q8_0.gguf \
-https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf</code></pre>
+<pre><code>sudo apt update && sudo apt install -y git build-essential cmake wget libcurl4-openssl-dev && test -d llama.cpp || git clone https://github.com/ggerganov/llama.cpp.git && cd llama.cpp && git submodule update --init --recursive && cmake -B build -G "Unix Makefiles" -DLLAMA_CURL=ON && cmake --build build -j $(nproc) --target llama-cli && mkdir -p models && test -f models/gemma-4-E2B-it-Q8_0.gguf || wget -O models/gemma-4-E2B-it-Q8_0.gguf https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
-    <p>Run the built CLI using:</p>
+    <p>and a command to run the built llama-cli...</p>
 
 <pre><code>./build/bin/llama-cli -m ./models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
-    <img src="opencode/llamarevisited/llamarevisited.png"
-         alt="Llama.cpp running" width="1000">
+    <img src="opencode/llamarevisited/llamarevisited.png" alt="Llama.cpp running" width="1000">
 
   </div>
 </details>
-        
+
 <!-- EXAMPLE 4 -->
 <details class="project">
   <summary class="custom-summary">
@@ -475,9 +464,8 @@ https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-
   <div class="project-body">
 
     <p>
-      Not just a code generator, OpenCode is also a general AI chatbot.
-      I asked it to define an “AI agent” in easy‑to‑understand programming terms.
-      Its answer was:
+      Not just a code generator, OpenCode is also a general AI chatbot. I asked it
+      to define an 'AI agent' in easy to undestand programming terms, its answer was...
     </p>
 
 <pre><code>An AI agent is:
@@ -487,27 +475,25 @@ while True:
     ask LLM: "what next?"    # decide action
     execute action           # run tool / speak / move
     store result             # feed back to context
-
-The LLM acts as the "brain" deciding what to do each iteration.
-The agent loop handles calling tools, feeding results back in,
-and deciding when to stop.
+                    
+The LLM acts as the "brain" deciding what to do each iteration. The agent loop handles calling tools, feeding results back in, and deciding when to stop.
 
 The two key differences from a raw LLM call:
-1. Stateful — it maintains conversation history across turns
-2. Can act — it calls functions (search, calculator, file ops, etc.)
-</code></pre>
+1. **Stateful** — it maintains conversation history across turns
+2. **Can act** — it calls functions (search, calculator, file ops, etc.) and feeds results back into the loop
+
+It's a `while` loop driven by an LLM at each step.</code></pre>
 
     <p>
-      I then asked ChatGPT to help me define commands for installing
-      everything needed to develop a lean C++ AI agent on Ubuntu Linux —
-      specifically the
-      <a href="https://github.com/mozilla-ai/agent.cpp">agent.cpp</a> framework
-      which uses
-      <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>
-      as its inference engine.
+      I then asked ChatGPT to help me define commands for installing ‘stuff needed
+      to develop a lean'n'mean C++ AI agent on Ubuntu Linux’ (i.e. the
+      ‘<a href="https://github.com/mozilla-ai/agent.cpp">agent.cpp</a>’ Mozilla agent
+      framework which invokes the ‘<a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>’
+      C/C++ AI inference engine as a sub-component) along with a micro IBM 'Granite'
+      LLM downloaded from <a href="https://huggingface.co/">Hugging Face</a> for testing.
+      All installed local, everything free and anonymous at all stages (including running)
+      of course.
     </p>
-
-    <p>Tested on Ubuntu 26.04 LTS Live USB. All free and anonymous.</p>
 
 <pre><code>sudo apt update && \
 sudo apt install -y git build-essential cmake wget && \
@@ -520,20 +506,17 @@ mkdir -p models && \
 wget -O models/granite-4.0-micro-Q4_K_M.gguf \
 https://huggingface.co/ibm-granite/granite-4.0-micro-GGUF/resolve/main/granite-4.0-micro-Q4_K_M.gguf && \
 echo "Starting shell-example..." && \
-./build/shell-example -m models/granite-4.0-micro-Q4_K_M.gguf
-</code></pre>
+./build/shell-example -m models/granite-4.0-micro-Q4_K_M.gguf</code></pre>
+
+    <p>Enter the above and you'll have a locally running 'Ollama style' AI chatbot running in an agent framework...</p>
+
+    <img src="opencode/agentdevkit/starting.png" alt="Examnple agent start" width="1000">
+    <img src="opencode/agentdevkit/running.png" alt="Example agent running" width="1000">
 
     <p>
-      Enter the above and you'll have a locally running “Ollama‑style”
-      AI chatbot running in an agent framework.
-    </p>
-
-    <img src="opencode/agentdevkit/starting.png" width="1000" alt="Agent starting">
-    <img src="opencode/agentdevkit/running.png" width="1000" alt="Agent running">
-
-    <p>
-      LLMs and code versions must be chosen carefully when using agent.cpp
-      with llama.cpp — otherwise compilation conflicts can occur.
+      LLMs and code versions need to be chosen careful carefully when using agent.cpp
+      with llama.cpp else compilations can conflict and results can fail - a modern
+      version of DLL hell!
     </p>
 
   </div>
@@ -543,80 +526,76 @@ echo "Starting shell-example..." && \
 <details class="project">
   <summary class="custom-summary">
     <div class="summary-left">
-      <span>5. Terminal, Interactive: World News (RSS) Agent, C++</span>
+      <span>5. Terminal, Interactive: World News (RSS) Agent, C++ (llama.cpp + Mozilla agent.cpp)</span>
     </div>
     <i class="fa-solid fa-chevron-down summary-chevron"></i>
   </summary>
 
   <div class="project-body">
 
-    <p>
-      C++ or higher‑level frameworks for AI agent development?
-      <a href="kb/agentdevoptions.html">Here’s a handy comparison table.</a>
-    </p>
+    <p>C++ or higher-level frameworks for AI agent development?<a href="kb/agentdevoptions.html"> Here's a handy comparison table.</a></p>
 
     <p>
-      Using Ubuntu 26.04 LTS Live USB.  
-      All free and anonymous.  
-      No coding by me — OpenCode did everything:
+      Using Ubuntu 26.04 LTS Live USB. All free and anonymous, no coding by me, full power,
+      full speed, AI agent written in C++. OpenCode did everything including all the Internet
+      downloading, creating files and directories, source editing, source code building,
+      resolving compilation errors, testing, functionality changes upon my request and final
+      packaging. I watched TV as OpenCode was doing its stuff (specifically reruns of
+      'Some Mothers Do 'Ave 'Em' and 'The Avengers' (starring Linda Thorson)!).   
     </p>
-
-    <ul>
-      <li>Downloaded llama.cpp</li>
-      <li>Downloaded Mozilla agent.cpp</li>
-      <li>Built both from source</li>
-      <li>Integrated them</li>
-      <li>Fixed compilation errors</li>
-      <li>Created a price‑checking agent</li>
-      <li>Converted it into an RSS news agent</li>
-      <li>Generated documentation + packaging</li>
-    </ul>
 
 <pre><code>sudo apt update
 sudo apt install curl -y
 curl -fsSL https://opencode.ai/install | bash
 source ~/.bashrc
 opencode
-1) Download and extract llama.cpp...
-2) Download and extract agent.cpp...
-3) Generate AgentDetails.html...
+1) Download and extract the latest llama.cpp source code from GitHub (https://github.com/ggml-org/llama.cpp), understand the codebase, download the gemma4 GGUF model (the smallest available) from HuggingFace (https://huggingface.co/), build llama.cpp, test that the downloaded GGUF works with the built llama.cpp 2) Download and extract the latest Mozilla Agent.cpp source code from GitHub (https://github.com/mozilla-ai/agent.cpp), understand the codebase, build agent.cpp, integrating with the built llama.cpp to create a very simple example agent which gets and displays the current price of gold, silver and oil 3) Generate an HTML file AgentDetails.html detailing what has been built, what the agent does and how to start it.
 Resolve compilation errors
+Resolve remaining compilation errors
 Fix code
-Improve report formatting
-</code></pre>
+Make the following report improvements .. Ubuntu version mentioned in report is wrong, I'm using 26.04 LTS, vertically align the start of comments in the File Structure section (most are ok but a few are out by a space or two)</code></pre>
 
-    <p>
-      I accidentally closed OpenCode with Ctrl+C — but session resume
-      (<code>opencode -s ses_XXXX</code>) worked instantly.
-    </p>
+    <p>I accidentally closed OpenCode using Ctrl+C ("pressing Ctrl+C in OpenCode currently acts as an immediate exit command rather than the standard 'copy' shortcut, which is a known issue") - oh no! No need to panic, how to instantly session resume using '-s ses_&lt;sessionid&gt;' was handily displayed on the terminal at exit. Phew!</p>
 
-<pre><code>opencode -s ses_<sessionid>
-Please continue and fix vertical alignment...
-</code></pre>
+<pre><code>opencode -s ses_&lt;sessionid&gt;
+Please continue and fix vertical alignment, looks like you've stopped doing actions
+All seem aligned correctly apart from '# GGUF model (4.96 GB)' - only one horizontal space (not two as current) needed in front of that</code></pre>
+
+    <p>'Allow once' highlighted in OpenCode awaiting my input: I pressed Enter</p>
+    <p>'Allow once' highlighted in OpenCode awaiting my input: I pressed Enter</p>
+    <p>'Allow once' highlighted in OpenCode awaiting my input: I changed this to 'Allow always' using then right arrow key then pressed Enter</p>
+    <p>'Confirm' highlighted in OpenCode awaiting my input: I pressed Enter</p>
+
+<pre><code>When running the agent I see...
+=== Price Agent ===
+Asking agent to get current prices of gold, silver, and oil...
+
+
+Final Response: <|tool_call>call:get_prices{}<tool_call|>
+
+=== Done ===
+~llama_context:        CPU compute buffer size is 522.0020 MiB, matches expectation of 522.0020 MiB
+Worked ok, got prices once then exited, enhance so that gets prices 5 times, a second wait between each price grab.
+Change agent so that rather than getting commodity prices, get 5 current International news headlines from an RSS feed, display them as readable text, pause 2 seconds and repeat forever.
+Prepare the current code so that it can be easily modified further on another machine - create a new directory called rssagent containing all the source, makefiles and anything else required for a clean build on that new machine. Create an html file called rssagent.html detailing the contents of rssagent and how to build on the new machine.</code></pre>
+
+    <p>Minor Oops, I didn't spot that the title in the generated Report should've been 'RSS Agent' rather than 'Price Agent' and name of the generated binary 'rss-agent' rather than 'price-agent' due to the requirements change late on, neither did OpenCode!</p>
+
+    <p><a href="opencode/newsagent/AgentDetails.html">Generated 'What Built' Report</a></p>
+    <p><a href="opencode/newsagent/rssagent/rssagent.html">Generated 'How To Use On Another Machine' Report</a></p>
 
     <p>The agent running:</p>
 
-    <img src="opencode/newsagent/newsagent1.png" alt="News Agent start">
+    <img src="opencode/newsagent/newsagent1.png" alt="News Agent how to start">
     <img src="opencode/newsagent/newsagent2.png" alt="News Agent running">
 
-    <p>Reports generated by OpenCode:</p>
-
-    <p><a href="opencode/newsagent/AgentDetails.html">AgentDetails.html</a></p>
-    <p><a href="opencode/newsagent/rssagent/rssagent.html">rssagent.html</a></p>
-
-    <p>
-      GitHub‑style source tree:
-      <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/newsagent/rssagent" target="_blank">
-        Source tree
-      </a>
-    </p>
-
-    <p>
-      A <code>rssagent.tar.gz</code> was also generated automatically.
-    </p>
+    <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/newsagent/rssagent" target="_blank">'GitHub repository style' source tree.</a>
+    <p>A handy rssagent.tar.gz which was also generated by OpenCode is in the parent directory of this source tree.</p>
 
   </div>
 </details>
+
+
 
         
       </section>
