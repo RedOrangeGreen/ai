@@ -751,6 +751,101 @@ Output all prompts entered to prompts.txt
   </div>
 </details>
 
+<!-- EXAMPLE 9 -->
+<details class="project">
+  <summary class="custom-summary">
+    <div class="summary-left">
+      <span>9. Terminal, Interactive: Clipboard Monitor, Python</span>
+    </div>
+    <i class="fa-solid fa-chevron-down summary-chevron"></i>
+  </summary>
+
+  <div class="project-body">
+
+    <p>
+      Been after a simple Windows 10 style clipboard monitor for Ubuntu for ages that is tiny,
+      simple to install and open source. OpenCode to the rescue.
+    </p>
+
+    <div class="link-row">
+      <a href="opencode/clipboard/clipboard_monitor.py" download="clipboard_monitor.py">clipboard_monitor.py</a>
+      <a href="kilocli/view.html?file=../opencode/clipboard/clipboard_monitor.py">View</a>
+    </div>
+
+    <p>Usage: python3 ./clipboard_monitor.py</p>
+    <p>Missing required package auto detected and installed...</p>
+
+    <img src="opencode/clipboard/clipboard1.png" alt="Clipboard monitor install screen" width="400">
+
+    <p>'Clear clipboard' button greyed out if clipboard empty...</p>
+
+    <img src="opencode/clipboard/clipboard2.png" alt="Clipboard monitor empty clipboard" width="400">
+
+    <p>But enabled if something is on it...</p>
+
+    <img src="opencode/clipboard/clipboard3.png" alt="Clipboard monitor populated clipboard" width="400">
+
+  </div>
+</details>
+
+
+<!-- EXAMPLE 10 -->
+<details class="project">
+  <summary class="custom-summary">
+    <div class="summary-left">
+      <span>10. Terminal, Interactive: ClamTk GUI Refresh, Perl</span>
+    </div>
+    <i class="fa-solid fa-chevron-down summary-chevron"></i>
+  </summary>
+
+  <div class="project-body">
+
+    <p>
+      ClamTk is a free and open-source graphical interface for the ClamAV command-line antivirus program.
+      Although the project was officially retired in 2024, the tool is still well used but many users
+      consider the GUI interface 'functional' rather than 'modern'.
+    </p>
+
+    <p>
+      AI Agentic development can fix that in a few minutes, free and anonymous!
+    </p>
+
+    <p>
+      Using a Ubuntu 26.04 Live USB, start with the latest version of ClamTk...
+    </p>
+
+    <img src="opencode/clamtkrefresh/clamtkcurrent.png" alt="ClamTk current">
+
+    <p>do this...</p>
+
+    <pre><code>cd ~/Downloads
+sudo apt update
+sudo apt install curl -y
+curl -fsSL https://opencode.ai/install | bash
+source ~/.bashrc
+opencode
+Download the latest version of ClamTK from https://github.com/dave-theunsub/clamtk, understand the codebase, completely change the front GUI screen to a modern layout and style of your choice, build a new executable, call the executable clamtkrefresh, output an HTML file clamtkrefresh.html detailing the changes made and how to build and run clamtkrefresh.
+./clamtkrefresh looks identical to ./clamtk - where are the GUI changes?
+Can you make the selection items on the front screen slightly smaller and the main window slightly bigger so that I can see all options when the application is started without needing to scroll
+Create a source tree for clamtkreresh called clamtkrefreshcode suitable for uploading as a GitHub repository
+Output all the user prompts entered in this session to file userprompts.txt
+Make all the actions options on the front GUI screen the same size, width and height 
+Some of the cards are still different dimensions (e.g. 'Preferences' has a smaller width than 'Update'). Make all 11 cards have an identical width and height - use the current largest card width and largest card height for this.
+Form userprompts.txt and clamtkrefreshcode using given the latest code</code></pre>
+
+    <p>and you'll get this...</p>
+
+    <img src="opencode/clamtkrefresh/clamtkrefresh1.png" alt="ClamTk refresh1">
+    <img src="opencode/clamtkrefresh/clamtkrefresh2.png" alt="ClamTk refresh2">
+
+    <p>Here's the updated source code. The changes are in lib/ClamTk/GUI.pm</p>
+
+    <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/clamtkrefresh/clamtkrefreshcode" target="_blank">
+      ClamTk Refresh Source Code Changes
+    </a>
+
+  </div>
+</details>
 
         
       </section>
