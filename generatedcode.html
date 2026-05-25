@@ -37,7 +37,6 @@
       margin: 0;
     }
 
-    /* Navbar */
     .nav-blur {
       backdrop-filter: blur(18px);
       background: rgba(15, 23, 42, 0.92);
@@ -61,14 +60,12 @@
       transform: translateY(-1px);
     }
 
-    /* Page shell */
     .page-shell {
       max-width: 1120px;
       margin: 0 auto;
       padding: 6.5rem 1.25rem 3.5rem;
     }
 
-    /* Hero */
     .hero-title {
       font-size: clamp(2.2rem, 3vw + 1.2rem, 3rem);
       font-weight: 700;
@@ -91,7 +88,6 @@
       line-height: 1.6;
     }
 
-    /* Layout */
     .guide-layout {
       display: grid;
       grid-template-columns: 260px 1fr;
@@ -104,7 +100,6 @@
       }
     }
 
-    /* Sidebar */
     .sidebar {
       position: sticky;
       top: 6rem;
@@ -138,7 +133,6 @@
       transform: translateX(3px);
     }
 
-    /* Content sections */
     .guide-section {
       margin-bottom: 2.5rem;
       padding: 1.4rem 1.6rem;
@@ -159,7 +153,6 @@
       line-height: 1.6;
     }
 
-    /* Custom details summary */
     .custom-summary {
       list-style: none;
       cursor: pointer;
@@ -173,20 +166,6 @@
       user-select: none;
     }
 
-    .custom-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .custom-summary::marker {
-      display: none;
-    }
-
-    .summary-left {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-    }
-
     .summary-chevron {
       font-size: 0.85rem;
       transition: transform 0.25s ease;
@@ -197,65 +176,12 @@
       transform: rotate(180deg);
     }
 
-    /* Shared content styling */
-    .project-body {
-      margin-top: 1rem;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.55;
-    }
-
-    .project-body pre {
-      background: #020617;
-      padding: 1rem;
-      border-radius: 12px;
-      overflow: auto;
-      color: #d1d5db;
-      border: 1px solid rgba(148,163,184,0.15);
-    }
-
-    .project-body code {
-      color: #d1d5db;
-    }
-
-    .project-body img {
-      max-width: 100%;
-      border-radius: 12px;
-      margin: 1rem 0;
-    }
-
-    .link-row {
+    .summary-left {
       display: flex;
-      gap: 1rem;
-      margin: 1rem 0;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
     }
 
-    .link-row a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .link-row a:hover {
-      color: #7dd3fc;
-    }
-
-    details.project {
-      margin-top: 1.2rem;
-      border-radius: 14px;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(148,163,184,0.35);
-      padding: 1rem 1.2rem;
-      box-shadow: 0 10px 30px rgba(15,23,42,0.7);
-      transition: all 0.25s ease-out;
-    }
-
-    details.project:hover {
-      border-color: rgba(56,189,248,0.5);
-      transform: translateY(-2px);
-    }
-
-    /* Footer */
     footer {
       margin-top: 3rem;
       padding-top: 1.4rem;
@@ -271,498 +197,125 @@
 
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-md fixed-top nav-blur">
-    <div class="container-fluid" style="max-width: 1120px">
+<nav class="navbar navbar-expand-md fixed-top nav-blur">
+  <div class="container-fluid" style="max-width: 1120px">
 
-      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-        <div style="
-          width:26px;
-          height:26px;
-          border-radius:999px;
-          background:radial-gradient(circle at top,#38bdf8,#0f172a);
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          color:#0b1120;
-        ">
-          <i class="fa-solid fa-bolt"></i>
-        </div>
-
-        <span>AI Playground</span>
-      </a>
-
-      <button class="navbar-toggler text-light border-0"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#mainNav">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto align-items-md-center gap-1">
-
-          <li class="nav-item">
-            <a href="index.html" class="nav-link p-0">
-              <span class="nav-pill">
-                <i class="fa-solid fa-comments"></i>
-                Free AI Tools
-              </span>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="generatedcode.html" class="nav-link p-0">
-              <span class="nav-pill active">
-                <i class="fa-solid fa-code"></i>
-                Coding With AI
-              </span>
-            </a>
-          </li>
-
-        </ul>
+    <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+      <div style="
+        width:26px;height:26px;border-radius:999px;
+        background:radial-gradient(circle at top,#38bdf8,#0f172a);
+        display:flex;align-items:center;justify-content:center;color:#0b1120;">
+        <i class="fa-solid fa-bolt"></i>
       </div>
-    </div>
-  </nav>
-
-  <!-- Main Page -->
-  <main class="page-shell">
-
-    <!-- Hero -->
-    <header>
-      <h1 class="hero-title">
-        <span>AI Coding Guide</span>
-      </h1>
-
-      <p class="hero-subtitle">
-        Practical real-world examples for using AI as a coding partner.
-        Explore advanced AI-assisted workflows, self-forking environments,
-        local inference, AI agents and interactive development systems.
-      </p>
-    </header>
-
-    <!-- Layout -->
-    <div class="guide-layout">
-
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <h3>Contents</h3>
-
-        <a href="#section6">
-          OpenCode Self-Forking
-        </a>
-
-        <a href="#section7">
-          Additional OpenCode Examples
-        </a>
-      </aside>
-
-      <!-- Content -->
-      <div>
-
-        <!-- Self Fork -->
-        <section id="section6" class="guide-section">
-
-          <h2>
-            Self-Forking the OpenCode Terminal
-          </h2>
-
-          <p>
-            Fork and reproduce an interactive AI-assisted terminal
-            environment — including its own source code — using OpenCode itself.
-          </p>
-
-          <details class="project">
-
-            <summary class="custom-summary">
-
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: Self-Forking The OpenCode Terminal
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                OpenCode used to fork and reproduce itself together with
-                associated functionality and tooling.
-              </p>
-
-              <div class="link-row">
-                <a href="opencode/fork/howto-fork.txt"
-                   download="howto-fork.txt">
-                  howto-fork.txt
-                </a>
-
-                <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt">
-                  View
-                </a>
-              </div>
-
-              <div class="link-row">
-                <a href="opencode/fork/opencode-fork.txt"
-                   download="opencode-fork.txt">
-                  opencode-fork.txt
-                </a>
-
-                <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt">
-                  View
-                </a>
-              </div>
-
-              <img src="opencode/fork/taskcomplete.png"
-                   alt="Fork task complete">
-
-              <img src="opencode/fork/info.png"
-                   alt="Fork info">
-
-            </div>
-          </details>
-        </section>
-
-        <!-- Additional Examples -->
-        <section id="section7" class="guide-section">
-
-          <h2>
-            Additional OpenCode Examples
-          </h2>
-
-          <p>
-            Real-world OpenCode sessions ranging from local AI inference
-            and LangChain through to Linux kernel analysis,
-            GTK applications and fully vibe-coded games.
-          </p>
-
-          <!-- AI Snap Manager -->
-          <details class="project" open>
-
-            <summary class="custom-summary">
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: Ubuntu Native AI Inference Snap Manager, Python
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                Ubuntu inference snaps provide extremely fast local AI inference.
-                OpenCode generated a Python/GTK management frontend.
-              </p>
-
-              <pre><code>sudo snap install gemma3 --beta
-gemma3 chat</code></pre>
-
-              <div class="link-row">
-
-                <a href="opencode/aisnapmanager/ai-snap-manager.py"
-                   download="ai-snap-manager.py">
-                  ai-snap-manager.py
-                </a>
-
-                <a href="kilocli/view.html?file=../opencode/aisnapmanager/ai-snap-manager.py">
-                  View
-                </a>
-              </div>
-
-              <img src="opencode/aisnapmanager/aisnapmanager1.png"
-                   alt="AI Snap Manager running 1">
-
-              <img src="opencode/aisnapmanager/aisnapmanager2.png"
-                   alt="AI Snap Manager running 2">
-
-            </div>
-          </details>
-
-          <!-- LangChain -->
-          <details class="project">
-
-            <summary class="custom-summary">
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: LangChain, Python
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                OpenCode generated a LangChain + llama.cpp application,
-                complete with install and execution workflow.
-              </p>
-
-              <div class="link-row">
-
-                <a href="opencode/langchain/langchain_app.py"
-                   download="langchain_app.py">
-                  langchain_app.py
-                </a>
-
-                <a href="kilocli/view.html?file=../opencode/langchain/langchain_app.py">
-                  View
-                </a>
-              </div>
-
-              <img src="opencode/langchain/langchainrunning.png"
-                   alt="LangChain running">
-
-            </div>
-          </details>
-
-          <!-- Llama.cpp -->
-          <details class="project">
-
-            <summary class="custom-summary">
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: llama.cpp Revisited, C++
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                Automated llama.cpp build and Gemma 4 model integration.
-              </p>
-
-              <img src="opencode/llamarevisited/llamarevisited.png"
-                   alt="Llama.cpp running">
-
-            </div>
-          </details>
-
-          <!-- Agent -->
-          <details class="project">
-
-            <summary class="custom-summary">
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: Agent Development Setup, C++
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                Mozilla agent.cpp integrated with llama.cpp and IBM Granite.
-              </p>
-
-              <img src="opencode/agentdevkit/starting.png"
-                   alt="Example agent start">
-
-              <img src="opencode/agentdevkit/running.png"
-                   alt="Example agent running">
-
-            </div>
-          </details>
-
-          <!-- RSS Agent -->
-          <details class="project">
-
-            <summary class="custom-summary">
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: World News RSS Agent, C++
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                AI-powered RSS news agent generated using OpenCode,
-                agent.cpp and llama.cpp.
-              </p>
-
-              <img src="opencode/newsagent/newsagent1.png"
-                   alt="News Agent">
-
-              <img src="opencode/newsagent/newsagent2.png"
-                   alt="News Agent Running">
-
-            </div>
-          </details>
-
-          <!-- Linux Kernel -->
-          <details class="project">
-
-            <summary class="custom-summary">
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: Linux Kernel Analysis, C
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                OpenCode analysing Linux kernel source code for bugs,
-                overflows and improvements.
-              </p>
-
-              <div class="link-row">
-                <a href="opencode/linuxkernel/homework_for_Linus.html">
-                  HTML Report
-                </a>
-              </div>
-
-            </div>
-          </details>
-
-          <!-- ClamAV GTK -->
-          <details class="project">
-
-            <summary class="custom-summary">
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: ClamAV GTK Control Application, Python
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                GTK frontend for ClamAV generated using OpenCode.
-              </p>
-
-              <img src="https://raw.githubusercontent.com/RedOrangeGreen/clamav-gtk/main/clamav-gtk.png"
-                   alt="ClamAV GTK Control">
-
-            </div>
-          </details>
-
-          <!-- Clipboard -->
-          <details class="project">
-
-            <summary class="custom-summary">
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: Clipboard Monitor, Python
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                Lightweight clipboard monitor generated using OpenCode.
-              </p>
-
-              <img src="opencode/clipboard/clipboard1.png"
-                   alt="Clipboard monitor">
-
-            </div>
-          </details>
-
-          <!-- ClamTk -->
-          <details class="project">
-
-            <summary class="custom-summary">
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: ClamTk GUI Refresh, Perl
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                Modernised ClamTk interface redesign generated using OpenCode.
-              </p>
-
-              <img src="opencode/clamtkrefresh/clamtkrefresh1.png"
-                   alt="ClamTk refresh">
-
-              <img src="opencode/clamtkrefresh/clamtkrefresh2.png"
-                   alt="ClamTk refresh">
-
-            </div>
-          </details>
-
-          <!-- Tetris -->
-          <details class="project">
-
-            <summary class="custom-summary">
-              <div class="summary-left">
-                <span>
-                  Terminal, Interactive: Tetris, HTML/JavaScript/CSS
-                </span>
-              </div>
-
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                Fully vibe-coded Tetris clone generated using OpenCode.
-              </p>
-
-              <img src="opencode/tetris/1.png"
-                   alt="Tetris start screen">
-
-              <img src="opencode/tetris/2.png"
-                   alt="Tetris gameplay">
-
-              <div class="link-row">
-
-                <a href="opencode/tetris/webpage/" target="_blank">
-                  Play Session 1
-                </a>
-
-                <a href="opencode/tetris/webpage-next/" target="_blank">
-                  Play Session 2
-                </a>
-              </div>
-
-            </div>
-          </details>
-
-        </section>
-
-      </div>
+      <span>AI Playground</span>
+    </a>
+
+    <button class="navbar-toggler text-light border-0"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto gap-1">
+
+        <li class="nav-item">
+          <a href="index.html" class="nav-link p-0">
+            <span class="nav-pill">
+              <i class="fa-solid fa-comments"></i>
+              Free AI Tools
+            </span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="generatedcode.html" class="nav-link p-0">
+            <span class="nav-pill active">
+              <i class="fa-solid fa-code"></i>
+              Coding With AI
+            </span>
+          </a>
+        </li>
+
+      </ul>
     </div>
 
-    <!-- Footer -->
-    <footer>
-      <span>AI Playground • Coding Guide</span>
-      <span>2026</span>
-    </footer>
+  </div>
+</nav>
 
-  </main>
+<main class="page-shell">
 
-  <!-- Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <header>
+    <h1 class="hero-title"><span>AI Coding Guide</span></h1>
+    <p class="hero-subtitle">
+      Practical real-world examples for using AI as a coding partner.
+    </p>
+  </header>
+
+  <div class="guide-layout">
+
+    <aside class="sidebar">
+      <h3>Contents</h3>
+      <a href="#section6">OpenCode Self-Forking Example</a>
+    </aside>
+
+    <div>
+
+      <!-- SECTION 6 RESTORED -->
+      <section id="section6" class="guide-section">
+
+        <h2>1. Example: Self-Forking the OpenCode Terminal</h2>
+
+        <p>
+          This example demonstrates how to use an AI-assisted workflow
+          to fork and reproduce an entire interactive terminal environment.
+        </p>
+
+        <details class="project">
+
+          <summary class="custom-summary">
+            <div class="summary-left">
+              <span>1. Terminal, Interactive: Self-Forking The OpenCode Terminal</span>
+            </div>
+            <i class="fa-solid fa-chevron-down summary-chevron"></i>
+          </summary>
+
+          <div class="project-body">
+
+            <p>
+              How to fork the OpenCode terminal and all associated functionality.
+            </p>
+
+            <div class="link-row">
+              <a href="opencode/fork/howto-fork.txt" download>howto-fork.txt</a>
+              <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt">View</a>
+            </div>
+
+            <div class="link-row">
+              <a href="opencode/fork/opencode-fork.txt" download>opencode-fork.txt</a>
+              <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt">View</a>
+            </div>
+
+            <img src="opencode/fork/taskcomplete.png" alt="Fork complete">
+            <img src="opencode/fork/info.png" alt="Fork info">
+
+          </div>
+        </details>
+
+      </section>
+
+    </div>
+  </div>
+
+  <footer>
+    <span>AI Playground • Coding Guide</span>
+    <span>2026</span>
+  </footer>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
