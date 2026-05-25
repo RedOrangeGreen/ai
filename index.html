@@ -3,19 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Explore free AI chatbots and local AI tools. No sign-up required." />
-  <title>AI Playground – Free AI Tools</title>
+  <title>AI Playground – Coding Guide</title>
 
-  <!-- Bootstrap 5 (CDN) -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
   <!-- Font Awesome -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
 
   <style>
     :root {
@@ -36,43 +30,18 @@
       --transition-med: 0.25s ease-out;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
-      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
     }
 
-    a {
-      text-decoration: none;
-    }
-
-    /* Top navigation */
-
+    /* Navbar */
     .nav-blur {
       backdrop-filter: blur(18px);
-      background: linear-gradient(
-        to right,
-        rgba(15, 23, 42, 0.96),
-        rgba(15, 23, 42, 0.9),
-        rgba(15, 23, 42, 0.96)
-      );
+      background: rgba(15, 23, 42, 0.92);
       border-bottom: 1px solid rgba(148, 163, 184, 0.25);
-    }
-
-    .navbar-brand span {
-      background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-weight: 700;
-      letter-spacing: 0.03em;
     }
 
     .nav-pill {
@@ -81,16 +50,7 @@
       font-size: 0.85rem;
       border: 1px solid transparent;
       color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: background var(--transition-fast),
-        color var(--transition-fast), border-color var(--transition-fast),
-        transform var(--transition-fast);
-    }
-
-    .nav-pill i {
-      font-size: 0.9rem;
+      transition: var(--transition-fast);
     }
 
     .nav-pill.active,
@@ -101,65 +61,22 @@
       transform: translateY(-1px);
     }
 
-    /* Layout */
-
+    /* Page shell */
     .page-shell {
       max-width: 1120px;
       margin: 0 auto;
       padding: 6.5rem 1.25rem 3.5rem;
     }
 
-    @media (min-width: 992px) {
-      .page-shell {
-        padding-top: 7.5rem;
-      }
-    }
-
     /* Hero */
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
-      gap: 2.5rem;
-      align-items: center;
-      margin-bottom: 2.75rem;
-    }
-
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: var(--radius-pill);
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .hero-kicker span.badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.25);
-    }
-
     .hero-title {
-      font-size: clamp(2.3rem, 3vw + 1.4rem, 3.1rem);
-      line-height: 1.1;
+      font-size: clamp(2.2rem, 3vw + 1.2rem, 3rem);
+      font-weight: 700;
       letter-spacing: -0.03em;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
     }
 
-    .hero-title span.highlight {
+    .hero-title span {
       background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
       -webkit-background-clip: text;
       background-clip: text;
@@ -168,1325 +85,375 @@
 
     .hero-subtitle {
       color: var(--text-muted);
-      font-size: 0.98rem;
-      max-width: 32rem;
-      margin-bottom: 1.4rem;
+      max-width: 40rem;
+      font-size: 1rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
     }
 
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.6rem;
-    }
-
-    .hero-badge {
-      border-radius: var(--radius-pill);
-      padding: 0.3rem 0.8rem;
-      font-size: 0.8rem;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .hero-badge i {
-      color: var(--accent);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .hero-meta strong {
-      color: #e5e7eb;
-      font-weight: 600;
-    }
-
-    .hero-meta span.dot {
-      width: 3px;
-      height: 3px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.7);
-      display: inline-block;
-      margin: 0 0.4rem;
-    }
-
-    /* Hero side card */
-
-    .hero-card {
-      border-radius: 22px;
-      background: radial-gradient(circle at top left, #1f2937 0, #020617 55%);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: var(--shadow-soft);
-      padding: 1.4rem 1.4rem 1.2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(
-        circle at top,
-        rgba(56, 189, 248, 0.18),
-        transparent 55%
-      );
-      opacity: 0.7;
-      pointer-events: none;
-    }
-
-    .hero-card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.9rem;
-    }
-
-    .hero-card-title {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-muted);
-    }
-
-    .hero-card-chip {
-      border-radius: var(--radius-pill);
-      padding: 0.25rem 0.7rem;
-      font-size: 0.75rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .hero-card-chip i {
-      color: var(--accent);
-    }
-
-    .hero-card-grid {
+    /* Layout */
+    .guide-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
-      gap: 1rem;
-      align-items: stretch;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
     }
 
-    @media (max-width: 600px) {
-      .hero-card-grid {
-        grid-template-columns: minmax(0, 1fr);
+    @media (max-width: 900px) {
+      .guide-layout {
+        grid-template-columns: 1fr;
       }
     }
 
-    .hero-card-main {
-      border-radius: 16px;
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 6rem;
+      align-self: start;
+      padding: 1rem;
+      border-radius: var(--radius-lg);
       background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      padding: 0.9rem 0.95rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-    }
-
-    .hero-card-main-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-
-    .hero-card-main-title {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .hero-card-main-title span.icon-pill {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #38bdf8, #0f172a);
-      color: #0b1120;
-      font-size: 0.9rem;
-    }
-
-    .hero-card-main-status {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .hero-card-main-status span.dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.25);
-    }
-
-    .hero-card-main-body {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .hero-card-main-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.2rem;
-    }
-
-    .hero-card-main-tag {
-      border-radius: var(--radius-pill);
-      padding: 0.2rem 0.6rem;
-      font-size: 0.75rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--text-muted);
-    }
-
-    .hero-card-main-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 0.4rem;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .hero-card-main-footer span strong {
-      color: #e5e7eb;
-    }
-
-    .hero-card-main-footer button {
-      border-radius: var(--radius-pill);
-      border: none;
-      padding: 0.35rem 0.9rem;
-      font-size: 0.78rem;
-      background: linear-gradient(120deg, #38bdf8, #0ea5e9);
-      color: #0b1120;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(8, 47, 73, 0.7);
-      transition: transform var(--transition-fast),
-        box-shadow var(--transition-fast), filter var(--transition-fast);
-    }
-
-    .hero-card-main-footer button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9);
-      filter: brightness(1.05);
-    }
-
-    .hero-card-side {
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .hero-card-side-row {
-      border-radius: 14px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      padding: 0.6rem 0.7rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .hero-card-side-row span.label {
-      font-size: 0.76rem;
-      color: #e5e7eb;
-    }
-
-    .hero-card-side-row span.value {
-      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono",
-        "Courier New", monospace;
-      color: var(--accent);
-    }
-
-    .hero-card-side-row span.pill {
-      border-radius: var(--radius-pill);
-      padding: 0.15rem 0.55rem;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    /* Search + filters */
-
-    .search-section {
-      margin-bottom: 1.8rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .search-input-wrap {
-      flex: 1 1 260px;
-      position: relative;
-    }
-
-    .search-input-wrap i {
-      position: absolute;
-      left: 0.9rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .search-input {
-      width: 100%;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-main);
-      padding: 0.55rem 0.95rem 0.55rem 2.2rem;
-      font-size: 0.9rem;
-      outline: none;
+      border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-subtle);
-      transition: border-color var(--transition-fast),
-        box-shadow var(--transition-fast), background var(--transition-fast),
-        transform var(--transition-fast);
     }
 
-    .search-input::placeholder {
-      color: rgba(148, 163, 184, 0.7);
-    }
-
-    .search-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6),
-        0 18px 40px rgba(15, 23, 42, 0.9);
-      background: #020617;
-      transform: translateY(-1px);
-    }
-
-    .filter-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      font-size: 0.78rem;
-    }
-
-    .filter-chip {
-      border-radius: var(--radius-pill);
-      padding: 0.25rem 0.7rem;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-muted);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: background var(--transition-fast),
-        border-color var(--transition-fast), color var(--transition-fast),
-        transform var(--transition-fast);
-    }
-
-    .filter-chip i {
-      font-size: 0.8rem;
-    }
-
-    .filter-chip.active,
-    .filter-chip:hover {
-      background: var(--accent-soft);
-      border-color: var(--accent);
-      color: #e5e7eb;
-      transform: translateY(-1px);
-    }
-
-    /* Section headings */
-
-    .section-heading {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 0.75rem;
-      margin: 1.8rem 0 0.9rem;
-    }
-
-    .section-heading-main {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .section-heading-main i {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--accent);
+    .sidebar h3 {
       font-size: 0.9rem;
-    }
-
-    .section-heading-main h2 {
-      font-size: 1.05rem;
-      margin: 0;
-      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #e5e7eb;
-    }
-
-    .section-heading-sub {
-      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
       color: var(--text-muted);
     }
 
-    /* Tool cards */
-
-    .tool-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
+    .sidebar a {
+      display: block;
+      padding: 0.4rem 0;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      transition: var(--transition-fast);
+      text-decoration: none;
     }
 
-    .tool-card {
+    .sidebar a:hover {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    /* Content sections */
+    .guide-section {
+      margin-bottom: 2.5rem;
+      padding: 1.4rem 1.6rem;
       border-radius: var(--radius-lg);
       background: rgba(15, 23, 42, 0.96);
       border: 1px solid var(--border-subtle);
-      padding: 0.95rem 0.95rem 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
       box-shadow: var(--shadow-subtle);
-      position: relative;
-      overflow: hidden;
-      transition: transform var(--transition-med),
-        box-shadow var(--transition-med), border-color var(--transition-med),
-        background var(--transition-med);
     }
 
-    .tool-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(
-        circle at top left,
-        rgba(56, 189, 248, 0.12),
-        transparent 55%
-      );
-      opacity: 0;
-      transition: opacity var(--transition-med);
-      pointer-events: none;
+    .guide-section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
     }
 
-    .tool-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 22px 55px rgba(15, 23, 42, 0.95);
-      border-color: rgba(56, 189, 248, 0.7);
-      background: #020617;
-    }
-
-    .tool-card:hover::before {
-      opacity: 1;
-    }
-
-    .tool-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-
-    .tool-card-title {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-    }
-
-    .tool-card-title-icon {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--accent);
-      font-size: 0.9rem;
-    }
-
-    .tool-card-title h3 {
+    .guide-section p {
+      color: var(--text-muted);
       font-size: 0.95rem;
-      margin: 0;
+      line-height: 1.6;
     }
 
-    .tool-card-provider {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .tool-card-badges {
+    /* Custom details summary */
+    .custom-summary {
+      list-style: none;
+      cursor: pointer;
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      justify-content: flex-end;
-    }
-
-    .tool-badge {
-      border-radius: var(--radius-pill);
-      padding: 0.2rem 0.55rem;
-      font-size: 0.72rem;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--text-muted);
-      background: rgba(15, 23, 42, 0.9);
-      display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-    }
-
-    .tool-badge.free {
-      border-color: rgba(34, 197, 94, 0.7);
-      color: #bbf7d0;
-      background: rgba(22, 163, 74, 0.18);
-    }
-
-    .tool-badge.local {
-      border-color: rgba(234, 179, 8, 0.7);
-      color: #fef9c3;
-      background: rgba(202, 138, 4, 0.18);
-    }
-
-    .tool-badge.advanced {
-      border-color: rgba(248, 113, 113, 0.7);
-      color: #fee2e2;
-      background: rgba(185, 28, 28, 0.2);
-    }
-
-    .tool-badge.guide {
-      border-color: rgba(129, 140, 248, 0.7);
-      color: #e0e7ff;
-      background: rgba(79, 70, 229, 0.18);
-    }
-
-    .tool-card-body {
-      font-size: 0.83rem;
-      color: var(--text-muted);
-      min-height: 2.4em;
-    }
-
-    .tool-card-footer {
-      display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-top: 0.4rem;
-      gap: 0.75rem;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .tool-card-footer-left {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-    }
-
-    .tool-card-footer-left span.dot {
-      width: 3px;
-      height: 3px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.7);
-    }
-
-    .tool-card-footer a.btn-open {
-      border-radius: var(--radius-pill);
-      padding: 0.3rem 0.85rem;
-      font-size: 0.78rem;
-      border: none;
-      background: linear-gradient(120deg, #38bdf8, #0ea5e9);
-      color: #0b1120;
+      gap: 1rem;
+      font-size: 1rem;
       font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      box-shadow: 0 10px 25px rgba(8, 47, 73, 0.7);
-      transition: transform var(--transition-fast),
-        box-shadow var(--transition-fast), filter var(--transition-fast);
-    }
-
-    .tool-card-footer a.btn-open:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9);
-      filter: brightness(1.05);
-    }
-
-    /* Info alert */
-
-    .info-banner {
-      border-radius: 14px;
-      padding: 0.7rem 0.9rem;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      margin-bottom: 1.1rem;
-    }
-
-    .info-banner i {
       color: var(--accent);
-      margin-top: 0.1rem;
+      user-select: none;
+    }
+
+    .custom-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .custom-summary::marker {
+      display: none;
+    }
+
+    .summary-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .summary-left i {
+      font-size: 1rem;
+    }
+
+    .summary-chevron {
+      font-size: 0.85rem;
+      transition: transform 0.25s ease;
+      opacity: 0.8;
+    }
+
+    details[open] .summary-chevron {
+      transform: rotate(180deg);
     }
 
     /* Footer */
-
     footer {
-      margin-top: 2.5rem;
+      margin-top: 3rem;
       padding-top: 1.4rem;
       border-top: 1px solid rgba(148, 163, 184, 0.35);
       font-size: 0.78rem;
       color: var(--text-muted);
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
-      gap: 0.75rem;
-      align-items: center;
-    }
-
-    footer span.brand {
-      color: #e5e7eb;
-    }
-
-    footer .footer-meta {
-      display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
-    }
-
-    footer .footer-meta span.dot {
-      width: 3px;
-      height: 3px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.7);
-    }
-
-    @media (max-width: 576px) {
-      .search-section {
-        align-items: stretch;
-      }
     }
   </style>
 </head>
 
 <body>
-  <!-- Top nav -->
+
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-md fixed-top nav-blur">
     <div class="container-fluid" style="max-width: 1120px">
+
       <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-        <div
-          style="
-            width: 26px;
-            height: 26px;
-            border-radius: 999px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle at top, #38bdf8, #0f172a);
-            color: #0b1120;
-            font-size: 0.9rem;
-          "
-        >
+        <div style="
+          width:26px;
+          height:26px;
+          border-radius:999px;
+          background:radial-gradient(circle at top,#38bdf8,#0f172a);
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          color:#0b1120;
+        ">
           <i class="fa-solid fa-bolt"></i>
         </div>
+
         <span>AI Playground</span>
       </a>
 
-      <button
-        class="navbar-toggler text-light border-0"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#mainNav"
-      >
+      <button class="navbar-toggler text-light border-0"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mainNav">
         <i class="fa-solid fa-bars"></i>
       </button>
 
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav ms-auto align-items-md-center gap-1">
+
           <li class="nav-item">
             <a href="index.html" class="nav-link p-0">
-              <span class="nav-pill active">
+              <span class="nav-pill">
                 <i class="fa-solid fa-comments"></i>
                 Free AI Tools
               </span>
             </a>
           </li>
+
           <li class="nav-item">
             <a href="generatedcode.html" class="nav-link p-0">
-              <span class="nav-pill">
+              <span class="nav-pill active">
                 <i class="fa-solid fa-code"></i>
                 Coding With AI
               </span>
             </a>
           </li>
+
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Page shell -->
+  <!-- Main Page -->
   <main class="page-shell">
+
     <!-- Hero -->
-    <section class="hero">
-      <div>
-        <div class="hero-kicker">
-          <span class="badge-dot"></span>
-          Live directory of free AI tools
-        </div>
-        <h1 class="hero-title">
-          Explore <span class="highlight">AI tools</span> you can use
-          today—no sign‑up, no credit card.
-        </h1>
-        <p class="hero-subtitle">
-          Web chatbots, local models, and coding helpers curated into one clean
-          playground. Filter, scan, and jump straight into the tools that match
-          how you actually work.
-        </p>
+    <header>
+      <h1 class="hero-title">
+        <span>AI Coding Guide</span>
+      </h1>
 
-        <div class="hero-badges">
-          <div class="hero-badge">
-            <i class="fa-solid fa-shield-halved"></i>
-            $0, anonymous, instant use
-          </div>
-          <div class="hero-badge">
-            <i class="fa-solid fa-laptop-code"></i>
-            Web &amp; local options
-          </div>
-          <div class="hero-badge">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-            Chat, search, &amp; coding
-          </div>
-        </div>
+      <p class="hero-subtitle">
+        Practical real-world examples for using AI as a coding partner.
+        Explore advanced AI-assisted workflows, self-forking environments,
+        and interactive development systems.
+      </p>
+    </header>
 
-        <div class="hero-meta">
-          <div>
-            <strong>Fast scan:</strong>
-            type to filter by name, feature, or tag.
-          </div>
-          <div>
-            <span class="dot"></span>
-            <strong>Tip:</strong>
-            try “local”, “search”, or “coding”.
-          </div>
-        </div>
-      </div>
+    <!-- Layout -->
+    <div class="guide-layout">
 
-      <aside class="hero-card">
-        <div class="hero-card-inner">
-          <div class="hero-card-header">
-            <div class="hero-card-title">Session overview</div>
-            <div class="hero-card-chip">
-              <i class="fa-solid fa-circle-nodes"></i>
-              Smart filters
-            </div>
-          </div>
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <h3>Contents</h3>
 
-          <div class="hero-card-grid">
-            <div class="hero-card-main">
-              <div class="hero-card-main-header">
-                <div class="hero-card-main-title">
-                  <span class="icon-pill">
-                    <i class="fa-solid fa-sparkles"></i>
-                  </span>
-                  <span>Start with a web chatbot</span>
-                </div>
-                <div class="hero-card-main-status">
-                  <span class="dot"></span>
-                  Ready to launch
-                </div>
-              </div>
-              <div class="hero-card-main-body">
-                Pick a general‑purpose assistant, then branch into local or
-                coding tools as you go.
-                <div class="hero-card-main-tags">
-                  <span class="hero-card-main-tag">ChatGPT</span>
-                  <span class="hero-card-main-tag">Microsoft Copilot</span>
-                  <span class="hero-card-main-tag">Perplexity</span>
-                </div>
-              </div>
-              <div class="hero-card-main-footer">
-                <span>
-                  Suggested flow:
-                  <strong>Chat → Search → Local → Code</strong>
-                </span>
-                <button type="button">
-                  View tools
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="hero-card-side">
-              <div class="hero-card-side-row">
-                <span class="label">Cost</span>
-                <span class="value">$0</span>
-              </div>
-              <div class="hero-card-side-row">
-                <span class="label">Sign‑up</span>
-                <span class="pill">Optional or none</span>
-              </div>
-              <div class="hero-card-side-row">
-                <span class="label">Privacy</span>
-                <span class="pill">Local options available</span>
-              </div>
-              <div class="hero-card-side-row">
-                <span class="label">Best for</span>
-                <span class="pill">Experimenting &amp; prototyping</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <a href="#section6">
+          OpenCode Self-Forking Example
+        </a>
       </aside>
-    </section>
 
-    <!-- Search + filters -->
-    <section class="search-section">
-      <div class="search-input-wrap">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input
-          type="text"
-          id="search"
-          class="search-input"
-          placeholder="Search tools by name, feature, or tag…"
-        />
+      <!-- Content -->
+      <div>
+
+        <!-- Section -->
+        <section id="section6" class="guide-section">
+
+          <h2>
+            1. Example: Self-Forking the OpenCode Terminal
+          </h2>
+
+          <p>
+            This example demonstrates how to use an AI-assisted workflow
+            to fork and reproduce an entire interactive terminal environment —
+            including its own source code — using only the OpenCode tool itself.
+          </p>
+
+          <details class="project" style="
+              margin-top: 1.2rem;
+              border-radius: 14px;
+              background: rgba(15,23,42,0.9);
+              border: 1px solid rgba(148,163,184,0.35);
+              padding: 1rem 1.2rem;
+              box-shadow: 0 10px 30px rgba(15,23,42,0.7);
+              transition: all 0.25s ease-out;
+            ">
+
+            <summary class="custom-summary">
+
+              <div class="summary-left">
+                <i class="fa-solid fa-terminal"></i>
+
+                <span>
+                  1. Terminal, Interactive: Self-Forking The OpenCode Terminal
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+
+            </summary>
+
+            <div class="project-body" style="
+                margin-top: 1rem;
+                color: var(--text-muted);
+                font-size: 0.95rem;
+                line-height: 1.55;
+              ">
+
+              <p>
+                How to fork the OpenCode terminal and all associated
+                functionality using OpenCode itself.
+                Self-reproduction with a little extra at birth.
+              </p>
+
+              <p>
+                All free and open source; free tool, free model,
+                anonymous, no sign-ins, no API keys.
+                The
+                <a href="https://github.com/anomalyco/opencode/blob/dev/LICENSE"
+                   target="_blank"
+                   style="color: var(--accent);">
+                  MIT Licence
+                </a>
+                used by OpenCode means any part of the tool
+                and associated source code can be obtained
+                and used by anyone.
+              </p>
+
+              <p>
+                Developed and tested on Ubuntu 24.04.4 LTS Live USB.
+              </p>
+
+              <div class="link-row"
+                   style="display:flex; gap:1rem; margin:1rem 0;">
+
+                <a href="opencode/fork/howto-fork.txt"
+                   download="howto-fork.txt"
+                   style="color: var(--accent);">
+                  howto-fork.txt
+                </a>
+
+                <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt"
+                   style="color: var(--accent);">
+                  View
+                </a>
+              </div>
+
+              <div class="link-row"
+                   style="display:flex; gap:1rem; margin-bottom:1rem;">
+
+                <a href="opencode/fork/opencode-fork.txt"
+                   download="opencode-fork.txt"
+                   style="color: var(--accent);">
+                  opencode-fork.txt
+                </a>
+
+                <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt"
+                   style="color: var(--accent);">
+                  View
+                </a>
+              </div>
+
+              <p>The baby is born…</p>
+
+              <img src="opencode/fork/taskcomplete.png"
+                   alt="Fork task complete"
+                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
+
+              <p>
+                It has been given a little something extra
+                its mother
+                (<a href="https://github.com/anomalyco/opencode"
+                    target="_blank"
+                    style="color: var(--accent);">
+                  the OpenCode repository on GitHub
+                </a>)
+                does not have…
+              </p>
+
+              <img src="opencode/fork/info.png"
+                   alt="Fork info"
+                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
+
+              <p>
+                But everything else works as expected…
+              </p>
+
+              <img src="opencode/fork/invoke.png"
+                   alt="Fork invoke"
+                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
+
+              <img src="opencode/fork/running.png"
+                   alt="Fork running"
+                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
+
+              <img src="opencode/fork/exit.png"
+                   alt="Fork exit"
+                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
+
+            </div>
+          </details>
+        </section>
+
       </div>
-
-      <div class="filter-chips">
-        <button
-          class="filter-chip active"
-          data-filter="all"
-          type="button"
-        >
-          <i class="fa-solid fa-layer-group"></i>
-          All tools
-        </button>
-        <button
-          class="filter-chip"
-          data-filter="web"
-          type="button"
-        >
-          <i class="fa-solid fa-globe"></i>
-          Web chatbots
-        </button>
-        <button
-          class="filter-chip"
-          data-filter="local"
-          type="button"
-        >
-          <i class="fa-solid fa-laptop"></i>
-          Local only
-        </button>
-        <button
-          class="filter-chip"
-          data-filter="coding"
-          type="button"
-        >
-          <i class="fa-solid fa-code"></i>
-          Coding
-        </button>
-      </div>
-    </section>
-
-    <!-- Web AI -->
-    <section>
-      <header class="section-heading">
-        <div class="section-heading-main">
-          <i class="fa-solid fa-globe"></i>
-          <h2>Web‑based AI chatbots</h2>
-        </div>
-        <div class="section-heading-sub">
-          General assistants you can open in a tab and start chatting with.
-        </div>
-      </header>
-
-      <div class="tool-grid">
-        <!-- ChatGPT -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-tags="chatgpt openai chat writing coding general"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-comments"></i>
-                </div>
-                <div>
-                  <h3>ChatGPT</h3>
-                  <div class="tool-card-provider">OpenAI</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional login
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            General‑purpose AI assistant for chat, writing, brainstorming, and
-            coding. Great default starting point.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Best for quick ideas &amp; drafts</span>
-            </div>
-            <a
-              href="https://www.chatgpt.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
-
-        <!-- Microsoft Copilot -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-tags="copilot microsoft bing search web office"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <div>
-                  <h3>Microsoft Copilot</h3>
-                  <div class="tool-card-provider">Microsoft</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional login
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            AI assistant integrated with web search and Microsoft services.
-            Strong for research and summarising pages.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Great for web‑aware answers</span>
-            </div>
-            <a
-              href="https://www.bing.com/chat"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
-
-        <!-- Perplexity -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-tags="perplexity search engine citations research"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-regular fa-lightbulb"></i>
-                </div>
-                <div>
-                  <h3>Perplexity</h3>
-                  <div class="tool-card-provider">Perplexity AI</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional login
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            AI‑powered search engine that answers with citations. Ideal when you
-            care about sources and links.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Research &amp; fact‑checking</span>
-            </div>
-            <a
-              href="https://www.perplexity.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
-
-        <!-- Google AI Search -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-tags="google ai search results serp"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-brands fa-google"></i>
-                </div>
-                <div>
-                  <h3>Google AI Search</h3>
-                  <div class="tool-card-provider">Google</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional login
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            AI‑enhanced search results from Google, blending classic search with
-            summarised answers.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Familiar search + AI layer</span>
-            </div>
-            <a
-              href="https://www.google.com/aimode"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Local AI -->
-    <section>
-      <header class="section-heading">
-        <div class="section-heading-main">
-          <i class="fa-solid fa-laptop"></i>
-          <h2>Run AI locally</h2>
-        </div>
-        <div class="section-heading-sub">
-          Tools that run models on your own machine for privacy and offline use.
-        </div>
-      </header>
-
-      <div class="info-banner">
-        <i class="fa-solid fa-circle-info"></i>
-        <div>
-          Local tools keep computation on your device. They can be more private,
-          but may require a capable GPU or CPU and a bit more setup.
-        </div>
-      </div>
-
-      <div class="tool-grid">
-        <!-- Ollama -->
-        <article
-          class="tool-card tool"
-          data-category="local"
-          data-tags="ollama local beginner friendly desktop mac windows"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-download"></i>
-                </div>
-                <div>
-                  <h3>Ollama</h3>
-                  <div class="tool-card-provider">Ollama</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge local">
-                <i class="fa-solid fa-laptop"></i>
-                Local
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-face-smile"></i>
-                Beginner‑friendly
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            Simple way to run popular models locally with a clean CLI and
-            one‑line installs for many models.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Great first step into local AI</span>
-            </div>
-            <a
-              href="https://ollama.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Homepage
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
-
-        <!-- llama.cpp -->
-        <article
-          class="tool-card tool"
-          data-category="local"
-          data-tags="llama.cpp c++ engine advanced local performance"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-code"></i>
-                </div>
-                <div>
-                  <h3>llama.cpp</h3>
-                  <div class="tool-card-provider">ggml‑org</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge local">
-                <i class="fa-solid fa-laptop"></i>
-                Local
-              </span>
-              <span class="tool-badge advanced">
-                <i class="fa-solid fa-fire"></i>
-                Advanced
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            High‑performance C++ engine for running LLMs locally across many
-            platforms. Very flexible, very fast.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>For tinkerers &amp; power users</span>
-            </div>
-            <div class="d-flex gap-2">
-              <a
-                href="https://github.com/ggml-org/llama.cpp"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-open"
-              >
-                GitHub
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </a>
-              <a
-                href="baremetal/index.html"
-                class="btn-open"
-                style="
-                  background: transparent;
-                  color: var(--accent);
-                  border: 1px solid rgba(56, 189, 248, 0.7);
-                  box-shadow: none;
-                "
-              >
-                Quickstart
-                <i class="fa-solid fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Coding with AI -->
-    <section>
-      <header class="section-heading">
-        <div class="section-heading-main">
-          <i class="fa-solid fa-code"></i>
-          <h2>Coding with AI</h2>
-        </div>
-        <div class="section-heading-sub">
-          Guides and workflows for using AI as a pair‑programmer.
-        </div>
-      </header>
-
-      <div class="tool-grid">
-        <!-- AI Coding Guide -->
-        <article
-          class="tool-card tool"
-          data-category="coding"
-          data-tags="coding guide examples prompts development"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-wrench"></i>
-                </div>
-                <div>
-                  <h3>AI Coding Guide</h3>
-                  <div class="tool-card-provider">AI Playground</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge guide">
-                <i class="fa-solid fa-book-open"></i>
-                Guides
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-flask"></i>
-                Examples
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            Practical patterns for using AI in software development—prompt
-            recipes, refactoring flows, and debugging strategies.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Turn AI into a reliable coding partner</span>
-            </div>
-            <a
-              href="generatedcode.html"
-              class="btn-open"
-            >
-              Open guide
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
-      </div>
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer>
-      <div>
-        <span class="brand">AI Playground</span>
-        • Free AI tools directory
-      </div>
-      <div class="footer-meta">
-        <span>2026</span>
-        <span class="dot"></span>
-        <span>Built for experimenting, learning, and tinkering</span>
-      </div>
+      <span>AI Playground • Coding Guide</span>
+      <span>2026</span>
     </footer>
+
   </main>
 
-  <!-- Scripts -->
+  <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    (function () {
-      const searchInput = document.getElementById("search");
-      const filterChips = document.querySelectorAll(".filter-chip");
-      const tools = document.querySelectorAll(".tool");
 
-      let activeFilter = "all";
-
-      function applyFilters() {
-        const query = (searchInput.value || "").toLowerCase().trim();
-
-        tools.forEach((tool) => {
-          const category = tool.getAttribute("data-category");
-          const tags = (tool.getAttribute("data-tags") || "").toLowerCase();
-          const text = tool.textContent.toLowerCase();
-
-          const matchesCategory =
-            activeFilter === "all" || category === activeFilter;
-          const matchesSearch =
-            !query || text.includes(query) || tags.includes(query);
-
-          tool.style.display = matchesCategory && matchesSearch ? "" : "none";
-        });
-      }
-
-      searchInput.addEventListener("input", applyFilters);
-
-      filterChips.forEach((chip) => {
-        chip.addEventListener("click", () => {
-          filterChips.forEach((c) => c.classList.remove("active"));
-          chip.classList.add("active");
-          activeFilter = chip.getAttribute("data-filter") || "all";
-          applyFilters();
-        });
-      });
-    })();
-  </script>
 </body>
 </html>
