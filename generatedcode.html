@@ -197,6 +197,64 @@
       transform: rotate(180deg);
     }
 
+    /* Shared content styling */
+    .project-body {
+      margin-top: 1rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .project-body pre {
+      background: #020617;
+      padding: 1rem;
+      border-radius: 12px;
+      overflow: auto;
+      color: #d1d5db;
+      border: 1px solid rgba(148,163,184,0.15);
+    }
+
+    .project-body code {
+      color: #d1d5db;
+    }
+
+    .project-body img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 1rem 0;
+    }
+
+    .link-row {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    .link-row a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .link-row a:hover {
+      color: #7dd3fc;
+    }
+
+    details.project {
+      margin-top: 1.2rem;
+      border-radius: 14px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.35);
+      padding: 1rem 1.2rem;
+      box-shadow: 0 10px 30px rgba(15,23,42,0.7);
+      transition: all 0.25s ease-out;
+    }
+
+    details.project:hover {
+      border-color: rgba(56,189,248,0.5);
+      transform: translateY(-2px);
+    }
+
     /* Footer */
     footer {
       margin-top: 3rem;
@@ -279,7 +337,7 @@
       <p class="hero-subtitle">
         Practical real-world examples for using AI as a coding partner.
         Explore advanced AI-assisted workflows, self-forking environments,
-        and interactive development systems.
+        local inference, AI agents and interactive development systems.
       </p>
     </header>
 
@@ -291,14 +349,18 @@
         <h3>Contents</h3>
 
         <a href="#section6">
-          OpenCode Self-Forking Example
+          OpenCode Self-Forking
+        </a>
+
+        <a href="#section7">
+          Additional OpenCode Examples
         </a>
       </aside>
 
       <!-- Content -->
       <div>
 
-        <!-- Section -->
+        <!-- Self Fork -->
         <section id="section6" class="guide-section">
 
           <h2>
@@ -306,25 +368,15 @@
           </h2>
 
           <p>
-            This example demonstrates how to use an AI-assisted workflow
-            to fork and reproduce an entire interactive terminal environment —
-            including its own source code — using only the OpenCode tool itself.
+            Fork and reproduce an interactive AI-assisted terminal
+            environment — including its own source code — using OpenCode itself.
           </p>
 
-          <details class="project" style="
-              margin-top: 1.2rem;
-              border-radius: 14px;
-              background: rgba(15,23,42,0.9);
-              border: 1px solid rgba(148,163,184,0.35);
-              padding: 1rem 1.2rem;
-              box-shadow: 0 10px 30px rgba(15,23,42,0.7);
-              transition: all 0.25s ease-out;
-            ">
+          <details class="project">
 
             <summary class="custom-summary">
 
               <div class="summary-left">
-
                 <span>
                   Terminal, Interactive: Self-Forking The OpenCode Terminal
                 </span>
@@ -334,106 +386,368 @@
 
             </summary>
 
-            <div class="project-body" style="
-                margin-top: 1rem;
-                color: var(--text-muted);
-                font-size: 0.95rem;
-                line-height: 1.55;
-              ">
+            <div class="project-body">
 
               <p>
-                How to fork the OpenCode terminal and all associated
-                functionality using OpenCode itself.
-                Self-reproduction with a little extra at birth.
+                OpenCode used to fork and reproduce itself together with
+                associated functionality and tooling.
               </p>
 
-              <p>
-                All free and open source; free tool, free model,
-                anonymous, no sign-ins, no API keys.
-                The
-                <a href="https://github.com/anomalyco/opencode/blob/dev/LICENSE"
-                   target="_blank"
-                   style="color: var(--accent);">
-                  MIT Licence
-                </a>
-                used by OpenCode means any part of the tool
-                and associated source code can be obtained
-                and used by anyone.
-              </p>
-
-              <p>
-                Developed and tested on Ubuntu 24.04.4 LTS Live USB.
-              </p>
-
-              <div class="link-row"
-                   style="display:flex; gap:1rem; margin:1rem 0;">
-
+              <div class="link-row">
                 <a href="opencode/fork/howto-fork.txt"
-                   download="howto-fork.txt"
-                   style="color: var(--accent);">
+                   download="howto-fork.txt">
                   howto-fork.txt
                 </a>
 
-                <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt"
-                   style="color: var(--accent);">
+                <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt">
                   View
                 </a>
               </div>
 
-              <div class="link-row"
-                   style="display:flex; gap:1rem; margin-bottom:1rem;">
-
+              <div class="link-row">
                 <a href="opencode/fork/opencode-fork.txt"
-                   download="opencode-fork.txt"
-                   style="color: var(--accent);">
+                   download="opencode-fork.txt">
                   opencode-fork.txt
                 </a>
 
-                <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt"
-                   style="color: var(--accent);">
+                <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt">
                   View
                 </a>
               </div>
 
-              <p>The baby is born…</p>
-
               <img src="opencode/fork/taskcomplete.png"
-                   alt="Fork task complete"
-                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
-
-              <p>
-                It has been given a little something extra
-                its mother
-                (<a href="https://github.com/anomalyco/opencode"
-                    target="_blank"
-                    style="color: var(--accent);">
-                  the OpenCode repository on GitHub
-                </a>)
-                does not have…
-              </p>
+                   alt="Fork task complete">
 
               <img src="opencode/fork/info.png"
-                   alt="Fork info"
-                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
-
-              <p>
-                But everything else works as expected…
-              </p>
-
-              <img src="opencode/fork/invoke.png"
-                   alt="Fork invoke"
-                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
-
-              <img src="opencode/fork/running.png"
-                   alt="Fork running"
-                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
-
-              <img src="opencode/fork/exit.png"
-                   alt="Fork exit"
-                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
+                   alt="Fork info">
 
             </div>
           </details>
+        </section>
+
+        <!-- Additional Examples -->
+        <section id="section7" class="guide-section">
+
+          <h2>
+            Additional OpenCode Examples
+          </h2>
+
+          <p>
+            Real-world OpenCode sessions ranging from local AI inference
+            and LangChain through to Linux kernel analysis,
+            GTK applications and fully vibe-coded games.
+          </p>
+
+          <!-- AI Snap Manager -->
+          <details class="project" open>
+
+            <summary class="custom-summary">
+              <div class="summary-left">
+                <span>
+                  Terminal, Interactive: Ubuntu Native AI Inference Snap Manager, Python
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                Ubuntu inference snaps provide extremely fast local AI inference.
+                OpenCode generated a Python/GTK management frontend.
+              </p>
+
+              <pre><code>sudo snap install gemma3 --beta
+gemma3 chat</code></pre>
+
+              <div class="link-row">
+
+                <a href="opencode/aisnapmanager/ai-snap-manager.py"
+                   download="ai-snap-manager.py">
+                  ai-snap-manager.py
+                </a>
+
+                <a href="kilocli/view.html?file=../opencode/aisnapmanager/ai-snap-manager.py">
+                  View
+                </a>
+              </div>
+
+              <img src="opencode/aisnapmanager/aisnapmanager1.png"
+                   alt="AI Snap Manager running 1">
+
+              <img src="opencode/aisnapmanager/aisnapmanager2.png"
+                   alt="AI Snap Manager running 2">
+
+            </div>
+          </details>
+
+          <!-- LangChain -->
+          <details class="project">
+
+            <summary class="custom-summary">
+              <div class="summary-left">
+                <span>
+                  Terminal, Interactive: LangChain, Python
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                OpenCode generated a LangChain + llama.cpp application,
+                complete with install and execution workflow.
+              </p>
+
+              <div class="link-row">
+
+                <a href="opencode/langchain/langchain_app.py"
+                   download="langchain_app.py">
+                  langchain_app.py
+                </a>
+
+                <a href="kilocli/view.html?file=../opencode/langchain/langchain_app.py">
+                  View
+                </a>
+              </div>
+
+              <img src="opencode/langchain/langchainrunning.png"
+                   alt="LangChain running">
+
+            </div>
+          </details>
+
+          <!-- Llama.cpp -->
+          <details class="project">
+
+            <summary class="custom-summary">
+              <div class="summary-left">
+                <span>
+                  Terminal, Interactive: llama.cpp Revisited, C++
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                Automated llama.cpp build and Gemma 4 model integration.
+              </p>
+
+              <img src="opencode/llamarevisited/llamarevisited.png"
+                   alt="Llama.cpp running">
+
+            </div>
+          </details>
+
+          <!-- Agent -->
+          <details class="project">
+
+            <summary class="custom-summary">
+              <div class="summary-left">
+                <span>
+                  Terminal, Interactive: Agent Development Setup, C++
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                Mozilla agent.cpp integrated with llama.cpp and IBM Granite.
+              </p>
+
+              <img src="opencode/agentdevkit/starting.png"
+                   alt="Example agent start">
+
+              <img src="opencode/agentdevkit/running.png"
+                   alt="Example agent running">
+
+            </div>
+          </details>
+
+          <!-- RSS Agent -->
+          <details class="project">
+
+            <summary class="custom-summary">
+              <div class="summary-left">
+                <span>
+                  Terminal, Interactive: World News RSS Agent, C++
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                AI-powered RSS news agent generated using OpenCode,
+                agent.cpp and llama.cpp.
+              </p>
+
+              <img src="opencode/newsagent/newsagent1.png"
+                   alt="News Agent">
+
+              <img src="opencode/newsagent/newsagent2.png"
+                   alt="News Agent Running">
+
+            </div>
+          </details>
+
+          <!-- Linux Kernel -->
+          <details class="project">
+
+            <summary class="custom-summary">
+              <div class="summary-left">
+                <span>
+                  Terminal, Interactive: Linux Kernel Analysis, C
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                OpenCode analysing Linux kernel source code for bugs,
+                overflows and improvements.
+              </p>
+
+              <div class="link-row">
+                <a href="opencode/linuxkernel/homework_for_Linus.html">
+                  HTML Report
+                </a>
+              </div>
+
+            </div>
+          </details>
+
+          <!-- ClamAV GTK -->
+          <details class="project">
+
+            <summary class="custom-summary">
+              <div class="summary-left">
+                <span>
+                  Terminal, Interactive: ClamAV GTK Control Application, Python
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                GTK frontend for ClamAV generated using OpenCode.
+              </p>
+
+              <img src="https://raw.githubusercontent.com/RedOrangeGreen/clamav-gtk/main/clamav-gtk.png"
+                   alt="ClamAV GTK Control">
+
+            </div>
+          </details>
+
+          <!-- Clipboard -->
+          <details class="project">
+
+            <summary class="custom-summary">
+              <div class="summary-left">
+                <span>
+                  Terminal, Interactive: Clipboard Monitor, Python
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                Lightweight clipboard monitor generated using OpenCode.
+              </p>
+
+              <img src="opencode/clipboard/clipboard1.png"
+                   alt="Clipboard monitor">
+
+            </div>
+          </details>
+
+          <!-- ClamTk -->
+          <details class="project">
+
+            <summary class="custom-summary">
+              <div class="summary-left">
+                <span>
+                  Terminal, Interactive: ClamTk GUI Refresh, Perl
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                Modernised ClamTk interface redesign generated using OpenCode.
+              </p>
+
+              <img src="opencode/clamtkrefresh/clamtkrefresh1.png"
+                   alt="ClamTk refresh">
+
+              <img src="opencode/clamtkrefresh/clamtkrefresh2.png"
+                   alt="ClamTk refresh">
+
+            </div>
+          </details>
+
+          <!-- Tetris -->
+          <details class="project">
+
+            <summary class="custom-summary">
+              <div class="summary-left">
+                <span>
+                  Terminal, Interactive: Tetris, HTML/JavaScript/CSS
+                </span>
+              </div>
+
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                Fully vibe-coded Tetris clone generated using OpenCode.
+              </p>
+
+              <img src="opencode/tetris/1.png"
+                   alt="Tetris start screen">
+
+              <img src="opencode/tetris/2.png"
+                   alt="Tetris gameplay">
+
+              <div class="link-row">
+
+                <a href="opencode/tetris/webpage/" target="_blank">
+                  Play Session 1
+                </a>
+
+                <a href="opencode/tetris/webpage-next/" target="_blank">
+                  Play Session 2
+                </a>
+              </div>
+
+            </div>
+          </details>
+
         </section>
 
       </div>
