@@ -11,7 +11,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
 
   <style>
-    /* Same design system as main page */
     :root {
       --bg-body: #050816;
       --bg-elevated: #0b1020;
@@ -90,7 +89,7 @@
       margin-bottom: 1.8rem;
     }
 
-    /* Layout: sidebar + content */
+    /* Layout */
     .guide-layout {
       display: grid;
       grid-template-columns: 260px 1fr;
@@ -129,6 +128,7 @@
       color: var(--text-muted);
       font-size: 0.88rem;
       transition: var(--transition-fast);
+      text-decoration: none;
     }
 
     .sidebar a:hover {
@@ -155,23 +155,6 @@
       color: var(--text-muted);
       font-size: 0.95rem;
       line-height: 1.55;
-    }
-
-    /* Code blocks */
-    pre {
-      background: #0f172a;
-      border-radius: 12px;
-      padding: 1rem;
-      overflow-x: auto;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    code {
-      color: #93c5fd;
-      font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.9rem;
     }
 
     /* Footer */
@@ -235,9 +218,11 @@
       <h1 class="hero-title">
         <span>AI Coding Guide</span>
       </h1>
+
       <p class="hero-subtitle">
-        Practical workflows, prompt patterns, and real‑world examples for using AI as a coding partner.  
-        Learn how to structure prompts, debug with AI, generate components, and build faster.
+        Practical real-world examples for using AI as a coding partner.
+        Explore advanced AI-assisted workflows, self-forking environments,
+        and interactive development systems.
       </p>
     </header>
 
@@ -247,117 +232,18 @@
       <!-- Sidebar -->
       <aside class="sidebar">
         <h3>Contents</h3>
-        <a href="#section1">Getting Started</a>
-        <a href="#section2">Prompt Patterns</a>
-        <a href="#section3">Debugging with AI</a>
-        <a href="#section4">Refactoring Workflows</a>
-        <a href="#section5">Generating Components</a>
-        <a href="#section6">OpenCode Self‑Forking Example</a>
+        <a href="#section6">OpenCode Self-Forking Example</a>
       </aside>
 
       <!-- Content -->
       <div>
 
-        <!-- Section 1 -->
-        <section id="section1" class="guide-section">
-          <h2>1. Getting Started</h2>
-          <p>
-            AI coding works best when you treat the model like a junior developer:
-            give it context, constraints, examples, and a clear goal.
-          </p>
-
-          <pre><code>// Good starter prompt
-You are helping me build a small web app.
-Tech stack: HTML, CSS, JS.
-Goal: A responsive landing page.
-Constraints:
-- No external frameworks
-- Keep CSS under 200 lines
-- Include a hero section and 3 feature cards
-</code></pre>
-        </section>
-
-        <!-- Section 2 -->
-        <section id="section2" class="guide-section">
-          <h2>2. Prompt Patterns</h2>
-          <p>
-            These reusable patterns help you get consistent results across tasks.
-          </p>
-
-          <pre><code>// Pattern: "Improve this"
-Improve the following function.
-Keep the same behaviour.
-Explain the changes after the code.
-
-function add(a, b) {
-  return a + b;
-}
-</code></pre>
-        </section>
-
-        <!-- Section 3 -->
-        <section id="section3" class="guide-section">
-          <h2>3. Debugging with AI</h2>
-          <p>
-            AI is excellent at spotting logic errors, missing edge cases, and
-            mismatched assumptions.
-          </p>
-
-          <pre><code>// Pattern: "Find the bug"
-Here is a function that behaves incorrectly.
-Describe the bug, then fix it.
-
-function getUser(id) {
-  if (id = 0) {
-    return null;
-  }
-  return { id };
-}
-</code></pre>
-        </section>
-
-        <!-- Section 4 -->
-        <section id="section4" class="guide-section">
-          <h2>4. Refactoring Workflows</h2>
-          <p>
-            AI can refactor code into cleaner, more modular structures while
-            preserving behaviour.
-          </p>
-
-          <pre><code>// Pattern: "Refactor safely"
-Refactor this code.
-Keep behaviour identical.
-Split into smaller functions.
-Add comments explaining each part.
-</code></pre>
-        </section>
-
-        <!-- Section 5 -->
-        <section id="section5" class="guide-section">
-          <h2>5. Generating Components</h2>
-          <p>
-            Use AI to generate UI components, backend handlers, or utility
-            functions quickly.
-          </p>
-
-          <pre><code>// Pattern: "Generate a component"
-Generate a responsive card component.
-Inputs:
-- title
-- description
-- icon
-Output:
-- HTML
-- CSS
-- JS (if needed)
-</code></pre>
-        </section>
-
-        <!-- Section 6: OpenCode Example -->
+        <!-- Section 6 -->
         <section id="section6" class="guide-section">
-          <h2>6. Example: Self‑Forking the OpenCode Terminal</h2>
+          <h2>1. Example: Self-Forking the OpenCode Terminal</h2>
+
           <p>
-            This example demonstrates how to use an AI‑assisted workflow to fork and
+            This example demonstrates how to use an AI-assisted workflow to fork and
             reproduce an entire interactive terminal environment — including its own
             source code — using only the OpenCode tool itself.
           </p>
@@ -371,6 +257,7 @@ Output:
               box-shadow: 0 10px 30px rgba(15,23,42,0.7);
               transition: all 0.25s ease-out;
             ">
+
             <summary style="
                 cursor: pointer;
                 font-size: 1rem;
@@ -381,64 +268,97 @@ Output:
                 gap: 0.5rem;
               ">
               <i class="fa-solid fa-terminal"></i>
-              12. Terminal, Interactive: Self‑Forking The OpenCode Terminal
+              1. Terminal, Interactive: Self-Forking The OpenCode Terminal
             </summary>
 
-            <div class="project-body" style="margin-top: 1rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.55;">
+            <div class="project-body" style="
+                margin-top: 1rem;
+                color: var(--text-muted);
+                font-size: 0.95rem;
+                line-height: 1.55;
+              ">
+
               <p>
                 How to fork the OpenCode terminal and all associated functionality using
-                OpenCode itself. Self‑reproduction with a little extra at birth.
+                OpenCode itself. Self-reproduction with a little extra at birth.
               </p>
 
               <p>
-                All free and open source; free tool, free model, anonymous, no sign‑ins,
+                All free and open source; free tool, free model, anonymous, no sign-ins,
                 no API keys. The
-                <a href="https://github.com/anomalyco/opencode/blob/dev/LICENSE" target="_blank" style="color: var(--accent);">
+                <a href="https://github.com/anomalyco/opencode/blob/dev/LICENSE"
+                   target="_blank"
+                   style="color: var(--accent);">
                   MIT Licence
                 </a>
                 used by OpenCode means any part of the tool and associated source code
                 can be obtained and used by anyone.
               </p>
 
-              <p>Developed and tested on Ubuntu 24.04.4 LTS Live USB.</p>
+              <p>
+                Developed and tested on Ubuntu 24.04.4 LTS Live USB.
+              </p>
 
-              <div class="link-row" style="display: flex; gap: 1rem; margin: 1rem 0;">
-                <a href="opencode/fork/howto-fork.txt" download="howto-fork.txt" style="color: var(--accent);">
+              <div class="link-row" style="display:flex; gap:1rem; margin:1rem 0;">
+                <a href="opencode/fork/howto-fork.txt"
+                   download="howto-fork.txt"
+                   style="color: var(--accent);">
                   howto-fork.txt
                 </a>
-                <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt" style="color: var(--accent);">
+
+                <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt"
+                   style="color: var(--accent);">
                   View
                 </a>
               </div>
 
-              <div class="link-row" style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-                <a href="opencode/fork/opencode-fork.txt" download="opencode-fork.txt" style="color: var(--accent);">
+              <div class="link-row" style="display:flex; gap:1rem; margin-bottom:1rem;">
+                <a href="opencode/fork/opencode-fork.txt"
+                   download="opencode-fork.txt"
+                   style="color: var(--accent);">
                   opencode-fork.txt
                 </a>
-                <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt" style="color: var(--accent);">
+
+                <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt"
+                   style="color: var(--accent);">
                   View
                 </a>
               </div>
 
               <p>The baby is born…</p>
 
-              <img src="opencode/fork/taskcomplete.png" alt="Fork task complete" style="max-width: 100%; border-radius: 12px; margin: 1rem 0;">
+              <img src="opencode/fork/taskcomplete.png"
+                   alt="Fork task complete"
+                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
 
               <p>
                 It has been given a little something extra its mother
-                (<a href="https://github.com/anomalyco/opencode" target="_blank" style="color: var(--accent);">
+                (<a href="https://github.com/anomalyco/opencode"
+                    target="_blank"
+                    style="color: var(--accent);">
                   the OpenCode repository on GitHub
                 </a>)
                 does not have…
               </p>
 
-              <img src="opencode/fork/info.png" alt="Fork info" style="max-width: 100%; border-radius: 12px; margin: 1rem 0;">
+              <img src="opencode/fork/info.png"
+                   alt="Fork info"
+                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
 
               <p>But everything else works as expected…</p>
 
-              <img src="opencode/fork/invoke.png" alt="Fork invoke" style="max-width: 100%; border-radius: 12px; margin: 1rem 0;">
-              <img src="opencode/fork/running.png" alt="Fork running" style="max-width: 100%; border-radius: 12px; margin: 1rem 0;">
-              <img src="opencode/fork/exit.png" alt="Fork exit" style="max-width: 100%; border-radius: 12px; margin: 1rem 0;">
+              <img src="opencode/fork/invoke.png"
+                   alt="Fork invoke"
+                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
+
+              <img src="opencode/fork/running.png"
+                   alt="Fork running"
+                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
+
+              <img src="opencode/fork/exit.png"
+                   alt="Fork exit"
+                   style="max-width:100%; border-radius:12px; margin:1rem 0;">
+
             </div>
           </details>
         </section>
@@ -455,5 +375,6 @@ Output:
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
