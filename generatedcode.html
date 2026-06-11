@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,7 +79,7 @@
       z-index: 1;
       max-width: 1120px;
       margin: 0 auto;
-      padding: 6.5rem 1.25rem 3.5rem;
+      padding: 1.6rem 1.25rem 3.5rem;
     }
 
     .hero-title {
@@ -349,7 +350,7 @@
       width: 100%;
       height: auto;
       display: block;
-      margin: 1.2rem auto;
+      margin: 1.2rem 0;
       border-radius: 12px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.35);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -616,15 +617,6 @@
 
         <div class="sidebar-divider"></div>
 
-        <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer" class="opencode-sidebar-link">
-          <span class="opencode-sidebar-icon">
-            <i class="fa-solid fa-terminal"></i>
-          </span>
-          <span class="opencode-sidebar-body">
-            <span class="opencode-sidebar-name">OpenCode</span>
-            <span class="opencode-sidebar-desc">terminal AI coding agent <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-          </span>
-        </a>
       </aside>
 
       <div>
@@ -635,10 +627,26 @@
           <h2>OpenCode On Ubuntu Linux Examples</h2>
 
           <p>
-            Real-world demonstrations of using AI tools, Python, and terminal workflows
-            to build fast, local, privacy‑preserving AI systems.
+            To install and start Opencode for free on Ubuntu use:
           </p>
 
+          <pre><code>sudo apt update
+sudo apt install curl -y
+curl -fsSL https://opencode.ai/install | bash
+source ~/.bashrc
+opencode</code></pre>
+
+          <p>
+            <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.5rem 1rem;border-radius:12px;background:linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.9));border:1px solid rgba(56,189,248,0.2);text-decoration:none;color:inherit;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),border-color 0.25s ease;overflow:hidden;position:relative;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#0b1120;font-size:0.9rem;flex-shrink:0;position:relative;z-index:1;">
+                <i class="fa-solid fa-terminal"></i>
+              </span>
+              <span style="display:flex;flex-direction:column;position:relative;z-index:1;">
+                <span style="font-size:0.85rem;font-weight:700;color:#e5e7eb;letter-spacing:0.02em;">OpenCode</span>
+                <span style="font-size:0.68rem;color:var(--text-muted);">terminal AI coding agent <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.6rem;margin-left:0.2rem;opacity:0.5;"></i></span>
+              </span>
+            </a>
+          </p>
 
           <!-- EXAMPLE 1 -->
           <details class="project">
@@ -662,7 +670,7 @@
               <p>The easiest way to get started is to open a terminal and enter:</p>
 
               <pre><code>sudo snap install gemma3 --beta
-  gemma3 chat</code></pre>
+gemma3 chat</code></pre>
 
               <p>
                 Only the <strong>gemma3</strong> model installed on my machine. As of May 2026 it occasionally
@@ -716,62 +724,62 @@
               </p>
 
               <pre><code>#!/usr/bin/env python3
-  """LangChain app using llama.cpp via llama-cpp-python."""
+"""LangChain app using llama.cpp via llama-cpp-python."""
 
-  import sys
-  import argparse
-  from pathlib import Path
+import sys
+import argparse
+from pathlib import Path
 
-  from langchain_community.llms import LlamaCpp
-  from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHandler
-  from langchain_core.prompts import PromptTemplate
-
-
-  def build_llm(model_path: str, n_gpu_layers: int = 0, n_ctx: int = 2048):
-      return LlamaCpp(
-          model_path=model_path,
-          temperature=0.7,
-          max_tokens=512,
-          n_ctx=n_ctx,
-          n_gpu_layers=n_gpu_layers,
-          n_threads=8,
-          n_batch=512,
-          f16_kv=True,
-          verbose=False,
-          callbacks=CallbackManager([StreamingStdOutCallbackHandler()]),
-      )
+from langchain_community.llms import LlamaCpp
+from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHandler
+from langchain_core.prompts import PromptTemplate
 
 
-  def main():
-      parser = argparse.ArgumentParser(description="LangChain + llama.cpp")
-      parser.add_argument("model", type=str, help="Path to GGUF model file")
-      parser.add_argument("--gpu-layers", type=int, default=0, help="GPU offload layers")
-      parser.add_argument(
-          "--prompt",
-          type=str,
-          default="Explain quantum computing in one sentence.",
-          help="Prompt to send to the model",
-      )
-      parser.add_argument("--ctx", type=int, default=2048, help="Context window size")
-      args = parser.parse_args();
-
-      if not Path(args.model).exists():
-          print(f"Error: model file not found: {args.model}", file=sys.stderr)
-          sys.exit(1)
-
-      llm = build_llm(args.model, args.gpu_layers, args.ctx)
-
-      prompt = PromptTemplate.from_template(
-          "You are a helpful assistant.\n\nUser: {question}\nAssistant:"
-      )
-      chain = prompt | llm
-
-      print(f"\n--- Prompt ---\n{args.prompt}\n--- Response ---")
-      chain.invoke({"question": args.prompt})
+def build_llm(model_path: str, n_gpu_layers: int = 0, n_ctx: int = 2048):
+    return LlamaCpp(
+        model_path=model_path,
+        temperature=0.7,
+        max_tokens=512,
+        n_ctx=n_ctx,
+        n_gpu_layers=n_gpu_layers,
+        n_threads=8,
+        n_batch=512,
+        f16_kv=True,
+        verbose=False,
+        callbacks=CallbackManager([StreamingStdOutCallbackHandler()]),
+    )
 
 
-  if __name__ == "__main__":
-      main()</code></pre>
+def main():
+    parser = argparse.ArgumentParser(description="LangChain + llama.cpp")
+    parser.add_argument("model", type=str, help="Path to GGUF model file")
+    parser.add_argument("--gpu-layers", type=int, default=0, help="GPU offload layers")
+    parser.add_argument(
+        "--prompt",
+        type=str,
+        default="Explain quantum computing in one sentence.",
+        help="Prompt to send to the model",
+    )
+    parser.add_argument("--ctx", type=int, default=2048, help="Context window size")
+    args = parser.parse_args();
+
+    if not Path(args.model).exists():
+        print(f"Error: model file not found: {args.model}", file=sys.stderr)
+        sys.exit(1)
+
+    llm = build_llm(args.model, args.gpu_layers, args.ctx)
+
+    prompt = PromptTemplate.from_template(
+        "You are a helpful assistant.\n\nUser: {question}\nAssistant:"
+    )
+    chain = prompt | llm
+
+    print(f"\n--- Prompt ---\n{args.prompt}\n--- Response ---")
+    chain.invoke({"question": args.prompt})
+
+
+if __name__ == "__main__":
+    main()</code></pre>
 
               <p>
                 OpenCode also generated a single command that installs all dependencies,
@@ -780,11 +788,11 @@
               </p>
 
               <pre><code>mkdir -p models && sudo apt install python3-pip python3-venv wget -y && \
-  python3 -m venv venv && source venv/bin/activate && \
-  pip install langchain-core langchain-community llama-cpp-python && \
-  wget -O models/gemma-4-E2B-it-Q8_0.gguf \
-  https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf && \
-  python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
+python3 -m venv venv && source venv/bin/activate && \
+pip install langchain-core langchain-community llama-cpp-python && \
+wget -O models/gemma-4-E2B-it-Q8_0.gguf \
+https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf && \
+python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
               <img src="opencode/langchain/langchainrunning.png"
                    alt="LangChain running">
@@ -839,19 +847,19 @@
 
   <pre><code>An AI agent is:
 
-  while True:
-      observe environment      # get input / state
-      ask LLM: "what next?"    # decide action
-      execute action           # run tool / speak / move
-      store result             # feed back to context
+while True:
+    observe environment      # get input / state
+    ask LLM: "what next?"    # decide action
+    execute action           # run tool / speak / move
+    store result             # feed back to context
 
-  The LLM acts as the "brain" deciding what to do each iteration. The agent loop handles calling tools, feeding results back in, and deciding when to stop.
+The LLM acts as the "brain" deciding what to do each iteration. The agent loop handles calling tools, feeding results back in, and deciding when to stop.
 
-  The two key differences from a raw LLM call:
-  1. **Stateful** — it maintains conversation history across turns
-  2. **Can act** — it calls functions (search, calculator, file ops, etc.) and feeds results back into the loop
+The two key differences from a raw LLM call:
+1. **Stateful** — it maintains conversation history across turns
+2. **Can act** — it calls functions (search, calculator, file ops, etc.) and feeds results back into the loop
 
-  It's a `while` loop driven by an LLM at each step.</code></pre>
+It's a `while` loop driven by an LLM at each step.</code></pre>
 
       <p>
         I then asked ChatGPT to help me define commands for installing ‘stuff needed
@@ -865,17 +873,17 @@
       </p>
 
   <pre><code>sudo apt update && \
-  sudo apt install -y git build-essential cmake wget && \
-  git clone https://github.com/mozilla-ai/agent.cpp.git && \
-  cd agent.cpp && \
-  git submodule update --init --recursive && \
-  cmake -B build -DCMAKE_BUILD_TYPE=Release -DAGENT_CPP_BUILD_EXAMPLES=ON && \
-  cmake --build build -j$(nproc) && \
-  mkdir -p models && \
-  wget -O models/granite-4.0-micro-Q4_K_M.gguf \
-  https://huggingface.co/ibm-granite/granite-4.0-micro-GGUF/resolve/main/granite-4.0-micro-Q4_K_M.gguf && \
-  echo "Starting shell-example..." && \
-  ./build/shell-example -m models/granite-4.0-micro-Q4_K_M.gguf</code></pre>
+sudo apt install -y git build-essential cmake wget && \
+git clone https://github.com/mozilla-ai/agent.cpp.git && \
+cd agent.cpp && \
+git submodule update --init --recursive && \
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DAGENT_CPP_BUILD_EXAMPLES=ON && \
+cmake --build build -j$(nproc) && \
+mkdir -p models && \
+wget -O models/granite-4.0-micro-Q4_K_M.gguf \
+https://huggingface.co/ibm-granite/granite-4.0-micro-GGUF/resolve/main/granite-4.0-micro-Q4_K_M.gguf && \
+echo "Starting shell-example..." && \
+./build/shell-example -m models/granite-4.0-micro-Q4_K_M.gguf</code></pre>
 
       <p>Enter the above and you'll have a locally running 'Ollama style' AI chatbot running in an agent framework...</p>
 
@@ -914,21 +922,21 @@
       </p>
 
   <pre><code>sudo apt update
-  sudo apt install curl -y
-  curl -fsSL https://opencode.ai/install | bash
-  source ~/.bashrc
-  opencode
-  1) Download and extract the latest llama.cpp source code from GitHub (https://github.com/ggml-org/llama.cpp), understand the codebase, download the gemma4 GGUF model (the smallest available) from HuggingFace (https://huggingface.co/), build llama.cpp, test that the downloaded GGUF works with the built llama.cpp 2) Download and extract the latest Mozilla Agent.cpp source code from GitHub (https://github.com/mozilla-ai/agent.cpp), understand the codebase, build agent.cpp, integrating with the built llama.cpp to create a very simple example agent which gets and displays the current price of gold, silver and oil 3) Generate an HTML file AgentDetails.html detailing what has been built, what the agent does and how to start it.
-  Resolve compilation errors
-  Resolve remaining compilation errors
-  Fix code
-  Make the following report improvements .. Ubuntu version mentioned in report is wrong, I'm using 26.04 LTS, vertically align the start of comments in the File Structure section (most are ok but a few are out by a space or two)</code></pre>
+sudo apt install curl -y
+curl -fsSL https://opencode.ai/install | bash
+source ~/.bashrc
+opencode
+1) Download and extract the latest llama.cpp source code from GitHub (https://github.com/ggml-org/llama.cpp), understand the codebase, download the gemma4 GGUF model (the smallest available) from HuggingFace (https://huggingface.co/), build llama.cpp, test that the downloaded GGUF works with the built llama.cpp 2) Download and extract the latest Mozilla Agent.cpp source code from GitHub (https://github.com/mozilla-ai/agent.cpp), understand the codebase, build agent.cpp, integrating with the built llama.cpp to create a very simple example agent which gets and displays the current price of gold, silver and oil 3) Generate an HTML file AgentDetails.html detailing what has been built, what the agent does and how to start it.
+Resolve compilation errors
+Resolve remaining compilation errors
+Fix code
+Make the following report improvements .. Ubuntu version mentioned in report is wrong, I'm using 26.04 LTS, vertically align the start of comments in the File Structure section (most are ok but a few are out by a space or two)</code></pre>
 
       <p>I accidentally closed OpenCode using Ctrl+C ("pressing Ctrl+C in OpenCode currently acts as an immediate exit command rather than the standard 'copy' shortcut, which is a known issue") - oh no! No need to panic, how to instantly session resume using '-s ses_&lt;sessionid&gt;' was handily displayed on the terminal at exit. Phew!</p>
 
   <pre><code>opencode -s ses_&lt;sessionid&gt;
-  Please continue and fix vertical alignment, looks like you've stopped doing actions
-  All seem aligned correctly apart from '# GGUF model (4.96 GB)' - only one horizontal space (not two as current) needed in front of that</code></pre>
+Please continue and fix vertical alignment, looks like you've stopped doing actions
+All seem aligned correctly apart from '# GGUF model (4.96 GB)' - only one horizontal space (not two as current) needed in front of that</code></pre>
 
       <p>'Allow once' highlighted in OpenCode awaiting my input: I pressed Enter</p>
       <p>'Allow once' highlighted in OpenCode awaiting my input: I pressed Enter</p>
@@ -936,17 +944,17 @@
       <p>'Confirm' highlighted in OpenCode awaiting my input: I pressed Enter</p>
 
   <pre><code>When running the agent I see...
-  === Price Agent ===
-  Asking agent to get current prices of gold, silver, and oil...
+=== Price Agent ===
+Asking agent to get current prices of gold, silver, and oil...
 
 
-  Final Response: <|tool_call>call:get_prices{}<tool_call|>
+Final Response: <|tool_call>call:get_prices{}<tool_call|>
 
-  === Done ===
-  ~llama_context:        CPU compute buffer size is 522.0020 MiB, matches expectation of 522.0020 MiB
-  Worked ok, got prices once then exited, enhance so that gets prices 5 times, a second wait between each price grab.
-  Change agent so that rather than getting commodity prices, get 5 current International news headlines from an RSS feed, display them as readable text, pause 2 seconds and repeat forever.
-  Prepare the current code so that it can be easily modified further on another machine - create a new directory called rssagent containing all the source, makefiles and anything else required for a clean build on that new machine. Create an html file called rssagent.html detailing the contents of rssagent and how to build on the new machine.</code></pre>
+=== Done ===
+~llama_context:        CPU compute buffer size is 522.0020 MiB, matches expectation of 522.0020 MiB
+Worked ok, got prices once then exited, enhance so that gets prices 5 times, a second wait between each price grab.
+Change agent so that rather than getting commodity prices, get 5 current International news headlines from an RSS feed, display them as readable text, pause 2 seconds and repeat forever.
+Prepare the current code so that it can be easily modified further on another machine - create a new directory called rssagent containing all the source, makefiles and anything else required for a clean build on that new machine. Create an html file called rssagent.html detailing the contents of rssagent and how to build on the new machine.</code></pre>
 
       <p>Minor Oops, I didn't spot that the title in the generated Report should've been 'RSS Agent' rather than 'Price Agent' and name of the generated binary 'rss-agent' rather than 'price-agent' due to the requirements change late on, neither did OpenCode!</p>
 
@@ -1057,11 +1065,11 @@
       <p>This report was generated using a Ubuntu 24.04 Live USB:</p>
 
   <pre><code>sudo apt update
-  sudo apt install curl -y
-  curl -fsSL https://opencode.ai/install | bash
-  source ~/.bashrc
-  opencode
-  Download and extract the latest Linux source code from https://github.com/torvalds/linux, understand the codebase in subdirectory kernel, find any bugs, memory leaks, bad programming practices and areas for improvement in the files in this directory then generate a report file homework_for_Linus.html detailing all issues and possible improvements found.</code></pre>
+sudo apt install curl -y
+curl -fsSL https://opencode.ai/install | bash
+source ~/.bashrc
+opencode
+Download and extract the latest Linux source code from https://github.com/torvalds/linux, understand the codebase in subdirectory kernel, find any bugs, memory leaks, bad programming practices and areas for improvement in the files in this directory then generate a report file homework_for_Linus.html detailing all issues and possible improvements found.</code></pre>
 
     </div>
   </details>
@@ -1090,25 +1098,25 @@
       <p>This app was generated on a Ubuntu 26.04 LTS Live USB, free and anonymous, by entering the following:</p>
 
   <pre><code>cd ~/Downloads
-  sudo apt update
-  sudo apt install curl -y
-  curl -fsSL https://opencode.ai/install | bash
-  source ~/.bashrc
-  opencode
-  Create a Python app which uses GTK to control and use the ClamAV antivirus tool on ubuntu
-  Enhance to allow a single file to be selected and scanned
-  Enhance so that if ClamAV isn't installed, the command to install it is shown on the warning dialog when a Scan is attempted
-  Tried an update, got Updating...
-     ERROR: Problem with internal logger (UpdateLogFile = /var/log/clamav/freshclam.log).
-     ERROR: initialize: libfreshclam init failed.
-     ERROR: Initialization error!
-     ERROR: Failed to lock the log file /var/log/clamav/freshclam.log: Resource temporarily unavailable
+sudo apt update
+sudo apt install curl -y
+curl -fsSL https://opencode.ai/install | bash
+source ~/.bashrc
+opencode
+Create a Python app which uses GTK to control and use the ClamAV antivirus tool on ubuntu
+Enhance to allow a single file to be selected and scanned
+Enhance so that if ClamAV isn't installed, the command to install it is shown on the warning dialog when a Scan is attempted
+Tried an update, got Updating...
+   ERROR: Problem with internal logger (UpdateLogFile = /var/log/clamav/freshclam.log).
+   ERROR: initialize: libfreshclam init failed.
+   ERROR: Initialization error!
+   ERROR: Failed to lock the log file /var/log/clamav/freshclam.log: Resource temporarily unavailable
 
-     Update failed (code 2)
-  The update works but I am getting a prompt to authenticate three times during the update, is it possible to only authenticate once at the start of the operation
-  Add comments at the top indicating the program author (i.e. you!), the date of creation and usage info
-  Output all prompts entered to prompts.txt
-  </code></pre>
+   Update failed (code 2)
+The update works but I am getting a prompt to authenticate three times during the update, is it possible to only authenticate once at the start of the operation
+Add comments at the top indicating the program author (i.e. you!), the date of creation and usage info
+Output all prompts entered to prompts.txt
+</code></pre>
 
       <p>
         I've popped the generated code into the following proper 'big boy's pants style'
@@ -1187,19 +1195,19 @@
       <p>do this...</p>
 
       <pre><code>cd ~/Downloads
-  sudo apt update
-  sudo apt install curl -y
-  curl -fsSL https://opencode.ai/install | bash
-  source ~/.bashrc
-  opencode
-  Download the latest version of ClamTK from https://github.com/dave-theunsub/clamtk, understand the codebase, completely change the front GUI screen to a modern layout and style of your choice, build a new executable, call the executable clamtkrefresh, output an HTML file clamtkrefresh.html detailing the changes made and how to build and run clamtkrefresh.
-  ./clamtkrefresh looks identical to ./clamtk - where are the GUI changes?
-  Can you make the selection items on the front screen slightly smaller and the main window slightly bigger so that I can see all options when the application is started without needing to scroll
-  Create a source tree for clamtkreresh called clamtkrefreshcode suitable for uploading as a GitHub repository
-  Output all the user prompts entered in this session to file userprompts.txt
-  Make all the actions options on the front GUI screen the same size, width and height 
-  Some of the cards are still different dimensions (e.g. 'Preferences' has a smaller width than 'Update'). Make all 11 cards have an identical width and height - use the current largest card width and largest card height for this.
-  Form userprompts.txt and clamtkrefreshcode using given the latest code</code></pre>
+sudo apt update
+sudo apt install curl -y
+curl -fsSL https://opencode.ai/install | bash
+source ~/.bashrc
+opencode
+Download the latest version of ClamTK from https://github.com/dave-theunsub/clamtk, understand the codebase, completely change the front GUI screen to a modern layout and style of your choice, build a new executable, call the executable clamtkrefresh, output an HTML file clamtkrefresh.html detailing the changes made and how to build and run clamtkrefresh.
+./clamtkrefresh looks identical to ./clamtk - where are the GUI changes?
+Can you make the selection items on the front screen slightly smaller and the main window slightly bigger so that I can see all options when the application is started without needing to scroll
+Create a source tree for clamtkreresh called clamtkrefreshcode suitable for uploading as a GitHub repository
+Output all the user prompts entered in this session to file userprompts.txt
+Make all the actions options on the front GUI screen the same size, width and height 
+Some of the cards are still different dimensions (e.g. 'Preferences' has a smaller width than 'Update'). Make all 11 cards have an identical width and height - use the current largest card width and largest card height for this.
+Form userprompts.txt and clamtkrefreshcode using given the latest code</code></pre>
 
       <p>and you'll get this...</p>
 
@@ -1550,4 +1558,5 @@
 
 </body>
 </html>
+
 
