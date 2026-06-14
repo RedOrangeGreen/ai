@@ -693,7 +693,7 @@ opencode</code></pre>
 sudo apt update
 
 # Install git
-sudo snap install git
+sudo apt install git -y
 
 git clone https://github.com/RedOrangeGreen/flutter_echo.git
 cd flutter_echo
@@ -772,7 +772,7 @@ AI Agentic development really put in a good show here ... new 'instant' working 
                 <a href="https://documentation.ubuntu.com/inference-snaps/">Inference snaps</a>
                 are a new (still in Beta but available and working) addition to Ubuntu offering a quick,
                 easy and free local install of a hardware‑optimized AI inference engine and various LLM models.
-                Using CPU only, it’s the fastest local AI I’ve seen — matching the speed of commercial cloud
+                Using CPU only, it's the fastest local AI I've seen — matching the speed of commercial cloud
                 chatbots such as ChatGPT.
               </p>
 
@@ -788,7 +788,7 @@ gemma3 chat</code></pre>
               </p>
 
               <p>
-                Terminal, Web and “OpenAI API” interfaces are provided out of the box, so I asked OpenCode
+                Terminal, Web and "OpenAI API" interfaces are provided out of the box, so I asked OpenCode
                 to generate a small Python/GTK manager for all of them:
               </p>
 
@@ -820,8 +820,8 @@ gemma3 chat</code></pre>
             <div class="project-body">
 
               <p>
-                I saw “LangChain” mentioned in relation to AI engineering.  
-                <em>What’s that?</em> I wondered.  
+                I saw "LangChain" mentioned in relation to AI engineering.  
+                <em>What's that?</em> I wondered.  
                 One question to Google Gemini followed by a two‑minute OpenCode session answered everything.
                 OpenCode makes using LangChain (which allows Python apps to use LLMs with extra tooling)
                 a zero‑coding doddle.
@@ -971,10 +971,10 @@ The two key differences from a raw LLM call:
 It's a `while` loop driven by an LLM at each step.</code></pre>
 
       <p>
-        I then asked ChatGPT to help me define commands for installing ‘stuff needed
-        to develop a lean'n'mean C++ AI agent on Ubuntu Linux’ (i.e. the
-        ‘<a href="https://github.com/mozilla-ai/agent.cpp">agent.cpp</a>’ Mozilla agent
-        framework which invokes the ‘<a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>’
+        I then asked ChatGPT to help me define commands for installing 'stuff needed
+        to develop a lean'n'mean C++ AI agent on Ubuntu Linux' (i.e. the
+        '<a href="https://github.com/mozilla-ai/agent.cpp">agent.cpp</a>' Mozilla agent
+        framework which invokes the '<a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>'
         C/C++ AI inference engine as a sub-component) along with a micro IBM 'Granite'
         LLM downloaded from <a href="https://huggingface.co/">Hugging Face</a> for testing.
         All installed local, everything free and anonymous at all stages (including running)
