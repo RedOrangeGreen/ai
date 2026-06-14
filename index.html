@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -887,6 +886,7 @@
         <article
           class="tool-card tool"
           data-category="web"
+          data-key="chatgpt"
           data-tags="chatgpt openai chat writing coding general"
         >
           <div class="tool-card-header">
@@ -936,6 +936,7 @@
         <article
           class="tool-card tool"
           data-category="web"
+          data-key="copilot"
           data-tags="copilot microsoft bing search web office"
         >
           <div class="tool-card-header">
@@ -985,6 +986,7 @@
         <article
           class="tool-card tool"
           data-category="web"
+          data-key="perplexity"
           data-tags="perplexity search engine citations research"
         >
           <div class="tool-card-header">
@@ -1034,6 +1036,7 @@
         <article
           class="tool-card tool"
           data-category="web"
+          data-key="google"
           data-tags="google ai search results serp"
         >
           <div class="tool-card-header">
@@ -1083,6 +1086,7 @@
         <article
           class="tool-card tool"
           data-category="web"
+          data-key="mistral"
           data-tags="mistral lechat fast efficient free"
         >
           <div class="tool-card-header">
@@ -1358,6 +1362,14 @@
 
       let activeFilter = "all";
 
+      const flags = {
+        chatgpt: true,
+        copilot: false,
+        perplexity: true,
+        google: true,
+        mistral: true,
+      };
+
       function applyFilters() {
         const query = (searchInput.value || "").toLowerCase().trim();
 
@@ -1365,17 +1377,22 @@
           const category = tool.getAttribute("data-category");
           const tags = (tool.getAttribute("data-tags") || "").toLowerCase();
           const text = tool.textContent.toLowerCase();
+          const key = tool.getAttribute("data-key");
 
           const matchesCategory =
             activeFilter === "all" || category === activeFilter;
           const matchesSearch =
             !query || text.includes(query) || tags.includes(query);
+          const matchesFlag = !key || flags[key] !== false;
 
-          tool.style.display = matchesCategory && matchesSearch ? "" : "none";
+          tool.style.display =
+            matchesCategory && matchesSearch && matchesFlag ? "" : "none";
         });
       }
 
       searchInput.addEventListener("input", applyFilters);
+
+      applyFilters();
 
       filterChips.forEach((chip) => {
         chip.addEventListener("click", () => {
@@ -1522,5 +1539,3 @@
   </script>
 </body>
 </html>
-
-
