@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -345,6 +346,10 @@
       border-color: rgba(34,197,94,0.4);
     }
 
+    code {
+      color: var(--text-main);
+    }
+
     pre code {
       background: transparent !important;
       border-radius: 0 !important;
@@ -686,7 +691,13 @@ opencode</code></pre>
               </p>
 
               <p>Build and run on Linux:</p>
-              <pre><code>git clone https://github.com/RedOrangeGreen/flutter_echo.git
+              <pre><code># Update package lists (required on a fresh Live USB)
+sudo apt update
+
+# Install git
+sudo snap install git
+
+git clone https://github.com/RedOrangeGreen/flutter_echo.git
 cd flutter_echo
 
 # Install Flutter (requires snap support)
@@ -701,6 +712,9 @@ flutter run -d linux</code></pre>
               <p>The first run will download dependencies and compile the application. Press <code>q</code> in the terminal to quit.</p>
 
               <p>For other platforms (Android, iOS, macOS, Windows, Web), run <code>flutter create --platforms=android,ios,macos,windows,web .</code> then use <code>flutter run -d &lt;platform&gt;</code>.</p>
+
+              <img loading="lazy" src="opencode/flutterecho/flutter_echo.png"
+                   alt="Flutter Echo screenshot">
 
             </div>
           </details>
@@ -1655,5 +1669,6 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
 
 </body>
 </html>
+
 
 
