@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,6 +71,15 @@
       border-color: rgba(148, 163, 184, 0.6);
       color: #e5e7eb;
       transform: translateY(-1px);
+    }
+
+    .navbar-brand span {
+      background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+      letter-spacing: 0.03em;
     }
 
     .page-shell {
@@ -556,7 +566,8 @@
       <button class="navbar-toggler text-light border-0"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#mainNav">
+              data-bs-target="#mainNav"
+              aria-label="Toggle navigation">
         <i class="fa-solid fa-bars"></i>
       </button>
 
@@ -598,7 +609,7 @@
     </p>
 
     <p>
-      <a href="https://www.youtube.com/@aiplagro/videos" target="_blank" class="btn-open">
+      <a href="https://www.youtube.com/@aiplagro/videos" target="_blank" rel="noopener noreferrer" class="btn-open">
         <i class="fa-brands fa-youtube"></i>
         Associated YouTube Videos
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
@@ -649,9 +660,57 @@ opencode</code></pre>
           <!-- EXAMPLE 1 -->
           <details class="project">
             <summary class="custom-summary">
-              <div class="summary-left">
-                <span>1. Website Monitor, Flutter</span>
-              </div>
+              <span class="summary-left">
+                <span>1. Text Echo, Flutter</span>
+              </span>
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                A simple AI-generated Flutter app that echoes back text entered by the user. It serves as a baseline for potential AI-agentic coded apps. Free and built with no Flutter experience or source code editing — my first thought when looking at the generated code was: "There's a file with a .dart extension containing C++/JavaScript-like code with lots of nested brackets; imagine hand-coding that!" Only the Linux desktop source is included here, but the code can be configured and built for Android, iOS, macOS, Windows, Web, and Embedded with a couple of extra commands. I can see why Google has tightened sideloading requirements for Android apps — the knowledge and experience needed to create a fully working one has dropped to zero!
+              </p>
+
+              <p>
+                <a href="https://github.com/RedOrangeGreen/flutter_echo" target="_blank" rel="noopener noreferrer"
+                    style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.5rem 1rem;border-radius:12px;background:linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.9));border:1px solid rgba(56,189,248,0.2);text-decoration:none;color:inherit;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),border-color 0.25s ease;overflow:hidden;position:relative;">
+                  <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#0b1120;font-size:0.9rem;flex-shrink:0;position:relative;z-index:1;">
+                    <i class="fa-brands fa-github"></i>
+                  </span>
+                  <span style="display:flex;flex-direction:column;position:relative;z-index:1;">
+                    <span style="font-size:0.85rem;font-weight:700;color:#e5e7eb;letter-spacing:0.02em;">flutter_echo</span>
+                    <span style="font-size:0.68rem;color:var(--text-muted);">GitHub repository <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.6rem;margin-left:0.2rem;opacity:0.5;"></i></span>
+                  </span>
+                </a>
+              </p>
+
+              <p>Build and run on Linux:</p>
+              <pre><code>git clone https://github.com/RedOrangeGreen/flutter_echo.git
+cd flutter_echo
+
+# Install Flutter (requires snap support)
+sudo snap install flutter --classic
+
+# Disable analytics (optional but recommended)
+flutter --disable-analytics
+
+# Run the app
+flutter run -d linux</code></pre>
+
+              <p>The first run will download dependencies and compile the application. Press <code>q</code> in the terminal to quit.</p>
+
+              <p>For other platforms (Android, iOS, macOS, Windows, Web), run <code>flutter create --platforms=android,ios,macos,windows,web .</code> then use <code>flutter run -d &lt;platform&gt;</code>.</p>
+
+            </div>
+          </details>
+
+          <!-- EXAMPLE 2 -->
+          <details class="project">
+            <summary class="custom-summary">
+              <span class="summary-left">
+                <span>2. Website Monitor, Flutter</span>
+              </span>
               <i class="fa-solid fa-chevron-down summary-chevron"></i>
             </summary>
 
@@ -670,28 +729,28 @@ AI Agentic development really put in a good show here ... new 'instant' working 
                 Developed on a Ubuntu 26.04 LTS Live USB.
               </p>
 
-              <img src="opencode/websitemonitor/screenshot1.png"
+              <img loading="lazy" src="opencode/websitemonitor/screenshot1.png"
                    alt="Website Monitor screenshot 1">
-              <img src="opencode/websitemonitor/screenshot2.png"
+              <img loading="lazy" src="opencode/websitemonitor/screenshot2.png"
                    alt="Website Monitor screenshot 2">
-              <img src="opencode/websitemonitor/screenshot3.png"
+              <img loading="lazy" src="opencode/websitemonitor/screenshot3.png"
                    alt="Website Monitor screenshot 3">
 
               <p>Here's the AI generated Linux source code (OpenCode also generated 'android', 'ios', 'macos', 'web' and 'windows' directories which I'm guessing held generated source for those platforms):
               </p>
-<a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/websitemonitor/website_monitor" target="_blank">
+<a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/websitemonitor/website_monitor" target="_blank" rel="noopener noreferrer">
         Website Monitor Flutter Linux Source
       </a>
               <p></p>
             </div>
           </details>
 
-          <!-- EXAMPLE 2 -->
+          <!-- EXAMPLE 3 -->
           <details class="project">
             <summary class="custom-summary">
-              <div class="summary-left">
-                <span>2. Ubuntu Native AI Inference Snap Manager, Python</span>
-              </div>
+              <span class="summary-left">
+                <span>3. Ubuntu Native AI Inference Snap Manager, Python</span>
+              </span>
               <i class="fa-solid fa-chevron-down summary-chevron"></i>
             </summary>
 
@@ -729,20 +788,20 @@ gemma3 chat</code></pre>
               <p>Run using:</p>
               <pre><code>python3 ./ai-snap-manager.py</code></pre>
 
-              <img src="opencode/aisnapmanager/aisnapmanager1.png"
+              <img loading="lazy" src="opencode/aisnapmanager/aisnapmanager1.png"
                    alt="AI Snap Manager running 1">
-              <img src="opencode/aisnapmanager/aisnapmanager2.png"
+              <img loading="lazy" src="opencode/aisnapmanager/aisnapmanager2.png"
                    alt="AI Snap Manager running 2">
 
             </div>
           </details>
 
-          <!-- EXAMPLE 3 -->
+          <!-- EXAMPLE 4 -->
           <details class="project">
             <summary class="custom-summary">
-              <div class="summary-left">
-                <span>3. LangChain, Python</span>
-              </div>
+              <span class="summary-left">
+                <span>4. LangChain, Python</span>
+              </span>
               <i class="fa-solid fa-chevron-down summary-chevron"></i>
             </summary>
 
@@ -832,18 +891,18 @@ wget -O models/gemma-4-E2B-it-Q8_0.gguf \
 https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf && \
 python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
-              <img src="opencode/langchain/langchainrunning.png"
+              <img loading="lazy" src="opencode/langchain/langchainrunning.png"
                    alt="LangChain running">
 
             </div>
           </details>
 
-   <!-- EXAMPLE 4 -->
+  <!-- EXAMPLE 5 -->
   <details class="project">
     <summary class="custom-summary">
-      <div class="summary-left">
-        <span>4. Llama.cpp Revisited, C++</span>
-      </div>
+      <span class="summary-left">
+        <span>5. Llama.cpp Revisited, C++</span>
+      </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
 
@@ -862,17 +921,17 @@ python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
   <pre><code>./build/bin/llama-cli -m ./models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
-      <img src="opencode/llamarevisited/llamarevisited.png" alt="Llama.cpp running">
+      <img loading="lazy" src="opencode/llamarevisited/llamarevisited.png" alt="Llama.cpp running">
 
     </div>
   </details>
 
-  <!-- EXAMPLE 5 -->
+  <!-- EXAMPLE 6 -->
   <details class="project">
     <summary class="custom-summary">
-      <div class="summary-left">
-        <span>5. Agent Development Setup, C++</span>
-      </div>
+      <span class="summary-left">
+        <span>6. Agent Development Setup, C++</span>
+      </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
 
@@ -925,8 +984,8 @@ echo "Starting shell-example..." && \
 
       <p>Enter the above and you'll have a locally running 'Ollama style' AI chatbot running in an agent framework...</p>
 
-      <img src="opencode/agentdevkit/starting.png" alt="Examnple agent start">
-      <img src="opencode/agentdevkit/running.png" alt="Example agent running">
+      <img loading="lazy" src="opencode/agentdevkit/starting.png" alt="Examnple agent start">
+      <img loading="lazy" src="opencode/agentdevkit/running.png" alt="Example agent running">
 
       <p>
         LLMs and code versions need to be chosen careful carefully when using agent.cpp
@@ -937,12 +996,12 @@ echo "Starting shell-example..." && \
     </div>
   </details>
 
-  <!-- EXAMPLE 6 -->
+  <!-- EXAMPLE 7 -->
   <details class="project">
     <summary class="custom-summary">
-      <div class="summary-left">
-        <span>6. World News (RSS) Agent, C++ (llama.cpp + Mozilla agent.cpp)</span>
-      </div>
+      <span class="summary-left">
+        <span>7. World News (RSS) Agent, C++ (llama.cpp + Mozilla agent.cpp)</span>
+      </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
 
@@ -1001,21 +1060,21 @@ Prepare the current code so that it can be easily modified further on another ma
 
       <p>The agent running:</p>
 
-      <img src="opencode/newsagent/newsagent1.png" alt="News Agent how to start">
-      <img src="opencode/newsagent/newsagent2.png" alt="News Agent running">
+      <img loading="lazy" src="opencode/newsagent/newsagent1.png" alt="News Agent how to start">
+      <img loading="lazy" src="opencode/newsagent/newsagent2.png" alt="News Agent running">
 
-      <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/newsagent/rssagent" target="_blank">'GitHub repository style' source tree.</a>
+      <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/newsagent/rssagent" target="_blank" rel="noopener noreferrer">'GitHub repository style' source tree.</a>
       <p>A handy rssagent.tar.gz which was also generated by OpenCode is in the parent directory of this source tree.</p>
 
     </div>
   </details>
 
-  <!-- EXAMPLE 7 -->
+  <!-- EXAMPLE 8 -->
   <details class="project">
     <summary class="custom-summary">
-      <div class="summary-left">
-        <span>7. Code Snippets, C++</span>
-      </div>
+      <span class="summary-left">
+        <span>8. Code Snippets, C++</span>
+      </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
 
@@ -1044,17 +1103,17 @@ Prepare the current code so that it can be easily modified further on another ma
 
       <p>Read Makefile and snippet.cpp to understand the codebase then install all build tools required to build the codebase.</p>
 
-      <img src="opencode/snippet/snippet.png" alt="Code snippet app screenshot">
+      <img loading="lazy" src="opencode/snippet/snippet.png" alt="Code snippet app screenshot">
 
     </div>
   </details>
 
-  <!-- EXAMPLE 8 -->
+  <!-- EXAMPLE 9 -->
   <details class="project">
     <summary class="custom-summary">
-      <div class="summary-left">
-        <span>8. Linux Kernel, C</span>
-      </div>
+      <span class="summary-left">
+        <span>9. Linux Kernel, C</span>
+      </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
 
@@ -1112,12 +1171,12 @@ Download and extract the latest Linux source code from https://github.com/torval
     </div>
   </details>
 
-  <!-- EXAMPLE 9 -->
+  <!-- EXAMPLE 10 -->
   <details class="project">
     <summary class="custom-summary">
-      <div class="summary-left">
-        <span>9. ClamAV GTK Control Application, Python</span>
-      </div>
+      <span class="summary-left">
+        <span>10. ClamAV GTK Control Application, Python</span>
+      </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
 
@@ -1131,7 +1190,7 @@ Download and extract the latest Linux source code from https://github.com/torval
         GTK is current GNOME native.  
       </p>
 
-      <img src="https://raw.githubusercontent.com/RedOrangeGreen/clamav-gtk/main/clamav-gtk.png" alt="ClamAV GTK Control">
+      <img loading="lazy" src="https://raw.githubusercontent.com/RedOrangeGreen/clamav-gtk/main/clamav-gtk.png" alt="ClamAV GTK Control">
 
       <p>This app was generated on a Ubuntu 26.04 LTS Live USB, free and anonymous, by entering the following:</p>
 
@@ -1161,17 +1220,17 @@ Output all prompts entered to prompts.txt
         GitHub repository (apart from the image file all files were generated by OpenCode):
       </p>
 
-      <a href="https://github.com/RedOrangeGreen/clamav-gtk" target="_blank">GitHub repository</a>
+      <a href="https://github.com/RedOrangeGreen/clamav-gtk" target="_blank" rel="noopener noreferrer">GitHub repository</a>
 
     </div>
   </details>
 
-  <!-- EXAMPLE 10 -->
+  <!-- EXAMPLE 11 -->
   <details class="project">
     <summary class="custom-summary">
-      <div class="summary-left">
-        <span>10. Clipboard Monitor, Python</span>
-      </div>
+      <span class="summary-left">
+        <span>11. Clipboard Monitor, Python</span>
+      </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
 
@@ -1190,25 +1249,25 @@ Output all prompts entered to prompts.txt
       <p>Usage: python3 ./clipboard_monitor.py</p>
       <p>Missing required package auto detected and installed...</p>
 
-      <img src="opencode/clipboard/clipboard1.png" alt="Clipboard monitor install screen">
+      <img loading="lazy" src="opencode/clipboard/clipboard1.png" alt="Clipboard monitor install screen">
 
       <p>'Clear clipboard' button greyed out if clipboard empty...</p>
 
-      <img src="opencode/clipboard/clipboard2.png" alt="Clipboard monitor empty clipboard">
+      <img loading="lazy" src="opencode/clipboard/clipboard2.png" alt="Clipboard monitor empty clipboard">
 
       <p>But enabled if something is on it...</p>
 
-      <img src="opencode/clipboard/clipboard3.png" alt="Clipboard monitor populated clipboard">
+      <img loading="lazy" src="opencode/clipboard/clipboard3.png" alt="Clipboard monitor populated clipboard">
 
     </div>
   </details>
 
-  <!-- EXAMPLE 11 -->
+  <!-- EXAMPLE 12 -->
   <details class="project">
     <summary class="custom-summary">
-      <div class="summary-left">
-        <span>11. ClamTk GUI Refresh, Perl</span>
-      </div>
+      <span class="summary-left">
+        <span>12. ClamTk GUI Refresh, Perl</span>
+      </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
 
@@ -1228,7 +1287,7 @@ Output all prompts entered to prompts.txt
         Using a Ubuntu 26.04 Live USB, start with the latest version of ClamTk...
       </p>
 
-      <img src="opencode/clamtkrefresh/clamtkcurrent.png" alt="ClamTk current">
+      <img loading="lazy" src="opencode/clamtkrefresh/clamtkcurrent.png" alt="ClamTk current">
 
       <p>do this...</p>
 
@@ -1249,24 +1308,24 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
 
       <p>and you'll get this...</p>
 
-      <img src="opencode/clamtkrefresh/clamtkrefresh1.png" alt="ClamTk refresh1">
-      <img src="opencode/clamtkrefresh/clamtkrefresh2.png" alt="ClamTk refresh2">
+      <img loading="lazy" src="opencode/clamtkrefresh/clamtkrefresh1.png" alt="ClamTk refresh1">
+      <img loading="lazy" src="opencode/clamtkrefresh/clamtkrefresh2.png" alt="ClamTk refresh2">
 
       <p>Here's the updated source code. The changes are in lib/ClamTk/GUI.pm</p>
 
-      <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/clamtkrefresh/clamtkrefreshcode" target="_blank">
+      <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/clamtkrefresh/clamtkrefreshcode" target="_blank" rel="noopener noreferrer">
         ClamTk Refresh Source Code Changes
       </a>
 
     </div>
   </details>
 
-  <!-- EXAMPLE 12 -->
+  <!-- EXAMPLE 13 -->
   <details class="project">
     <summary class="custom-summary">
-      <div class="summary-left">
-        <span>12. Tetris, HTML/JavaScript/CSS Webpage</span>
-      </div>
+      <span class="summary-left">
+        <span>13. Tetris, HTML/JavaScript/CSS Webpage</span>
+      </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
 
@@ -1281,8 +1340,8 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
         The code was generated on Ubuntu 24.04.4 LTS Live USB and saved to external media mid session.
       </p>
 
-      <img src="opencode/tetris/1.png" alt="Tetris start screen">
-      <img src="opencode/tetris/2.png" alt="Tetris play screen">
+      <img loading="lazy" src="opencode/tetris/1.png" alt="Tetris start screen">
+      <img loading="lazy" src="opencode/tetris/2.png" alt="Tetris play screen">
 
       <p>Preparing to vibe:</p>
 
@@ -1296,7 +1355,7 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
         <a href="kilocli/view.html?file=../opencode/run.sh">View</a>
       </div>
 
-      <img src="opencode/tetris/opencodescreen.png" alt="OpenCode screen">
+      <img loading="lazy" src="opencode/tetris/opencodescreen.png" alt="OpenCode screen">
 
       <p>Vibe Session 1 (Initial App Creation)</p>
       <p><em>Vibes</em></p>
@@ -1360,12 +1419,12 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
     </div>
   </details>
 
-  <!-- EXAMPLE 13 -->
+  <!-- EXAMPLE 14 -->
   <details class="project">
     <summary class="custom-summary">
-      <div class="summary-left">
-        <span>13. Self-Forking The OpenCode Terminal</span>
-      </div>
+      <span class="summary-left">
+        <span>14. Self-Forking The OpenCode Terminal</span>
+      </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
 
@@ -1397,7 +1456,7 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
 
       <p>The baby is born...</p>
 
-      <img src="opencode/fork/taskcomplete.png" alt="Fork task complete">
+      <img loading="lazy" src="opencode/fork/taskcomplete.png" alt="Fork task complete">
 
       <p>
         It has been given a little something extra its mother
@@ -1405,13 +1464,13 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
         does not have...
       </p>
 
-      <img src="opencode/fork/info.png" alt="Fork info">
+      <img loading="lazy" src="opencode/fork/info.png" alt="Fork info">
 
       <p>But everything else works as expected...</p>
 
-      <img src="opencode/fork/invoke.png" alt="Fork invoke">
-      <img src="opencode/fork/running.png" alt="Fork running">
-      <img src="opencode/fork/exit.png" alt="Fork exit">
+      <img loading="lazy" src="opencode/fork/invoke.png" alt="Fork invoke">
+      <img loading="lazy" src="opencode/fork/running.png" alt="Fork running">
+      <img loading="lazy" src="opencode/fork/exit.png" alt="Fork exit">
 
     </div>
   </details>
@@ -1596,4 +1655,5 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
 
 </body>
 </html>
+
 
