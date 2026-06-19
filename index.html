@@ -4,7 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Explore free AI chatbots and local AI tools. No sign-up required." />
+  <meta name="theme-color" content="#050816" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
   <title>AI Playground – Free AI Tools</title>
+
+  <!-- Preconnect to CDNs -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
   <!-- Bootstrap 5 (CDN) -->
   <link
@@ -136,9 +142,18 @@
       margin-bottom: 2.75rem;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
       .hero {
-        grid-template-columns: minmax(0, 1fr);
+        text-align: center;
+      }
+      .hero-subtitle {
+        max-width: 100%;
+      }
+      .hero-meta {
+        justify-content: center;
+      }
+      .hero-badges {
+        justify-content: center;
       }
     }
 
@@ -686,6 +701,98 @@
       outline-offset: 2px;
     }
 
+    .toast-dialog {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9998;
+      background: rgba(15, 23, 42, 0.97);
+      border: 2px solid rgba(56, 189, 248, 0.5);
+      border-radius: 18px;
+      padding: 1.2rem 2rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      font-size: 1.1rem;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      max-width: min(85vw, 36rem);
+      text-align: center;
+      backdrop-filter: blur(12px);
+      font-weight: 500;
+    }
+    .toast-dialog.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .toast-dialog i {
+      font-size: 1.5rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .toast-dialog > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .toast-quote {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -999px;
+      left: 0.5rem;
+      z-index: 9999;
+      background: #0b1120;
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      border-top: none;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    @media print {
+      #particle-canvas, #portal-canvas {
+        display: none !important;
+      }
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .nav-blur {
+        position: static;
+        backdrop-filter: none;
+        background: #f5f5f5;
+        border-bottom: 1px solid #ccc;
+      }
+      .filter-chip, .search-input-wrap {
+        display: none;
+      }
+    }
+
     .tool-card {
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
                   box-shadow 0.35s ease,
@@ -714,6 +821,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
   <!-- Top nav -->
   <nav class="navbar navbar-expand-md fixed-top nav-blur">
@@ -771,7 +879,7 @@
   </nav>
 
   <!-- Page shell -->
-  <main class="page-shell">
+  <main id="main-content" class="page-shell">
     <!-- Hero -->
     <section class="hero">
       <div>
@@ -1347,6 +1455,14 @@
     </footer>
   </main>
 
+  <div id="welcomeToast" class="toast-dialog" role="status" aria-live="polite">
+    <i class="fa-solid fa-hand-wave"></i>
+    <div>
+      <div id="toastMessage"></div>
+      <div id="toastQuote" class="toast-quote"></div>
+    </div>
+  </div>
+
   <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
@@ -1424,6 +1540,43 @@
         backToTop.addEventListener("click", () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         });
+      }
+    })();
+  </script>
+
+  <script>
+    (function() {
+      var quotes = [
+        '"The only way to do great work is to love what you do." \u2014 Steve Jobs',
+        '"In the middle of every difficulty lies opportunity." \u2014 Albert Einstein',
+        '"Believe you can and you\'re halfway there." \u2014 Theodore Roosevelt',
+        '"The future belongs to those who believe in the beauty of their dreams." \u2014 Eleanor Roosevelt',
+        '"It does not matter how slowly you go as long as you do not stop." \u2014 Confucius',
+        '"The best time to plant a tree was 20 years ago. The second best time is now." \u2014 Chinese Proverb',
+        '"You miss 100% of the shots you don\'t take." \u2014 Wayne Gretzky',
+        '"Whether you think you can or you think you can\'t, you\'re right." \u2014 Henry Ford',
+        '"The only impossible journey is the one you never begin." \u2014 Tony Robbins',
+        '"What lies behind us and what lies before us are tiny matters compared to what lies within us." \u2014 Ralph Waldo Emerson',
+        '"Happiness is not something ready made. It comes from your own actions." \u2014 Dalai Lama',
+        '"Do what you can, with what you have, where you are." \u2014 Theodore Roosevelt',
+        '"Success is not final, failure is not fatal: it is the courage to continue that counts." \u2014 Winston Churchill',
+        '"The mind is everything. What you think you become." \u2014 Buddha'
+      ];
+      var now = new Date();
+      var dateStr = now.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      var timeStr = now.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+      var msg = document.getElementById('toastMessage');
+      var qel = document.getElementById('toastQuote');
+      if (msg) {
+        msg.textContent = 'Welcome to AI Playground \u2014 ' + dateStr + ' ' + timeStr;
+        if (qel) {
+          qel.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+        }
+        var toast = document.getElementById('welcomeToast');
+        if (toast) {
+          toast.classList.add('show');
+          setTimeout(function() { toast.classList.remove('show'); }, 5000);
+        }
       }
     })();
   </script>
