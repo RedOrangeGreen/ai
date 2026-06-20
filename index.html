@@ -701,51 +701,6 @@
       outline-offset: 2px;
     }
 
-    .toast-dialog {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9998;
-      background: rgba(15, 23, 42, 0.97);
-      border: 2px solid rgba(56, 189, 248, 0.5);
-      border-radius: 18px;
-      padding: 1.2rem 2rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-      font-size: 1.1rem;
-      color: #e5e7eb;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      pointer-events: none;
-      max-width: min(85vw, 36rem);
-      text-align: center;
-      backdrop-filter: blur(12px);
-      font-weight: 500;
-    }
-    .toast-dialog.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .toast-dialog i {
-      font-size: 1.5rem;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-    .toast-dialog > div {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .toast-quote {
-      font-size: 1rem;
-      color: var(--text-muted);
-      font-style: italic;
-      font-weight: 400;
-    }
-
     .skip-link {
       position: absolute;
       top: -999px;
@@ -891,6 +846,16 @@
           Explore <span class="highlight">AI tools</span> you can use
           today— no sign‑up, no credit card.
         </h1>
+
+        <div id="clock-row" style="margin-bottom:1.2rem;display:flex;flex-wrap:wrap;gap:0.6rem;font-size:0.95rem;color:var(--text-muted);padding:0.35rem 0;">
+          <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;"><i class="fa-regular fa-clock" style="color:var(--accent);font-size:1.1rem;"></i><span style="color:var(--text-main);font-weight:600;margin-right:0.25rem;">World Clocks</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0.1rem;border:1px solid rgba(255,255,255,0.4);border-radius:var(--radius-pill);padding:0.3rem 0.85rem;background:rgba(15,23,42,0.6);line-height:1.3;"><span style="color:var(--text-main);font-weight:500;font-size:0.82rem;white-space:nowrap;">London</span> <span id="clock-london" style="font-variant-numeric:tabular-nums;color:var(--text-main);font-weight:600;font-size:0.95rem;"></span> <span id="icon-london" style="font-size:0.85rem;line-height:1;"></span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0.1rem;border:1px solid rgba(255,255,255,0.4);border-radius:var(--radius-pill);padding:0.3rem 0.85rem;background:rgba(15,23,42,0.6);line-height:1.3;"><span style="color:var(--text-main);font-weight:500;font-size:0.82rem;white-space:nowrap;">New York</span> <span id="clock-nyc" style="font-variant-numeric:tabular-nums;color:var(--text-main);font-weight:600;font-size:0.95rem;"></span> <span id="icon-nyc" style="font-size:0.85rem;line-height:1;"></span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0.1rem;border:1px solid rgba(255,255,255,0.4);border-radius:var(--radius-pill);padding:0.3rem 0.85rem;background:rgba(15,23,42,0.6);line-height:1.3;"><span style="color:var(--text-main);font-weight:500;font-size:0.82rem;white-space:nowrap;">Los Angeles</span> <span id="clock-la" style="font-variant-numeric:tabular-nums;color:var(--text-main);font-weight:600;font-size:0.95rem;"></span> <span id="icon-la" style="font-size:0.85rem;line-height:1;"></span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0.1rem;border:1px solid rgba(255,255,255,0.4);border-radius:var(--radius-pill);padding:0.3rem 0.85rem;background:rgba(15,23,42,0.6);line-height:1.3;"><span style="color:var(--text-main);font-weight:500;font-size:0.82rem;white-space:nowrap;">Moscow</span> <span id="clock-moscow" style="font-variant-numeric:tabular-nums;color:var(--text-main);font-weight:600;font-size:0.95rem;"></span> <span id="icon-moscow" style="font-size:0.85rem;line-height:1;"></span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0.1rem;border:1px solid rgba(255,255,255,0.4);border-radius:var(--radius-pill);padding:0.3rem 0.85rem;background:rgba(15,23,42,0.6);line-height:1.3;"><span style="color:var(--text-main);font-weight:500;font-size:0.82rem;white-space:nowrap;">Beijing</span> <span id="clock-beijing" style="font-variant-numeric:tabular-nums;color:var(--text-main);font-weight:600;font-size:0.95rem;"></span> <span id="icon-beijing" style="font-size:0.85rem;line-height:1;"></span></div>
+        </div>
+
         <p class="hero-subtitle">
           Web chatbots, local models, and coding helpers curated into one clean
           playground. Filter, scan, and jump straight into the tools that match
@@ -924,7 +889,6 @@
           </div>
         </div>
       </div>
-
 
     </section>
 
@@ -1455,14 +1419,6 @@
     </footer>
   </main>
 
-  <div id="welcomeToast" class="toast-dialog" role="status" aria-live="polite">
-    <i class="fa-solid fa-hand-wave"></i>
-    <div>
-      <div id="toastMessage"></div>
-      <div id="toastQuote" class="toast-quote"></div>
-    </div>
-  </div>
-
   <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
@@ -1470,6 +1426,39 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    (function() {
+      const zones = [
+        { id: 'clock-london',   icon: 'icon-london',   tz: 'Europe/London' },
+        { id: 'clock-nyc',      icon: 'icon-nyc',      tz: 'America/New_York' },
+        { id: 'clock-la',       icon: 'icon-la',       tz: 'America/Los_Angeles' },
+        { id: 'clock-moscow',   icon: 'icon-moscow',   tz: 'Europe/Moscow' },
+        { id: 'clock-beijing',  icon: 'icon-beijing',  tz: 'Asia/Shanghai' },
+      ];
+      function updateClocks() {
+        const now = new Date();
+        for (const z of zones) {
+          const el = document.getElementById(z.id);
+          const iconEl = document.getElementById(z.icon);
+          if (!el) continue;
+          el.textContent = now.toLocaleTimeString('en-GB', { timeZone: z.tz, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          if (iconEl) {
+            const hour = parseInt(now.toLocaleString('en-GB', { timeZone: z.tz, hour: '2-digit', hour12: false }));
+            iconEl.textContent = hour >= 6 && hour < 24 ? '\u2600\uFE0F' : '\uD83C\uDF19';
+          }
+        }
+      }
+      updateClocks();
+      setInterval(updateClocks, 1000);
+
+      const clockRow = document.getElementById('clock-row');
+      if (clockRow) {
+        const pills = clockRow.querySelectorAll('div[style*="flex-direction:column"]');
+        let maxW = 0;
+        pills.forEach(p => { const w = p.offsetWidth; if (w > maxW) maxW = w; });
+        if (maxW > 0) pills.forEach(p => p.style.width = maxW + 'px');
+      }
+    })();
+
     (function () {
       const searchInput = document.getElementById("search");
       const filterChips = document.querySelectorAll(".filter-chip");
@@ -1544,42 +1533,7 @@
     })();
   </script>
 
-  <script>
-    (function() {
-      var quotes = [
-        '"The only way to do great work is to love what you do." \u2014 Steve Jobs',
-        '"In the middle of every difficulty lies opportunity." \u2014 Albert Einstein',
-        '"Believe you can and you\'re halfway there." \u2014 Theodore Roosevelt',
-        '"The future belongs to those who believe in the beauty of their dreams." \u2014 Eleanor Roosevelt',
-        '"It does not matter how slowly you go as long as you do not stop." \u2014 Confucius',
-        '"The best time to plant a tree was 20 years ago. The second best time is now." \u2014 Chinese Proverb',
-        '"You miss 100% of the shots you don\'t take." \u2014 Wayne Gretzky',
-        '"Whether you think you can or you think you can\'t, you\'re right." \u2014 Henry Ford',
-        '"The only impossible journey is the one you never begin." \u2014 Tony Robbins',
-        '"What lies behind us and what lies before us are tiny matters compared to what lies within us." \u2014 Ralph Waldo Emerson',
-        '"Happiness is not something ready made. It comes from your own actions." \u2014 Dalai Lama',
-        '"Do what you can, with what you have, where you are." \u2014 Theodore Roosevelt',
-        '"Success is not final, failure is not fatal: it is the courage to continue that counts." \u2014 Winston Churchill',
-        '"The mind is everything. What you think you become." \u2014 Buddha'
-      ];
-      var now = new Date();
-      var dateStr = now.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-      var timeStr = now.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
-      var msg = document.getElementById('toastMessage');
-      var qel = document.getElementById('toastQuote');
-      if (msg) {
-        msg.textContent = 'Welcome to AI Playground \u2014 ' + dateStr + ' ' + timeStr;
-        if (qel) {
-          qel.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-        }
-        var toast = document.getElementById('welcomeToast');
-        if (toast) {
-          toast.classList.add('show');
-          setTimeout(function() { toast.classList.remove('show'); }, 5000);
-        }
-      }
-    })();
-  </script>
+
 
   <script>
     (function() {

@@ -237,6 +237,67 @@
 
     html { scroll-behavior: smooth; }
 
+    /* Scroll progress indicator */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #38bdf8, #a855f7, #f97316);
+      z-index: 9999;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* Project search */
+    .project-search-wrap {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+    .project-search-wrap input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
+    }
+    .project-search-wrap input:focus {
+      border-color: rgba(56,189,248,0.5);
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+    }
+    .project-search-wrap input::placeholder {
+      color: var(--text-muted);
+    }
+    .project-search-wrap .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+    .project-search-wrap .search-count {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    details.project.filter-hidden {
+      display: none;
+    }
+    details.project.filter-match summary {
+      border-color: rgba(56,189,248,0.15);
+    }
+
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg-body); }
     ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
@@ -427,41 +488,6 @@
     *:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
-    }
-
-    .toast-dialog {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9998;
-      background: rgba(15, 23, 42, 0.97);
-      border: 2px solid rgba(56, 189, 248, 0.5);
-      border-radius: 18px;
-      padding: 1.2rem 2rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-      font-size: 1.1rem;
-      color: #e5e7eb;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      pointer-events: none;
-      max-width: min(85vw, 36rem);
-      text-align: center;
-      backdrop-filter: blur(12px);
-      font-weight: 500;
-      line-height: 1.5;
-    }
-    .toast-dialog.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .toast-dialog i {
-      font-size: 1.5rem;
-      color: var(--accent);
-      flex-shrink: 0;
     }
 
     .skip-link {
@@ -688,6 +714,7 @@
 </head>
 
 <body>
+  <div id="scroll-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
   <a href="#main-content" class="skip-link">Skip to content</a>
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
@@ -763,22 +790,22 @@
 
       <aside class="sidebar">
         <h3>Contents</h3>
-        <a href="#section6">OpenCode On Ubuntu</a>
-        <a href="#example1">1. domini, Flutter</a>
-        <a href="#example2">2. Text Echo, Flutter</a>
-        <a href="#example3">3. Website Monitor, Flutter</a>
-        <a href="#example4">4. AI Snap Manager, Python</a>
-        <a href="#example5">5. LangChain, Python</a>
-        <a href="#example6">6. Llama.cpp Revisited, C++</a>
-        <a href="#example7">7. Agent Development Setup, C++</a>
-        <a href="#example8">8. RSS News Agent, C++</a>
-        <a href="#example9">9. Code Snippets, C++</a>
-        <a href="#example10">10. Linux Kernel, C</a>
-        <a href="#example11">11. ClamAV GTK, Python</a>
-        <a href="#example12">12. Clipboard Monitor, Python</a>
-        <a href="#example13">13. ClamTk Refresh, Perl</a>
-        <a href="#example14">14. Tetris, HTML/JS/CSS</a>
-        <a href="#example15">15. Self-Forking OpenCode</a>
+        <a href="#section6"><i class="fa-solid fa-terminal" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>OpenCode On Ubuntu</a>
+        <a href="#example1"><i class="fa-solid fa-mobile-screen" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>1. domini, Flutter</a>
+        <a href="#example2"><i class="fa-solid fa-mobile-screen" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>2. Text Echo, Flutter</a>
+        <a href="#example3"><i class="fa-solid fa-mobile-screen" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>3. Website Monitor, Flutter</a>
+        <a href="#example4"><i class="fa-brands fa-python" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>4. AI Snap Manager, Python</a>
+        <a href="#example5"><i class="fa-brands fa-python" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>5. LangChain, Python</a>
+        <a href="#example6"><i class="fa-solid fa-code" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>6. Llama.cpp Revisited, C++</a>
+        <a href="#example7"><i class="fa-solid fa-code" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>7. Agent Dev Setup, C++</a>
+        <a href="#example8"><i class="fa-solid fa-code" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>8. RSS News Agent, C++</a>
+        <a href="#example9"><i class="fa-solid fa-code" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>9. Code Snippets, C++</a>
+        <a href="#example10"><i class="fa-solid fa-microchip" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>10. Linux Kernel, C</a>
+        <a href="#example11"><i class="fa-brands fa-python" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>11. ClamAV GTK, Python</a>
+        <a href="#example12"><i class="fa-brands fa-python" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>12. Clipboard Monitor, Python</a>
+        <a href="#example13"><i class="fa-solid fa-pen-fancy" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>13. ClamTk Refresh, Perl</a>
+        <a href="#example14"><i class="fa-brands fa-js" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>14. Tetris, HTML/JS/CSS</a>
+        <a href="#example15"><i class="fa-solid fa-fork" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>15. Self-Forking OpenCode</a>
 
         <div class="sidebar-divider"></div>
 
@@ -795,6 +822,7 @@
         <section id="section6" class="guide-section reveal">
 
           <h2>OpenCode On Ubuntu Linux Examples
+            <span style="display:inline-flex;align-items:center;gap:0.35rem;border-radius:var(--radius-pill);padding:0.2rem 0.65rem;font-size:0.72rem;font-weight:500;background:rgba(56,189,248,0.12);color:var(--accent);border:1px solid rgba(56,189,248,0.2);vertical-align:middle;margin-left:0.5rem;"><i class="fa-solid fa-layer-group"></i> <span id="projectCount">15</span> projects</span>
             <button id="closeAllBtn" class="close-all-btn" type="button" title="Close all open examples">
               <i class="fa-solid fa-compress"></i>
               Close all
@@ -822,6 +850,12 @@ opencode</code></pre>
               </span>
             </a>
           </p>
+
+          <div class="project-search-wrap">
+            <i class="fa-solid fa-search search-icon"></i>
+            <input type="text" id="projectFilter" placeholder="Filter projects by name or language..." spellcheck="false" autocomplete="off">
+            <span class="search-count" id="filterCount">15 / 15</span>
+          </div>
 
           <!-- EXAMPLE 1 -->
           <details id="example1" class="project">
@@ -1704,11 +1738,6 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
 
   </main>
 
-  <div id="quoteToast" class="toast-dialog" role="status" aria-live="polite">
-    <i class="fa-solid fa-quote-left"></i>
-    <span id="toastMessage"></span>
-  </div>
-
   <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
@@ -1785,55 +1814,65 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
           });
         });
       });
-    })();
-  </script>
 
-  <script>
-    (function() {
-      var msg = document.getElementById('toastMessage');
-      var toast = document.getElementById('quoteToast');
-      if (!msg || !toast) return;
+      /* Scroll progress */
+      const progressBar = document.getElementById('scroll-progress');
+      if (progressBar) {
+        window.addEventListener('scroll', () => {
+          const scrollTop = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+          progressBar.style.width = pct + '%';
+          progressBar.setAttribute('aria-valuenow', Math.round(pct));
+        });
+      }
 
-      var fallbacks = [
-        '"The best way to predict the future is to invent it." \u2014 Alan Kay',
-        '"Debugging is twice as hard as writing the code in the first place." \u2014 Brian Kernighan',
-        '"First, solve the problem. Then, write the code." \u2014 John Johnson',
-        '"Talk is cheap. Show me the code." \u2014 Linus Torvalds',
-        '"Simplicity is prerequisite for reliability." \u2014 Edsger Dijkstra',
-        '"Any fool can write code that a computer can understand. Good programmers write code that humans can understand." \u2014 Martin Fowler',
-        '"Premature optimization is the root of all evil." \u2014 Donald Knuth',
-        '"Code is like humor. When you have to explain it, it\u2019s bad." \u2014 Cory House',
-        '"Make it work, make it right, make it fast." \u2014 Kent Beck',
-        '"The only way to learn a new programming language is by writing programs in it." \u2014 Dennis Ritchie'
-      ];
-      var fallback = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-      var apiUrl = 'https://api.quotable.io/quotes/random?tags=technology&_=' + Date.now();
+      /* Project filter */
+      const filterInput = document.getElementById('projectFilter');
+      const filterCount = document.getElementById('filterCount');
+      if (filterInput && filterCount) {
+        filterInput.addEventListener('input', () => {
+          const q = filterInput.value.toLowerCase().trim();
+          const details = document.querySelectorAll('details.project');
+          let visible = 0;
+          details.forEach(d => {
+            const text = d.textContent.toLowerCase();
+            const match = !q || text.includes(q);
+            d.classList.toggle('filter-hidden', !match);
+            d.classList.toggle('filter-match', match && q);
+            if (match) visible++;
+          });
+          filterCount.textContent = visible + ' / ' + details.length;
+        });
+      }
 
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', apiUrl, true);
-      xhr.timeout = 4000;
-      xhr.onload = function() {
+      /* Sidebar active tracking */
+      const sidebarLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+      const allSections = document.querySelectorAll('[id^="section"], [id^="example"]');
+      function updateSidebar() {
+        let current = '';
+        allSections.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 200) current = el.id;
+        });
+        sidebarLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+          a.style.fontWeight = a.getAttribute('href') === '#' + current ? '600' : '';
+        });
+      }
+      window.addEventListener('scroll', updateSidebar);
+      updateSidebar();
+
+      /* Collapse state persistence */
+      const projectDetails = document.querySelectorAll('details.project');
+      projectDetails.forEach(d => {
+        d.addEventListener('toggle', () => {
+          try { sessionStorage.setItem('open-' + d.id, d.open ? '1' : '0'); } catch(e) {}
+        });
         try {
-          var data = JSON.parse(xhr.responseText);
-          var quote = data[0] || data;
-          msg.textContent = '\u201c' + (quote.content || quote.en || '') + '\u201d \u2014 ' + (quote.author || '');
-        } catch(e) {
-          msg.textContent = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-        }
-        toast.classList.add('show');
-        setTimeout(function() { toast.classList.remove('show'); }, 5000);
-      };
-      xhr.onerror = function() {
-        msg.textContent = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-        toast.classList.add('show');
-        setTimeout(function() { toast.classList.remove('show'); }, 5000);
-      };
-      xhr.ontimeout = function() {
-        msg.textContent = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-        toast.classList.add('show');
-        setTimeout(function() { toast.classList.remove('show'); }, 5000);
-      };
-      xhr.send();
+          if (sessionStorage.getItem('open-' + d.id) === '1') d.setAttribute('open', '');
+        } catch(e) {}
+      });
     })();
   </script>
 
