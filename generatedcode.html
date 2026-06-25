@@ -40,8 +40,10 @@
     body {
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
       margin: 0;
+      min-height: 100vh;
     }
 
     #particle-canvas {
@@ -54,44 +56,10 @@
       pointer-events: none;
     }
 
-    .nav-blur {
-      position: relative;
-      z-index: 1;
-      backdrop-filter: blur(18px);
-      background: rgba(15, 23, 42, 0.92);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
-    }
-
-    .nav-pill {
-      border-radius: var(--radius-pill);
-      padding: 0.35rem 0.9rem;
-      font-size: 0.85rem;
-      border: 1px solid transparent;
-      color: var(--text-muted);
-      transition: var(--transition-fast);
-    }
-
-    .nav-pill.active,
-    .nav-pill:hover {
-      background: rgba(15, 23, 42, 0.9);
-      border-color: rgba(148, 163, 184, 0.6);
-      color: #e5e7eb;
-      transform: translateY(-1px);
-    }
-
-    .navbar-brand span {
-      background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-    }
-
     .page-shell {
       position: relative;
       z-index: 1;
-      max-width: 1120px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 1.6rem 1.25rem 3.5rem;
     }
@@ -173,6 +141,11 @@
       transform: translateX(3px);
     }
 
+    .sidebar a.active {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
     .guide-section {
       margin-bottom: 2.5rem;
       padding: 1.4rem 1.6rem;
@@ -191,6 +164,7 @@
       color: var(--text-muted);
       font-size: 0.95rem;
       line-height: 1.6;
+      max-width: 70ch;
     }
 
     .custom-summary {
@@ -235,7 +209,7 @@
 
     /* === MODERN OVERHAUL === */
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-y: scroll; }
 
     /* Scroll progress indicator */
     #scroll-progress {
@@ -435,9 +409,8 @@
       font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
-    img {
-      max-width: 800px;
-      width: 100%;
+    .guide-section img {
+      max-width: 100%;
       height: auto;
       display: block;
       margin: 1.2rem 0;
@@ -537,6 +510,12 @@
         border: 1px solid #ccc;
         background: #fff;
       }
+    }
+
+    .sidebar-icon {
+      width: 1.1rem;
+      margin-right: 0.3rem;
+      opacity: 0.6;
     }
 
     .sidebar-divider {
@@ -678,6 +657,18 @@
       text-decoration: none;
     }
 
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.35rem 0;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover { color: var(--accent); }
+
     .btn-open:hover {
       transform: translateY(-2px) scale(1.03);
       box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9);
@@ -685,7 +676,83 @@
       color: #0b1120;
     }
 
-    table.report-table {
+    .repo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
+      border: 1px solid rgba(56,189,248,0.2);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), border-color 0.25s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .repo-link:hover {
+      transform: translateX(3px);
+      border-color: rgba(56,189,248,0.45);
+      box-shadow: 0 0 20px rgba(56,189,248,0.1);
+    }
+
+    .repo-link-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+      color: #0b1120;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .repo-link-body {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    .repo-link-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e5e7eb;
+      letter-spacing: 0.02em;
+    }
+
+    .repo-link-desc {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .repo-link-desc i {
+      font-size: 0.6rem;
+      margin-left: 0.2rem;
+      opacity: 0.5;
+    }
+
+    .project-count-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: var(--radius-pill);
+      padding: 0.2rem 0.65rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: rgba(56,189,248,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.2);
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+
+table.report-table {
       width: 100%;
       border-collapse: collapse;
       margin: 1rem 0;
@@ -718,55 +785,13 @@
   <a href="#main-content" class="skip-link">Skip to content</a>
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
-  <nav class="navbar navbar-expand-md fixed-top nav-blur">
-    <div class="container-fluid" style="max-width: 1120px">
-
-      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-        <div style="
-          width:26px;height:26px;border-radius:999px;
-          background:radial-gradient(circle at top,#38bdf8,#0f172a);
-          display:flex;align-items:center;justify-content:center;color:#0b1120;">
-          <i class="fa-solid fa-bolt"></i>
-        </div>
-        <span>AI Playground</span>
-      </a>
-
-      <button class="navbar-toggler text-light border-0"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#mainNav"
-              aria-label="Toggle navigation">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto gap-1">
-
-          <li class="nav-item">
-            <a href="index.html" class="nav-link p-0">
-              <span class="nav-pill">
-                <i class="fa-solid fa-comments"></i>
-                Free AI Tools
-              </span>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="generatedcode.html" class="nav-link p-0">
-              <span class="nav-pill active">
-                <i class="fa-solid fa-code"></i>
-                Coding With AI
-              </span>
-            </a>
-          </li>
-
-        </ul>
-      </div>
-
-    </div>
-  </nav>
-
   <main id="main-content" class="page-shell">
+
+  <div class="mb-2">
+    <a href="index.html" class="btn-back">
+      <i class="fa-solid fa-arrow-left"></i> Back
+    </a>
+  </div>
 
   <header>
     <h1 class="hero-title"><span>AI Coding Guide</span></h1>
@@ -790,22 +815,13 @@
 
       <aside class="sidebar">
         <h3>Contents</h3>
-        <a href="#section6"><i class="fa-solid fa-terminal" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>OpenCode On Ubuntu</a>
-        <a href="#example1"><i class="fa-solid fa-mobile-screen" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>1. domini, Flutter</a>
-        <a href="#example2"><i class="fa-solid fa-mobile-screen" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>2. Text Echo, Flutter</a>
-        <a href="#example3"><i class="fa-solid fa-mobile-screen" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>3. Website Monitor, Flutter</a>
-        <a href="#example4"><i class="fa-brands fa-python" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>4. AI Snap Manager, Python</a>
-        <a href="#example5"><i class="fa-brands fa-python" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>5. LangChain, Python</a>
-        <a href="#example6"><i class="fa-solid fa-code" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>6. Llama.cpp Revisited, C++</a>
-        <a href="#example7"><i class="fa-solid fa-code" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>7. Agent Dev Setup, C++</a>
-        <a href="#example8"><i class="fa-solid fa-code" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>8. RSS News Agent, C++</a>
-        <a href="#example9"><i class="fa-solid fa-code" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>9. Code Snippets, C++</a>
-        <a href="#example10"><i class="fa-solid fa-microchip" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>10. Linux Kernel, C</a>
-        <a href="#example11"><i class="fa-brands fa-python" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>11. ClamAV GTK, Python</a>
-        <a href="#example12"><i class="fa-brands fa-python" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>12. Clipboard Monitor, Python</a>
-        <a href="#example13"><i class="fa-solid fa-pen-fancy" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>13. ClamTk Refresh, Perl</a>
-        <a href="#example14"><i class="fa-brands fa-js" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>14. Tetris, HTML/JS/CSS</a>
-        <a href="#example15"><i class="fa-solid fa-fork" style="width:1.1rem;margin-right:0.3rem;opacity:0.6;"></i>15. Self-Forking OpenCode</a>
+        <a href="#section1"><i class="fa-solid fa-terminal sidebar-icon"></i>OpenCode On Ubuntu</a>
+        <a href="#example1"><i class="fa-solid fa-mobile-screen sidebar-icon"></i>1. Website Monitor, Flutter</a>
+        <a href="#example2"><i class="fa-brands fa-python sidebar-icon"></i>2. AI Snap Manager, Python</a>
+        <a href="#example3"><i class="fa-solid fa-code sidebar-icon"></i>3. Llama.cpp Revisited, C++</a>
+        <a href="#example4"><i class="fa-solid fa-code sidebar-icon"></i>4. Code Snippets, C++</a>
+        <a href="#example5"><i class="fa-brands fa-python sidebar-icon"></i>5. Clipboard Monitor, Python</a>
+        <a href="#example6"><i class="fa-solid fa-fork sidebar-icon"></i>6. Self-Forking OpenCode</a>
 
         <div class="sidebar-divider"></div>
 
@@ -819,10 +835,10 @@
       <div>
 
         <!-- UPDATED SECTION 6 -->
-        <section id="section6" class="guide-section reveal">
+        <section id="section1" class="guide-section reveal">
 
           <h2>OpenCode On Ubuntu Linux Examples
-            <span style="display:inline-flex;align-items:center;gap:0.35rem;border-radius:var(--radius-pill);padding:0.2rem 0.65rem;font-size:0.72rem;font-weight:500;background:rgba(56,189,248,0.12);color:var(--accent);border:1px solid rgba(56,189,248,0.2);vertical-align:middle;margin-left:0.5rem;"><i class="fa-solid fa-layer-group"></i> <span id="projectCount">15</span> projects</span>
+            <span class="project-count-badge"><i class="fa-solid fa-layer-group"></i> <span id="projectCount">6</span> projects</span>
             <button id="closeAllBtn" class="close-all-btn" type="button" title="Close all open examples">
               <i class="fa-solid fa-compress"></i>
               Close all
@@ -840,13 +856,13 @@ source ~/.bashrc
 opencode</code></pre>
 
           <p>
-            <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.5rem 1rem;border-radius:12px;background:linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.9));border:1px solid rgba(56,189,248,0.2);text-decoration:none;color:inherit;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),border-color 0.25s ease;overflow:hidden;position:relative;">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#0b1120;font-size:0.9rem;flex-shrink:0;position:relative;z-index:1;">
+            <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer" class="repo-link">
+              <span class="repo-link-icon">
                 <i class="fa-solid fa-terminal"></i>
               </span>
-              <span style="display:flex;flex-direction:column;position:relative;z-index:1;">
-                <span style="font-size:0.85rem;font-weight:700;color:#e5e7eb;letter-spacing:0.02em;">OpenCode</span>
-                <span style="font-size:0.68rem;color:var(--text-muted);">terminal AI coding agent <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.6rem;margin-left:0.2rem;opacity:0.5;"></i></span>
+              <span class="repo-link-body">
+                <span class="repo-link-name">OpenCode</span>
+                <span class="repo-link-desc">terminal AI coding agent <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
               </span>
             </a>
           </p>
@@ -854,112 +870,17 @@ opencode</code></pre>
           <div class="project-search-wrap">
             <i class="fa-solid fa-search search-icon"></i>
             <input type="text" id="projectFilter" placeholder="Filter projects by name or language..." spellcheck="false" autocomplete="off">
-            <span class="search-count" id="filterCount">15 / 15</span>
+            <span class="search-count" id="filterCount">6 / 6</span>
           </div>
+
+
+
 
           <!-- EXAMPLE 1 -->
           <details id="example1" class="project">
             <summary class="custom-summary">
               <span class="summary-left">
-                <span>1. domini, Flutter</span>
-              </span>
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                domini is a git-cloned then AI-improved version of <a href="#example2">example 2 (Text Echo)</a>.
-                The original Flutter app was used as a starting point and enhanced through AI agentic workflows
-                to add new features and polish. This demonstrates how existing codebases can be rapidly iterated
-                on using AI without manual source editing.
-              </p>
-              <p>
-                <em>Work in progress</em> &mdash; domini is unfinished and will receive further AI-driven
-                enhancements in future sessions.
-              </p>
-
-              <p>
-                <a href="https://github.com/RedOrangeGreen/domini" target="_blank" rel="noopener noreferrer"
-                    style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.5rem 1rem;border-radius:12px;background:linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.9));border:1px solid rgba(56,189,248,0.2);text-decoration:none;color:inherit;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),border-color 0.25s ease;overflow:hidden;position:relative;">
-                  <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#0b1120;font-size:0.9rem;flex-shrink:0;position:relative;z-index:1;">
-                    <i class="fa-brands fa-github"></i>
-                  </span>
-                  <span style="display:flex;flex-direction:column;position:relative;z-index:1;">
-                    <span style="font-size:0.85rem;font-weight:700;color:#e5e7eb;letter-spacing:0.02em;">domini</span>
-                    <span style="font-size:0.68rem;color:var(--text-muted);">GitHub repository <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.6rem;margin-left:0.2rem;opacity:0.5;"></i></span>
-                  </span>
-                </a>
-              </p>
-
-              <img  src="https://raw.githubusercontent.com/RedOrangeGreen/domini/main/images/domini.png"
-                   alt="domini screenshot">
-
-            </div>
-          </details>
-
-          <!-- EXAMPLE 2 -->
-          <details id="example2" class="project">
-            <summary class="custom-summary">
-              <span class="summary-left">
-                <span>2. Text Echo, Flutter</span>
-              </span>
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                A simple AI-generated Flutter app that echoes back text entered by the user. It serves as a baseline for potential AI-agentic coded apps. Free and built with no Flutter experience or source code editing — my first thought when looking at the generated code was: "There's a file with a .dart extension containing C++/JavaScript-like code with lots of nested brackets; imagine hand-coding that!" Only the Linux desktop source is included here, but the code can be configured and built for Android, iOS, macOS, Windows, Web, and Embedded with a couple of extra commands. I can see why Google has tightened sideloading requirements for Android apps — the knowledge and experience needed to create a fully working one has dropped to zero!
-              </p>
-
-              <p>
-                <a href="https://github.com/RedOrangeGreen/flutter_echo" target="_blank" rel="noopener noreferrer"
-                    style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.5rem 1rem;border-radius:12px;background:linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.9));border:1px solid rgba(56,189,248,0.2);text-decoration:none;color:inherit;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),border-color 0.25s ease;overflow:hidden;position:relative;">
-                  <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#0b1120;font-size:0.9rem;flex-shrink:0;position:relative;z-index:1;">
-                    <i class="fa-brands fa-github"></i>
-                  </span>
-                  <span style="display:flex;flex-direction:column;position:relative;z-index:1;">
-                    <span style="font-size:0.85rem;font-weight:700;color:#e5e7eb;letter-spacing:0.02em;">flutter_echo</span>
-                    <span style="font-size:0.68rem;color:var(--text-muted);">GitHub repository <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.6rem;margin-left:0.2rem;opacity:0.5;"></i></span>
-                  </span>
-                </a>
-              </p>
-
-              <p>Build and run on Linux:</p>
-              <pre><code># Update package lists (required on a fresh Live USB)
-sudo apt update
-
-# Install git
-sudo apt install git -y
-
-git clone https://github.com/RedOrangeGreen/flutter_echo.git
-cd flutter_echo
-
-# Install Flutter (requires snap support)
-sudo snap install flutter --classic
-
-# Disable analytics (optional but recommended)
-flutter --disable-analytics
-
-# Run the app
-flutter run -d linux</code></pre>
-
-              <p>The first run will download dependencies and compile the application. Press <code>q</code> in the terminal to quit.</p>
-
-              <p>For other platforms (Android, iOS, macOS, Windows, Web), run <code>flutter create --platforms=android,ios,macos,windows,web .</code> then use <code>flutter run -d &lt;platform&gt;</code>.</p>
-
-              <img  src="opencode/flutterecho/flutter_echo.png"
-                   alt="Flutter Echo screenshot">
-
-            </div>
-          </details>
-
-          <!-- EXAMPLE 3 -->
-          <details id="example3" class="project">
-            <summary class="custom-summary">
-              <span class="summary-left">
-                <span>3. Website Monitor, Flutter</span>
+                <span>1. Website Monitor, Flutter</span>
               </span>
               <i class="fa-solid fa-chevron-down summary-chevron"></i>
             </summary>
@@ -995,11 +916,11 @@ AI Agentic development really put in a good show here ... new 'instant' working 
             </div>
           </details>
 
-          <!-- EXAMPLE 4 -->
-          <details id="example4" class="project">
+          <!-- EXAMPLE 2 -->
+          <details id="example2" class="project">
             <summary class="custom-summary">
               <span class="summary-left">
-                <span>4. Ubuntu Native AI Inference Snap Manager, Python</span>
+                <span>2. Ubuntu Native AI Inference Snap Manager, Python</span>
               </span>
               <i class="fa-solid fa-chevron-down summary-chevron"></i>
             </summary>
@@ -1046,112 +967,13 @@ gemma3 chat</code></pre>
             </div>
           </details>
 
-          <!-- EXAMPLE 5 -->
-          <details id="example5" class="project">
-            <summary class="custom-summary">
-              <span class="summary-left">
-                <span>5. LangChain, Python</span>
-              </span>
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
-            </summary>
-
-            <div class="project-body">
-
-              <p>
-                I saw "LangChain" mentioned in relation to AI engineering.  
-                <em>What's that?</em> I wondered.  
-                One question to Google Gemini followed by a two‑minute OpenCode session answered everything.
-                OpenCode makes using LangChain (which allows Python apps to use LLMs with extra tooling)
-                a zero‑coding doddle.
-              </p>
-
-              <p>
-                OpenCode generated
-                <a href="opencode/langchain/langchain_app.py" download="langchain_app.py">langchain_app.py</a>:
-              </p>
-
-              <pre><code>#!/usr/bin/env python3
-"""LangChain app using llama.cpp via llama-cpp-python."""
-
-import sys
-import argparse
-from pathlib import Path
-
-from langchain_community.llms import LlamaCpp
-from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHandler
-from langchain_core.prompts import PromptTemplate
 
 
-def build_llm(model_path: str, n_gpu_layers: int = 0, n_ctx: int = 2048):
-    return LlamaCpp(
-        model_path=model_path,
-        temperature=0.7,
-        max_tokens=512,
-        n_ctx=n_ctx,
-        n_gpu_layers=n_gpu_layers,
-        n_threads=8,
-        n_batch=512,
-        f16_kv=True,
-        verbose=False,
-        callbacks=CallbackManager([StreamingStdOutCallbackHandler()]),
-    )
-
-
-def main():
-    parser = argparse.ArgumentParser(description="LangChain + llama.cpp")
-    parser.add_argument("model", type=str, help="Path to GGUF model file")
-    parser.add_argument("--gpu-layers", type=int, default=0, help="GPU offload layers")
-    parser.add_argument(
-        "--prompt",
-        type=str,
-        default="Explain quantum computing in one sentence.",
-        help="Prompt to send to the model",
-    )
-    parser.add_argument("--ctx", type=int, default=2048, help="Context window size")
-    args = parser.parse_args();
-
-    if not Path(args.model).exists():
-        print(f"Error: model file not found: {args.model}", file=sys.stderr)
-        sys.exit(1)
-
-    llm = build_llm(args.model, args.gpu_layers, args.ctx)
-
-    prompt = PromptTemplate.from_template(
-        "You are a helpful assistant.\n\nUser: {question}\nAssistant:"
-    )
-    chain = prompt | llm
-
-    print(f"\n--- Prompt ---\n{args.prompt}\n--- Response ---")
-    chain.invoke({"question": args.prompt})
-
-
-if __name__ == "__main__":
-    main()</code></pre>
-
-              <p>
-                OpenCode also generated a single command that installs all dependencies,
-                downloads the Google Gemma‑4 LLM, and runs <code>langchain_app.py</code>.
-                Tested on Ubuntu 26.04 LTS Live USB:
-              </p>
-
-              <pre><code>mkdir -p models && sudo apt install python3-pip python3-venv wget -y && \
-python3 -m venv venv && source venv/bin/activate && \
-pip install langchain-core langchain-community llama-cpp-python && \
-wget -O models/gemma-4-E2B-it-Q8_0.gguf \
-https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf && \
-python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
-
-              <img  src="opencode/langchain/langchainrunning.png"
-                   alt="LangChain running">
-
-            </div>
-          </details>
-
-  <!-- EXAMPLE 6 -->
-  <details id="example6" class="project">
+  <!-- EXAMPLE 3 -->
+  <details id="example3" class="project">
     <summary class="custom-summary">
       <span class="summary-left">
-        <span>6. Llama.cpp Revisited, C++</span>
+        <span>3. Llama.cpp Revisited, C++</span>
       </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
@@ -1165,7 +987,16 @@ python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
         Tested on a Ubuntu 26.04 LTS Live USB. All free.
       </p>
 
-  <pre><code>sudo apt update && sudo apt install -y git build-essential cmake wget libcurl4-openssl-dev && test -d llama.cpp || git clone https://github.com/ggerganov/llama.cpp.git && cd llama.cpp && git submodule update --init --recursive && cmake -B build -G "Unix Makefiles" -DLLAMA_CURL=ON && cmake --build build -j $(nproc) --target llama-cli && mkdir -p models && test -f models/gemma-4-E2B-it-Q8_0.gguf || wget -O models/gemma-4-E2B-it-Q8_0.gguf https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf</code></pre>
+  <pre><code>sudo apt update && sudo apt install -y git build-essential cmake wget \
+  libcurl4-openssl-dev && test -d llama.cpp \
+  || git clone https://github.com/ggerganov/llama.cpp.git \
+  && cd llama.cpp && git submodule update --init --recursive \
+  && cmake -B build -G "Unix Makefiles" -DLLAMA_CURL=ON \
+  && cmake --build build -j $(nproc) --target llama-cli \
+  && mkdir -p models \
+  && test -f models/gemma-4-E2B-it-Q8_0.gguf \
+  || wget -O models/gemma-4-E2B-it-Q8_0.gguf \
+    https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
       <p>and a command to run the built llama-cli...</p>
 
@@ -1176,154 +1007,15 @@ python langchain_app.py models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
     </div>
   </details>
 
-  <!-- EXAMPLE 7 -->
-  <details id="example7" class="project">
+
+
+
+
+  <!-- EXAMPLE 4 -->
+  <details id="example4" class="project">
     <summary class="custom-summary">
       <span class="summary-left">
-        <span>7. Agent Development Setup, C++</span>
-      </span>
-      <i class="fa-solid fa-chevron-down summary-chevron"></i>
-    </summary>
-
-    <div class="project-body">
-
-      <p>
-        Not just a code generator, OpenCode is also a general AI chatbot. I asked it
-        to define an 'AI agent' in easy to undestand programming terms, its answer was...
-      </p>
-
-  <pre><code>An AI agent is:
-
-while True:
-    observe environment      # get input / state
-    ask LLM: "what next?"    # decide action
-    execute action           # run tool / speak / move
-    store result             # feed back to context
-
-The LLM acts as the "brain" deciding what to do each iteration. The agent loop handles calling tools, feeding results back in, and deciding when to stop.
-
-The two key differences from a raw LLM call:
-1. **Stateful** — it maintains conversation history across turns
-2. **Can act** — it calls functions (search, calculator, file ops, etc.) and feeds results back into the loop
-
-It's a `while` loop driven by an LLM at each step.</code></pre>
-
-      <p>
-        I then asked ChatGPT to help me define commands for installing 'stuff needed
-        to develop a lean'n'mean C++ AI agent on Ubuntu Linux' (i.e. the
-        '<a href="https://github.com/mozilla-ai/agent.cpp">agent.cpp</a>' Mozilla agent
-        framework which invokes the '<a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>'
-        C/C++ AI inference engine as a sub-component) along with a micro IBM 'Granite'
-        LLM downloaded from <a href="https://huggingface.co/">Hugging Face</a> for testing.
-        All installed local, everything free and anonymous at all stages (including running)
-        of course.
-      </p>
-
-  <pre><code>sudo apt update && \
-sudo apt install -y git build-essential cmake wget && \
-git clone https://github.com/mozilla-ai/agent.cpp.git && \
-cd agent.cpp && \
-git submodule update --init --recursive && \
-cmake -B build -DCMAKE_BUILD_TYPE=Release -DAGENT_CPP_BUILD_EXAMPLES=ON && \
-cmake --build build -j$(nproc) && \
-mkdir -p models && \
-wget -O models/granite-4.0-micro-Q4_K_M.gguf \
-https://huggingface.co/ibm-granite/granite-4.0-micro-GGUF/resolve/main/granite-4.0-micro-Q4_K_M.gguf && \
-echo "Starting shell-example..." && \
-./build/shell-example -m models/granite-4.0-micro-Q4_K_M.gguf</code></pre>
-
-      <p>Enter the above and you'll have a locally running 'Ollama style' AI chatbot running in an agent framework...</p>
-
-      <img  src="opencode/agentdevkit/starting.png" alt="Examnple agent start">
-      <img  src="opencode/agentdevkit/running.png" alt="Example agent running">
-
-      <p>
-        LLMs and code versions need to be chosen careful carefully when using agent.cpp
-        with llama.cpp else compilations can conflict and results can fail - a modern
-        version of DLL hell!
-      </p>
-
-    </div>
-  </details>
-
-  <!-- EXAMPLE 8 -->
-  <details id="example8" class="project">
-    <summary class="custom-summary">
-      <span class="summary-left">
-        <span>8. World News (RSS) Agent, C++ (llama.cpp + Mozilla agent.cpp)</span>
-      </span>
-      <i class="fa-solid fa-chevron-down summary-chevron"></i>
-    </summary>
-
-    <div class="project-body">
-
-      <p>C++ or higher-level frameworks for AI agent development?<a href="kb/agentdevoptions.html"> Here's a handy comparison table.</a></p>
-
-      <p>
-        Using Ubuntu 26.04 LTS Live USB. All free and anonymous, no coding by me, full power,
-        full speed, AI agent written in C++. OpenCode did everything including all the Internet
-        downloading, creating files and directories, source editing, source code building,
-        resolving compilation errors, testing, functionality changes upon my request and final
-        packaging. I watched TV as OpenCode was doing its stuff (specifically reruns of
-        'Some Mothers Do 'Ave 'Em' and 'The Avengers' (starring Linda Thorson)!).   
-      </p>
-
-  <pre><code>sudo apt update
-sudo apt install curl -y
-curl -fsSL https://opencode.ai/install | bash
-source ~/.bashrc
-opencode
-1) Download and extract the latest llama.cpp source code from GitHub (https://github.com/ggml-org/llama.cpp), understand the codebase, download the gemma4 GGUF model (the smallest available) from HuggingFace (https://huggingface.co/), build llama.cpp, test that the downloaded GGUF works with the built llama.cpp 2) Download and extract the latest Mozilla Agent.cpp source code from GitHub (https://github.com/mozilla-ai/agent.cpp), understand the codebase, build agent.cpp, integrating with the built llama.cpp to create a very simple example agent which gets and displays the current price of gold, silver and oil 3) Generate an HTML file AgentDetails.html detailing what has been built, what the agent does and how to start it.
-Resolve compilation errors
-Resolve remaining compilation errors
-Fix code
-Make the following report improvements .. Ubuntu version mentioned in report is wrong, I'm using 26.04 LTS, vertically align the start of comments in the File Structure section (most are ok but a few are out by a space or two)</code></pre>
-
-      <p>I accidentally closed OpenCode using Ctrl+C ("pressing Ctrl+C in OpenCode currently acts as an immediate exit command rather than the standard 'copy' shortcut, which is a known issue") - oh no! No need to panic, how to instantly session resume using '-s ses_&lt;sessionid&gt;' was handily displayed on the terminal at exit. Phew!</p>
-
-  <pre><code>opencode -s ses_&lt;sessionid&gt;
-Please continue and fix vertical alignment, looks like you've stopped doing actions
-All seem aligned correctly apart from '# GGUF model (4.96 GB)' - only one horizontal space (not two as current) needed in front of that</code></pre>
-
-      <p>'Allow once' highlighted in OpenCode awaiting my input: I pressed Enter</p>
-      <p>'Allow once' highlighted in OpenCode awaiting my input: I pressed Enter</p>
-      <p>'Allow once' highlighted in OpenCode awaiting my input: I changed this to 'Allow always' using then right arrow key then pressed Enter</p>
-      <p>'Confirm' highlighted in OpenCode awaiting my input: I pressed Enter</p>
-
-  <pre><code>When running the agent I see...
-=== Price Agent ===
-Asking agent to get current prices of gold, silver, and oil...
-
-
-Final Response: <|tool_call>call:get_prices{}<tool_call|>
-
-=== Done ===
-~llama_context:        CPU compute buffer size is 522.0020 MiB, matches expectation of 522.0020 MiB
-Worked ok, got prices once then exited, enhance so that gets prices 5 times, a second wait between each price grab.
-Change agent so that rather than getting commodity prices, get 5 current International news headlines from an RSS feed, display them as readable text, pause 2 seconds and repeat forever.
-Prepare the current code so that it can be easily modified further on another machine - create a new directory called rssagent containing all the source, makefiles and anything else required for a clean build on that new machine. Create an html file called rssagent.html detailing the contents of rssagent and how to build on the new machine.</code></pre>
-
-      <p>Minor Oops, I didn't spot that the title in the generated Report should've been 'RSS Agent' rather than 'Price Agent' and name of the generated binary 'rss-agent' rather than 'price-agent' due to the requirements change late on, neither did OpenCode!</p>
-
-      <p><a href="opencode/newsagent/AgentDetails.html">Generated 'What Built' Report</a></p>
-      <p><a href="opencode/newsagent/rssagent/rssagent.html">Generated 'How To Use On Another Machine' Report</a></p>
-
-      <p>The agent running:</p>
-
-      <img  src="opencode/newsagent/newsagent1.png" alt="News Agent how to start">
-      <img  src="opencode/newsagent/newsagent2.png" alt="News Agent running">
-
-      <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/newsagent/rssagent" target="_blank" rel="noopener noreferrer">'GitHub repository style' source tree.</a>
-      <p>A handy rssagent.tar.gz which was also generated by OpenCode is in the parent directory of this source tree.</p>
-
-    </div>
-  </details>
-
-  <!-- EXAMPLE 9 -->
-  <details id="example9" class="project">
-    <summary class="custom-summary">
-      <span class="summary-left">
-        <span>9. Code Snippets, C++</span>
+        <span>4. Code Snippets, C++</span>
       </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
@@ -1358,128 +1050,15 @@ Prepare the current code so that it can be easily modified further on another ma
     </div>
   </details>
 
-          <!-- EXAMPLE 10 -->
-          <details id="example10" class="project">
+
+
+
+
+          <!-- EXAMPLE 5 -->
+          <details id="example5" class="project">
             <summary class="custom-summary">
               <span class="summary-left">
-                <span>10. Linux Kernel, C</span>
-      </span>
-      <i class="fa-solid fa-chevron-down summary-chevron"></i>
-    </summary>
-
-    <div class="project-body">
-
-      <p><strong>Thursday, 23 Apr 2026</strong></p>
-
-      <p>
-        For about 30 years the Linux kernel has been a Finnish black art, impenetrable C code that no one dare venture near.
-        AI agentic coding changes that. I asked OpenCode to analyse the latest kernel source code for bugs and issues,
-        and it completed in a couple of minutes, generating a report.
-      </p>
-
-      <p>Some interesting integer overflow risks from section 4 of the report:</p>
-
-      <table class="report-table">
-        <thead>
-          <tr>
-            <th style="width: 10%;">Severity</th>
-            <th style="width: 25%;">File</th>
-            <th style="width: 10%;">Line(s)</th>
-            <th style="width: 30%;">Issue Description</th>
-            <th style="width: 25%;">Recommendation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>High</td>
-            <td>kernel/sched/topology.c</td>
-            <td>2077</td>
-            <td>sizeof(void *) * nr_levels could overflow on systems with high core counts.</td>
-            <td>Use safe_add_overflow() or check for overflow before multiplication.</td>
-          </tr>
-          <tr>
-            <td>High</td>
-            <td>kernel/sched/topology.c</td>
-            <td>2086</td>
-            <td>nr_node_ids * sizeof(void *) multiplication could overflow.</td>
-            <td>Add overflow checking before allocation size calculation.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>Report: <a href="opencode/linuxkernel/homework_for_Linus.html">HTML report</a></p>
-
-      <p>This report was generated using a Ubuntu 24.04 Live USB:</p>
-
-  <pre><code>sudo apt update
-sudo apt install curl -y
-curl -fsSL https://opencode.ai/install | bash
-source ~/.bashrc
-opencode
-Download and extract the latest Linux source code from https://github.com/torvalds/linux, understand the codebase in subdirectory kernel, find any bugs, memory leaks, bad programming practices and areas for improvement in the files in this directory then generate a report file homework_for_Linus.html detailing all issues and possible improvements found.</code></pre>
-
-    </div>
-  </details>
-
-          <!-- EXAMPLE 11 -->
-          <details id="example11" class="project">
-            <summary class="custom-summary">
-              <span class="summary-left">
-                <span>11. ClamAV GTK Control Application, Python</span>
-      </span>
-      <i class="fa-solid fa-chevron-down summary-chevron"></i>
-    </summary>
-
-    <div class="project-body">
-
-      <p>
-        knocked up in a couple of minutes using OpenCode, here's a lighwight Python application,
-        using GTK for the GUI, which calls the ClamAV tool to scan files and irectories for known viruses.
-        Just scans, doesn't remove or quarantine; could easily be extended to do these actions as ClamAV supports them.<br>
-        Why GTK? - Tkinter is older style cross platform, PySide/PyQt is modern style cross platform,
-        GTK is current GNOME native.  
-      </p>
-
-      <img  src="https://raw.githubusercontent.com/RedOrangeGreen/clamav-gtk/main/clamav-gtk.png" alt="ClamAV GTK Control">
-
-      <p>This app was generated on a Ubuntu 26.04 LTS Live USB, free and anonymous, by entering the following:</p>
-
-  <pre><code>cd ~/Downloads
-sudo apt update
-sudo apt install curl -y
-curl -fsSL https://opencode.ai/install | bash
-source ~/.bashrc
-opencode
-Create a Python app which uses GTK to control and use the ClamAV antivirus tool on ubuntu
-Enhance to allow a single file to be selected and scanned
-Enhance so that if ClamAV isn't installed, the command to install it is shown on the warning dialog when a Scan is attempted
-Tried an update, got Updating...
-   ERROR: Problem with internal logger (UpdateLogFile = /var/log/clamav/freshclam.log).
-   ERROR: initialize: libfreshclam init failed.
-   ERROR: Initialization error!
-   ERROR: Failed to lock the log file /var/log/clamav/freshclam.log: Resource temporarily unavailable
-
-   Update failed (code 2)
-The update works but I am getting a prompt to authenticate three times during the update, is it possible to only authenticate once at the start of the operation
-Add comments at the top indicating the program author (i.e. you!), the date of creation and usage info
-Output all prompts entered to prompts.txt
-</code></pre>
-
-      <p>
-        I've popped the generated code into the following proper 'big boy's pants style'
-        GitHub repository (apart from the image file all files were generated by OpenCode):
-      </p>
-
-      <a href="https://github.com/RedOrangeGreen/clamav-gtk" target="_blank" rel="noopener noreferrer">GitHub repository</a>
-
-    </div>
-  </details>
-
-          <!-- EXAMPLE 12 -->
-          <details id="example12" class="project">
-            <summary class="custom-summary">
-              <span class="summary-left">
-                <span>12. Clipboard Monitor, Python</span>
+                <span>5. Clipboard Monitor, Python</span>
       </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
@@ -1497,9 +1076,6 @@ Output all prompts entered to prompts.txt
       </div>
 
       <p>Usage: python3 ./clipboard_monitor.py</p>
-      <p>Missing required package auto detected and installed...</p>
-
-      <img  src="opencode/clipboard/clipboard1.png" alt="Clipboard monitor install screen">
 
       <p>'Clear clipboard' button greyed out if clipboard empty...</p>
 
@@ -1512,168 +1088,15 @@ Output all prompts entered to prompts.txt
     </div>
   </details>
 
-  <!-- EXAMPLE 13 -->
-  <details id="example13" class="project">
+
+
+
+
+  <!-- EXAMPLE 6 -->
+  <details id="example6" class="project">
     <summary class="custom-summary">
       <span class="summary-left">
-        <span>13. ClamTk GUI Refresh, Perl</span>
-      </span>
-      <i class="fa-solid fa-chevron-down summary-chevron"></i>
-    </summary>
-
-    <div class="project-body">
-
-      <p>
-        ClamTk is a free and open-source graphical interface for the ClamAV command-line antivirus program.
-        Although the project was officially retired in 2024, the tool is still well used but many users
-        consider the GUI interface 'functional' rather than 'modern'.
-      </p>
-
-      <p>
-        AI Agentic development can fix that in a few minutes, free and anonymous!
-      </p>
-
-      <p>
-        Using a Ubuntu 26.04 Live USB, start with the latest version of ClamTk...
-      </p>
-
-      <img  src="opencode/clamtkrefresh/clamtkcurrent.png" alt="ClamTk current">
-
-      <p>do this...</p>
-
-      <pre><code>cd ~/Downloads
-sudo apt update
-sudo apt install curl -y
-curl -fsSL https://opencode.ai/install | bash
-source ~/.bashrc
-opencode
-Download the latest version of ClamTK from https://github.com/dave-theunsub/clamtk, understand the codebase, completely change the front GUI screen to a modern layout and style of your choice, build a new executable, call the executable clamtkrefresh, output an HTML file clamtkrefresh.html detailing the changes made and how to build and run clamtkrefresh.
-./clamtkrefresh looks identical to ./clamtk - where are the GUI changes?
-Can you make the selection items on the front screen slightly smaller and the main window slightly bigger so that I can see all options when the application is started without needing to scroll
-Create a source tree for clamtkreresh called clamtkrefreshcode suitable for uploading as a GitHub repository
-Output all the user prompts entered in this session to file userprompts.txt
-Make all the actions options on the front GUI screen the same size, width and height 
-Some of the cards are still different dimensions (e.g. 'Preferences' has a smaller width than 'Update'). Make all 11 cards have an identical width and height - use the current largest card width and largest card height for this.
-Form userprompts.txt and clamtkrefreshcode using given the latest code</code></pre>
-
-      <p>and you'll get this...</p>
-
-      <img  src="opencode/clamtkrefresh/clamtkrefresh1.png" alt="ClamTk refresh1">
-      <img  src="opencode/clamtkrefresh/clamtkrefresh2.png" alt="ClamTk refresh2">
-
-      <p>Here's the updated source code. The changes are in lib/ClamTk/GUI.pm</p>
-
-      <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/clamtkrefresh/clamtkrefreshcode" target="_blank" rel="noopener noreferrer">
-        ClamTk Refresh Source Code Changes
-      </a>
-
-    </div>
-  </details>
-
-  <!-- EXAMPLE 14 -->
-  <details id="example14" class="project">
-    <summary class="custom-summary">
-      <span class="summary-left">
-        <span>14. Tetris, HTML/JavaScript/CSS Webpage</span>
-      </span>
-      <i class="fa-solid fa-chevron-down summary-chevron"></i>
-    </summary>
-
-    <div class="project-body">
-
-      <p>
-        A Tetris clone running on a webpage, 100% AI vibe coded, the initial app taking about
-        30 minutes. It has sprites, sounds, music, levels, and the usual stuff.
-      </p>
-
-      <p>
-        The code was generated on Ubuntu 24.04.4 LTS Live USB and saved to external media mid session.
-      </p>
-
-      <img  src="opencode/tetris/1.png" alt="Tetris start screen">
-      <img  src="opencode/tetris/2.png" alt="Tetris play screen">
-
-      <p>Preparing to vibe:</p>
-
-      <div class="link-row">
-        <a href="opencode/setup.sh" download="setup.sh">setup.sh</a>
-        <a href="kilocli/view.html?file=../opencode/setup.sh">View</a>
-      </div>
-
-      <div class="link-row">
-        <a href="opencode/run.sh" download="run.sh">run.sh</a>
-        <a href="kilocli/view.html?file=../opencode/run.sh">View</a>
-      </div>
-
-      <img  src="opencode/tetris/opencodescreen.png" alt="OpenCode screen">
-
-      <p>Vibe Session 1 (Initial App Creation)</p>
-      <p><em>Vibes</em></p>
-
-      <div class="link-row">
-        <a href="opencode/tetris/vibes.txt" download="vibes.txt">vibes.txt</a>
-        <a href="kilocli/view.html?file=../opencode/tetris/vibes.txt">View</a>
-      </div>
-
-      <div class="link-row">
-        <a href="opencode/tetris/opencode-prompt.txt" download="opencode-prompt.txt">opencode-prompt.txt</a>
-        <a href="kilocli/view.html?file=../opencode/tetris/opencode-prompt.txt">View</a>
-      </div>
-
-      <p><em>Generated Code</em></p>
-
-      <div class="link-row">
-        <a href="opencode/tetris/webpage/index.html" download="index.html">index.html</a>
-        <a href="kilocli/view.html?file=../opencode/tetris/webpage/index.html">View</a>
-      </div>
-
-      <div class="link-row">
-        <a href="opencode/tetris/webpage/script.js" download="script.js">script.js</a>
-        <a href="kilocli/view.html?file=../opencode/tetris/webpage/script.js">View</a>
-      </div>
-
-      <div class="link-row">
-        <a href="opencode/tetris/webpage/styles.css" download="styles.css">styles.css</a>
-        <a href="kilocli/view.html?file=../opencode/tetris/webpage/styles.css">View</a>
-      </div>
-
-      <p><a href="opencode/tetris/webpage/" target="_blank">Play Vibe Session 1 Tetris</a></p>
-
-      <p>Vibe Session 2 (Enhancements; Hours, Days, Whenever Later)</p>
-      <p><em>Vibes</em></p>
-
-      <div class="link-row">
-        <a href="opencode/tetris/vibes-next.txt" download="vibes-next.txt">vibes-next.txt</a>
-        <a href="kilocli/view.html?file=../opencode/tetris/vibes-next.txt">View</a>
-      </div>
-
-      <p><em>Generated Code</em></p>
-
-      <div class="link-row">
-        <a href="opencode/tetris/webpage-next/index.html" download="index.html">index.html</a>
-        <a href="kilocli/view.html?file=../opencode/tetris/webpage-next/index.html">View</a>
-      </div>
-
-      <div class="link-row">
-        <a href="opencode/tetris/webpage-next/script.js" download="script.js">script.js</a>
-        <a href="kilocli/view.html?file=../opencode/tetris/webpage-next/script.js">View</a>
-      </div>
-
-      <div class="link-row">
-        <a href="opencode/tetris/webpage-next/styles.css" download="styles.css">styles.css</a>
-        <a href="kilocli/view.html?file=../opencode/tetris/webpage-next/styles.css">View</a>
-      </div>
-
-      <p><a href="opencode/tetris/webpage-next/" target="_blank">Play Vibe Session 2 Tetris</a></p>
-
-    </div>
-  </details>
-
-  <!-- EXAMPLE 15 -->
-  <details id="example15" class="project">
-    <summary class="custom-summary">
-      <span class="summary-left">
-        <span>15. Self-Forking The OpenCode Terminal</span>
+        <span>6. Self-Forking The OpenCode Terminal</span>
       </span>
       <i class="fa-solid fa-chevron-down summary-chevron"></i>
     </summary>
@@ -1773,15 +1196,15 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
       document.querySelectorAll(".sidebar a[href^='#']").forEach(function(link) {
         link.addEventListener("click", function(e) {
           e.preventDefault();
-          var id = this.getAttribute("href").slice(1);
-          var el = document.getElementById(id);
+          const id = this.getAttribute("href").slice(1);
+          const el = document.getElementById(id);
           if (!el) return;
           if (el.tagName === "DETAILS") {
             el.setAttribute("open", "");
           }
-          var rect = el.getBoundingClientRect();
-          var offset = 90;
-          var top = rect.top + window.pageYOffset - offset;
+          const rect = el.getBoundingClientRect();
+          const offset = 90;
+          const top = rect.top + window.pageYOffset - offset;
           window.scrollTo({ top: top, behavior: "smooth" });
         });
       });
@@ -1856,8 +1279,7 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
           if (rect.top <= 200) current = el.id;
         });
         sidebarLinks.forEach(a => {
-          a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
-          a.style.fontWeight = a.getAttribute('href') === '#' + current ? '600' : '';
+          a.classList.toggle('active', a.getAttribute('href') === '#' + current);
         });
       }
       window.addEventListener('scroll', updateSidebar);
@@ -1878,255 +1300,246 @@ Form userprompts.txt and clamtkrefreshcode using given the latest code</code></p
 
   <script>
     (function() {
-      const canvas = document.getElementById('particle-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let particles = [];
-      let mouse = { x: null, y: null, radius: 150 };
 
-      function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+      /* === Particle canvas === */
+      const particleCanvas = document.getElementById('particle-canvas');
+      let particleCtx, particles = [], mouse = { x: null, y: null, radius: 150 };
+
+      if (particleCanvas) {
+        particleCtx = particleCanvas.getContext('2d');
+
+        function resizeParticles() {
+          particleCanvas.width = window.innerWidth;
+          particleCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeParticles);
+        resizeParticles();
+
+        class Particle {
+          constructor() {
+            this.x = Math.random() * particleCanvas.width;
+            this.y = Math.random() * particleCanvas.height;
+            this.size = Math.random() * 2 + 1.2;
+            this.speedX = (Math.random() - 0.5) * 0.4;
+            this.speedY = (Math.random() - 0.5) * 0.4;
+            this.opacity = Math.random() * 0.5 + 0.25;
+          }
+          update() {
+            if (mouse.x !== null) {
+              const dx = mouse.x - this.x;
+              const dy = mouse.y - this.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < mouse.radius && dist > 0) {
+                const force = (mouse.radius - dist) / mouse.radius;
+                this.speedX += (dx / dist) * force * 0.02;
+                this.speedY += (dy / dist) * force * 0.02;
+              }
+            }
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.speedX *= 0.98;
+            this.speedY *= 0.98;
+            if (this.x < -20) this.x = particleCanvas.width + 20;
+            if (this.x > particleCanvas.width + 20) this.x = -20;
+            if (this.y < -20) this.y = particleCanvas.height + 20;
+            if (this.y > particleCanvas.height + 20) this.y = -20;
+          }
+          draw() {
+            particleCtx.beginPath();
+            particleCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            particleCtx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
+            particleCtx.fill();
+          }
+        }
+
+        function initParticles() {
+          const area = particleCanvas.width * particleCanvas.height;
+          const count = Math.min(80, Math.max(30, Math.floor(area / 14000)));
+          particles = Array.from({ length: count }, () => new Particle());
+        }
+
+        function connectParticles() {
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const dx = particles[i].x - particles[j].x;
+              const dy = particles[i].y - particles[j].y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 130) {
+                const opacity = (1 - dist / 130) * 0.2;
+                particleCtx.beginPath();
+                particleCtx.moveTo(particles[i].x, particles[i].y);
+                particleCtx.lineTo(particles[j].x, particles[j].y);
+                particleCtx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
+                particleCtx.lineWidth = 0.5;
+                particleCtx.stroke();
+              }
+            }
+          }
+        }
+
+        initParticles();
+
+        let particleResizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(particleResizeTimer);
+          particleResizeTimer = setTimeout(() => { resizeParticles(); initParticles(); }, 200);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+        });
+
+        document.addEventListener('mouseleave', () => {
+          mouse.x = null;
+          mouse.y = null;
+        });
+
+        const particleAnimate = () => {
+          particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+          particles.forEach(p => { p.update(); p.draw(); });
+          connectParticles();
+          requestAnimationFrame(particleAnimate);
+        };
+        particleAnimate();
       }
 
-      window.addEventListener('resize', resize);
-      resize();
+      /* === Portal canvas === */
+      const portalCanvas = document.createElement('canvas');
+      portalCanvas.id = 'portal-canvas';
+      portalCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;';
+      const pc = document.getElementById('particle-canvas');
+      if (pc && pc.parentNode) pc.parentNode.insertBefore(portalCanvas, pc.nextSibling);
+      else document.body.appendChild(portalCanvas);
+      const portalCtx = portalCanvas.getContext('2d');
+      let W, H;
+      function resizePortal() { W = portalCanvas.width = window.innerWidth; H = portalCanvas.height = window.innerHeight; }
+      resizePortal();
+      window.addEventListener('resize', resizePortal);
 
-      class Particle {
+      const RINGS = 6;
+      const RAYS = 24;
+      const ORBS = 40;
+      let birth = 0;
+      let time = 0;
+
+      class Orb {
         constructor() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.size = Math.random() * 2 + 1.2;
-          this.speedX = (Math.random() - 0.5) * 0.4;
-          this.speedY = (Math.random() - 0.5) * 0.4;
-          this.opacity = Math.random() * 0.5 + 0.25;
-        }
-
-        update() {
-          if (mouse.x !== null) {
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < mouse.radius && dist > 0) {
-              const force = (mouse.radius - dist) / mouse.radius;
-              this.speedX += (dx / dist) * force * 0.02;
-              this.speedY += (dy / dist) * force * 0.02;
-            }
-          }
-
-          this.x += this.speedX;
-          this.y += this.speedY;
-          this.speedX *= 0.98;
-          this.speedY *= 0.98;
-
-          if (this.x < -20) this.x = canvas.width + 20;
-          if (this.x > canvas.width + 20) this.x = -20;
-          if (this.y < -20) this.y = canvas.height + 20;
-          if (this.y > canvas.height + 20) this.y = -20;
-        }
-
-        draw() {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
-          ctx.fill();
+          this.angle = Math.random() * Math.PI * 2;
+          this.radius = 60 + Math.random() * 280;
+          this.speed = (0.002 + Math.random() * 0.006) * (Math.random() > 0.5 ? 1 : -1);
+          this.size = 2 + Math.random() * 5;
+          this.phase = Math.random() * Math.PI * 2;
+          this.color = ['#38bdf8','#a855f7','#f97316','#22d3ee','#c084fc','#34d399'][Math.floor(Math.random() * 6)];
+          this.bobAmp = 5 + Math.random() * 15;
+          this.bobSpeed = 0.01 + Math.random() * 0.02;
         }
       }
 
-      function init() {
-        const area = canvas.width * canvas.height;
-        const count = Math.min(80, Math.max(30, Math.floor(area / 14000)));
-        particles = Array.from({ length: count }, () => new Particle());
-      }
-
-      function connect() {
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 130) {
-              const opacity = (1 - dist / 130) * 0.2;
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
-              ctx.lineWidth = 0.5;
-              ctx.stroke();
-            }
-          }
-        }
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        connect();
-        requestAnimationFrame(animate);
-      }
-
-      init();
-      animate();
-
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => { resize(); init(); }, 200);
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-      });
-
-      document.addEventListener('mouseleave', () => {
-        mouse.x = null;
-        mouse.y = null;
-      });
-    })();
-  </script>
-
-  <script>
-    (function() {
-      var c = document.createElement('canvas');
-      c.id = 'portal-canvas';
-      c.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;';
-      var pc = document.getElementById('particle-canvas');
-      if (pc && pc.parentNode) pc.parentNode.insertBefore(c, pc.nextSibling);
-      else document.body.appendChild(c);
-      var ctx = c.getContext('2d');
-      var W, H;
-      function resize() { W = c.width = window.innerWidth; H = c.height = window.innerHeight; }
-      resize();
-      window.addEventListener('resize', resize);
-
-      var RINGS = 6;
-      var RAYS = 24;
-      var ORBS = 40;
-      var birth = 0;
-      var time = 0;
-
-      function Orb() {
-        this.angle = Math.random() * Math.PI * 2;
-        this.radius = 60 + Math.random() * 280;
-        this.speed = (0.002 + Math.random() * 0.006) * (Math.random() > 0.5 ? 1 : -1);
-        this.size = 2 + Math.random() * 5;
-        this.phase = Math.random() * Math.PI * 2;
-        this.color = ['#38bdf8','#a855f7','#f97316','#22d3ee','#c084fc','#34d399'][Math.floor(Math.random() * 6)];
-        this.bobAmp = 5 + Math.random() * 15;
-        this.bobSpeed = 0.01 + Math.random() * 0.02;
-      }
-
-      var orbs = [];
-      for (var i = 0; i < ORBS; i++) orbs.push(new Orb());
+      const orbs = [];
+      for (let i = 0; i < ORBS; i++) orbs.push(new Orb());
 
       function drawRing(cx, cy, r, pulse, idx) {
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        var alpha = 0.15 + 0.1 * Math.sin(time * 0.5 + idx * 0.8 + pulse * 2);
-        ctx.strokeStyle = 'rgba(56,189,248,' + (alpha * Math.min(1, birth * 4)) + ')';
-        ctx.lineWidth = 1.5 + Math.sin(time + idx) * 0.8;
-        ctx.stroke();
+        const alpha = 0.15 + 0.1 * Math.sin(time * 0.5 + idx * 0.8 + pulse * 2);
+        portalCtx.beginPath();
+        portalCtx.arc(cx, cy, r, 0, Math.PI * 2);
+        portalCtx.strokeStyle = 'rgba(56,189,248,' + (alpha * Math.min(1, birth * 4)) + ')';
+        portalCtx.lineWidth = 1.5 + Math.sin(time + idx) * 0.8;
+        portalCtx.stroke();
 
-        ctx.beginPath();
-        ctx.arc(cx, cy, r + 4, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(168,85,247,' + (alpha * 0.4 * Math.min(1, birth * 4)) + ')';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
+        portalCtx.beginPath();
+        portalCtx.arc(cx, cy, r + 4, 0, Math.PI * 2);
+        portalCtx.strokeStyle = 'rgba(168,85,247,' + (alpha * 0.4 * Math.min(1, birth * 4)) + ')';
+        portalCtx.lineWidth = 0.5;
+        portalCtx.stroke();
       }
 
-      function animate() {
+      function portalAnimate() {
         birth = Math.min(birth + 0.005, 1);
         time += 0.02;
-        var exp = Math.min(1, birth * 2.5);
-        var cx = W / 2, cy = H / 2;
+        const exp = Math.min(1, birth * 2.5);
+        const cx = W / 2, cy = H / 2;
 
-        ctx.clearRect(0, 0, W, H);
+        portalCtx.clearRect(0, 0, W, H);
 
-        if (exp < 0.05) { requestAnimationFrame(animate); return; }
+        if (exp < 0.05) { requestAnimationFrame(portalAnimate); return; }
 
-        var maxR = Math.min(W, H) * 0.45 * exp;
+        const maxR = Math.min(W, H) * 0.45 * exp;
 
-        // Center glow
-        var cg = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR * 0.5);
+        const cg = portalCtx.createRadialGradient(cx, cy, 0, cx, cy, maxR * 0.5);
         cg.addColorStop(0, 'rgba(56,189,248,' + (0.12 * exp) + ')');
         cg.addColorStop(0.3, 'rgba(168,85,247,' + (0.07 * exp) + ')');
         cg.addColorStop(0.7, 'rgba(249,115,22,' + (0.03 * exp) + ')');
         cg.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.fillStyle = cg;
-        ctx.fillRect(0, 0, W, H);
+        portalCtx.fillStyle = cg;
+        portalCtx.fillRect(0, 0, W, H);
 
-        // Light rays
-        for (var r = 0; r < RAYS; r++) {
-          var ra = (r / RAYS) * Math.PI * 2 + time * 0.1;
-          var len = maxR * (0.7 + 0.3 * Math.sin(ra * 3 + time));
-          ctx.beginPath();
-          ctx.moveTo(cx, cy);
-          ctx.lineTo(cx + Math.cos(ra) * len, cy + Math.sin(ra) * len);
-          var alpha = 0.04 + 0.03 * Math.sin(ra * 2 + time * 1.5);
-          ctx.strokeStyle = 'rgba(56,189,248,' + (alpha * exp) + ')';
-          ctx.lineWidth = 1 + Math.sin(ra * 4 + time) * 0.5;
-          ctx.stroke();
+        for (let r = 0; r < RAYS; r++) {
+          const ra = (r / RAYS) * Math.PI * 2 + time * 0.1;
+          const len = maxR * (0.7 + 0.3 * Math.sin(ra * 3 + time));
+          portalCtx.beginPath();
+          portalCtx.moveTo(cx, cy);
+          portalCtx.lineTo(cx + Math.cos(ra) * len, cy + Math.sin(ra) * len);
+          const alpha = 0.04 + 0.03 * Math.sin(ra * 2 + time * 1.5);
+          portalCtx.strokeStyle = 'rgba(56,189,248,' + (alpha * exp) + ')';
+          portalCtx.lineWidth = 1 + Math.sin(ra * 4 + time) * 0.5;
+          portalCtx.stroke();
         }
 
-        // Outer glow ring
-        var og = ctx.createRadialGradient(cx - maxR * 0.2, cy - maxR * 0.2, 0, cx, cy, maxR);
+        const og = portalCtx.createRadialGradient(cx - maxR * 0.2, cy - maxR * 0.2, 0, cx, cy, maxR);
         og.addColorStop(0, 'rgba(0,0,0,0)');
         og.addColorStop(0.6, 'rgba(56,189,248,' + (0.02 * exp) + ')');
         og.addColorStop(0.8, 'rgba(168,85,247,' + (0.04 * exp) + ')');
         og.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.fillStyle = og;
-        ctx.beginPath();
-        ctx.arc(cx, cy, maxR, 0, Math.PI * 2);
-        ctx.fill();
+        portalCtx.fillStyle = og;
+        portalCtx.beginPath();
+        portalCtx.arc(cx, cy, maxR, 0, Math.PI * 2);
+        portalCtx.fill();
 
-        // Concentric rings
-        for (var ri = 0; ri < RINGS; ri++) {
-          var rr = (maxR / RINGS) * (ri + 0.5) + Math.sin(time * 0.3 + ri * 1.2) * 8;
+        for (let ri = 0; ri < RINGS; ri++) {
+          const rr = (maxR / RINGS) * (ri + 0.5) + Math.sin(time * 0.3 + ri * 1.2) * 8;
           drawRing(cx, cy, rr, (ri / RINGS), ri);
         }
 
-        // Floating orbs
-        for (var o = 0; o < orbs.length; o++) {
-          var ob = orbs[o];
+        for (let o = 0; o < orbs.length; o++) {
+          const ob = orbs[o];
           ob.angle += ob.speed;
           ob.radius += Math.sin(time * ob.bobSpeed + ob.phase) * 0.15;
           if (ob.radius > maxR * 0.9) ob.radius = maxR * 0.1;
           if (ob.radius < maxR * 0.05) ob.radius = maxR * 0.1;
-          var ox = cx + Math.cos(ob.angle) * ob.radius;
-          var oy = cy + Math.sin(ob.angle) * ob.radius + Math.sin(time * ob.bobSpeed + ob.phase) * ob.bobAmp;
-          var alpha = 0.3 + 0.4 * (0.5 + 0.5 * Math.sin(time + ob.phase));
-          ctx.globalAlpha = alpha * exp;
-          ctx.fillStyle = ob.color;
-          ctx.beginPath();
-          ctx.arc(ox, oy, ob.size * (0.7 + 0.3 * Math.sin(time + ob.phase)), 0, Math.PI * 2);
-          ctx.fill();
+          const ox = cx + Math.cos(ob.angle) * ob.radius;
+          const oy = cy + Math.sin(ob.angle) * ob.radius + Math.sin(time * ob.bobSpeed + ob.phase) * ob.bobAmp;
+          const alpha = 0.3 + 0.4 * (0.5 + 0.5 * Math.sin(time + ob.phase));
+          portalCtx.globalAlpha = alpha * exp;
+          portalCtx.fillStyle = ob.color;
+          portalCtx.beginPath();
+          portalCtx.arc(ox, oy, ob.size * (0.7 + 0.3 * Math.sin(time + ob.phase)), 0, Math.PI * 2);
+          portalCtx.fill();
 
-          // Glow around orbs
-          var gg = ctx.createRadialGradient(ox, oy, 0, ox, oy, ob.size * 3);
+          const gg = portalCtx.createRadialGradient(ox, oy, 0, ox, oy, ob.size * 3);
           gg.addColorStop(0, ob.color.replace(')', ',0.15)').replace('rgb', 'rgba'));
           gg.addColorStop(1, 'rgba(0,0,0,0)');
-          ctx.fillStyle = gg;
-          ctx.beginPath();
-          ctx.arc(ox, oy, ob.size * 3, 0, Math.PI * 2);
-          ctx.fill();
+          portalCtx.fillStyle = gg;
+          portalCtx.beginPath();
+          portalCtx.arc(ox, oy, ob.size * 3, 0, Math.PI * 2);
+          portalCtx.fill();
         }
 
-        // Scan pulse ring
-        var pulseR = ((time * 60) % (maxR * 2));
+        const pulseR = ((time * 60) % (maxR * 2));
         if (pulseR < maxR) {
-          ctx.globalAlpha = 0.15 * (1 - pulseR / maxR) * exp;
-          ctx.strokeStyle = '#38bdf8';
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.arc(cx, cy, pulseR, 0, Math.PI * 2);
-          ctx.stroke();
+          portalCtx.globalAlpha = 0.15 * (1 - pulseR / maxR) * exp;
+          portalCtx.strokeStyle = '#38bdf8';
+          portalCtx.lineWidth = 2;
+          portalCtx.beginPath();
+          portalCtx.arc(cx, cy, pulseR, 0, Math.PI * 2);
+          portalCtx.stroke();
         }
 
-        ctx.globalAlpha = 1;
-        requestAnimationFrame(animate);
+        portalCtx.globalAlpha = 1;
+        requestAnimationFrame(portalAnimate);
       }
-      animate();
+      portalAnimate();
+
     })();
   </script>
 
