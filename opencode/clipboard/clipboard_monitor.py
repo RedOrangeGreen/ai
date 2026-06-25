@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 # Author: opencode (opencode.ai), Date: 2026-04-19, Version: big-pickle
-# Usage: Run with: python3 ./clipboard_monitor.py (requires: sudo apt install xclip python3-gi)
+# Usage: python3 ./clipboard_monitor.py (requires: apt install xclip python3-gi)
 
 import subprocess
 import threading
 import time
 import sys
 import warnings
-import os
 
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 
@@ -17,26 +16,20 @@ def check_command(cmd):
     return True
   except FileNotFoundError:
     return False
-  except Exception:
-    return True
-
-def install_package(pkg):
-  try:
-    result = subprocess.run(
-      ['pkexec', 'apt', 'install', '-y', pkg],
-      capture_output=True, text=True, timeout=120
-    )
-    return result.returncode == 0
-  except Exception:
-    return False
 
 def show_error(msg):
-  err = Gtk.MessageDialog(
-    None, 0,
-    Gtk.MessageType.ERROR, Gtk.ButtonsType.OK,
-    msg
-  )
-  err.run()
+  try:
+    err = Gtk.MessageDialog(
+      None, 0,
+      Gtk.MessageType.ERROR, Gtk.ButtonsType.OK,
+      msg
+    )
+    for child in err.get_message_area().get_children():
+      if isinstance(child, Gtk.Label):
+        child.set_selectable(True)
+    err.run()
+  except NameError:
+    print(f"Error: {msg}", file=sys.stderr)
   sys.exit(1)
 
 try:
@@ -46,65 +39,8 @@ try:
 except ImportError:
   show_error("python3-gi is required but could not be imported.")
 
-missing = []
 if not check_command(['xclip', '-selection', 'clipboard', '-o']):
-  missing.append('xclip')
-if not check_command(['python3', '-c', 'import gi']):
-  missing.append('python3-gi')
-
-if missing:
-  class InstallDialog(Gtk.Window):
-    def __init__(self, pkgs):
-      super().__init__(title="Missing Dependencies")
-      self.set_resizable(False)
-      self.set_default_size(350, 150)
-      self.connect("destroy", Gtk.main_quit)
-
-      box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-      box.set_margin_start(20)
-      box.set_margin_end(20)
-      box.set_margin_top(20)
-      box.set_margin_bottom(20)
-      self.add(box)
-
-      msg = "The following packages are required but not installed:"
-      box.pack_start(Gtk.Label(label=msg), True, True, 0)
-
-      pkg_label = ", ".join(pkgs)
-      box.pack_start(Gtk.Label(label=pkg_label), True, True, 0)
-
-      btn_box = Gtk.Box(spacing=10)
-      btn_box.set_halign(Gtk.Align.CENTER)
-      box.pack_start(btn_box, True, True, 0)
-
-      install_btn = Gtk.Button(label="Install Now")
-      install_btn.connect("clicked", self.on_install, pkgs)
-      btn_box.pack_start(install_btn, True, True, 0)
-
-      exit_btn = Gtk.Button(label="Exit")
-      exit_btn.connect("clicked", self.on_exit)
-      btn_box.pack_start(exit_btn, True, True, 0)
-
-    def on_install(self, widget, pkgs):
-      for pkg in pkgs:
-        if not install_package(pkg):
-          err = Gtk.MessageDialog(
-            self, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK,
-            f"Failed to install {pkg}. Please install manually:\n  sudo apt install {pkg}"
-          )
-          err.run()
-          err.destroy()
-          sys.exit(1)
-      self.destroy()
-      os.execv(sys.executable, [sys.executable, sys.argv[0]])
-
-    def on_exit(self, widget):
-      sys.exit(0)
-
-  InstallDialog(missing).show_all()
-  Gtk.main()
-  sys.exit(0)
+  show_error("xclip not found. Please install it with: sudo apt install xclip")
 
 class ClipboardMonitor(Gtk.Window):
   def __init__(self):
@@ -152,10 +88,12 @@ class ClipboardMonitor(Gtk.Window):
 
   def update_ui(self, state):
     if state == "empty":
-      self.label.set_text("Clipboard is empty")
+      self.label.set_markup("Clipboard is <b>empty</b>")
+      self.clear_button.get_style_context().remove_class(Gtk.STYLE_CLASS_SUGGESTED_ACTION)
       self.clear_button.set_sensitive(False)
     else:
-      self.label.set_text("Clipboard has content")
+      self.label.set_markup("<b><big>Clipboard has content</big></b>")
+      self.clear_button.get_style_context().add_class(Gtk.STYLE_CLASS_SUGGESTED_ACTION)
       self.clear_button.set_sensitive(True)
 
   def on_clear_clicked(self, widget):
@@ -179,12 +117,6 @@ class ClipboardMonitor(Gtk.Window):
       self.check_clipboard()
 
 def main():
-  try:
-    subprocess.run(['xclip', '-selection', 'clipboard', '-o'],
-                 capture_output=True, timeout=2)
-  except FileNotFoundError:
-    show_error("xclip not found. Please install it with: sudo apt install xclip")
-
   win = ClipboardMonitor()
   win.show_all()
   Gtk.main()
