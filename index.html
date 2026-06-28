@@ -568,7 +568,7 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       padding: 0.35rem 0;
-      overflow-x: auto;
+      overflow-x: visible;
     }
 
     .clock-pill {
@@ -578,9 +578,11 @@
       gap: 0.1rem;
       border: 1px solid rgba(255,255,255,0.4);
       border-radius: var(--radius-pill);
-      padding: 0.25rem 0.7rem;
+      padding: 0.25rem 3.35rem;
       background: rgba(15,23,42,0.6);
       line-height: 1.3;
+      flex: 1;
+      min-width: 0;
     }
 
     .clock-pill-label {
@@ -628,6 +630,16 @@
       .search-section {
         align-items: stretch;
       }
+      .clock-pill {
+        padding: 0.25rem 0.8rem;
+        font-size: 0.75rem;
+      }
+      .clock-pill-label {
+        font-size: 0.7rem;
+      }
+      .clock-pill-time {
+        font-size: 0.8rem;
+      }
     }
 
     /* === MODERN OVERHAUL === */
@@ -655,6 +667,428 @@
     @keyframes pulseDot {
       0%, 100% { box-shadow: 0 0 0 6px rgba(34,197,94,0.25); }
       50% { box-shadow: 0 0 0 12px rgba(34,197,94,0.1); }
+    }
+
+    @keyframes pulseClick {
+      0%, 100% { box-shadow: 0 0 0 0px rgba(56,189,248,0.6); transform: scale(1); }
+      50% { box-shadow: 0 0 12px 4px rgba(56,189,248,0.3); transform: scale(1.04); }
+    }
+
+    #pattaya-pill {
+      cursor: pointer;
+      animation: pulseClick 2s ease-in-out infinite;
+    }
+
+    #wonderland-pill {
+      cursor: pointer;
+      animation: pulseClick 2s ease-in-out infinite;
+    }
+
+    .alice {
+      position: fixed;
+      top: 55%;
+      left: -200px;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .alice.fly {
+      animation: aliceFly 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .alice.fly .alice-arm.l {
+      animation: armSwingL 0.4s ease-in-out infinite;
+    }
+
+    .alice.fly .alice-arm.r {
+      animation: armSwingR 0.4s ease-in-out infinite;
+    }
+
+    .alice.fly .alice-leg:nth-child(1) {
+      animation: legKick 0.4s ease-in-out infinite;
+    }
+
+    .alice.fly .alice-leg:nth-child(2) {
+      animation: legKick 0.4s ease-in-out infinite reverse;
+    }
+
+    @keyframes armSwingL {
+      0%, 100% { transform: rotate(15deg); }
+      50% { transform: rotate(-20deg); }
+    }
+
+    @keyframes armSwingR {
+      0%, 100% { transform: rotate(-15deg); }
+      50% { transform: rotate(20deg); }
+    }
+
+    @keyframes legKick {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(6px); }
+    }
+
+    @keyframes aliceFly {
+      0% { left: -200px; opacity: 0; transform: translateY(0) scale(0.8) rotate(0deg); }
+      5% { opacity: 1; }
+      20% { left: 20vw; transform: translateY(-40px) scale(1) rotate(-3deg); }
+      40% { left: 40vw; transform: translateY(15px) scale(1.05) rotate(2deg); }
+      60% { left: 60vw; transform: translateY(-25px) scale(1) rotate(-2deg); }
+      80% { left: 80vw; transform: translateY(10px) scale(0.95) rotate(3deg); }
+      100% { left: 110vw; transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
+    }
+
+    .alice-head {
+      width: 44px; height: 44px;
+      background: #ffe0bd;
+      border-radius: 50%;
+      position: relative;
+      margin: 0 auto;
+      z-index: 2;
+    }
+
+    .alice-hair {
+      width: 52px; height: 36px;
+      background: #d4a017;
+      border-radius: 50% 50% 0 0;
+      position: absolute;
+      top: -4px; left: -4px;
+      z-index: 3;
+    }
+
+    .alice-hair-bangs {
+      width: 50px; height: 14px;
+      background: #d4a017;
+      position: absolute;
+      top: 22px; left: -3px;
+      border-radius: 0 0 50% 50%;
+      z-index: 3;
+    }
+
+    .alice-hair-tail {
+      width: 12px; height: 18px;
+      background: #d4a017;
+      position: absolute;
+      top: 8px; right: -8px;
+      border-radius: 0 50% 50% 0;
+      z-index: 3;
+    }
+
+    .alice-eyes {
+      position: absolute;
+      top: 18px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 4;
+    }
+
+    .alice-eye {
+      width: 4px; height: 4px;
+      background: #2c1810;
+      border-radius: 50%;
+    }
+
+    .alice-smile {
+      width: 10px; height: 5px;
+      border-bottom: 2px solid #c97b6b;
+      border-radius: 0 0 10px 10px;
+      position: absolute;
+      bottom: 10px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+    }
+
+    .alice-body {
+      width: 60px; height: 65px;
+      background: #4169e1;
+      border-radius: 12px 12px 18px 18px;
+      margin: -6px auto 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .alice-apron {
+      width: 34px; height: 50px;
+      background: #f0f0f0;
+      border-radius: 0 0 10px 10px;
+      position: absolute;
+      top: 8px; left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .alice-apron-strap {
+      width: 2px; height: 12px;
+      background: #ddd;
+      position: absolute;
+      top: -8px;
+    }
+
+    .alice-apron-strap.l { left: 6px; }
+    .alice-apron-strap.r { right: 6px; }
+
+    .alice-arm {
+      width: 10px; height: 32px;
+      background: #ffe0bd;
+      border-radius: 6px;
+      position: absolute;
+      top: 10px;
+      z-index: 0;
+    }
+
+    .alice-arm.l { left: -8px; transform: rotate(15deg); transform-origin: top center; }
+    .alice-arm.r { right: -8px; transform: rotate(-15deg); transform-origin: top center; }
+
+    .alice-legs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: -2px;
+    }
+
+    .alice-leg {
+      width: 10px; height: 28px;
+      background: #ffe0bd;
+      border-radius: 4px;
+    }
+
+    .alice-shoe {
+      width: 14px; height: 6px;
+      background: #2c1810;
+      border-radius: 4px 4px 6px 6px;
+      margin-top: -2px;
+    }
+
+    .hatter {
+      position: fixed;
+      top: 45%;
+      left: -250px;
+      z-index: 9998;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .hatter.fly {
+      animation: hatterFly 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .hatter.fly .hatter-arm.l {
+      animation: hatterArmSwingL 0.45s ease-in-out infinite;
+    }
+
+    .hatter.fly .hatter-arm.r {
+      animation: hatterArmSwingR 0.45s ease-in-out infinite;
+    }
+
+    .hatter.fly .hatter-leg:nth-child(1) {
+      animation: hatterLegKick 0.45s ease-in-out infinite;
+    }
+
+    .hatter.fly .hatter-leg:nth-child(2) {
+      animation: hatterLegKick 0.45s ease-in-out infinite reverse;
+    }
+
+    @keyframes hatterArmSwingL {
+      0%, 100% { transform: rotate(-20deg); }
+      50% { transform: rotate(25deg); }
+    }
+
+    @keyframes hatterArmSwingR {
+      0%, 100% { transform: rotate(20deg); }
+      50% { transform: rotate(-25deg); }
+    }
+
+    @keyframes hatterLegKick {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    @keyframes hatterFly {
+      0% { left: -250px; opacity: 0; transform: translateY(0) scale(0.8) rotate(0deg); }
+      5% { opacity: 1; }
+      20% { left: 18vw; transform: translateY(-20px) scale(1) rotate(2deg); }
+      40% { left: 38vw; transform: translateY(30px) scale(1.05) rotate(-3deg); }
+      60% { left: 58vw; transform: translateY(-10px) scale(1) rotate(2deg); }
+      80% { left: 78vw; transform: translateY(25px) scale(0.95) rotate(-2deg); }
+      100% { left: 110vw; transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
+    }
+
+    .hatter-hat {
+      width: 50px; height: 10px;
+      background: #2c2c2c;
+      border-radius: 2px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 3;
+    }
+
+    .hatter-hat-top {
+      width: 36px; height: 24px;
+      background: #2c2c2c;
+      margin: -22px auto 0;
+      border-radius: 2px 2px 0 0;
+      position: relative;
+      z-index: 3;
+    }
+
+    .hatter-hat-band {
+      width: 38px; height: 4px;
+      background: #8b4513;
+      margin: -2px auto 0;
+      position: relative;
+      z-index: 4;
+    }
+
+    .hatter-hat-tag {
+      width: 6px; height: 8px;
+      background: #f5f5dc;
+      position: absolute;
+      top: 2px; right: -4px;
+      border-radius: 1px;
+      font-size: 5px;
+      line-height: 8px;
+      text-align: center;
+      color: #333;
+    }
+
+    .hatter-head {
+      width: 40px; height: 40px;
+      background: #ffe0bd;
+      border-radius: 50%;
+      margin: -2px auto 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hatter-hair {
+      width: 44px; height: 28px;
+      background: #e87d2f;
+      border-radius: 50% 50% 0 0;
+      position: absolute;
+      top: -4px; left: -2px;
+      z-index: 3;
+    }
+
+    .hatter-hair-side {
+      width: 14px; height: 24px;
+      background: #e87d2f;
+      position: absolute;
+      top: 6px;
+      border-radius: 50%;
+      z-index: 3;
+    }
+
+    .hatter-hair-side.l { left: -6px; }
+    .hatter-hair-side.r { right: -6px; }
+
+    .hatter-eyes {
+      position: absolute;
+      top: 16px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 4;
+    }
+
+    .hatter-eye {
+      width: 4px; height: 5px;
+      background: #2c1810;
+      border-radius: 50%;
+    }
+
+    .hatter-eye.l { transform: rotate(-5deg); }
+    .hatter-eye.r { transform: rotate(5deg); }
+
+    .hatter-smile {
+      width: 14px; height: 6px;
+      border-bottom: 2px solid #c97b6b;
+      border-radius: 0 0 10px 10px;
+      position: absolute;
+      bottom: 8px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+    }
+
+    .hatter-body {
+      width: 54px; height: 60px;
+      background: #2e8b57;
+      border-radius: 10px 10px 16px 16px;
+      margin: -4px auto 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hatter-shirt {
+      width: 22px; height: 30px;
+      background: #f5f5dc;
+      border-radius: 0 0 6px 6px;
+      position: absolute;
+      top: 4px; left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hatter-bowtie {
+      width: 8px; height: 4px;
+      background: #8b0000;
+      position: absolute;
+      top: 4px; left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+      z-index: 2;
+    }
+
+    .hatter-bowtie::before {
+      content: '';
+      position: absolute;
+      width: 6px; height: 4px;
+      background: #8b0000;
+      left: -4px;
+      border-radius: 2px 0 0 2px;
+    }
+
+    .hatter-bowtie::after {
+      content: '';
+      position: absolute;
+      width: 6px; height: 4px;
+      background: #8b0000;
+      right: -4px;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .hatter-arm {
+      width: 9px; height: 28px;
+      background: #2e8b57;
+      border-radius: 5px;
+      position: absolute;
+      top: 8px;
+      z-index: 0;
+    }
+
+    .hatter-arm.l { left: -7px; transform: rotate(-20deg); transform-origin: top center; }
+    .hatter-arm.r { right: -7px; transform: rotate(20deg); transform-origin: top center; }
+
+    .hatter-hand {
+      width: 8px; height: 8px;
+      background: #ffe0bd;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -4px;
+    }
+
+    .hatter-arm.l .hatter-hand { left: 0px; }
+    .hatter-arm.r .hatter-hand { right: 0px; }
+
+    .hatter-legs {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-top: -2px;
+    }
+
+    .hatter-leg {
+      width: 9px; height: 24px;
+      background: #2c2c2c;
+      border-radius: 3px;
     }
 
     .hero-title span.highlight {
@@ -805,7 +1239,8 @@
           <div class="clock-pill"><span class="clock-pill-label">Los Angeles</span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
           <div class="clock-pill"><span class="clock-pill-label">Moscow</span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
           <div class="clock-pill"><span class="clock-pill-label">Beijing</span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
-          <div class="clock-pill"><span class="clock-pill-label">Wonderland</span> <span id="clock-wonderland" class="clock-pill-time"></span> <span id="icon-wonderland" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" id="pattaya-pill" title="Click for Pattaya bar information"><span class="clock-pill-label">Pattaya</span> <span id="clock-pattaya" class="clock-pill-time"></span> <span id="icon-pattaya" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" id="wonderland-pill" title="Click to see Alice in Wonderland"><span class="clock-pill-label">Wonderland</span> <span id="clock-wonderland" class="clock-pill-time"></span> <span id="icon-wonderland" class="clock-pill-icon"></span></div>
         </div>
 
         <div class="hero-badges">
@@ -1446,6 +1881,17 @@
     </section>
 
     <!-- Footer -->
+
+    <dialog id="pattayaModal" style="background:rgba(15,23,42,0.98);color:#e5e7eb;border:1px solid rgba(148,163,184,0.5);border-radius:18px;padding:0;max-width:460px;box-shadow:0 18px 45px rgba(0,0,0,0.6);">
+      <div style="padding:2rem 2rem 1rem;text-align:center;font-size:1rem;">
+        "In Pattaya, Thailand, a prominent hub for adult entertainment, female bar workers drive the social dynamic by skillfully controlling the men they entertain."
+      </div>
+      <div style="display:flex;justify-content:center;gap:0.75rem;padding:0 2rem 1.5rem;">
+        <button id="pattayaOk" type="button" style="border-radius:999px;padding:0.4rem 1.5rem;background:linear-gradient(120deg,#38bdf8,#0ea5e9);border:none;color:#0b1120;font-weight:600;cursor:pointer;">Pattaya, Bar Girl's View</button>
+        <button id="pattayaCancel" type="button" style="border-radius:999px;padding:0.4rem 1.5rem;border:1px solid rgba(148,163,184,0.5);background:transparent;color:#e5e7eb;cursor:pointer;">Cancel</button>
+      </div>
+    </dialog>
+
     <footer>
       <div>
         <span class="brand">AI Playground</span>
@@ -1473,6 +1919,7 @@
         { id: 'clock-la',       icon: 'icon-la',       tz: 'America/Los_Angeles' },
         { id: 'clock-moscow',   icon: 'icon-moscow',   tz: 'Europe/Moscow' },
         { id: 'clock-beijing',  icon: 'icon-beijing',  tz: 'Asia/Shanghai' },
+        { id: 'clock-pattaya',  icon: 'icon-pattaya',  tz: 'Asia/Bangkok' },
       ];
       function updateClocks() {
         const now = new Date();
@@ -1487,20 +1934,60 @@
           }
         }
         const wl = document.getElementById('clock-wonderland');
-        if (wl) wl.textContent = '06:00:00';
+        if (wl) wl.textContent = '18:00:00';
         const wlIcon = document.getElementById('icon-wonderland');
         if (wlIcon) wlIcon.innerHTML = '<i class="fa-solid fa-mug-saucer"></i>';
       }
       updateClocks();
       setInterval(updateClocks, 1000);
 
-      const clockRow = document.getElementById('clock-row');
-      if (clockRow) {
-        const pills = clockRow.querySelectorAll('.clock-pill');
-        let maxW = 0;
-        pills.forEach(p => { const w = p.offsetWidth; if (w > maxW) maxW = w; });
-        if (maxW > 0) pills.forEach(p => p.style.width = maxW + 'px');
-      }
+      document.getElementById('pattaya-pill').addEventListener('click', function() {
+        document.getElementById('pattayaModal').showModal();
+      });
+      var po = document.getElementById('pattayaOk');
+      var pc = document.getElementById('pattayaCancel');
+      if (po) po.addEventListener('click', function() {
+        window.open('https://www.youtube.com/watch?v=HWEXX0v7eUQ', '_blank');
+        document.getElementById('pattayaModal').close();
+      });
+      if (pc) pc.addEventListener('click', function() {
+        document.getElementById('pattayaModal').close();
+      });
+
+      document.getElementById('wonderland-pill').addEventListener('click', function() {
+        let alice = document.getElementById('alice');
+        if (alice) alice.remove();
+        alice = document.createElement('div');
+        alice.id = 'alice';
+        alice.className = 'alice';
+        alice.innerHTML = '<div style="width:80px;">' +
+          '<div class="alice-head"><div class="alice-hair"></div><div class="alice-hair-bangs"></div><div class="alice-hair-tail"></div><div class="alice-eyes"><div class="alice-eye"></div><div class="alice-eye"></div></div><div class="alice-smile"></div></div>' +
+          '<div class="alice-body"><div class="alice-arm l"></div><div class="alice-arm r"></div><div class="alice-apron"><div class="alice-apron-strap l"></div><div class="alice-apron-strap r"></div></div></div>' +
+          '<div class="alice-legs"><div class="alice-leg"><div class="alice-shoe"></div></div><div class="alice-leg"><div class="alice-shoe"></div></div></div>' +
+          '</div>';
+        document.body.appendChild(alice);
+
+        let hatter = document.createElement('div');
+        hatter.className = 'hatter';
+        hatter.innerHTML = '<div style="width:80px;">' +
+          '<div class="hatter-hat"><div class="hatter-hat-top"><div class="hatter-hat-band"><div class="hatter-hat-tag">10/6</div></div></div></div>' +
+          '<div class="hatter-head"><div class="hatter-hair"></div><div class="hatter-hair-side l"></div><div class="hatter-hair-side r"></div><div class="hatter-eyes"><div class="hatter-eye l"></div><div class="hatter-eye r"></div></div><div class="hatter-smile"></div></div>' +
+          '<div class="hatter-body"><div class="hatter-arm l"><div class="hatter-hand"></div></div><div class="hatter-arm r"><div class="hatter-hand"></div></div><div class="hatter-shirt"></div><div class="hatter-bowtie"></div></div>' +
+          '<div class="hatter-legs"><div class="hatter-leg"></div><div class="hatter-leg"></div></div>' +
+          '</div>';
+        document.body.appendChild(hatter);
+
+        requestAnimationFrame(function() {
+          alice.classList.add('fly');
+          hatter.classList.add('fly');
+        });
+        setTimeout(function() {
+          if (alice) alice.remove();
+          if (hatter) hatter.remove();
+        }, 5000);
+      });
+
+
     })();
 
     (function () {
