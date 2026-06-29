@@ -1239,7 +1239,7 @@
           <div class="clock-pill"><span class="clock-pill-label">Los Angeles</span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
           <div class="clock-pill"><span class="clock-pill-label">Moscow</span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
           <div class="clock-pill"><span class="clock-pill-label">Beijing</span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" id="pattaya-pill" title="Click for Pattaya bar information"><span class="clock-pill-label">Pattaya</span> <span id="clock-pattaya" class="clock-pill-time"></span> <span id="icon-pattaya" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" id="pattaya-pill" title="Click for Pattaya travel information"><span class="clock-pill-label">Pattaya</span> <span id="clock-pattaya" class="clock-pill-time"></span> <span id="icon-pattaya" class="clock-pill-icon"></span></div>
           <div class="clock-pill" id="wonderland-pill" title="Click to see Alice in Wonderland"><span class="clock-pill-label">Wonderland</span> <span id="clock-wonderland" class="clock-pill-time"></span> <span id="icon-wonderland" class="clock-pill-icon"></span></div>
         </div>
 
@@ -1318,6 +1318,14 @@
         >
           <i class="fa-solid fa-code"></i>
           Coding
+        </button>
+        <button
+          class="filter-chip"
+          data-filter="videos"
+          type="button"
+        >
+          <i class="fa-brands fa-youtube"></i>
+          Videos
         </button>
       </div>
     </section>
@@ -1880,15 +1888,111 @@
       </div>
     </section>
 
+    <!-- AI Videos -->
+    <section class="reveal">
+      <header class="section-heading">
+        <div class="section-heading-main">
+          <i class="fa-brands fa-youtube"></i>
+          <h2>AI Videos</h2>
+        </div>
+        <div class="section-heading-sub">
+          Curated video content about AI-assisted development.
+        </div>
+      </header>
+
+      <div class="tool-grid">
+        <article class="tool-card tool" data-category="videos" data-tags="videos youtube channel guide">
+          <div class="tool-card-header">
+            <div>
+              <div class="tool-card-title">
+                <div class="tool-card-title-icon">
+                  <i class="fa-brands fa-youtube"></i>
+                </div>
+                <div>
+                  <h3>YouTube Videos</h3>
+                  <div class="tool-card-provider">AI Playground</div>
+                </div>
+              </div>
+            </div>
+            <div class="tool-card-badges">
+              <span class="tool-badge guide">
+                <i class="fa-solid fa-play"></i>
+                Videos
+              </span>
+            </div>
+          </div>
+          <p class="tool-card-body">
+            Watch tutorials, walkthroughs, and deep dives into AI-powered development workflows.
+          </p>
+          <div class="tool-card-footer">
+            <div class="tool-card-footer-left">
+              <span>Browse the AI Playground channel</span>
+            </div>
+            <a href="https://www.youtube.com/@aiplagro/videos" target="_blank" rel="noopener noreferrer" class="btn-open">
+              YouTube Videos
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
+        <article class="tool-card tool" data-category="videos" data-tags="italian language learning ai video">
+          <div class="tool-card-header">
+            <div>
+              <div class="tool-card-title">
+                <div class="tool-card-title-icon">
+                  <i class="fa-solid fa-language"></i>
+                </div>
+                <div>
+                  <h3>Learn Italian AI Style</h3>
+                  <div class="tool-card-provider">AI Playground</div>
+                </div>
+              </div>
+            </div>
+            <div class="tool-card-badges">
+              <span class="tool-badge guide">
+                <i class="fa-solid fa-play"></i>
+                Video
+              </span>
+            </div>
+          </div>
+          <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/kbX5I-MYLLE" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </article>
+        <article class="tool-card tool" data-category="videos" data-tags="ai stunner models daisy dukes fashion video">
+          <div class="tool-card-header">
+            <div>
+              <div class="tool-card-title">
+                <div class="tool-card-title-icon">
+                  <i class="fa-solid fa-robot"></i>
+                </div>
+                <div>
+                  <h3>AI Stunner Models</h3>
+                  <div class="tool-card-provider">AI Playground</div>
+                </div>
+              </div>
+            </div>
+            <div class="tool-card-badges">
+              <span class="tool-badge guide">
+                <i class="fa-solid fa-play"></i>
+                Video
+              </span>
+            </div>
+          </div>
+          <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <!-- Footer -->
 
     <dialog id="pattayaModal" style="background:rgba(15,23,42,0.98);color:#e5e7eb;border:1px solid rgba(148,163,184,0.5);border-radius:18px;padding:0;max-width:460px;box-shadow:0 18px 45px rgba(0,0,0,0.6);">
       <div style="padding:2rem 2rem 1rem;text-align:center;font-size:1rem;">
-        "In Pattaya, Thailand, a prominent hub for adult entertainment, female bar workers drive the social dynamic by skillfully controlling the men they entertain."
+        "Pattaya, Thailand is a vibrant coastal city known for its beautiful beaches, the stunning hand-carved Sanctuary of Truth temple, fresh seafood, water sports, and family-friendly attractions like Art in Paradise and the Nong Nooch Tropical Garden."
       </div>
-      <div style="display:flex;justify-content:center;gap:0.75rem;padding:0 2rem 1.5rem;">
-        <button id="pattayaOk" type="button" style="border-radius:999px;padding:0.4rem 1.5rem;background:linear-gradient(120deg,#38bdf8,#0ea5e9);border:none;color:#0b1120;font-weight:600;cursor:pointer;">Pattaya, Bar Girl's View</button>
-        <button id="pattayaCancel" type="button" style="border-radius:999px;padding:0.4rem 1.5rem;border:1px solid rgba(148,163,184,0.5);background:transparent;color:#e5e7eb;cursor:pointer;">Cancel</button>
+      <div style="display:flex;justify-content:center;padding:0 2rem 1.5rem;">
+        <button id="pattayaOk" type="button" style="border-radius:999px;padding:0.4rem 1.5rem;background:linear-gradient(120deg,#38bdf8,#0ea5e9);border:none;color:#0b1120;font-weight:600;cursor:pointer;">OK</button>
       </div>
     </dialog>
 
@@ -1945,12 +2049,7 @@
         document.getElementById('pattayaModal').showModal();
       });
       var po = document.getElementById('pattayaOk');
-      var pc = document.getElementById('pattayaCancel');
       if (po) po.addEventListener('click', function() {
-        window.open('https://www.youtube.com/watch?v=HWEXX0v7eUQ', '_blank');
-        document.getElementById('pattayaModal').close();
-      });
-      if (pc) pc.addEventListener('click', function() {
         document.getElementById('pattayaModal').close();
       });
 
@@ -1977,6 +2076,16 @@
           '</div>';
         document.body.appendChild(hatter);
 
+        let wonderOverlay = document.createElement('div');
+        wonderOverlay.id = 'wonder-overlay';
+        wonderOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9999;';
+        let wonderImg = document.createElement('img');
+        wonderImg.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Alice-in-Wonderland_by-David-Revoy_2010-07-21.jpg/960px-Alice-in-Wonderland_by-David-Revoy_2010-07-21.jpg';
+        wonderImg.style.cssText = 'max-width:90%;max-height:90%;border-radius:12px;box-shadow:0 0 30px rgba(255,255,255,0.3);';
+        wonderImg.alt = 'Alice in Wonderland';
+        wonderOverlay.appendChild(wonderImg);
+        document.body.appendChild(wonderOverlay);
+
         requestAnimationFrame(function() {
           alice.classList.add('fly');
           hatter.classList.add('fly');
@@ -1985,6 +2094,10 @@
           if (alice) alice.remove();
           if (hatter) hatter.remove();
         }, 5000);
+        setTimeout(function() {
+          let wo = document.getElementById('wonder-overlay');
+          if (wo) wo.remove();
+        }, 3000);
       });
 
 
