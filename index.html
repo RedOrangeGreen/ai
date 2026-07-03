@@ -5,24 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Explore free AI chatbots and local AI tools. No sign-up required." />
   <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="robots" content="index, follow" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
   <title>AI Playground – Free AI Tools</title>
-
-  <!-- Preconnect to CDNs -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-
-  <!-- Bootstrap 5 (CDN) -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
+    rel="stylesheet" crossorigin="anonymous"
   />
-  <!-- Font Awesome -->
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    rel="stylesheet"
+    rel="stylesheet" crossorigin="anonymous"
   />
-
   <style>
     :root {
       --bg-body: #050816;
@@ -41,693 +37,239 @@
       --transition-fast: 0.18s ease-out;
       --transition-med: 0.25s ease-out;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
       min-height: 100vh;
     }
-
-    a {
-      text-decoration: none;
-    }
-
-    /* Top navigation */
-
+    a { text-decoration: none; }
     #particle-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
     }
-
-    /* Layout */
-
     .page-shell {
-      position: relative;
-      z-index: 1;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 1.6rem 1.25rem 3.5rem;
+      position: relative; z-index: 1; max-width: 960px;
+      margin: 0 auto; padding: 1.6rem 1.25rem 3.5rem;
     }
-
-    @media (min-width: 992px) {
-      .page-shell {
-        padding-top: 1.85rem;
-      }
-    }
-
-    /* Hero */
-
-    .hero {
-      max-width: 48rem;
-      margin-bottom: 2.75rem;
-    }
-
+    @media (min-width: 992px) { .page-shell { padding-top: 1.85rem; } }
+    .hero { max-width: 48rem; margin-bottom: 2.75rem; }
     @media (max-width: 768px) {
-      .hero {
-        text-align: center;
-      }
-      .hero-subtitle {
-        max-width: 100%;
-      }
-      .hero-meta {
-        justify-content: center;
-      }
-      .hero-badges {
-        justify-content: center;
-      }
+      .hero { text-align: center; }
+      .hero-subtitle { max-width: 100%; }
+      .hero-meta, .hero-badges { justify-content: center; }
     }
-
     .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: var(--radius-pill);
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.25rem 0.75rem; border-radius: var(--radius-pill);
       background: rgba(15, 23, 42, 0.9);
       border: 1px solid rgba(148, 163, 184, 0.35);
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      margin-bottom: 0.9rem;
+      color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.9rem;
     }
-
     .hero-kicker span.badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.25);
+      width: 7px; height: 7px; border-radius: 999px;
+      background: #22c55e; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.25);
     }
-
     .hero-title {
       font-size: clamp(2.3rem, 3vw + 1.4rem, 3.1rem);
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.75rem;
+      line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 0.75rem;
     }
-
     .hero-title span.highlight {
       background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      background-size: 200% 200%; animation: gradientShift 4s ease infinite;
     }
-
-    .hero-subtitle {
-      color: var(--text-muted);
-      font-size: 0.98rem;
-      max-width: 32rem;
-      margin-bottom: 1.4rem;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.6rem;
-    }
-
+    .hero-subtitle { color: var(--text-muted); font-size: 0.98rem; max-width: 32rem; margin-bottom: 1.4rem; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.6rem; }
     .hero-badge {
-      border-radius: var(--radius-pill);
-      padding: 0.3rem 0.8rem;
-      font-size: 0.8rem;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius-pill); padding: 0.3rem 0.8rem; font-size: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.4); color: var(--text-muted);
+      display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.9);
     }
-
-    .hero-badge i {
-      color: var(--accent);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .hero-meta strong {
-      color: #e5e7eb;
-      font-weight: 600;
-    }
-
+    .hero-badge i { color: var(--accent); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: 0.8rem; color: var(--text-muted); }
+    .hero-meta strong { color: #e5e7eb; font-weight: 600; }
     .hero-meta span.dot {
-      width: 3px;
-      height: 3px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.7);
-      display: inline-block;
-      margin: 0 0.4rem;
+      width: 3px; height: 3px; border-radius: 999px;
+      background: rgba(148, 163, 184, 0.7); display: inline-block; margin: 0 0.4rem;
     }
-
-
-
-    /* Search + filters */
-
-    .search-section {
-      margin-bottom: 1.8rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .search-input-wrap {
-      flex: 1 1 260px;
-      position: relative;
-    }
-
-    .search-input-wrap i {
-      position: absolute;
-      left: 0.9rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
+    .search-section { margin-bottom: 1.8rem; display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; justify-content: space-between; }
+    .search-input-wrap { flex: 1 1 260px; position: relative; }
+    .search-input-wrap i { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem; }
     .search-input {
-      width: 100%;
-      border-radius: var(--radius-pill);
+      width: 100%; border-radius: var(--radius-pill);
       border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-main);
-      padding: 0.55rem 0.95rem 0.55rem 2.2rem;
-      font-size: 0.9rem;
-      outline: none;
+      background: rgba(15, 23, 42, 0.9); color: var(--text-main);
+      padding: 0.55rem 0.95rem 0.55rem 2.2rem; font-size: 0.9rem; outline: none;
       box-shadow: var(--shadow-subtle);
-      transition: border-color var(--transition-fast),
-        box-shadow var(--transition-fast), background var(--transition-fast),
-        transform var(--transition-fast);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
     }
-
-    .search-input::placeholder {
-      color: rgba(148, 163, 184, 0.7);
-    }
-
-    .search-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6),
-        0 18px 40px rgba(15, 23, 42, 0.9);
-      background: #020617;
-      transform: translateY(-1px);
-    }
-
-    .filter-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      font-size: 0.78rem;
-    }
-
+    .search-input::placeholder { color: rgba(148, 163, 184, 0.7); }
+    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6), 0 18px 40px rgba(15, 23, 42, 0.9); background: #020617; transform: translateY(-1px); }
+    .filter-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 0.78rem; }
     .filter-chip {
-      border-radius: var(--radius-pill);
-      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-pill); padding: 0.25rem 0.7rem;
       border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-muted);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: background var(--transition-fast),
-        border-color var(--transition-fast), color var(--transition-fast),
-        transform var(--transition-fast);
+      background: rgba(15, 23, 42, 0.9); color: var(--text-muted); cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-
-    .filter-chip i {
-      font-size: 0.8rem;
-    }
-
-    .filter-chip.active,
-    .filter-chip:hover {
-      background: var(--accent-soft);
-      border-color: var(--accent);
-      color: #e5e7eb;
-      transform: translateY(-1px);
-    }
-
-    /* Section headings */
-
-    .section-heading {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 0.75rem;
-      margin: 1.8rem 0 0.9rem;
-    }
-
-    .section-heading-main {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
+    .filter-chip i { font-size: 0.8rem; }
+    .filter-chip.active, .filter-chip:hover { background: var(--accent-soft); border-color: var(--accent); color: #e5e7eb; transform: translateY(-1px); }
+    .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; margin: 1.8rem 0 0.9rem; }
+    .section-heading-main { display: flex; align-items: center; gap: 0.6rem; }
     .section-heading-main i {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--accent);
-      font-size: 0.9rem;
+      width: 26px; height: 26px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--accent); font-size: 0.9rem;
     }
-
-    .section-heading-main h2 {
-      font-size: 1.05rem;
-      margin: 0;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #e5e7eb;
-    }
-
-    .section-heading-sub {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    /* Tool cards */
-
-    .tool-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 1rem;
-    }
-
+    .section-heading-main h2 { font-size: 1.05rem; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; color: #e5e7eb; }
+    .section-heading-sub { font-size: 0.8rem; color: var(--text-muted); }
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1rem; }
     .tool-card {
-      border-radius: var(--radius-lg);
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid var(--border-subtle);
-      padding: 0.95rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      box-shadow: var(--shadow-subtle);
-      position: relative;
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.35s ease,
-                  border-color 0.35s ease,
-                  background 0.35s ease;
+      border-radius: var(--radius-lg); background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border-subtle); padding: 0.95rem;
+      display: flex; flex-direction: column; gap: 0.55rem;
+      box-shadow: var(--shadow-subtle); position: relative;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+      will-change: transform;
     }
-
     .tool-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        circle at top left,
-        rgba(56, 189, 248, 0.12),
-        transparent 55%
-      );
-      opacity: 0;
-      transition: opacity 0.35s ease;
-      pointer-events: none;
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%);
+      opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
     }
-
-    .tool-card:hover {
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 28px 60px rgba(15, 23, 42, 0.95);
-      border-color: rgba(56, 189, 248, 0.7);
-      background: #020617;
-    }
-
-    .tool-card:hover::before {
-      opacity: 1;
-    }
-
-    .tool-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-
-    .tool-card-title {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-    }
-
+    .tool-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 28px 60px rgba(15, 23, 42, 0.95); border-color: rgba(56, 189, 248, 0.7); background: #020617; }
+    .tool-card:hover::before { opacity: 1; }
+    .tool-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; }
+    .tool-card-title { display: flex; align-items: center; gap: 0.55rem; }
     .tool-card-title-icon {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--accent);
-      font-size: 0.9rem;
+      width: 26px; height: 26px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--accent); font-size: 0.9rem;
     }
-
-    .tool-card-title h3 {
-      font-size: 0.95rem;
-      margin: 0;
-    }
-
-    .tool-card-provider {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .tool-card-badges {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      align-items: flex-end;
-    }
-
+    .tool-card-title h3 { font-size: 0.95rem; margin: 0; }
+    .tool-card-provider { font-size: 0.75rem; color: var(--text-muted); }
+    .tool-card-badges { display: flex; flex-direction: column; gap: 0.2rem; align-items: flex-end; }
     .tool-badge {
-      border-radius: var(--radius-pill);
-      padding: 0.2rem 0.55rem;
-      font-size: 0.72rem;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--text-muted);
-      background: rgba(15, 23, 42, 0.9);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      white-space: nowrap;
+      border-radius: var(--radius-pill); padding: 0.2rem 0.55rem; font-size: 0.72rem;
+      border: 1px solid rgba(148, 163, 184, 0.6); color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.9); display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap;
     }
-
-    .tool-badge.free {
-      border-color: rgba(34, 197, 94, 0.7);
-      color: #bbf7d0;
-      background: rgba(22, 163, 74, 0.18);
-    }
-
-    .tool-badge.local {
-      border-color: rgba(234, 179, 8, 0.7);
-      color: #fef9c3;
-      background: rgba(202, 138, 4, 0.18);
-    }
-
-    .tool-badge.advanced {
-      border-color: rgba(248, 113, 113, 0.7);
-      color: #fee2e2;
-      background: rgba(185, 28, 28, 0.2);
-    }
-
-    .tool-badge.guide {
-      border-color: rgba(129, 140, 248, 0.7);
-      color: #e0e7ff;
-      background: rgba(79, 70, 229, 0.18);
-    }
-
-    .tool-card-body {
-      font-size: 0.83rem;
-      color: var(--text-muted);
-      flex: 1;
-    }
-
-    .tool-card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 0.4rem;
-      gap: 0.75rem;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .tool-card-footer-left {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-    }
-
-    .tool-card-footer-left span.dot {
-      width: 3px;
-      height: 3px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.7);
-    }
-
+    .tool-badge.free { border-color: rgba(34, 197, 94, 0.7); color: #bbf7d0; background: rgba(22, 163, 74, 0.18); }
+    .tool-badge.local { border-color: rgba(234, 179, 8, 0.7); color: #fef9c3; background: rgba(202, 138, 4, 0.18); }
+    .tool-badge.advanced { border-color: rgba(248, 113, 113, 0.7); color: #fee2e2; background: rgba(185, 28, 28, 0.2); }
+    .tool-badge.guide { border-color: rgba(129, 140, 248, 0.7); color: #e0e7ff; background: rgba(79, 70, 229, 0.18); }
+    .tool-card-body { font-size: 0.83rem; color: var(--text-muted); flex: 1; }
+    .tool-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); }
+    .tool-card-footer-left { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+    .tool-card-footer-left span.dot { width: 3px; height: 3px; border-radius: 999px; background: rgba(148, 163, 184, 0.7); }
     .tool-card-footer a.btn-open {
-      border-radius: var(--radius-pill);
-      padding: 0.3rem 0.85rem;
-      font-size: 0.78rem;
-      border: none;
-      background: linear-gradient(120deg, #38bdf8, #0ea5e9);
-      color: #0b1120;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
+      border-radius: var(--radius-pill); padding: 0.3rem 0.85rem; font-size: 0.78rem; border: none;
+      background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 0.35rem;
       box-shadow: 0 10px 25px rgba(8, 47, 73, 0.7);
-      transition: transform var(--transition-fast),
-        box-shadow var(--transition-fast), filter var(--transition-fast);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, filter 0.25s ease;
     }
-
-    .tool-card-footer a.btn-open:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9);
-      filter: brightness(1.05);
+    .tool-card-footer a.btn-open:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9); filter: brightness(1.05); }
+    .btn-open-ghost { background: transparent !important; color: var(--accent) !important; border: 1px solid rgba(56, 189, 248, 0.7) !important; box-shadow: none !important; }
+    .toggle-wrap { display: inline-flex; align-items: center; }
+    .toggle-wrap input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none;
+      width: 28px; height: 16px; border-radius: 999px;
+      background: rgba(148,163,184,0.3); border: none; cursor: pointer;
+      position: relative; transition: background 0.2s ease;
+      flex-shrink: 0; margin: 0;
     }
-
-    /* Info alert */
-
+    .toggle-wrap input[type="checkbox"]::after {
+      content: ''; position: absolute; left: 2px; top: 2px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #fff; transition: transform 0.2s ease;
+    }
+    .toggle-wrap input[type="checkbox"]:checked { background: var(--accent); }
+    .toggle-wrap input[type="checkbox"]:checked::after { transform: translateX(12px); }
+    .tool-card.toggled-off { position: relative; }
+    .tool-card.toggled-off::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0,0,0,0.55);
+      border-radius: var(--radius-lg);
+      pointer-events: none; z-index: 1;
+    }
+    .tool-card.toggled-off .toggle-wrap {
+      position: relative; z-index: 2;
+    }
     .info-banner {
-      border-radius: 14px;
-      padding: 0.7rem 0.9rem;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      margin-bottom: 1.1rem;
+      border-radius: 14px; padding: 0.7rem 0.9rem;
+      background: rgba(15, 23, 42, 0.96); border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-muted); font-size: 0.8rem;
+      display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 1.1rem;
     }
-
-    .info-banner i {
-      color: var(--accent);
-      margin-top: 0.1rem;
-    }
-
-    /* Footer */
-
-    footer {
-      margin-top: 2.5rem;
-      padding-top: 1.4rem;
-      border-top: 1px solid rgba(148, 163, 184, 0.35);
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.75rem;
-      align-items: center;
-    }
-
-    footer span.brand {
-      color: #e5e7eb;
-    }
-
-    footer .footer-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
-    }
-
-    footer .footer-meta span.dot {
-      width: 3px;
-      height: 3px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.7);
-    }
-
-    .clock-row {
-      margin-bottom: 1.2rem;
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      padding: 0.35rem 0;
-      overflow-x: visible;
-    }
-
+    .info-banner i { color: var(--accent); margin-top: 0.1rem; }
+    footer { margin-top: 2.5rem; padding-top: 1.4rem; border-top: 1px solid rgba(148, 163, 184, 0.35); font-size: 0.78rem; color: var(--text-muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; align-items: center; }
+    footer span.brand { color: #e5e7eb; }
+    footer .footer-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    footer .footer-meta span.dot { width: 3px; height: 3px; border-radius: 999px; background: rgba(148, 163, 184, 0.7); }
+    .clock-row { margin-bottom: 1.2rem; display: flex; flex-wrap: nowrap; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted); padding: 0.35rem 0; overflow-x: visible; }
     .clock-pill {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.1rem;
-      border: 1px solid rgba(255,255,255,0.4);
-      border-radius: var(--radius-pill);
-      padding: 0.25rem 3.35rem;
-      background: rgba(15,23,42,0.6);
-      line-height: 1.3;
-      flex: 1;
-      min-width: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.1rem;
+      border: 1px solid rgba(255,255,255,0.4); border-radius: var(--radius-pill);
+      padding: 0.2rem 3.3rem; background: rgba(15,23,42,0.6);
+      flex: 1; min-width: 0; line-height: 1.3;
     }
-
-    .clock-pill-label {
-      color: var(--text-main);
-      font-weight: 500;
-      font-size: 0.82rem;
-      white-space: nowrap;
+    .clock-pill-label { color: var(--text-main); font-weight: 500; font-size: 0.82rem; white-space: nowrap; }
+    .clock-pill-time { font-variant-numeric: tabular-nums; color: var(--text-main); font-weight: 600; font-size: 0.95rem; }
+    .clock-pill-icon { font-size: 0.85rem; line-height: 1; }
+    .clock-pill-icon i { color: #f59e0b; }
+    .clock-label { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+    .clock-label i { color: var(--accent); font-size: 1.1rem; }
+    .clock-label span { color: var(--text-main); font-weight: 600; margin-right: 0.25rem; }
+    #yourcity-pill { cursor: pointer; }
+    .city-dropdown {
+      display: none; position: absolute; z-index: 100;
+      background: #0b1020; border: 1px solid var(--border-subtle);
+      border-radius: 12px; max-height: 220px; overflow-y: auto;
+      padding: 0.3rem 0; min-width: 160px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
     }
-
-    .clock-pill-time {
-      font-variant-numeric: tabular-nums;
-      color: var(--text-main);
-      font-weight: 600;
-      font-size: 0.95rem;
+    .city-dropdown.visible { display: block; }
+    .city-dropdown::-webkit-scrollbar { width: 3px; }
+    .city-dropdown::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.2); border-radius: 999px; }
+    .city-dropdown div {
+      padding: 0.35rem 0.85rem; font-size: 0.8rem; cursor: pointer;
+      color: var(--text-muted); transition: background 0.15s ease, color 0.15s ease;
     }
-
-    .clock-pill-icon {
-      font-size: 0.85rem;
-      line-height: 1;
-    }
-
-    .clock-pill-icon i {
-      color: #f59e0b;
-    }
-
-    .clock-label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-shrink: 0;
-    }
-
-    .clock-label i {
-      color: var(--accent);
-      font-size: 1.1rem;
-    }
-
-    .clock-label span {
-      color: var(--text-main);
-      font-weight: 600;
-      margin-right: 0.25rem;
-    }
-
+    .city-dropdown div:hover { background: rgba(56,189,248,0.12); color: var(--accent); }
+    .city-dropdown div.selected { color: var(--accent); font-weight: 600; background: rgba(56,189,248,0.08); }
     @media (max-width: 576px) {
-      .search-section {
-        align-items: stretch;
-      }
-      .clock-pill {
-        padding: 0.25rem 0.8rem;
-        font-size: 0.75rem;
-      }
-      .clock-pill-label {
-        font-size: 0.7rem;
-      }
-      .clock-pill-time {
-        font-size: 0.8rem;
-      }
+      .search-section { align-items: stretch; }
+      .clock-pill { padding: 0.25rem 3.3rem; font-size: 0.75rem; }
+      .clock-pill-label { font-size: 0.7rem; }
+      .clock-pill-time { font-size: 0.8rem; }
     }
-
-    /* === MODERN OVERHAUL === */
-
     html { scroll-behavior: smooth; overflow-y: scroll; }
-
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg-body); }
     ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.4); }
-
     ::selection { background: rgba(56,189,248,0.3); color: #fff; }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes pulseDot {
-      0%, 100% { box-shadow: 0 0 0 6px rgba(34,197,94,0.25); }
-      50% { box-shadow: 0 0 0 12px rgba(34,197,94,0.1); }
-    }
-
-    @keyframes pulseClick {
-      0%, 100% { box-shadow: 0 0 0 0px rgba(56,189,248,0.6); transform: scale(1); }
-      50% { box-shadow: 0 0 12px 4px rgba(56,189,248,0.3); transform: scale(1.04); }
-    }
-
-    #pattaya-pill {
-      cursor: pointer;
-      animation: pulseClick 2s ease-in-out infinite;
-    }
-
-    #wonderland-pill {
-      cursor: pointer;
-      animation: pulseClick 2s ease-in-out infinite;
-    }
-
-    .alice {
-      position: fixed;
-      top: 55%;
-      left: -200px;
-      z-index: 9999;
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    .alice.fly {
-      animation: aliceFly 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    .alice.fly .alice-arm.l {
-      animation: armSwingL 0.4s ease-in-out infinite;
-    }
-
-    .alice.fly .alice-arm.r {
-      animation: armSwingR 0.4s ease-in-out infinite;
-    }
-
-    .alice.fly .alice-leg:nth-child(1) {
-      animation: legKick 0.4s ease-in-out infinite;
-    }
-
-    .alice.fly .alice-leg:nth-child(2) {
-      animation: legKick 0.4s ease-in-out infinite reverse;
-    }
-
-    @keyframes armSwingL {
-      0%, 100% { transform: rotate(15deg); }
-      50% { transform: rotate(-20deg); }
-    }
-
-    @keyframes armSwingR {
-      0%, 100% { transform: rotate(-15deg); }
-      50% { transform: rotate(20deg); }
-    }
-
-    @keyframes legKick {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(6px); }
-    }
-
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes pulseDot { 0%, 100% { box-shadow: 0 0 0 6px rgba(34,197,94,0.25); } 50% { box-shadow: 0 0 0 12px rgba(34,197,94,0.1); } }
+    @keyframes pulseClick { 0%, 100% { box-shadow: 0 0 0 0px rgba(56,189,248,0.6); transform: scale(1); } 50% { box-shadow: 0 0 12px 4px rgba(56,189,248,0.3); transform: scale(1.04); } }
+    #wonderland-pill { cursor: pointer; animation: pulseClick 2s ease-in-out infinite; }
+    .alice { position: fixed; top: 55%; left: -200px; z-index: 9999; pointer-events: none; opacity: 0; }
+    .alice.fly { animation: aliceFly 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+    .alice.fly .alice-arm.l { animation: armSwingL 0.4s ease-in-out infinite; }
+    .alice.fly .alice-arm.r { animation: armSwingR 0.4s ease-in-out infinite; }
+    .alice.fly .alice-leg:nth-child(1) { animation: legKick 0.4s ease-in-out infinite; }
+    .alice.fly .alice-leg:nth-child(2) { animation: legKick 0.4s ease-in-out infinite reverse; }
+    @keyframes armSwingL { 0%, 100% { transform: rotate(15deg); } 50% { transform: rotate(-20deg); } }
+    @keyframes armSwingR { 0%, 100% { transform: rotate(-15deg); } 50% { transform: rotate(20deg); } }
+    @keyframes legKick { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
     @keyframes aliceFly {
       0% { left: -200px; opacity: 0; transform: translateY(0) scale(0.8) rotate(0deg); }
       5% { opacity: 1; }
@@ -737,172 +279,33 @@
       80% { left: 80vw; transform: translateY(10px) scale(0.95) rotate(3deg); }
       100% { left: 110vw; transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
     }
-
-    .alice-head {
-      width: 44px; height: 44px;
-      background: #ffe0bd;
-      border-radius: 50%;
-      position: relative;
-      margin: 0 auto;
-      z-index: 2;
-    }
-
-    .alice-hair {
-      width: 52px; height: 36px;
-      background: #d4a017;
-      border-radius: 50% 50% 0 0;
-      position: absolute;
-      top: -4px; left: -4px;
-      z-index: 3;
-    }
-
-    .alice-hair-bangs {
-      width: 50px; height: 14px;
-      background: #d4a017;
-      position: absolute;
-      top: 22px; left: -3px;
-      border-radius: 0 0 50% 50%;
-      z-index: 3;
-    }
-
-    .alice-hair-tail {
-      width: 12px; height: 18px;
-      background: #d4a017;
-      position: absolute;
-      top: 8px; right: -8px;
-      border-radius: 0 50% 50% 0;
-      z-index: 3;
-    }
-
-    .alice-eyes {
-      position: absolute;
-      top: 18px; left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      z-index: 4;
-    }
-
-    .alice-eye {
-      width: 4px; height: 4px;
-      background: #2c1810;
-      border-radius: 50%;
-    }
-
-    .alice-smile {
-      width: 10px; height: 5px;
-      border-bottom: 2px solid #c97b6b;
-      border-radius: 0 0 10px 10px;
-      position: absolute;
-      bottom: 10px; left: 50%;
-      transform: translateX(-50%);
-      z-index: 4;
-    }
-
-    .alice-body {
-      width: 60px; height: 65px;
-      background: #4169e1;
-      border-radius: 12px 12px 18px 18px;
-      margin: -6px auto 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .alice-apron {
-      width: 34px; height: 50px;
-      background: #f0f0f0;
-      border-radius: 0 0 10px 10px;
-      position: absolute;
-      top: 8px; left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .alice-apron-strap {
-      width: 2px; height: 12px;
-      background: #ddd;
-      position: absolute;
-      top: -8px;
-    }
-
+    .alice-head { width: 44px; height: 44px; background: #ffe0bd; border-radius: 50%; position: relative; margin: 0 auto; z-index: 2; }
+    .alice-hair { width: 52px; height: 36px; background: #d4a017; border-radius: 50% 50% 0 0; position: absolute; top: -4px; left: -4px; z-index: 3; }
+    .alice-hair-bangs { width: 50px; height: 14px; background: #d4a017; position: absolute; top: 22px; left: -3px; border-radius: 0 0 50% 50%; z-index: 3; }
+    .alice-hair-tail { width: 12px; height: 18px; background: #d4a017; position: absolute; top: 8px; right: -8px; border-radius: 0 50% 50% 0; z-index: 3; }
+    .alice-eyes { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 4; }
+    .alice-eye { width: 4px; height: 4px; background: #2c1810; border-radius: 50%; }
+    .alice-smile { width: 10px; height: 5px; border-bottom: 2px solid #c97b6b; border-radius: 0 0 10px 10px; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 4; }
+    .alice-body { width: 60px; height: 65px; background: #4169e1; border-radius: 12px 12px 18px 18px; margin: -6px auto 0; position: relative; z-index: 1; }
+    .alice-apron { width: 34px; height: 50px; background: #f0f0f0; border-radius: 0 0 10px 10px; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); }
+    .alice-apron-strap { width: 2px; height: 12px; background: #ddd; position: absolute; top: -8px; }
     .alice-apron-strap.l { left: 6px; }
     .alice-apron-strap.r { right: 6px; }
-
-    .alice-arm {
-      width: 10px; height: 32px;
-      background: #ffe0bd;
-      border-radius: 6px;
-      position: absolute;
-      top: 10px;
-      z-index: 0;
-    }
-
+    .alice-arm { width: 10px; height: 32px; background: #ffe0bd; border-radius: 6px; position: absolute; top: 10px; z-index: 0; }
     .alice-arm.l { left: -8px; transform: rotate(15deg); transform-origin: top center; }
     .alice-arm.r { right: -8px; transform: rotate(-15deg); transform-origin: top center; }
-
-    .alice-legs {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: -2px;
-    }
-
-    .alice-leg {
-      width: 10px; height: 28px;
-      background: #ffe0bd;
-      border-radius: 4px;
-    }
-
-    .alice-shoe {
-      width: 14px; height: 6px;
-      background: #2c1810;
-      border-radius: 4px 4px 6px 6px;
-      margin-top: -2px;
-    }
-
-    .hatter {
-      position: fixed;
-      top: 45%;
-      left: -250px;
-      z-index: 9998;
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    .hatter.fly {
-      animation: hatterFly 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    .hatter.fly .hatter-arm.l {
-      animation: hatterArmSwingL 0.45s ease-in-out infinite;
-    }
-
-    .hatter.fly .hatter-arm.r {
-      animation: hatterArmSwingR 0.45s ease-in-out infinite;
-    }
-
-    .hatter.fly .hatter-leg:nth-child(1) {
-      animation: hatterLegKick 0.45s ease-in-out infinite;
-    }
-
-    .hatter.fly .hatter-leg:nth-child(2) {
-      animation: hatterLegKick 0.45s ease-in-out infinite reverse;
-    }
-
-    @keyframes hatterArmSwingL {
-      0%, 100% { transform: rotate(-20deg); }
-      50% { transform: rotate(25deg); }
-    }
-
-    @keyframes hatterArmSwingR {
-      0%, 100% { transform: rotate(20deg); }
-      50% { transform: rotate(-25deg); }
-    }
-
-    @keyframes hatterLegKick {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(5px); }
-    }
-
+    .alice-legs { display: flex; justify-content: center; gap: 8px; margin-top: -2px; }
+    .alice-leg { width: 10px; height: 28px; background: #ffe0bd; border-radius: 4px; }
+    .alice-shoe { width: 14px; height: 6px; background: #2c1810; border-radius: 4px 4px 6px 6px; margin-top: -2px; }
+    .hatter { position: fixed; top: 45%; left: -250px; z-index: 9998; pointer-events: none; opacity: 0; }
+    .hatter.fly { animation: hatterFly 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+    .hatter.fly .hatter-arm.l { animation: hatterArmSwingL 0.45s ease-in-out infinite; }
+    .hatter.fly .hatter-arm.r { animation: hatterArmSwingR 0.45s ease-in-out infinite; }
+    .hatter.fly .hatter-leg:nth-child(1) { animation: hatterLegKick 0.45s ease-in-out infinite; }
+    .hatter.fly .hatter-leg:nth-child(2) { animation: hatterLegKick 0.45s ease-in-out infinite reverse; }
+    @keyframes hatterArmSwingL { 0%, 100% { transform: rotate(-20deg); } 50% { transform: rotate(25deg); } }
+    @keyframes hatterArmSwingR { 0%, 100% { transform: rotate(20deg); } 50% { transform: rotate(-25deg); } }
+    @keyframes hatterLegKick { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
     @keyframes hatterFly {
       0% { left: -250px; opacity: 0; transform: translateY(0) scale(0.8) rotate(0deg); }
       5% { opacity: 1; }
@@ -912,315 +315,143 @@
       80% { left: 78vw; transform: translateY(25px) scale(0.95) rotate(-2deg); }
       100% { left: 110vw; transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
     }
-
-    .hatter-hat {
-      width: 50px; height: 10px;
-      background: #2c2c2c;
-      border-radius: 2px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 3;
-    }
-
-    .hatter-hat-top {
-      width: 36px; height: 24px;
-      background: #2c2c2c;
-      margin: -22px auto 0;
-      border-radius: 2px 2px 0 0;
-      position: relative;
-      z-index: 3;
-    }
-
-    .hatter-hat-band {
-      width: 38px; height: 4px;
-      background: #8b4513;
-      margin: -2px auto 0;
-      position: relative;
-      z-index: 4;
-    }
-
-    .hatter-hat-tag {
-      width: 6px; height: 8px;
-      background: #f5f5dc;
-      position: absolute;
-      top: 2px; right: -4px;
-      border-radius: 1px;
-      font-size: 5px;
-      line-height: 8px;
-      text-align: center;
-      color: #333;
-    }
-
-    .hatter-head {
-      width: 40px; height: 40px;
-      background: #ffe0bd;
-      border-radius: 50%;
-      margin: -2px auto 0;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hatter-hair {
-      width: 44px; height: 28px;
-      background: #e87d2f;
-      border-radius: 50% 50% 0 0;
-      position: absolute;
-      top: -4px; left: -2px;
-      z-index: 3;
-    }
-
-    .hatter-hair-side {
-      width: 14px; height: 24px;
-      background: #e87d2f;
-      position: absolute;
-      top: 6px;
-      border-radius: 50%;
-      z-index: 3;
-    }
-
+    .hatter-hat { width: 50px; height: 10px; background: #2c2c2c; border-radius: 2px; margin: 0 auto; position: relative; z-index: 3; }
+    .hatter-hat-top { width: 36px; height: 24px; background: #2c2c2c; margin: -22px auto 0; border-radius: 2px 2px 0 0; position: relative; z-index: 3; }
+    .hatter-hat-band { width: 38px; height: 4px; background: #8b4513; margin: -2px auto 0; position: relative; z-index: 4; }
+    .hatter-hat-tag { width: 6px; height: 8px; background: #f5f5dc; position: absolute; top: 2px; right: -4px; border-radius: 1px; font-size: 5px; line-height: 8px; text-align: center; color: #333; }
+    .hatter-head { width: 40px; height: 40px; background: #ffe0bd; border-radius: 50%; margin: -2px auto 0; position: relative; z-index: 2; }
+    .hatter-hair { width: 44px; height: 28px; background: #e87d2f; border-radius: 50% 50% 0 0; position: absolute; top: -4px; left: -2px; z-index: 3; }
+    .hatter-hair-side { width: 14px; height: 24px; background: #e87d2f; position: absolute; top: 6px; border-radius: 50%; z-index: 3; }
     .hatter-hair-side.l { left: -6px; }
     .hatter-hair-side.r { right: -6px; }
-
-    .hatter-eyes {
-      position: absolute;
-      top: 16px; left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-      z-index: 4;
-    }
-
-    .hatter-eye {
-      width: 4px; height: 5px;
-      background: #2c1810;
-      border-radius: 50%;
-    }
-
+    .hatter-eyes { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 4; }
+    .hatter-eye { width: 4px; height: 5px; background: #2c1810; border-radius: 50%; }
     .hatter-eye.l { transform: rotate(-5deg); }
     .hatter-eye.r { transform: rotate(5deg); }
-
-    .hatter-smile {
-      width: 14px; height: 6px;
-      border-bottom: 2px solid #c97b6b;
-      border-radius: 0 0 10px 10px;
-      position: absolute;
-      bottom: 8px; left: 50%;
-      transform: translateX(-50%);
-      z-index: 4;
-    }
-
-    .hatter-body {
-      width: 54px; height: 60px;
-      background: #2e8b57;
-      border-radius: 10px 10px 16px 16px;
-      margin: -4px auto 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hatter-shirt {
-      width: 22px; height: 30px;
-      background: #f5f5dc;
-      border-radius: 0 0 6px 6px;
-      position: absolute;
-      top: 4px; left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .hatter-bowtie {
-      width: 8px; height: 4px;
-      background: #8b0000;
-      position: absolute;
-      top: 4px; left: 50%;
-      transform: translateX(-50%);
-      border-radius: 2px;
-      z-index: 2;
-    }
-
-    .hatter-bowtie::before {
-      content: '';
-      position: absolute;
-      width: 6px; height: 4px;
-      background: #8b0000;
-      left: -4px;
-      border-radius: 2px 0 0 2px;
-    }
-
-    .hatter-bowtie::after {
-      content: '';
-      position: absolute;
-      width: 6px; height: 4px;
-      background: #8b0000;
-      right: -4px;
-      border-radius: 0 2px 2px 0;
-    }
-
-    .hatter-arm {
-      width: 9px; height: 28px;
-      background: #2e8b57;
-      border-radius: 5px;
-      position: absolute;
-      top: 8px;
-      z-index: 0;
-    }
-
+    .hatter-smile { width: 14px; height: 6px; border-bottom: 2px solid #c97b6b; border-radius: 0 0 10px 10px; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 4; }
+    .hatter-body { width: 54px; height: 60px; background: #2e8b57; border-radius: 10px 10px 16px 16px; margin: -4px auto 0; position: relative; z-index: 1; }
+    .hatter-shirt { width: 22px; height: 30px; background: #f5f5dc; border-radius: 0 0 6px 6px; position: absolute; top: 4px; left: 50%; transform: translateX(-50%); }
+    .hatter-bowtie { width: 8px; height: 4px; background: #8b0000; position: absolute; top: 4px; left: 50%; transform: translateX(-50%); border-radius: 2px; z-index: 2; }
+    .hatter-bowtie::before { content: ''; position: absolute; width: 6px; height: 4px; background: #8b0000; left: -4px; border-radius: 2px 0 0 2px; }
+    .hatter-bowtie::after { content: ''; position: absolute; width: 6px; height: 4px; background: #8b0000; right: -4px; border-radius: 0 2px 2px 0; }
+    .hatter-arm { width: 9px; height: 28px; background: #2e8b57; border-radius: 5px; position: absolute; top: 8px; z-index: 0; }
     .hatter-arm.l { left: -7px; transform: rotate(-20deg); transform-origin: top center; }
     .hatter-arm.r { right: -7px; transform: rotate(20deg); transform-origin: top center; }
-
-    .hatter-hand {
-      width: 8px; height: 8px;
-      background: #ffe0bd;
-      border-radius: 50%;
-      position: absolute;
-      bottom: -4px;
-    }
-
+    .hatter-hand { width: 8px; height: 8px; background: #ffe0bd; border-radius: 50%; position: absolute; bottom: -4px; }
     .hatter-arm.l .hatter-hand { left: 0px; }
     .hatter-arm.r .hatter-hand { right: 0px; }
-
-    .hatter-legs {
-      display: flex;
-      justify-content: center;
-      gap: 7px;
-      margin-top: -2px;
-    }
-
-    .hatter-leg {
-      width: 9px; height: 24px;
-      background: #2c2c2c;
-      border-radius: 3px;
-    }
-
-    .hero-title span.highlight {
-      background-size: 200% 200%;
-      animation: gradientShift 4s ease infinite;
-    }
-
-    .hero-kicker span.badge-dot {
-      animation: pulseDot 2s ease-in-out infinite;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                  transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .hatter-legs { display: flex; justify-content: center; gap: 7px; margin-top: -2px; }
+    .hatter-leg { width: 9px; height: 24px; background: #2c2c2c; border-radius: 3px; }
+    .hero-kicker span.badge-dot { animation: pulseDot 2s ease-in-out infinite; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
     .back-to-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(120deg, #38bdf8, #0ea5e9);
-      color: #0b1120;
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 999px; border: none;
+      background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120; font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
       box-shadow: 0 8px 24px rgba(8,47,73,0.6);
-      opacity: 0;
-      transform: translateY(16px) scale(0.9);
+      opacity: 0; transform: translateY(16px) scale(0.9);
       transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-      z-index: 1000;
-      pointer-events: none;
+      z-index: 1000; pointer-events: none;
     }
-
-    .back-to-top.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
+    .back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .back-to-top:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 12px 32px rgba(8,47,73,0.8); }
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .skip-link { position: absolute; top: -999px; left: 0.5rem; z-index: 9999; background: #0b1120; color: var(--accent); padding: 0.5rem 1rem; border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; border: 1px solid var(--accent); border-top: none; }
+    .skip-link:focus { top: 0; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
+    @media print { #particle-canvas, #portal-canvas { display: none !important; } body { background: #fff; color: #000; } .filter-chip, .search-input-wrap { display: none; } }
+    .city-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
     }
-
-    .back-to-top:hover {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 12px 32px rgba(8,47,73,0.8);
+    .city-modal-overlay.visible { opacity: 1; pointer-events: auto; }
+    .city-modal-box {
+      background: #0b1020; border: 1px solid var(--border-subtle);
+      border-radius: 16px; padding: 1.5rem 2rem; max-width: 360px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7); text-align: center;
     }
-
-    *:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+    .city-modal-box h3 { margin: 0 0 0.3rem; color: var(--accent); font-size: 1.2rem; }
+    .city-modal-box .cm-continent { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.8rem; }
+    .city-modal-box .cm-fact { font-size: 0.88rem; color: var(--text-main); line-height: 1.5; }
+    .city-modal-box .cm-close {
+      margin-top: 1rem; border: none; background: rgba(56,189,248,0.15);
+      color: var(--accent); padding: 0.35rem 1.2rem; border-radius: 999px;
+      font-size: 0.82rem; cursor: pointer; transition: background 0.2s ease;
     }
-
-    .skip-link {
-      position: absolute;
-      top: -999px;
-      left: 0.5rem;
-      z-index: 9999;
-      background: #0b1120;
-      color: var(--accent);
-      padding: 0.5rem 1rem;
-      border-radius: 0 0 8px 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      border: 1px solid var(--accent);
-      border-top: none;
+    .city-modal-box .cm-close:hover { background: rgba(56,189,248,0.25); }
+    .clock-pill { cursor: pointer; }
+    .news-ticker {
+      position: relative; overflow: hidden; height: 100px;
+      margin: -0.3rem 0 0.8rem 0; border-radius: 12px;
+      background: rgba(15,23,42,0.5); border: 1px solid var(--border-subtle);
     }
-    .skip-link:focus {
-      top: 0;
+    .news-ticker-inner { will-change: transform; transition: opacity 0.35s ease, filter 0.35s ease; }
+    .news-ticker-reset .news-ticker-inner {
+      opacity: 0; filter: blur(4px);
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-      html { scroll-behavior: auto; }
+    .news-ticker-glow {
+      transition: box-shadow 0.35s ease;
     }
-
-    @media print {
-      #particle-canvas, #portal-canvas {
-        display: none !important;
-      }
-      body {
-        background: #fff;
-        color: #000;
-      }
-      .filter-chip, .search-input-wrap {
-        display: none;
-      }
+    .news-ticker-reset {
+      box-shadow: 0 0 30px rgba(56,189,248,0.4), 0 0 60px rgba(56,189,248,0.15);
+      border-color: var(--accent);
     }
-
-    .filter-chip {
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    .news-ticker-item {
+      padding: 0.55rem 0.9rem; font-size: 0.95rem; color: var(--text-muted);
+      border-bottom: 1px solid rgba(148,163,184,0.1); cursor: pointer;
+      transition: color 0.15s ease, background 0.15s ease;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
     }
-
-    .btn-open-ghost {
-      background: transparent !important;
-      color: var(--accent) !important;
-      border: 1px solid rgba(56, 189, 248, 0.7) !important;
-      box-shadow: none !important;
+    .news-ticker-item:hover { color: var(--accent); background: rgba(56,189,248,0.06); }
+    .news-ticker-item:last-child { border-bottom: none; }
+    .news-ticker-item .ni-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .news-ticker-item .ni-time { font-size: 0.8rem; color: rgba(148,163,184,0.85); white-space: nowrap; flex-shrink: 0; }
+    .news-ticker-grad {
+      position: absolute; left: 0; right: 0; height: 20px; pointer-events: none; z-index: 1;
     }
-
-    .btn-open {
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.25s ease, filter 0.25s ease;
+    .news-ticker-grad.top { top: 0; background: linear-gradient(to bottom, rgba(5,8,22,1), transparent); }
+    .news-ticker-grad.bot { bottom: 0; background: linear-gradient(to top, rgba(5,8,22,1), transparent); }
+    .news-ticker-refresh-msg {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 0.82rem; color: var(--accent); z-index: 2; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
     }
-
-    .btn-open:hover {
-      transform: translateY(-2px) scale(1.03);
+    .news-ticker-reset .news-ticker-refresh-msg { opacity: 1; }
+    .news-ticker-loading {
+      padding: 0.5rem 0.9rem; font-size: 0.8rem; color: var(--text-muted); font-style: italic;
     }
+    .news-label {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; color: var(--text-muted); margin: 0.2rem 0 0.3rem;
+    }
+    .news-label i { color: var(--accent); font-size: 0.85rem; }
+    .news-label span { color: var(--text-main); font-weight: 600; }
+    .news-label .ticker-speed-wrap { margin-left: auto; }
+    .ticker-speed-wrap { display: flex; align-items: center; gap: 0.4rem; margin: 0.2rem 0 0.6rem; }
+    .ticker-speed-wrap input[type="range"] {
+      appearance: none; -webkit-appearance: none; height: 3px;
+      background: rgba(148,163,184,0.25); border-radius: 999px; outline: none;
+      flex: 1; max-width: 120px; cursor: pointer;
+    }
+    .ticker-speed-wrap input[type="range"]::-webkit-slider-thumb {
+      appearance: none; -webkit-appearance: none; width: 12px; height: 12px;
+      border-radius: 50%; background: var(--accent); border: none; cursor: pointer;
+    }
+    .ticker-speed-wrap input[type="range"]::-moz-range-thumb {
+      width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer;
+    }
+    .ticker-speed-label { font-size: 0.7rem; color: var(--text-muted); min-width: 2.2rem; }
+    .ticker-speed-reset { font-size: 0.7rem; color: rgba(148,163,184,0.4); cursor: pointer; transition: color 0.2s ease; }
+    .ticker-speed-reset:hover { color: var(--accent); }
   </style>
 </head>
-
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
-
-  <!-- Page shell -->
   <main id="main-content" class="page-shell">
-    <!-- Hero -->
     <section class="hero">
       <div>
         <div class="hero-kicker">
@@ -1231,728 +462,235 @@
           Explore <span class="highlight">AI tools</span> you can use
           today— no sign‑up, no credit card.
         </h1>
-
         <div id="clock-row" class="clock-row">
           <div class="clock-label"><i class="fa-regular fa-clock"></i><span>World Clocks</span></div>
-          <div class="clock-pill"><span class="clock-pill-label">London</span> <span id="clock-london" class="clock-pill-time"></span> <span id="icon-london" class="clock-pill-icon"></span></div>
-          <div class="clock-pill"><span class="clock-pill-label">New York</span> <span id="clock-nyc" class="clock-pill-time"></span> <span id="icon-nyc" class="clock-pill-icon"></span></div>
-          <div class="clock-pill"><span class="clock-pill-label">Los Angeles</span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
-          <div class="clock-pill"><span class="clock-pill-label">Moscow</span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
-          <div class="clock-pill"><span class="clock-pill-label">Beijing</span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" id="pattaya-pill" title="Click for Pattaya travel information"><span class="clock-pill-label">Pattaya</span> <span id="clock-pattaya" class="clock-pill-time"></span> <span id="icon-pattaya" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">London</span> <span id="clock-london" class="clock-pill-time"></span> <span id="icon-london" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">New York</span> <span id="clock-nyc" class="clock-pill-time"></span> <span id="icon-nyc" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Los Angeles</span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Moscow</span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Beijing</span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" id="yourcity-pill" title="Click to choose your city"><span class="clock-pill-label" id="yourcity-label">Select City</span> <span id="clock-yourcity" class="clock-pill-time"></span> <span id="icon-yourcity" class="clock-pill-icon"></span></div>
           <div class="clock-pill" id="wonderland-pill" title="Click to see Alice in Wonderland"><span class="clock-pill-label">Wonderland</span> <span id="clock-wonderland" class="clock-pill-time"></span> <span id="icon-wonderland" class="clock-pill-icon"></span></div>
         </div>
-
-        <div class="hero-badges">
-          <div class="hero-badge">
-            <i class="fa-solid fa-shield-halved"></i>
-            $0, anonymous, instant use
-          </div>
-          <div class="hero-badge">
-            <i class="fa-solid fa-laptop-code"></i>
-            Web &amp; local options
-          </div>
-          <div class="hero-badge">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-            Chat, search, &amp; coding
-          </div>
+        <div id="city-dropdown" class="city-dropdown"></div>
+        <div class="news-label"><i class="fa-regular fa-newspaper"></i><span>World News</span><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed"></i></span></div>
+        <div class="news-ticker" id="tickerWorld" role="region" aria-label="World news headlines">
+          <div class="news-ticker-grad top"></div>
+          <div class="news-ticker-grad bot"></div>
+          <div class="news-ticker-refresh-msg">⟳ Refreshing…</div>
+          <div class="news-ticker-inner"><div class="news-ticker-loading">Loading news…</div></div>
         </div>
-
+        <div class="news-label"><i class="fa-solid fa-brain"></i><span>AI News</span><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerAI" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerAI" title="Reset speed"></i></span></div>
+        <div class="news-ticker" id="tickerAI" role="region" aria-label="AI news headlines">
+          <div class="news-ticker-grad top"></div>
+          <div class="news-ticker-grad bot"></div>
+          <div class="news-ticker-refresh-msg">⟳ Refreshing…</div>
+          <div class="news-ticker-inner"><div class="news-ticker-loading">Loading news…</div></div>
+        </div>
+        <div class="hero-badges">
+          <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> $0, anonymous, instant use</div>
+          <div class="hero-badge"><i class="fa-solid fa-laptop-code"></i> Web &amp; local options</div>
+          <div class="hero-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Chat, search, &amp; coding</div>
+        </div>
         <div class="hero-meta">
-          <div>
-            <strong>Fast scan:</strong>
-            type to filter by name, feature, or tag.
-          </div>
-          <div>
-            <span class="dot"></span>
-            <strong>Tip:</strong>
-            try "local", "search", or "coding".
-          </div>
+          <div><strong>Fast scan:</strong> type to filter by name, feature, or tag.</div>
+          <div><span class="dot"></span> <strong>Tip:</strong> try "local", "search", or "coding".</div>
         </div>
       </div>
-
     </section>
-
-    <!-- Search + filters -->
     <section class="search-section">
       <div class="search-input-wrap">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input
-          type="text"
-          id="search"
-          class="search-input"
-          placeholder="Search tools by name, feature, or tag…"
-          aria-label="Search tools"
-        />
+        <input type="text" id="search" class="search-input" placeholder="Search tools by name, feature, or tag…" aria-label="Search tools" spellcheck="false" autocomplete="off" />
       </div>
-
       <div class="filter-chips">
-        <button
-          class="filter-chip active"
-          data-filter="all"
-          type="button"
-        >
-          <i class="fa-solid fa-layer-group"></i>
-          All tools
-        </button>
-        <button
-          class="filter-chip"
-          data-filter="web"
-          type="button"
-        >
-          <i class="fa-solid fa-globe"></i>
-          Web chatbots
-        </button>
-        <button
-          class="filter-chip"
-          data-filter="local"
-          type="button"
-        >
-          <i class="fa-solid fa-laptop"></i>
-          Local only
-        </button>
-        <button
-          class="filter-chip"
-          data-filter="coding"
-          type="button"
-        >
-          <i class="fa-solid fa-code"></i>
-          Coding
-        </button>
-        <button
-          class="filter-chip"
-          data-filter="videos"
-          type="button"
-        >
-          <i class="fa-brands fa-youtube"></i>
-          Videos
-        </button>
+        <button class="filter-chip active" data-filter="all" type="button"><i class="fa-solid fa-layer-group"></i> All tools</button>
+        <button class="filter-chip" data-filter="web" type="button"><i class="fa-solid fa-globe"></i> Web chatbots</button>
+        <button class="filter-chip" data-filter="local" type="button"><i class="fa-solid fa-laptop"></i> Local only</button>
+        <button class="filter-chip" data-filter="coding" type="button"><i class="fa-solid fa-code"></i> Coding</button>
+        <button class="filter-chip" data-filter="videos" type="button"><i class="fa-brands fa-youtube"></i> Videos</button>
       </div>
     </section>
-
-    <!-- Web AI -->
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main">
-          <i class="fa-solid fa-globe"></i>
-          <h2>Web‑based AI chatbots</h2>
-        </div>
-        <div class="section-heading-sub">
-          General assistants you can open in a tab and start chatting with.
-        </div>
+        <div class="section-heading-main"><i class="fa-solid fa-globe"></i><h2>Web‑based AI chatbots</h2></div>
+        <div class="section-heading-sub">General assistants you can open in a tab and start chatting with.</div>
       </header>
-
       <div class="tool-grid">
-        <!-- ChatGPT -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-key="chatgpt"
-          data-tags="chatgpt openai chat writing coding general"
-        >
+        <article class="tool-card tool" data-category="web" data-key="chatgpt" data-tags="chatgpt openai chat writing coding general">
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                <i class="fa-regular fa-compass"></i>
-                </div>
-                <div>
-                  <h3>ChatGPT</h3>
-                  <div class="tool-card-provider">OpenAI</div>
-                </div>
+                <div class="tool-card-title-icon"><i class="fa-regular fa-compass"></i></div>
+                <div><h3>ChatGPT</h3><div class="tool-card-provider">OpenAI</div></div>
               </div>
             </div>
             <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional Sign up
-              </span>
+              <span class="tool-badge free"><i class="fa-solid fa-circle-check"></i> Free</span>
+              <span class="tool-badge"><i class="fa-solid fa-user"></i> Optional Sign up</span>
             </div>
           </div>
-          <p class="tool-card-body">
-            General‑purpose AI assistant for chat, writing, brainstorming, and
-            coding. Great default starting point.
-          </p>
+          <p class="tool-card-body">General‑purpose AI assistant for chat, writing, brainstorming, and coding. Great default starting point.</p>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Best for quick ideas &amp; drafts</span>
+            <div class="tool-card-footer-left"><label class="toggle-wrap"><input type="checkbox" data-key="chatgpt" checked></label><span>Best for quick ideas &amp; drafts</span></div>
+            <a href="https://www.chatgpt.com" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </article>
+        <article class="tool-card tool" data-category="web" data-key="copilot" data-tags="copilot microsoft bing search web office">
+          <div class="tool-card-header">
+            <div>
+              <div class="tool-card-title">
+                <div class="tool-card-title-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div><h3>Microsoft Copilot</h3><div class="tool-card-provider">Microsoft</div></div>
+              </div>
             </div>
-            <a
-              href="https://www.chatgpt.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
+            <div class="tool-card-badges">
+              <span class="tool-badge free"><i class="fa-solid fa-circle-check"></i> Free</span>
+              <span class="tool-badge"><i class="fa-solid fa-user"></i> Optional Sign up</span>
+            </div>
+          </div>
+          <p class="tool-card-body">AI assistant integrated with web search and Microsoft services. Strong for research and summarising pages.</p>
+          <div class="tool-card-footer">
+            <div class="tool-card-footer-left"><label class="toggle-wrap"><input type="checkbox" data-key="copilot"></label><span>Great for web‑aware answers</span></div>
+            <a href="https://www.bing.com/chat" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
 
-        <!-- Microsoft Copilot -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-key="copilot"
-          data-tags="copilot microsoft bing search web office"
-        >
+        <article class="tool-card tool" data-category="web" data-key="google" data-tags="google ai search results serp">
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <div>
-                  <h3>Microsoft Copilot</h3>
-                  <div class="tool-card-provider">Microsoft</div>
-                </div>
+                <div class="tool-card-title-icon"><i class="fa-brands fa-google"></i></div>
+                <div><h3>Google AI Search</h3><div class="tool-card-provider">Google</div></div>
               </div>
             </div>
             <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional Sign up
-              </span>
+              <span class="tool-badge free"><i class="fa-solid fa-circle-check"></i> Free</span>
+              <span class="tool-badge"><i class="fa-solid fa-user"></i> Optional Sign up</span>
             </div>
           </div>
-          <p class="tool-card-body">
-            AI assistant integrated with web search and Microsoft services.
-            Strong for research and summarising pages.
-          </p>
+          <p class="tool-card-body">AI‑enhanced search results from Google, blending classic search with summarised answers.</p>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Great for web‑aware answers</span>
-            </div>
-            <a
-              href="https://www.bing.com/chat"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
-        
-        <!-- Perplexity -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-key="perplexity"
-          data-tags="perplexity search engine citations research"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-regular fa-lightbulb"></i>
-                </div>
-                <div>
-                  <h3>Perplexity</h3>
-                  <div class="tool-card-provider">Perplexity AI</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional Sign up
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            AI‑powered search engine that answers with citations. Ideal when you
-            care about sources and links.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Research &amp; fact‑checking</span>
-            </div>
-            <a
-              href="https://www.perplexity.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
+            <div class="tool-card-footer-left"><label class="toggle-wrap"><input type="checkbox" data-key="google" checked></label><span>Familiar search + AI layer</span></div>
+            <a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
 
-        <!-- Google AI Search -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-key="google"
-          data-tags="google ai search results serp"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-brands fa-google"></i>
-                </div>
-                <div>
-                  <h3>Google AI Search</h3>
-                  <div class="tool-card-provider">Google</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional Sign up
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            AI‑enhanced search results from Google, blending classic search with
-            summarised answers.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Familiar search + AI layer</span>
-            </div>
-            <a
-              href="https://www.google.com/aimode"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
 
-        <!-- Mistral Le Chat -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-key="mistral"
-          data-tags="mistral lechat fast efficient free"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-wind"></i>
-                </div>
-                <div>
-                  <h3>Mistral Le Chat</h3>
-                  <div class="tool-card-provider">Mistral AI</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional Sign up
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            Fast and efficient assistant from the French AI lab. Known for
-            strong multilingual and coding performance.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Fast, lean, multilingual</span>
-            </div>
-            <a
-              href="https://chat.mistral.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
-
-        <!-- Smillee AI -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-key="smillee"
-          data-tags="smillee gemini ai chat free no signup"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-sparkles"></i>
-                </div>
-                <div>
-                  <h3>Smillee AI</h3>
-                  <div class="tool-card-provider">Smillee</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional Sign up
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            Google Gemini-powered assistant with no account required. Great for
-            quick questions, writing help, and brainstorming.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Gemini-powered, no limits</span>
-            </div>
-            <a
-              href="https://smillee.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
-
-        <!-- ChatBotChatApp -->
-        <article
-          class="tool-card tool"
-          data-category="web"
-          data-key="chatbotchatapp"
-          data-tags="chatbotchatapp gpt deepseek mistral qwen multi model free"
-        >
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-comment-dots"></i>
-                </div>
-                <div>
-                  <h3>ChatBotChatApp</h3>
-                  <div class="tool-card-provider">ChatBotChatApp</div>
-                </div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free">
-                <i class="fa-solid fa-circle-check"></i>
-                Free
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-user"></i>
-                Optional Sign up
-              </span>
-            </div>
-          </div>
-          <p class="tool-card-body">
-            Multi-model AI chatbot with GPT-5, DeepSeek, Mistral, and Qwen.
-            Supports image generation and document analysis.
-          </p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Chat, images &amp; documents</span>
-            </div>
-            <a
-              href="https://chatbotchatapp.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Open
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </article>
 
       </div>
     </section>
-
-    <!-- Local AI -->
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main">
-          <i class="fa-solid fa-laptop"></i>
-          <h2>Run AI locally</h2>
-        </div>
-        <div class="section-heading-sub">
-          Tools that run models on your own machine for privacy and offline use.
-        </div>
+        <div class="section-heading-main"><i class="fa-solid fa-laptop"></i><h2>Run AI locally</h2></div>
+        <div class="section-heading-sub">Tools that run models on your own machine for privacy and offline use.</div>
       </header>
-
       <div class="info-banner">
         <i class="fa-solid fa-circle-info"></i>
-        <div>
-          Local tools keep computation on your device. They can be more private,
-          but may require a capable GPU or CPU and a bit more setup.
-        </div>
+        <div>Local tools keep computation on your device. They can be more private, but may require a capable GPU or CPU and a bit more setup.</div>
       </div>
-
       <div class="tool-grid">
-        <!-- Ollama -->
-        <article
-          class="tool-card tool"
-          data-category="local"
-          data-tags="ollama local beginner friendly desktop mac windows"
-        >
+        <article class="tool-card tool" data-category="local" data-tags="ollama local beginner friendly desktop mac windows">
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-download"></i>
-                </div>
-                <div>
-                  <h3>Ollama</h3>
-                  <div class="tool-card-provider">Ollama</div>
-                </div>
+                <div class="tool-card-title-icon"><i class="fa-solid fa-download"></i></div>
+                <div><h3>Ollama</h3><div class="tool-card-provider">Ollama</div></div>
               </div>
             </div>
             <div class="tool-card-badges">
-              <span class="tool-badge local">
-                <i class="fa-solid fa-laptop"></i>
-                Local
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-face-smile"></i>
-                Beginner‑friendly
-              </span>
+              <span class="tool-badge local"><i class="fa-solid fa-laptop"></i> Local</span>
+              <span class="tool-badge"><i class="fa-solid fa-face-smile"></i> Beginner‑friendly</span>
             </div>
           </div>
-          <p class="tool-card-body">
-            Simple way to run popular models locally with a clean CLI and
-            one‑line installs for many models.
-          </p>
+          <p class="tool-card-body">Simple way to run popular models locally with a clean CLI and one‑line installs for many models.</p>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Great first step into local AI</span>
-            </div>
-            <a
-              href="https://ollama.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-open"
-            >
-              Homepage
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
+            <div class="tool-card-footer-left"><span>Great first step into local AI</span></div>
+            <a href="https://ollama.com" target="_blank" rel="noopener noreferrer" class="btn-open">Homepage <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
-
-        <!-- llama.cpp -->
-        <article
-          class="tool-card tool"
-          data-category="local"
-          data-tags="llama.cpp c++ engine advanced local performance"
-        >
+        <article class="tool-card tool" data-category="local" data-tags="llama.cpp c++ engine advanced local performance">
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-code"></i>
-                </div>
-                <div>
-                  <h3>llama.cpp</h3>
-                  <div class="tool-card-provider">ggml‑org</div>
-                </div>
+                <div class="tool-card-title-icon"><i class="fa-solid fa-code"></i></div>
+                <div><h3>llama.cpp</h3><div class="tool-card-provider">ggml‑org</div></div>
               </div>
             </div>
             <div class="tool-card-badges">
-              <span class="tool-badge local">
-                <i class="fa-solid fa-laptop"></i>
-                Local
-              </span>
-              <span class="tool-badge advanced">
-                <i class="fa-solid fa-fire"></i>
-                Advanced
-              </span>
+              <span class="tool-badge local"><i class="fa-solid fa-laptop"></i> Local</span>
+              <span class="tool-badge advanced"><i class="fa-solid fa-fire"></i> Advanced</span>
             </div>
           </div>
-          <p class="tool-card-body">
-            High‑performance C++ engine for running LLMs locally across many
-            platforms. Very flexible, very fast.
-          </p>
+          <p class="tool-card-body">High‑performance C++ engine for running LLMs locally across many platforms. Very flexible, very fast.</p>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>For tinkerers &amp; power users</span>
-            </div>
+            <div class="tool-card-footer-left"><span>For tinkerers &amp; power users</span></div>
             <div class="d-flex gap-2">
-              <a
-                href="https://github.com/ggml-org/llama.cpp"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-open"
-              >
-                GitHub
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </a>
-              <a
-                href="baremetal/index.html"
-                class="btn-open btn-open-ghost"
-              >
-                Quickstart
-                <i class="fa-solid fa-arrow-right"></i>
-              </a>
+              <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener noreferrer" class="btn-open">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <a href="baremetal/index.html" class="btn-open btn-open-ghost">Quickstart <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </article>
       </div>
     </section>
-
-    <!-- Coding with AI -->
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main">
-          <i class="fa-solid fa-code"></i>
-          <h2>Coding with AI</h2>
-        </div>
-        <div class="section-heading-sub">
-          Guides and workflows for using AI as a pair‑programmer.
-        </div>
+        <div class="section-heading-main"><i class="fa-solid fa-code"></i><h2>Coding with AI</h2></div>
+        <div class="section-heading-sub">Guides and workflows for using AI as a pair‑programmer.</div>
       </header>
-
       <div class="tool-grid">
-        <!-- AI Coding Guide -->
-        <article
-          class="tool-card tool"
-          data-category="coding"
-          data-tags="coding guide examples prompts development"
-        >
+        <article class="tool-card tool" data-category="coding" data-tags="coding guide examples prompts development">
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-wrench"></i>
-                </div>
-                <div>
-                  <h3>AI Coding Guide</h3>
-                  <div class="tool-card-provider">AI Playground</div>
-                </div>
+                <div class="tool-card-title-icon"><i class="fa-solid fa-wrench"></i></div>
+                <div><h3>AI Coding Guide</h3><div class="tool-card-provider">AI Playground</div></div>
               </div>
             </div>
             <div class="tool-card-badges">
-              <span class="tool-badge guide">
-                <i class="fa-solid fa-book-open"></i>
-                Guides
-              </span>
-              <span class="tool-badge">
-                <i class="fa-solid fa-flask"></i>
-                Examples
-              </span>
+              <span class="tool-badge guide"><i class="fa-solid fa-book-open"></i> Guides</span>
+              <span class="tool-badge"><i class="fa-solid fa-flask"></i> Examples</span>
             </div>
           </div>
-          <p class="tool-card-body">
-            Practical patterns for using AI in software development—prompt
-            recipes, refactoring flows, and debugging strategies.
-          </p>
+          <p class="tool-card-body">Practical patterns for using AI in software development—prompt recipes, refactoring flows, and debugging strategies.</p>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Turn AI into a reliable coding partner</span>
-            </div>
-            <a
-              href="generatedcode.html"
-              class="btn-open"
-            >
-              Open guide
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
+            <div class="tool-card-footer-left"><span>Turn AI into a reliable coding partner</span></div>
+            <a href="generatedcode.html" class="btn-open">Open guide <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
       </div>
     </section>
-
-    <!-- AI Videos -->
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main">
-          <i class="fa-brands fa-youtube"></i>
-          <h2>AI Videos</h2>
-        </div>
-        <div class="section-heading-sub">
-          Curated video content about AI-assisted development.
-        </div>
+        <div class="section-heading-main"><i class="fa-brands fa-youtube"></i><h2>AI Videos</h2></div>
+        <div class="section-heading-sub">Curated video content about AI-assisted development.</div>
       </header>
-
       <div class="tool-grid">
         <article class="tool-card tool" data-category="videos" data-tags="videos youtube channel guide">
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-brands fa-youtube"></i>
-                </div>
-                <div>
-                  <h3>YouTube Videos</h3>
-                  <div class="tool-card-provider">AI Playground</div>
-                </div>
+                <div class="tool-card-title-icon"><i class="fa-brands fa-youtube"></i></div>
+                <div><h3>YouTube Videos</h3><div class="tool-card-provider">AI Playground</div></div>
               </div>
             </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge guide">
-                <i class="fa-solid fa-play"></i>
-                Videos
-              </span>
-            </div>
+            <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-play"></i> Videos</span></div>
           </div>
-          <p class="tool-card-body">
-            Watch tutorials, walkthroughs, and deep dives into AI-powered development workflows.
-          </p>
+          <p class="tool-card-body">Watch tutorials, walkthroughs, and deep dives into AI-powered development workflows.</p>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left">
-              <span>Browse the AI Playground channel</span>
-            </div>
-            <a href="https://www.youtube.com/@aiplagro/videos" target="_blank" rel="noopener noreferrer" class="btn-open">
-              YouTube Videos
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
+            <div class="tool-card-footer-left"><span>Browse the AI Playground channel</span></div>
+            <a href="https://www.youtube.com/@aiplagro/videos" target="_blank" rel="noopener noreferrer" class="btn-open">YouTube Videos <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
         <article class="tool-card tool" data-category="videos" data-tags="italian language learning ai video">
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-language"></i>
-                </div>
-                <div>
-                  <h3>Learn Italian AI Style</h3>
-                  <div class="tool-card-provider">AI Playground</div>
-                </div>
+                <div class="tool-card-title-icon"><i class="fa-solid fa-language"></i></div>
+                <div><h3>Learn Italian AI Style</h3><div class="tool-card-provider">AI Playground</div></div>
               </div>
             </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge guide">
-                <i class="fa-solid fa-play"></i>
-                Video
-              </span>
-            </div>
+            <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-play"></i> Video</span></div>
           </div>
           <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
             <iframe src="https://www.youtube.com/embed/kbX5I-MYLLE" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
@@ -1962,21 +700,11 @@
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon">
-                  <i class="fa-solid fa-robot"></i>
-                </div>
-                <div>
-                  <h3>AI Stunner Models</h3>
-                  <div class="tool-card-provider">AI Playground</div>
-                </div>
+                <div class="tool-card-title-icon"><i class="fa-solid fa-robot"></i></div>
+                <div><h3>AI Stunner Models</h3><div class="tool-card-provider">AI Playground</div></div>
               </div>
             </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge guide">
-                <i class="fa-solid fa-play"></i>
-                Video
-              </span>
-            </div>
+            <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-play"></i> Video</span></div>
           </div>
           <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
             <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
@@ -1984,23 +712,8 @@
         </article>
       </div>
     </section>
-
-    <!-- Footer -->
-
-    <dialog id="pattayaModal" style="background:rgba(15,23,42,0.98);color:#e5e7eb;border:1px solid rgba(148,163,184,0.5);border-radius:18px;padding:0;max-width:460px;box-shadow:0 18px 45px rgba(0,0,0,0.6);">
-      <div style="padding:2rem 2rem 1rem;text-align:center;font-size:1rem;">
-        "Pattaya, Thailand is a vibrant coastal city known for its beautiful beaches, the stunning hand-carved Sanctuary of Truth temple, fresh seafood, water sports, and family-friendly attractions like Art in Paradise and the Nong Nooch Tropical Garden."
-      </div>
-      <div style="display:flex;justify-content:center;padding:0 2rem 1.5rem;">
-        <button id="pattayaOk" type="button" style="border-radius:999px;padding:0.4rem 1.5rem;background:linear-gradient(120deg,#38bdf8,#0ea5e9);border:none;color:#0b1120;font-weight:600;cursor:pointer;">OK</button>
-      </div>
-    </dialog>
-
     <footer>
-      <div>
-        <span class="brand">AI Playground</span>
-        • Free AI tools directory
-      </div>
+      <div><span class="brand">AI Playground</span> • Free AI tools directory</div>
       <div class="footer-meta">
         <span>2026</span>
         <span class="dot"></span>
@@ -2008,23 +721,260 @@
       </div>
     </footer>
   </main>
-
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">
-    <i class="fa-solid fa-arrow-up"></i>
-  </button>
-
-  <!-- Scripts -->
+  <div class="city-modal-overlay" id="cityModal">
+    <div class="city-modal-box">
+      <h3 id="cmCity"></h3>
+      <div class="cm-continent" id="cmContinent"></div>
+      <div class="cm-fact" id="cmFact"></div>
+      <button class="cm-close" id="cmClose">Close</button>
+    </div>
+  </div>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     (function() {
+      const WEB_FLAGS = {
+        chatgpt: true,
+        copilot: false,
+        google: true,
+      };
+      document.querySelectorAll('.tool-card[data-category="web"]').forEach(function(card) {
+        var key = card.getAttribute('data-key');
+        if (WEB_FLAGS.hasOwnProperty(key) && !WEB_FLAGS[key]) {
+          card.classList.add('toggled-off');
+        }
+      });
+      document.querySelectorAll('.toggle-wrap input[type="checkbox"]').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+          var key = this.getAttribute('data-key');
+          var card = this.closest('.tool-card');
+          WEB_FLAGS[key] = this.checked;
+          card.classList.toggle('toggled-off', !this.checked);
+        });
+      });
       const zones = [
         { id: 'clock-london',   icon: 'icon-london',   tz: 'Europe/London' },
         { id: 'clock-nyc',      icon: 'icon-nyc',      tz: 'America/New_York' },
         { id: 'clock-la',       icon: 'icon-la',       tz: 'America/Los_Angeles' },
         { id: 'clock-moscow',   icon: 'icon-moscow',   tz: 'Europe/Moscow' },
-        { id: 'clock-beijing',  icon: 'icon-beijing',  tz: 'Asia/Shanghai' },
-        { id: 'clock-pattaya',  icon: 'icon-pattaya',  tz: 'Asia/Bangkok' },
+        { id: 'clock-beijing',  icon: 'icon-beijing',   tz: 'Asia/Shanghai' },
       ];
+      var yourTz = '';
+      var CITIES = [
+        'Europe/Paris:Paris', 'Europe/Berlin:Berlin', 'Europe/Rome:Rome',
+        'Europe/Madrid:Madrid', 'Europe/Amsterdam:Amsterdam', 'Europe/Stockholm:Stockholm',
+        'Europe/Athens:Athens', 'Europe/Istanbul:Istanbul', 'Asia/Dubai:Dubai',
+        'Asia/Karachi:Karachi', 'Asia/Kolkata:Kolkata', 'Asia/Dhaka:Dhaka',
+        'Asia/Bangkok:Bangkok', 'Asia/Singapore:Singapore', 'Asia/Hong_Kong:Hong Kong',
+        'Asia/Tokyo:Tokyo', 'Asia/Seoul:Seoul', 'Australia/Sydney:Sydney',
+        'Pacific/Auckland:Auckland', 'Pacific/Honolulu:Honolulu',
+        'America/Anchorage:Anchorage', 'America/Denver:Denver',
+        'America/Chicago:Chicago', 'America/Toronto:Toronto',
+        'America/Sao_Paulo:Sao Paulo', 'America/Argentina/Buenos_Aires:Buenos Aires',
+        'Europe/Dublin:Dublin', 'Europe/Lisbon:Lisbon', 'Europe/Vienna:Vienna',
+        'Europe/Prague:Prague', 'Europe/Copenhagen:Copenhagen', 'Europe/Oslo:Oslo',
+        'Europe/Helsinki:Helsinki', 'Europe/Warsaw:Warsaw', 'Europe/Budapest:Budapest',
+        'Africa/Cairo:Cairo', 'Africa/Johannesburg:Johannesburg',
+        'Africa/Nairobi:Nairobi', 'Africa/Lagos:Lagos', 'Africa/Casablanca:Casablanca',
+        'Asia/Jerusalem:Jerusalem', 'Asia/Riyadh:Riyadh', 'America/Vancouver:Vancouver',
+        'America/Mexico_City:Mexico City', 'America/Lima:Lima',
+        'America/Santiago:Santiago', 'Australia/Perth:Perth',
+        'Asia/Kuala_Lumpur:Kuala Lumpur', 'Asia/Manila:Manila', 'Asia/Taipei:Taipei',
+      ];
+      CITIES.sort(function(a, b) { return a.split(':')[1].localeCompare(b.split(':')[1]); });
+      var dropdown = document.getElementById('city-dropdown');
+      for (var i = 0; i < CITIES.length; i++) {
+        var parts = CITIES[i].split(':');
+        var d = document.createElement('div');
+        d.textContent = parts[1];
+        d.setAttribute('data-tz', parts[0]);
+        d.addEventListener('click', function() {
+          var name = this.textContent;
+          var tz = this.getAttribute('data-tz');
+          yourTz = tz;
+          document.getElementById('yourcity-label').textContent = name;
+          dropdown.querySelectorAll('div').forEach(function(el) { el.classList.remove('selected'); });
+          this.classList.add('selected');
+          dropdown.classList.remove('visible');
+          showCityModal(name);
+        });
+        dropdown.appendChild(d);
+      }
+      document.getElementById('yourcity-pill').addEventListener('click', function(e) {
+        e.stopPropagation();
+        var rect = this.getBoundingClientRect();
+        dropdown.style.position = 'fixed';
+        dropdown.style.top = (rect.bottom + 4) + 'px';
+        dropdown.style.left = rect.left + 'px';
+        dropdown.classList.toggle('visible');
+      });
+      document.addEventListener('click', function() { dropdown.classList.remove('visible'); });
+
+      var tickerSpeeds = {};
+      function createTicker(containerId, feedUrl) {
+        var container = document.getElementById(containerId);
+        if (!container) return;
+        var inner = container.querySelector('.news-ticker-inner');
+        var items = [];
+        var pos = 0;
+        tickerSpeeds[containerId] = 0.35;
+        var paused = false;
+        function load() {
+          var url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feedUrl);
+          fetch(url).then(function(r) { return r.json(); }).then(function(data) {
+            if (!data || !data.items) return;
+            var frag = document.createDocumentFragment();
+            var newItems = [];
+            var count = Math.min(data.items.length, 5);
+            for (var i = 0; i < count; i++) {
+              var el = document.createElement('div');
+              el.className = 'news-ticker-item';
+              var titleSpan = document.createElement('span');
+              titleSpan.className = 'ni-title';
+              titleSpan.textContent = data.items[i].title;
+              var timeSpan = document.createElement('span');
+              timeSpan.className = 'ni-time';
+              var d = new Date(data.items[i].pubDate);
+              timeSpan.textContent = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+              el.appendChild(titleSpan);
+              el.appendChild(timeSpan);
+              el.addEventListener('click', function(url) {
+                return function() { window.open(url, '_blank'); };
+              }(data.items[i].link));
+              frag.appendChild(el);
+              newItems.push(el);
+            }
+            inner.innerHTML = '';
+            inner.appendChild(frag);
+            items = newItems;
+          }).catch(function() {
+            if (!items.length) inner.innerHTML = '<div class="news-ticker-loading">Could not load news.</div>';
+          });
+        }
+        load();
+        var resetting = false;
+        function tick() {
+          if (paused || resetting) { requestAnimationFrame(tick); return; }
+          if (holdFrames > 0) { holdFrames--; requestAnimationFrame(tick); return; }
+          pos += tickerSpeeds[containerId];
+          var h = inner.scrollHeight;
+          var ch = inner.parentElement.clientHeight;
+          if (pos > h) {
+              resetting = true;
+            container.classList.add('news-ticker-reset');
+            load();
+            setTimeout(function() {
+              pos = 0;
+              inner.style.transform = 'translateY(0px)';
+              container.classList.remove('news-ticker-reset');
+              resetting = false;
+              holdFrames = 90;
+            }, 380);
+          }
+          inner.style.transform = 'translateY(' + (-pos) + 'px)';
+          requestAnimationFrame(tick);
+        }
+        var holdFrames = 90;
+        tick();
+        container.addEventListener('mouseenter', function() { paused = true; });
+        container.addEventListener('mouseleave', function() { paused = false; });
+      }
+      createTicker('tickerWorld', 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml');
+      createTicker('tickerAI', 'https://techcrunch.com/feed/');
+      document.querySelectorAll('.ticker-speed').forEach(function(slider) {
+        slider.addEventListener('input', function() {
+          var id = this.getAttribute('data-ticker');
+          if (tickerSpeeds[id] !== undefined) tickerSpeeds[id] = parseFloat(this.value);
+        });
+      });
+      document.querySelectorAll('.ticker-speed-reset').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var id = this.getAttribute('data-ticker');
+          var slider = document.querySelector('.ticker-speed[data-ticker="' + id + '"]');
+          if (slider) {
+            slider.value = '0.35';
+            tickerSpeeds[id] = 0.35;
+          }
+        });
+      });
+
+      var CITY_INFO = {
+        'London': { continent: 'Europe', fact: 'London has over 170 museums — more than any other city in the world.' },
+        'New York': { continent: 'North America (East Coast)', fact: 'New York City has 468 subway stations, more than any other metro system on Earth.' },
+        'Los Angeles': { continent: 'North America (West Coast)', fact: 'LA is the only city to have hosted the Summer Olympics twice without a bid (1932, 1984).' },
+        'Moscow': { continent: 'Europe', fact: 'Moscow\'s Metro is the deepest in the world; some stations are over 80 metres below ground.' },
+        'Beijing': { continent: 'Asia', fact: 'Beijing is the world\'s most populous capital city, home to over 21 million people.' },
+        'Paris': { continent: 'Europe', fact: 'Paris has only one stop sign in the entire city — the rest are yield signs.' },
+        'Berlin': { continent: 'Europe', fact: 'Berlin has more bridges than Venice — roughly 1,700 of them.' },
+        'Rome': { continent: 'Europe', fact: 'Rome is over 2,700 years old and contains the world\'s smallest country, Vatican City.' },
+        'Madrid': { continent: 'Europe', fact: 'Madrid is the highest capital city in the EU at 667 metres above sea level.' },
+        'Amsterdam': { continent: 'Europe', fact: 'Amsterdam has 1,281 bridges connecting its 90 islands.' },
+        'Stockholm': { continent: 'Europe', fact: 'Stockholm is built on 14 islands connected by 57 bridges.' },
+        'Athens': { continent: 'Europe', fact: 'Athens has been inhabited for over 3,400 years, making it one of the oldest cities in Europe.' },
+        'Istanbul': { continent: 'Europe/Asia', fact: 'Istanbul is the only city in the world spanning two continents — Europe and Asia.' },
+        'Dubai': { continent: 'Asia', fact: 'Dubai has the tallest building in the world — the Burj Khalifa at 828 metres.' },
+        'Karachi': { continent: 'Asia', fact: 'Karachi is the largest city in Pakistan and home to the country\'s only major port.' },
+        'Kolkata': { continent: 'Asia', fact: 'Kolkata is the only Indian city with a working tram network.' },
+        'Dhaka': { continent: 'Asia', fact: 'Dhaka is one of the most densely populated cities on Earth with over 23,000 people per km².' },
+        'Bangkok': { continent: 'Asia', fact: 'Bangkok\'s real name in Thai has 168 characters — a Guinness World Record.' },
+        'Singapore': { continent: 'Asia', fact: 'Singapore is both a city and a country, and one of only three city-states in the world.' },
+        'Hong Kong': { continent: 'Asia', fact: 'Hong Kong has more skyscrapers than any other city — over 550 of them.' },
+        'Tokyo': { continent: 'Asia', fact: 'Tokyo is the world\'s largest metropolitan area with over 37 million residents.' },
+        'Seoul': { continent: 'Asia', fact: 'Seoul has the world\'s fastest average internet speed at over 250 Mbps.' },
+        'Sydney': { continent: 'Oceania', fact: 'Sydney\'s Harbour Bridge is the world\'s largest steel arch bridge.' },
+        'Auckland': { continent: 'Oceania', fact: 'Auckland is known as the City of Sails and has more boats per capita than anywhere else.' },
+        'Honolulu': { continent: 'Oceania', fact: 'Honolulu is the most remote major city in the world — thousands of kilometres from any other.' },
+        'Anchorage': { continent: 'North America', fact: 'Anchorage sees up to 22 hours of daylight in summer and as little as 5 in winter.' },
+        'Denver': { continent: 'North America', fact: 'Denver is called the Mile High City because it sits exactly one mile above sea level.' },
+        'Chicago': { continent: 'North America', fact: 'Chicago invented the skyscraper — the Home Insurance Building was the first in 1885.' },
+        'Toronto': { continent: 'North America', fact: 'Toronto is home to the longest street in the world — Yonge Street at 1,896 km.' },
+        'Sao Paulo': { continent: 'South America', fact: 'Sao Paulo is the largest city in the Southern Hemisphere with over 12 million residents.' },
+        'Buenos Aires': { continent: 'South America', fact: 'Buenos Aires has the widest avenue in the world — 9 de Julio at 140 metres across.' },
+        'Dublin': { continent: 'Europe', fact: 'Dublin is home to the oldest pub in Ireland — The Brazen Head, established in 1198.' },
+        'Lisbon': { continent: 'Europe', fact: 'Lisbon is built on seven hills and survived one of the most destructive earthquakes in history (1755).' },
+        'Vienna': { continent: 'Europe', fact: 'Vienna has been ranked the world\'s most liveable city multiple times.' },
+        'Prague': { continent: 'Europe', fact: 'Prague\'s Old Town Square has the oldest working astronomical clock in the world (1410).' },
+        'Copenhagen': { continent: 'Europe', fact: 'Copenhagen is one of the most bicycle-friendly cities — more bikes than residents.' },
+        'Oslo': { continent: 'Europe', fact: 'Oslo is one of the fastest-growing cities in Europe and the world\'s most electric-capital.' },
+        'Helsinki': { continent: 'Europe', fact: 'Helsinki is built on a peninsula and over 300 islands, with ferries connecting them.' },
+        'Warsaw': { continent: 'Europe', fact: 'Warsaw was almost entirely rebuilt after WWII using historical paintings as blueprints.' },
+        'Budapest': { continent: 'Europe', fact: 'Budapest has one of the oldest metro systems in the world — line 1 opened in 1896.' },
+        'Cairo': { continent: 'Africa', fact: 'Cairo is home to the only remaining Wonder of the Ancient World — the Great Pyramid of Giza.' },
+        'Johannesburg': { continent: 'Africa', fact: 'Johannesburg is the largest city in the world not built on a river or coast.' },
+        'Nairobi': { continent: 'Africa', fact: 'Nairobi is the only capital city with a national park on its doorstep — Nairobi National Park.' },
+        'Lagos': { continent: 'Africa', fact: 'Lagos is the largest city in Africa by population, with over 15 million people.' },
+        'Casablanca': { continent: 'Africa', fact: 'Casablanca is home to the largest mosque in Africa — the Hassan II Mosque.' },
+        'Jerusalem': { continent: 'Asia', fact: 'Jerusalem is a holy city for three major religions: Judaism, Christianity, and Islam.' },
+        'Riyadh': { continent: 'Asia', fact: 'Riyadh is one of the richest cities in the world due to Saudi Arabia\'s oil wealth.' },
+        'Vancouver': { continent: 'North America', fact: 'Vancouver has the largest Chinatown in North America outside San Francisco.' },
+        'Mexico City': { continent: 'North America', fact: 'Mexico City sinks about 20 cm per year because it was built on a lake bed.' },
+        'Lima': { continent: 'South America', fact: 'Lima is the second-largest desert city in the world after Cairo.' },
+        'Santiago': { continent: 'South America', fact: 'Santiago is surrounded by the Andes and is one of the best cities in the world for skiing.' },
+        'Perth': { continent: 'Oceania', fact: 'Perth is the most isolated major city on Earth — over 2,000 km from the nearest city.' },
+        'Kuala Lumpur': { continent: 'Asia', fact: 'Kuala Lumpur is home to the world\'s tallest twin towers — the Petronas Towers at 452 m.' },
+        'Manila': { continent: 'Asia', fact: 'Manila is the most densely populated city in the world with over 41,000 people per km².' },
+        'Taipei': { continent: 'Asia', fact: 'Taipei 101 was the world\'s tallest building from 2004 to 2010.' },
+      };
+      function showCityModal(name) {
+        var info = CITY_INFO[name];
+        if (!info) return;
+        document.getElementById('cmCity').textContent = name;
+        document.getElementById('cmContinent').textContent = info.continent;
+        document.getElementById('cmFact').textContent = info.fact;
+        document.getElementById('cityModal').classList.add('visible');
+      }
+      document.getElementById('cmClose').addEventListener('click', function() {
+        document.getElementById('cityModal').classList.remove('visible');
+      });
+      document.getElementById('cityModal').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('visible');
+      });
+      document.querySelectorAll('.clock-pill').forEach(function(pill) {
+        if (pill.id === 'wonderland-pill' || pill.id === 'yourcity-pill') return;
+        pill.addEventListener('click', function() {
+          showCityModal(this.querySelector('.clock-pill-label').textContent.trim());
+        });
+      });
       function updateClocks() {
         const now = new Date();
         for (const z of zones) {
@@ -2041,18 +991,24 @@
         if (wl) wl.textContent = '18:00:00';
         const wlIcon = document.getElementById('icon-wonderland');
         if (wlIcon) wlIcon.innerHTML = '<i class="fa-solid fa-mug-saucer"></i>';
+        var yc = document.getElementById('clock-yourcity');
+        var yi = document.getElementById('icon-yourcity');
+        if (yourTz) {
+          if (yc) {
+            yc.style.display = '';
+            yc.textContent = now.toLocaleTimeString('en-GB', { timeZone: yourTz, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          }
+          if (yi) {
+            var h = parseInt(now.toLocaleString('en-GB', { timeZone: yourTz, hour: '2-digit', hour12: false }));
+            yi.textContent = h >= 6 && h < 24 ? '\u2600\uFE0F' : '\uD83C\uDF19';
+          }
+        } else {
+          if (yc) { yc.style.display = 'none'; yc.textContent = ''; }
+          if (yi) yi.textContent = '';
+        }
       }
       updateClocks();
       setInterval(updateClocks, 1000);
-
-      document.getElementById('pattaya-pill').addEventListener('click', function() {
-        document.getElementById('pattayaModal').showModal();
-      });
-      var po = document.getElementById('pattayaOk');
-      if (po) po.addEventListener('click', function() {
-        document.getElementById('pattayaModal').close();
-      });
-
       document.getElementById('wonderland-pill').addEventListener('click', function() {
         let alice = document.getElementById('alice');
         if (alice) alice.remove();
@@ -2065,7 +1021,6 @@
           '<div class="alice-legs"><div class="alice-leg"><div class="alice-shoe"></div></div><div class="alice-leg"><div class="alice-shoe"></div></div></div>' +
           '</div>';
         document.body.appendChild(alice);
-
         let hatter = document.createElement('div');
         hatter.className = 'hatter';
         hatter.innerHTML = '<div style="width:80px;">' +
@@ -2075,17 +1030,27 @@
           '<div class="hatter-legs"><div class="hatter-leg"></div><div class="hatter-leg"></div></div>' +
           '</div>';
         document.body.appendChild(hatter);
-
         let wonderOverlay = document.createElement('div');
         wonderOverlay.id = 'wonder-overlay';
         wonderOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9999;';
+        let wonderImages = [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Alice-in-Wonderland_by-David-Revoy_2010-07-21.jpg/960px-Alice-in-Wonderland_by-David-Revoy_2010-07-21.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Alice-Rackham-027.jpg/960px-Alice-Rackham-027.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Alice-Rackham-008.jpg/960px-Alice-Rackham-008.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Alice-Rackham-067.jpg/960px-Alice-Rackham-067.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alice-Rackham-092.jpg/960px-Alice-Rackham-092.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Alice-Rackham-103.jpg/960px-Alice-Rackham-103.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Alice-Rackham-109.jpg/960px-Alice-Rackham-109.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Alice-Rackham-117.jpg/960px-Alice-Rackham-117.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Alice-Rackham-123.jpg/960px-Alice-Rackham-123.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Alice-Rackham-191.jpg/960px-Alice-Rackham-191.jpg'
+        ];
         let wonderImg = document.createElement('img');
-        wonderImg.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Alice-in-Wonderland_by-David-Revoy_2010-07-21.jpg/960px-Alice-in-Wonderland_by-David-Revoy_2010-07-21.jpg';
+        wonderImg.src = wonderImages[Math.floor(Math.random() * wonderImages.length)];
         wonderImg.style.cssText = 'max-width:90%;max-height:90%;border-radius:12px;box-shadow:0 0 30px rgba(255,255,255,0.3);';
         wonderImg.alt = 'Alice in Wonderland';
         wonderOverlay.appendChild(wonderImg);
         document.body.appendChild(wonderOverlay);
-
         requestAnimationFrame(function() {
           alice.classList.add('fly');
           hatter.classList.add('fly');
@@ -2099,40 +1064,26 @@
           if (wo) wo.remove();
         }, 3000);
       });
-
-
     })();
-
     (function () {
       const searchInput = document.getElementById("search");
       const filterChips = document.querySelectorAll(".filter-chip");
       const tools = document.querySelectorAll(".tool");
       const backToTop = document.getElementById("backToTop");
-
       let activeFilter = "all";
-
       function applyFilters() {
         const query = (searchInput.value || "").toLowerCase().trim();
-
         tools.forEach((tool) => {
           const category = tool.getAttribute("data-category");
           const tags = (tool.getAttribute("data-tags") || "").toLowerCase();
           const text = tool.textContent.toLowerCase();
-
-          const matchesCategory =
-            activeFilter === "all" || category === activeFilter;
-          const matchesSearch =
-            !query || text.includes(query) || tags.includes(query);
-
-          tool.style.display =
-            matchesCategory && matchesSearch ? "" : "none";
+          const matchesCategory = activeFilter === "all" || category === activeFilter;
+          const matchesSearch = !query || text.includes(query) || tags.includes(query);
+          tool.style.display = matchesCategory && matchesSearch ? "" : "none";
         });
       }
-
       searchInput.addEventListener("input", applyFilters);
-
       applyFilters();
-
       filterChips.forEach((chip) => {
         chip.addEventListener("click", () => {
           filterChips.forEach((c) => c.classList.remove("active"));
@@ -2141,7 +1092,6 @@
           applyFilters();
         });
       });
-
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -2152,23 +1102,17 @@
         },
         { threshold: 0.1 }
       );
-
       document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-
       if (backToTop) {
         window.addEventListener("scroll", () => {
           backToTop.classList.toggle("visible", window.scrollY > 400);
         });
-
         backToTop.addEventListener("click", () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         });
       }
     })();
   </script>
-
-
-
   <script>
     (function() {
       const pc = document.getElementById('particle-canvas');
@@ -2179,12 +1123,10 @@
       cc.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;';
       if (pc.parentNode) pc.parentNode.insertBefore(cc, pc.nextSibling);
       const cctx = cc.getContext('2d');
-
       let W, H;
       let particles = [];
       let mouse = { x: null, y: null, radius: 150 };
       let birth = 0, time = 0;
-
       class Particle {
         constructor() {
           this.x = Math.random() * W;
@@ -2221,13 +1163,11 @@
           pctx.fill();
         }
       }
-
       function initParticles() {
         const area = W * H;
         const count = Math.min(80, Math.max(30, Math.floor(area / 14000)));
         particles = Array.from({ length: count }, () => new Particle());
       }
-
       function connectParticles() {
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
@@ -2246,12 +1186,10 @@
           }
         }
       }
-
       const ORBS = 40;
       const RINGS = 6;
       const RAY_COUNT = 24;
       let orbs = [];
-
       class Orb {
         constructor() {
           this.angle = Math.random() * Math.PI * 2;
@@ -2264,11 +1202,9 @@
           this.bobSpeed = 0.01 + Math.random() * 0.02;
         }
       }
-
       function initOrbs() {
         orbs = Array.from({ length: ORBS }, () => new Orb());
       }
-
       function drawRing(cx, cy, r, pulse, idx) {
         cctx.beginPath();
         cctx.arc(cx, cy, r, 0, Math.PI * 2);
@@ -2276,25 +1212,20 @@
         cctx.strokeStyle = `rgba(56,189,248,${alpha * Math.min(1, birth * 4)})`;
         cctx.lineWidth = 1.5 + Math.sin(time + idx) * 0.8;
         cctx.stroke();
-
         cctx.beginPath();
         cctx.arc(cx, cy, r + 4, 0, Math.PI * 2);
         cctx.strokeStyle = `rgba(168,85,247,${alpha * 0.4 * Math.min(1, birth * 4)})`;
         cctx.lineWidth = 0.5;
         cctx.stroke();
       }
-
       function animatePortal() {
         birth = Math.min(birth + 0.005, 1);
         time += 0.02;
         const exp = Math.min(1, birth * 2.5);
         const cx = W / 2, cy = H / 2;
-
         cctx.clearRect(0, 0, W, H);
         if (exp < 0.05) { requestAnimationFrame(animatePortal); return; }
-
         const maxR = Math.min(W, H) * 0.45 * exp;
-
         const cg = cctx.createRadialGradient(cx, cy, 0, cx, cy, maxR * 0.5);
         cg.addColorStop(0, `rgba(56,189,248,${0.12 * exp})`);
         cg.addColorStop(0.3, `rgba(168,85,247,${0.07 * exp})`);
@@ -2302,7 +1233,6 @@
         cg.addColorStop(1, 'rgba(0,0,0,0)');
         cctx.fillStyle = cg;
         cctx.fillRect(0, 0, W, H);
-
         for (let r = 0; r < RAY_COUNT; r++) {
           const ra = (r / RAY_COUNT) * Math.PI * 2 + time * 0.1;
           const len = maxR * (0.7 + 0.3 * Math.sin(ra * 3 + time));
@@ -2314,7 +1244,6 @@
           cctx.lineWidth = 1 + Math.sin(ra * 4 + time) * 0.5;
           cctx.stroke();
         }
-
         const og = cctx.createRadialGradient(cx - maxR * 0.2, cy - maxR * 0.2, 0, cx, cy, maxR);
         og.addColorStop(0, 'rgba(0,0,0,0)');
         og.addColorStop(0.6, `rgba(56,189,248,${0.02 * exp})`);
@@ -2324,12 +1253,10 @@
         cctx.beginPath();
         cctx.arc(cx, cy, maxR, 0, Math.PI * 2);
         cctx.fill();
-
         for (let ri = 0; ri < RINGS; ri++) {
           const rr = (maxR / RINGS) * (ri + 0.5) + Math.sin(time * 0.3 + ri * 1.2) * 8;
           drawRing(cx, cy, rr, (ri / RINGS), ri);
         }
-
         for (let o = 0; o < orbs.length; o++) {
           const ob = orbs[o];
           ob.angle += ob.speed;
@@ -2344,7 +1271,6 @@
           cctx.beginPath();
           cctx.arc(ox, oy, ob.size * (0.7 + 0.3 * Math.sin(time + ob.phase)), 0, Math.PI * 2);
           cctx.fill();
-
           const gg = cctx.createRadialGradient(ox, oy, 0, ox, oy, ob.size * 3);
           gg.addColorStop(0, ob.color.replace(')', ',0.15)').replace('rgb', 'rgba'));
           gg.addColorStop(1, 'rgba(0,0,0,0)');
@@ -2353,7 +1279,6 @@
           cctx.arc(ox, oy, ob.size * 3, 0, Math.PI * 2);
           cctx.fill();
         }
-
         const pulseR = ((time * 60) % (maxR * 2));
         if (pulseR < maxR) {
           cctx.globalAlpha = 0.15 * (1 - pulseR / maxR) * exp;
@@ -2363,35 +1288,29 @@
           cctx.arc(cx, cy, pulseR, 0, Math.PI * 2);
           cctx.stroke();
         }
-
         cctx.globalAlpha = 1;
         requestAnimationFrame(animatePortal);
       }
-
       function animateParticles() {
         pctx.clearRect(0, 0, W, H);
         particles.forEach(p => { p.update(); p.draw(); });
         connectParticles();
         requestAnimationFrame(animateParticles);
       }
-
       function resize() {
         W = cc.width = pc.width = window.innerWidth;
         H = cc.height = pc.height = window.innerHeight;
       }
-
       resize();
       initParticles();
       initOrbs();
       animateParticles();
       animatePortal();
-
       let resizeTimer;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => { resize(); initParticles(); }, 200);
       });
-
       document.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;

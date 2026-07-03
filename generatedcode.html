@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="AI Coding Guide – practical examples and workflows for AI-assisted software development using OpenCode on Ubuntu." />
   <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="robots" content="index, follow" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
   <title>AI Playground – Coding Guide</title>
 
@@ -13,10 +15,10 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
   <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
   <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
 
   <style>
     :root {
@@ -153,6 +155,7 @@
       background: rgba(15, 23, 42, 0.96);
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-subtle);
+      will-change: transform;
     }
 
     .guide-section h2 {
@@ -853,7 +856,7 @@ table.report-table {
 
   <div class="guide-layout">
 
-      <aside class="sidebar">
+      <aside class="sidebar" role="navigation" aria-label="Page contents">
         <h3>Contents</h3>
         <a href="#section1"><i class="fa-solid fa-terminal sidebar-icon"></i>OpenCode On Ubuntu</a>
         <a href="#example1"><i class="fa-solid fa-mobile-screen sidebar-icon"></i>1. Website Monitor, Flutter</a>
@@ -879,7 +882,7 @@ table.report-table {
       <div>
 
         <!-- UPDATED SECTION 6 -->
-        <section id="section1" class="guide-section reveal">
+        <section id="section1" class="guide-section reveal" role="region" aria-label="OpenCode on Ubuntu Linux examples">
 
           <h2>OpenCode On Ubuntu Linux Examples
             <span class="project-count-badge"><i class="fa-solid fa-layer-group"></i> <span id="projectCount">6</span> projects</span>
@@ -943,11 +946,11 @@ AI Agentic development really put in a good show here ... new 'instant' working 
               </p>
 
               <img  src="opencode/websitemonitor/screenshot1.png"
-                   alt="Website Monitor screenshot 1">
+                   alt="Website Monitor app screenshot showing the main interface">
               <img  src="opencode/websitemonitor/screenshot2.png"
-                   alt="Website Monitor screenshot 2">
+                   alt="Website Monitor app screenshot showing monitoring results">
               <img  src="opencode/websitemonitor/screenshot3.png"
-                   alt="Website Monitor screenshot 3">
+                   alt="Website Monitor app screenshot showing configuration">
 
               <p>Here's the AI generated Linux source code (OpenCode also generated 'android', 'ios', 'macos', 'web' and 'windows' directories which I'm guessing held generated source for those platforms):
               </p>
@@ -1002,9 +1005,9 @@ gemma3 chat</code></pre>
               <pre><code>python3 ./ai-snap-manager.py</code></pre>
 
               <img  src="opencode/aisnapmanager/aisnapmanager1.png"
-                   alt="AI Snap Manager running 1">
+                   alt="AI Snap Manager application showing available models">
               <img  src="opencode/aisnapmanager/aisnapmanager2.png"
-                   alt="AI Snap Manager running 2">
+                   alt="AI Snap Manager application showing chat interface">
 
             </div>
           </details>
@@ -1042,7 +1045,7 @@ gemma3 chat</code></pre>
 
   <pre><code>./build/bin/llama-cli -m ./models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
-      <img  src="opencode/llamarevisited/llamarevisited.png" alt="Llama.cpp running">
+      <img  src="opencode/llamarevisited/llamarevisited.png" alt="Llama.cpp running in terminal with Google Gemma model">
 
     </div>
   </details>
@@ -1081,7 +1084,7 @@ gemma3 chat</code></pre>
 
       <p>Read Makefile and snippet.cpp to understand the codebase then install all build tools required to build the codebase.</p>
 
-      <img  src="opencode/snippet/snippet.png" alt="Code snippet app screenshot">
+      <img  src="opencode/snippet/snippet.png" alt="Code snippet app screenshot showing terminal output">
 
     </div>
   </details>
@@ -1111,11 +1114,11 @@ gemma3 chat</code></pre>
 
       <p>'Clear clipboard' button greyed out if clipboard empty...</p>
 
-      <img  src="opencode/clipboard/clipboard2.png" alt="Clipboard monitor empty clipboard">
+      <img  src="opencode/clipboard/clipboard2.png" alt="Clipboard monitor with empty clipboard - clear button disabled">
 
       <p>But enabled if something is on it...</p>
 
-      <img  src="opencode/clipboard/clipboard3.png" alt="Clipboard monitor populated clipboard">
+      <img  src="opencode/clipboard/clipboard3.png" alt="Clipboard monitor with content - clear button enabled">
 
     </div>
   </details>
@@ -1157,7 +1160,7 @@ gemma3 chat</code></pre>
 
       <p>The baby is born...</p>
 
-      <img  src="opencode/fork/taskcomplete.png" alt="Fork task complete">
+      <img  src="opencode/fork/taskcomplete.png" alt="OpenCode fork task complete in terminal">
 
       <p>
         It has been given a little something extra its mother
@@ -1165,13 +1168,13 @@ gemma3 chat</code></pre>
         does not have...
       </p>
 
-      <img  src="opencode/fork/info.png" alt="Fork info">
+      <img  src="opencode/fork/info.png" alt="Fork info showing version details">
 
       <p>But everything else works as expected...</p>
 
-      <img  src="opencode/fork/invoke.png" alt="Fork invoke">
-      <img  src="opencode/fork/running.png" alt="Fork running">
-      <img  src="opencode/fork/exit.png" alt="Fork exit">
+      <img  src="opencode/fork/invoke.png" alt="OpenCode fork being invoked">
+      <img  src="opencode/fork/running.png" alt="OpenCode fork running in terminal">
+      <img  src="opencode/fork/exit.png" alt="OpenCode fork exit screen">
 
     </div>
   </details>
