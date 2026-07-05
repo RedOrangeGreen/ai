@@ -157,7 +157,7 @@
       background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%);
       opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
     }
-    .tool-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 28px 60px rgba(15, 23, 42, 0.95); border-color: rgba(56, 189, 248, 0.7); background: #020617; }
+    .tool-card:hover { box-shadow: 0 28px 60px rgba(15, 23, 42, 0.95); border-color: rgba(56, 189, 248, 0.7); background: #020617; }
     .tool-card:hover::before { opacity: 1; }
     .tool-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; }
     .tool-card-title { display: flex; align-items: center; gap: 0.55rem; }
@@ -192,29 +192,6 @@
     }
     .tool-card-footer a.btn-open:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9); filter: brightness(1.05); }
     .btn-open-ghost { background: transparent !important; color: var(--accent) !important; border: 1px solid rgba(56, 189, 248, 0.7) !important; box-shadow: none !important; }
-    .toggle-wrap { display: inline-flex; align-items: center; flex-shrink: 0; }
-    .toggle-wrap input[type="checkbox"] {
-      appearance: none; -webkit-appearance: none;
-      width: 28px; height: 16px; border-radius: 999px;
-      background: rgba(148,163,184,0.3); border: none; cursor: pointer;
-      position: relative; transition: background 0.2s ease;
-      flex-shrink: 0; margin: 0;
-    }
-    .toggle-wrap input[type="checkbox"]::after {
-      content: ''; position: absolute; left: 2px; top: 2px;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: #fff; transition: transform 0.2s ease;
-    }
-    .toggle-wrap input[type="checkbox"]:checked { background: var(--accent); }
-    .toggle-wrap input[type="checkbox"]:checked::after { transform: translateX(12px); }
-    .tool-card.toggled-off { position: relative; }
-    .tool-card.toggled-off::after {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(0,0,0,0.55);
-      border-radius: var(--radius-lg);
-      pointer-events: none; z-index: 1;
-    }
-    .tool-card.toggled-off .toggle-wrap,
     .tool-card.toggled-off .btn-open {
       position: relative; z-index: 2;
     }
@@ -562,7 +539,7 @@
           </div>
           <p class="tool-card-body">General‑purpose AI assistant for chat, writing, brainstorming, and coding. Great default starting point.</p>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><label class="toggle-wrap"><input type="checkbox" data-key="chatgpt" checked></label><span>Best for quick ideas &amp; drafts</span></div>
+            <div class="tool-card-footer-left"><span>Best for quick ideas &amp; drafts</span></div>
             <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
@@ -581,7 +558,7 @@
           </div>
           <p class="tool-card-body">AI assistant integrated with web search and Microsoft services. Strong for research and summarising pages.</p>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><label class="toggle-wrap"><input type="checkbox" data-key="copilot" checked></label><span>Great for web‑aware answers</span></div>
+            <div class="tool-card-footer-left"><span>Great for web‑aware answers</span></div>
             <a href="https://www.bing.com/chat" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
@@ -601,7 +578,7 @@
           </div>
           <p class="tool-card-body">AI‑enhanced search results from Google, blending classic search with summarised answers.</p>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><label class="toggle-wrap"><input type="checkbox" data-key="google" checked></label><span>Familiar search + AI layer</span></div>
+            <div class="tool-card-footer-left"><span>Familiar search + AI layer</span></div>
             <a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
@@ -750,27 +727,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     (function() {
-      const WEB_FLAGS = {
-        chatgpt: true,
-        copilot: true,
-        google: true,
-      };
-      document.querySelectorAll('.tool-card[data-category="web"]').forEach(function(card) {
-        var key = card.getAttribute('data-key');
-        if (WEB_FLAGS.hasOwnProperty(key) && !WEB_FLAGS[key]) {
-          card.classList.add('toggled-off');
-        }
-      });
-      var copilotCb = document.querySelector('input[data-key="copilot"]');
-      if (copilotCb) { copilotCb.checked = false; WEB_FLAGS.copilot = false; copilotCb.closest('.tool-card').classList.add('toggled-off'); }
-      document.querySelectorAll('.toggle-wrap input[type="checkbox"]').forEach(function(cb) {
-        cb.addEventListener('change', function() {
-          var key = this.getAttribute('data-key');
-          var card = this.closest('.tool-card');
-          WEB_FLAGS[key] = this.checked;
-          card.classList.toggle('toggled-off', !this.checked);
-        });
-      });
       const zones = [
         { id: 'clock-london',   icon: 'icon-london',   tz: 'Europe/London' },
         { id: 'clock-nyc',      icon: 'icon-nyc',      tz: 'America/New_York' },
