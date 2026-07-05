@@ -70,7 +70,7 @@
       margin: 0 auto; padding: 1.6rem 1.25rem 3.5rem;
     }
     @media (min-width: 992px) { .page-shell { padding-top: 1.85rem; } }
-    .hero { max-width: 48rem; margin-bottom: 2.75rem; }
+    .hero { max-width: none; margin-bottom: 2.75rem; }
     @media (max-width: 768px) {
       .hero { text-align: center; }
       .hero-subtitle { max-width: 100%; }
@@ -723,23 +723,6 @@
           <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
             <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
-        </article>
-        <article class="tool-card tool" data-category="videos" data-tags="ai short film seedance 2.0 bytedance" style="grid-column: 1 / -1;">
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-solid fa-robot"></i></div>
-                <div><h3>AI MAN</h3><div class="tool-card-provider">Seedance 2.0 (ByteDance)</div></div>
-              </div>
-            </div>
-            <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-award"></i> AI Film</span></div>
-          </div>
-          <p class="tool-card-body">AI-generated short film created with Seedance 2.0 — ByteDance's multimodal AI video model. Blends sci-fi satire with surreal humour, showcasing cinematic motion and character consistency.</p>
-          <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
-            <iframe src="https://www.youtube.com/embed/6D4_ZMnPx7I" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </article>
-
       </div>
     </section>
     <footer>
@@ -778,6 +761,8 @@
           card.classList.add('toggled-off');
         }
       });
+      var copilotCb = document.querySelector('input[data-key="copilot"]');
+      if (copilotCb) { copilotCb.checked = false; WEB_FLAGS.copilot = false; copilotCb.closest('.tool-card').classList.add('toggled-off'); }
       document.querySelectorAll('.toggle-wrap input[type="checkbox"]').forEach(function(cb) {
         cb.addEventListener('change', function() {
           var key = this.getAttribute('data-key');
