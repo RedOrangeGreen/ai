@@ -1,102 +1,1700 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="description" content="AI Coding Guide – practical examples and workflows for AI-assisted software development using OpenCode on Ubuntu." />
+  <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
   <title>AI Playground – Coding Guide</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "AI Coding Guide",
+    "description": "Practical examples and workflows for AI-assisted software development using OpenCode on Ubuntu.",
+    "about": {
+      "@type": "Thing",
+      "name": "AI-assisted software development"
+    }
+  }
+  </script>
+
+  <!-- Preconnect to CDNs -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" fetchpriority="high" />
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+  <style>
+    :root {
+      --bg-body: #050816;
+      --bg-elevated: #0b1020;
+      --bg-elevated-soft: #0f172a;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --accent-strong: #0ea5e9;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.7);
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.25s ease-out;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.6rem 1.25rem 3.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 3vw + 1.2rem, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      max-width: 40rem;
+      font-size: 1rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+    }
+
+    .guide-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .guide-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 6rem;
+      align-self: start;
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle);
+      max-height: calc(100vh - 8rem);
+      overflow-y: auto;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 3px;
+    }
+    .sidebar::-webkit-scrollbar-thumb {
+      background: rgba(148,163,184,0.2);
+      border-radius: 999px;
+    }
+
+    .sidebar h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 0.4rem 0;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      transition: var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .sidebar a:hover {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    .sidebar a.active {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .guide-section {
+      margin-bottom: 2.5rem;
+      padding: 1.4rem 1.6rem;
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle);
+      will-change: transform;
+    }
+
+    .guide-section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .guide-section p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 70ch;
+    }
+
+    .custom-summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent);
+      user-select: none;
+    }
+
+    .summary-chevron {
+      font-size: 0.85rem;
+      transition: transform 0.25s ease;
+      opacity: 0.8;
+    }
+
+    details[open] .summary-chevron {
+      transform: rotate(180deg);
+    }
+
+    .summary-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    /* === MODERN OVERHAUL === */
+
+    html { scroll-behavior: smooth; overflow-y: scroll; scrollbar-gutter: stable; overscroll-behavior: none; }
+
+    /* Scroll progress indicator */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #38bdf8, #a855f7, #f97316);
+      z-index: 9999;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    #scroll-label {
+      position: fixed;
+      top: 6px;
+      right: 1rem;
+      z-index: 9999;
+      font-size: 0.65rem;
+      color: rgba(148,163,184,0.5);
+      pointer-events: none;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Project search */
+    .project-search-wrap {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+    .project-search-wrap input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
+    }
+    .project-search-wrap input:focus {
+      border-color: rgba(56,189,248,0.5);
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+    }
+    .project-search-wrap input::placeholder {
+      color: var(--text-muted);
+    }
+    .project-search-wrap .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+    .project-search-wrap .search-count {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    details.project.filter-hidden {
+      display: none;
+    }
+    details.project.filter-match summary {
+      border-color: rgba(56,189,248,0.15);
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.4); }
+
+    ::selection { background: rgba(56,189,248,0.3); color: #fff; }
+
+    h1, h2, h3, p { text-wrap: pretty; }
+    .guide-section { content-visibility: auto; contain-intrinsic-size: 400px; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-title span {
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    details summary::-webkit-details-marker { display: none; }
+
+    details[open] .custom-summary {
+      margin-bottom: 1rem;
+    }
+
+    details[open] .project-body {
+      animation: fadeInUp 0.4s ease forwards;
+    }
+
+    pre {
+      position: relative;
+      background: #0d1117;
+      border: 1px solid rgba(148,163,184,0.15);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.2);
+      word-break: break-word;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      z-index: 2;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      border: 1px solid rgba(148,163,184,0.2);
+      background: rgba(13,17,23,0.9);
+      color: rgba(148,163,184,0.6);
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .copy-btn::after {
+      content: "Copy";
+      position: absolute;
+      right: calc(100% + 6px);
+      top: 50%;
+      transform: translateY(-50%);
+      background: #0d1117;
+      color: #e6edf3;
+      font-size: 0.7rem;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-weight: 500;
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      border: 1px solid rgba(148,163,184,0.2);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .copy-btn:hover::after {
+      opacity: 1;
+    }
+
+    .copy-btn.copied::after {
+      content: "Copied!";
+    }
+
+    pre:hover .copy-btn,
+    .copy-btn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .copy-btn:hover {
+      color: var(--accent);
+      border-color: rgba(56,189,248,0.4);
+      background: rgba(13,17,23,1);
+    }
+
+    .copy-btn.copied {
+      color: #22c55e;
+      border-color: rgba(34,197,94,0.4);
+    }
+
+    code {
+      color: var(--text-main);
+    }
+
+    pre code {
+      background: transparent !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      color: #e6edf3;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .guide-section img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.2rem 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.01);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(120deg, #38bdf8, #0ea5e9);
+      color: #0b1120;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(8,47,73,0.6);
+      opacity: 0;
+      transform: translateY(16px) scale(0.9);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 12px 32px rgba(8,47,73,0.8);
+    }
+
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -999px;
+      left: 0.5rem;
+      z-index: 9999;
+      background: #0b1120;
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      border-top: none;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    @media print {
+      #particle-canvas, #portal-canvas {
+        display: none !important;
+      }
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .sidebar {
+        display: none;
+      }
+      .guide-layout {
+        grid-template-columns: 1fr;
+      }
+      .guide-section {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+        background: #fff;
+      }
+    }
+
+    .sidebar-icon {
+      width: 1.1rem;
+      margin-right: 0.3rem;
+      opacity: 0.6;
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 1rem 0.25rem;
+    }
+
+    .opencode-sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.65rem 0.85rem;
+      margin: 0 0.25rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
+      border: 1px solid rgba(56,189,248,0.2);
+      text-decoration: none;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.25s ease,
+                  border-color 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .opencode-sidebar-link::before {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(circle at 30% 40%, rgba(56,189,248,0.1), transparent 50%);
+      pointer-events: none;
+    }
+
+    .opencode-sidebar-link:hover {
+      transform: translateX(3px);
+      border-color: rgba(56,189,248,0.45);
+      box-shadow: 0 0 20px rgba(56,189,248,0.1);
+    }
+
+    .opencode-sidebar-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+      color: #0b1120;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .opencode-sidebar-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+
+    .opencode-sidebar-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e5e7eb;
+      letter-spacing: 0.02em;
+    }
+
+    .opencode-sidebar-desc {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .opencode-sidebar-desc i {
+      font-size: 0.6rem;
+      margin-left: 0.2rem;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+    }
+
+    .opencode-sidebar-link:hover .opencode-sidebar-desc i {
+      opacity: 1;
+    }
+
+    .section-heading-main h2 {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .close-all-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: var(--radius-pill);
+      padding: 0.25rem 0.7rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+      text-transform: none;
+      letter-spacing: normal;
+    }
+    .close-all-btn:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+    }
+    .sidebar-close-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.78rem;
+    }
+
+    .btn-open {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border-radius: var(--radius-pill);
+      padding: 0.5rem 1.1rem;
+      font-size: 0.88rem;
+      border: none;
+      background: linear-gradient(120deg, #38bdf8, #0ea5e9);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(8, 47, 73, 0.7);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.25s ease, filter 0.25s ease;
+      text-decoration: none;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.35rem 0;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover { color: var(--accent); }
+
+    .btn-open:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9);
+      filter: brightness(1.05);
+      color: #0b1120;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 0.8rem 0;
+    }
+
+    .link-row a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(15,23,42,0.9);
+      color: var(--accent);
+      text-decoration: none;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .link-row a:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      background: rgba(56,189,248,0.1);
+    }
+
+    @media (max-width: 600px) {
+      .guide-section {
+        padding: 1rem 1rem;
+      }
+      .page-shell {
+        padding: 1rem 0.75rem 2.5rem;
+      }
+    }
+
+    .repo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
+      border: 1px solid rgba(56,189,248,0.2);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), border-color 0.25s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .repo-link:hover {
+      transform: translateX(3px);
+      border-color: rgba(56,189,248,0.45);
+      box-shadow: 0 0 20px rgba(56,189,248,0.1);
+    }
+
+    .repo-link-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+      color: #0b1120;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .repo-link-body {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    .repo-link-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e5e7eb;
+      letter-spacing: 0.02em;
+    }
+
+    .repo-link-desc {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .repo-link-desc i {
+      font-size: 0.6rem;
+      margin-left: 0.2rem;
+      opacity: 0.5;
+    }
+
+    .project-count-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: var(--radius-pill);
+      padding: 0.2rem 0.65rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: rgba(56,189,248,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.2);
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+
+table.report-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    table.report-table th,
+    table.report-table td {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border-subtle);
+      text-align: left;
+    }
+
+    table.report-table th {
+      background: rgba(15,23,42,0.9);
+      color: var(--accent);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    table.report-table td {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>AI Coding Guide</h1>
-  <p>AI engineering is about creating applications that use AI models to make predictions,
-  understand language, analyze data, or automate tasks.</p>
+  <div id="scroll-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+  <div id="scroll-label"></div>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
-  <h2>Contents</h2>
-  <ul>
-    <li>OpenCode On Ubuntu</li>
-    <li>1. Website Monitor, Flutter</li>
-    <li>2. AI Snap Manager, Python</li>
-    <li>3. Llama.cpp Revisited, C++</li>
-    <li>4. Code Snippets, C++</li>
-    <li>5. Clipboard Monitor, Python</li>
-    <li>6. Self-Forking OpenCode</li>
-    <li>Free AI Models Hosted By Hugging Face</li>
-    <li>Free AI Models (With Key) Hosted By Nvidia</li>
-  </ul>
+  <main id="main-content" class="page-shell">
 
-  <h2>OpenCode On Ubuntu Linux Examples — 6 projects</h2>
+  <div class="mb-2">
+    <a href="index.html" class="btn-back">
+      <i class="fa-solid fa-arrow-left"></i> Back
+    </a>
+  </div>
 
-  <p>To install and start OpenCode for free on Ubuntu use:</p>
-  <pre><code>sudo apt update
+  <header class="reveal">
+    <h1 class="hero-title"><span>AI Coding Guide</span></h1>
+
+    <p class="hero-subtitle">
+      AI engineering is about creating applications that use AI models to make predictions,
+      understand language, analyze data, or automate tasks.
+    </p>
+
+  </header>
+
+  <div class="guide-layout">
+
+      <aside class="sidebar" role="navigation" aria-label="Page contents">
+        <h3>Contents</h3>
+        <a href="#section1"><i class="fa-solid fa-terminal sidebar-icon"></i>OpenCode On Ubuntu</a>
+        <a href="#example1"><i class="fa-solid fa-mobile-screen sidebar-icon"></i>1. Website Monitor, Flutter</a>
+        <a href="#example2"><i class="fa-brands fa-python sidebar-icon"></i>2. AI Snap Manager, Python</a>
+        <a href="#example3"><i class="fa-solid fa-code sidebar-icon"></i>3. Llama.cpp Revisited, C++</a>
+        <a href="#example4"><i class="fa-solid fa-code sidebar-icon"></i>4. Code Snippets, C++</a>
+        <a href="#example5"><i class="fa-brands fa-python sidebar-icon"></i>5. Clipboard Monitor, Python</a>
+        <a href="#example6"><i class="fa-solid fa-code-branch sidebar-icon"></i>6. Self-Forking OpenCode</a>
+        <a href="#freemodels"><i class="fa-solid fa-cube sidebar-icon"></i>Free AI Models Hosted By Hugging Face</a>
+        <a href="#nvmodels"><i class="fa-solid fa-microchip sidebar-icon"></i>Free AI Models (With Key) Hosted By Nvidia</a>
+
+        <div class="sidebar-divider"></div>
+
+        <button id="closeAllSidebarBtn" class="close-all-btn sidebar-close-btn" type="button" title="Close all open examples [C]">
+          <i class="fa-solid fa-compress"></i>
+          Close all
+        </button>
+
+        <div style="margin-top:1rem;font-size:0.65rem;color:rgba(148,163,184,0.35);line-height:1.6;">
+          <div><i class="fa-regular fa-keyboard" style="margin-right:0.3rem;"></i>F filter · C close · T top</div>
+        </div>
+
+      </aside>
+
+      <div>
+
+        <!-- UPDATED SECTION 6 -->
+        <section id="section1" class="guide-section reveal" role="region" aria-label="OpenCode on Ubuntu Linux examples">
+
+          <h2>OpenCode On Ubuntu Linux Examples
+            <span class="project-count-badge"><i class="fa-solid fa-layer-group"></i> <span id="projectCount">6</span> projects</span>
+            <button id="closeAllBtn" class="close-all-btn" type="button" title="Close all open examples">
+              <i class="fa-solid fa-compress"></i>
+              Close all
+            </button>
+          </h2>
+
+          <p>
+            To install and start OpenCode for free on Ubuntu use:
+          </p>
+
+          <pre><code>sudo apt update
 sudo apt install curl -y
 curl -fsSL https://opencode.ai/install | bash
 source ~/.bashrc
 opencode</code></pre>
 
-  <h3>1. Website Monitor, Flutter</h3>
-  <p>I saw on a website that Canonical, the publisher of Ubuntu, are now the desktop maintainers of
-  Flutter, a Google developed open source framework for building
-  multi-platform (Mobile, Desktop, Web, Embedded) applications.
-  'That could be worth a look' I thought so I used OpenCode to crack
-  out a little Website Monitor app in Flutter in about an hour.
-  Never used Flutter before, still haven't - not even looked at the
-  source code for this one but the app looks reasonably pretty when it
-  fires up.
-  AI Agentic development really put in a good show here ... new 'instant' working Flutter app from scratch with literally zero knowledge or experience of the framework and without editing or viewing a single line of source!
-  Developed on a Ubuntu 26.04 LTS Live USB.</p>
+          <p>
+            <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer" class="repo-link">
+              <span class="repo-link-icon">
+                <i class="fa-solid fa-terminal"></i>
+              </span>
+              <span class="repo-link-body">
+                <span class="repo-link-name">OpenCode</span>
+                <span class="repo-link-desc">terminal AI coding agent <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+              </span>
+            </a>
+          </p>
 
-  <h3>2. Ubuntu Native AI Inference Snap Manager, Python</h3>
-  <p>Inference snaps are a new (still in Beta but available and working) addition to Ubuntu offering a quick,
-  easy and free local install of a hardware‑optimized AI inference engine and various LLM models.
-  Using CPU only, it's the fastest local AI I've seen — matching the speed of commercial cloud
-  chatbots such as ChatGPT.</p>
-  <p>The easiest way to get started is to open a terminal and enter:</p>
-  <pre><code>sudo snap install gemma3 --beta
+          <div class="project-search-wrap">
+            <i class="fa-solid fa-search search-icon"></i>
+            <input type="text" id="projectFilter" placeholder="Filter projects by name or language..." spellcheck="false" autocomplete="off">
+            <span class="search-count" id="filterCount">6 / 6</span>
+            <span style="font-size:0.65rem;color:rgba(148,163,184,0.4);position:absolute;right:3.5rem;top:50%;transform:translateY(-50%);pointer-events:none;display:none;" id="filterHint">[F]</span>
+          </div>
+
+          <!-- EXAMPLE 1 -->
+          <details id="example1" class="project">
+            <summary class="custom-summary">
+              <span class="summary-left">
+                <span>1. Website Monitor, Flutter</span>
+              </span>
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                I saw on a website that Canonical, the publisher of Ubuntu, are <a href="https://x.com/FlutterDev/status/2057151435167441175" target="_blank" rel="noopener noreferrer">now the desktop maintainers of
+                Flutter</a>, a Google developed open source framework for building
+                multi-platform (Mobile, Desktop, Web, Embedded) applications.
+                'That could be worth a look' I thought so I used OpenCode to crack
+                out a little Website Monitor app in Flutter in about an hour.
+                Never used Flutter before, still haven't - not even looked at the
+                source code for this one but the app looks reasonably pretty when it
+                fires up.
+AI Agentic development really put in a good show here ... new 'instant' working Flutter app from scratch with literally zero knowledge or experience of the framework and without editing or viewing a single line of source!
+                Developed on a Ubuntu 26.04 LTS Live USB.
+              </p>
+
+              <img src="opencode/websitemonitor/screenshot1.png"
+                   alt="Website Monitor app screenshot showing the main interface">
+              <img src="opencode/websitemonitor/screenshot2.png"
+                   alt="Website Monitor app screenshot showing monitoring results">
+              <img src="opencode/websitemonitor/screenshot3.png"
+                   alt="Website Monitor app screenshot showing configuration">
+
+              <p>Here's the AI generated Linux source code (OpenCode also generated 'android', 'ios', 'macos', 'web' and 'windows' directories which I'm guessing held generated source for those platforms):
+              </p>
+<a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/websitemonitor/website_monitor" target="_blank" rel="noopener noreferrer">
+        Website Monitor Flutter Linux Source
+      </a>
+              <p></p>
+            </div>
+          </details>
+
+          <!-- EXAMPLE 2 -->
+          <details id="example2" class="project">
+            <summary class="custom-summary">
+              <span class="summary-left">
+                <span>2. Ubuntu Native AI Inference Snap Manager, Python</span>
+              </span>
+              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+            </summary>
+
+            <div class="project-body">
+
+              <p>
+                <a href="https://documentation.ubuntu.com/inference-snaps/">Inference snaps</a>
+                are a new (still in Beta but available and working) addition to Ubuntu offering a quick,
+                easy and free local install of a hardware‑optimized AI inference engine and various LLM models.
+                Using CPU only, it's the fastest local AI I've seen — matching the speed of commercial cloud
+                chatbots such as ChatGPT.
+              </p>
+
+              <p>The easiest way to get started is to open a terminal and enter:</p>
+
+              <pre><code>sudo snap install gemma3 --beta
 gemma3 chat</code></pre>
 
-  <h3>3. Llama.cpp Revisited, C++</h3>
-  <p>OpenCode generated single command to download llama.cpp, build it
-  (and the 'llama-cli' example tool) then download the Google Gemma 4 LLM.
-  Tested on a Ubuntu 26.04 LTS Live USB. All free.</p>
+              <p>
+                Only the <strong>gemma3</strong> model installed on my machine. As of May 2026 it occasionally
+                generates errors (including repeating tokens at the end of an answer), but offers
+                <em>speed, speed, speed</em> at a level unseen until now for CPU inference.
+              </p>
+
+              <p>
+                Terminal, Web and "OpenAI API" interfaces are provided out of the box, so I asked OpenCode
+                to generate a small Python/GTK manager for all of them:
+              </p>
+
+              <div class="link-row">
+                <a href="opencode/aisnapmanager/ai-snap-manager.py" download="ai-snap-manager.py">ai-snap-manager.py</a>
+                <a href="kilocli/view.html?file=../opencode/aisnapmanager/ai-snap-manager.py">View</a>
+              </div>
+
+              <p>Run using:</p>
+              <pre><code>python3 ./ai-snap-manager.py</code></pre>
+
+              <img src="opencode/aisnapmanager/aisnapmanager1.png"
+                   alt="AI Snap Manager application showing available models">
+              <img src="opencode/aisnapmanager/aisnapmanager2.png"
+                   alt="AI Snap Manager application showing chat interface">
+
+            </div>
+          </details>
+
+  <!-- EXAMPLE 3 -->
+  <details id="example3" class="project">
+    <summary class="custom-summary">
+      <span class="summary-left">
+        <span>3. Llama.cpp Revisited, C++</span>
+      </span>
+      <i class="fa-solid fa-chevron-down summary-chevron"></i>
+    </summary>
+
+    <div class="project-body">
+
+      <p>
+        OpenCode generated single command to download
+        <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>, build it
+        (and the 'llama-cli' example tool) then download the Google Gemma 4 LLM.
+        Tested on a Ubuntu 26.04 LTS Live USB. All free.
+      </p>
+
   <pre><code>sudo apt update && sudo apt install -y git build-essential cmake wget \
-libcurl4-openssl-dev && test -d llama.cpp \
-|| git clone https://github.com/ggerganov/llama.cpp.git \
-&& cd llama.cpp && git submodule update --init --recursive \
-&& cmake -B build -G "Unix Makefiles" -DLLAMA_CURL=ON \
-&& cmake --build build -j $(nproc) --target llama-cli \
-&& mkdir -p models \
-&& test -f models/gemma-4-E2B-it-Q8_0.gguf \
-|| wget -O models/gemma-4-E2B-it-Q8_0.gguf \
-https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf</code></pre>
-  <p>and a command to run the built llama-cli...</p>
+  libcurl4-openssl-dev && test -d llama.cpp \
+  || git clone https://github.com/ggerganov/llama.cpp.git \
+  && cd llama.cpp && git submodule update --init --recursive \
+  && cmake -B build -G "Unix Makefiles" -DLLAMA_CURL=ON \
+  && cmake --build build -j $(nproc) --target llama-cli \
+  && mkdir -p models \
+  && test -f models/gemma-4-E2B-it-Q8_0.gguf \
+  || wget -O models/gemma-4-E2B-it-Q8_0.gguf \
+    https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF/resolve/main/gemma-4-E2B-it-Q8_0.gguf</code></pre>
+
+      <p>and a command to run the built llama-cli...</p>
+
   <pre><code>./build/bin/llama-cli -m ./models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
-  <h3>4. Code Snippets, C++</h3>
-  <p>A tiny C++ program that issues a single query to OpenCode and displays the result.
-  Possibly useful when you want a quick snippet of code rather than Google or Stack Overflow searching.</p>
+      <img src="opencode/llamarevisited/llamarevisited.png" alt="Llama.cpp running in terminal with Google Gemma model">
 
-  <h3>5. Clipboard Monitor, Python</h3>
-  <p>Been after a simple Windows 10 style clipboard monitor for Ubuntu for ages that is tiny,
-  simple to install and open source. OpenCode to the rescue.</p>
+    </div>
+  </details>
 
-  <h3>6. Self-Forking The OpenCode Terminal</h3>
-  <p>How to fork the OpenCode terminal and all associated functionality using OpenCode itself.
-  Self-reproduction with a little extra at birth.</p>
-  <p>All free and open source; free tool, free model, anonymous, no sign-ins, no API keys.
-  The MIT Licence used by OpenCode means any part of the tool and associated source code can be obtained
-  and used by anyone.</p>
-  <p>Developed and tested on Ubuntu 24.04.4 LTS Live USB.</p>
+  <!-- EXAMPLE 4 -->
+  <details id="example4" class="project">
+    <summary class="custom-summary">
+      <span class="summary-left">
+        <span>4. Code Snippets, C++</span>
+      </span>
+      <i class="fa-solid fa-chevron-down summary-chevron"></i>
+    </summary>
 
-  <h2>Free AI Models Hosted By Hugging Face — open-source</h2>
-  <p>Hugging Face hosts thousands of high-quality open-source and free-to-use AI models
-  that you can run locally or access via API. No subscriptions required.</p>
+    <div class="project-body">
 
-  <h2>Free AI Models (With Key) Hosted By Nvidia — NVIDIA</h2>
-  <p>NOT ANONYMOUS — requires signing up for an API key.</p>
-  <p>NVIDIA NIM offers free access to leading AI models with just a free API key.
-  Sign up at the NVIDIA GPU Cloud (NGC) and start inferring immediately.</p>
+      <p>
+        A tiny C++ program that issues a single query to OpenCode and displays the result.
+        Possibly useful when you want a quick snippet of code rather than Google or Stack Overflow searching.
+      </p>
 
-  <footer>
-    <p>AI Playground • Coding Guide — 2026 • AI generated</p>
-  </footer>
+      <p>Makefile and C++ code were both generated by OpenCode.</p>
+
+      <div class="link-row">
+        <a href="opencode/snippet/Makefile" download="Makefile">Makefile</a>
+        <a href="kilocli/view.html?file=../opencode/snippet/Makefile">View</a>
+      </div>
+
+      <div class="link-row">
+        <a href="opencode/snippet/snippet.cpp" download="snippet.cpp">snippet.cpp</a>
+        <a href="kilocli/view.html?file=../opencode/snippet/snippet.cpp">View</a>
+      </div>
+
+      <p>Before attempting a first make, install OpenCode then get it to inspect the codebase:</p>
+
+      <p>sudo apt update; sudo apt install -y curl; curl -fsSL https://opencode.ai/install | bash; source ~/.bashrc; opencode</p>
+
+      <p>Read Makefile and snippet.cpp to understand the codebase then install all build tools required to build the codebase.</p>
+
+      <img src="opencode/snippet/snippet.png" alt="Code snippet app screenshot showing terminal output">
+
+    </div>
+  </details>
+
+          <!-- EXAMPLE 5 -->
+          <details id="example5" class="project">
+            <summary class="custom-summary">
+              <span class="summary-left">
+                <span>5. Clipboard Monitor, Python</span>
+      </span>
+      <i class="fa-solid fa-chevron-down summary-chevron"></i>
+    </summary>
+
+    <div class="project-body">
+
+      <p>
+        Been after a simple Windows 10 style clipboard monitor for Ubuntu for ages that is tiny,
+        simple to install and open source. OpenCode to the rescue.
+      </p>
+
+      <div class="link-row">
+        <a href="opencode/clipboard/clipboard_monitor.py" download="clipboard_monitor.py">clipboard_monitor.py</a>
+        <a href="kilocli/view.html?file=../opencode/clipboard/clipboard_monitor.py">View</a>
+      </div>
+
+      <p>Usage: python3 ./clipboard_monitor.py</p>
+
+      <p>'Clear clipboard' button greyed out if clipboard empty...</p>
+
+      <img src="opencode/clipboard/clipboard2.png" alt="Clipboard monitor with empty clipboard - clear button disabled">
+
+      <p>But enabled if something is on it...</p>
+
+      <img src="opencode/clipboard/clipboard3.png" alt="Clipboard monitor with content - clear button enabled">
+
+    </div>
+  </details>
+
+  <!-- EXAMPLE 6 -->
+  <details id="example6" class="project">
+    <summary class="custom-summary">
+      <span class="summary-left">
+        <span>6. Self-Forking The OpenCode Terminal</span>
+      </span>
+      <i class="fa-solid fa-chevron-down summary-chevron"></i>
+    </summary>
+
+    <div class="project-body">
+
+      <p>
+        How to fork the OpenCode terminal and all associated functionality using OpenCode itself.
+        Self-reproduction with a little extra at birth.
+      </p>
+
+      <p>
+        All free and open source; free tool, free model, anonymous, no sign-ins, no API keys.
+        The <a href="https://github.com/anomalyco/opencode/blob/dev/LICENSE">MIT Licence</a>
+        used by OpenCode means any part of the tool and associated source code can be obtained
+        and used by anyone.
+      </p>
+
+      <p>Developed and tested on Ubuntu 24.04.4 LTS Live USB.</p>
+
+      <div class="link-row">
+        <a href="opencode/fork/howto-fork.txt" download="howto-fork.txt">howto-fork.txt</a>
+        <a href="kilocli/view.html?file=../opencode/fork/howto-fork.txt">View</a>
+      </div>
+
+      <div class="link-row">
+        <a href="opencode/fork/opencode-fork.txt" download="opencode-fork.txt">opencode-fork.txt</a>
+        <a href="kilocli/view.html?file=../opencode/fork/opencode-fork.txt">View</a>
+      </div>
+
+      <p>The baby is born...</p>
+
+      <img src="opencode/fork/taskcomplete.png" alt="OpenCode fork task complete in terminal">
+
+      <p>
+        It has been given a little something extra its mother
+        (<a href="https://github.com/anomalyco/opencode">the OpenCode repository on GitHub</a>)
+        does not have...
+      </p>
+
+      <img src="opencode/fork/info.png" alt="Fork info showing version details">
+
+      <p>But everything else works as expected...</p>
+
+      <img src="opencode/fork/invoke.png" alt="OpenCode fork being invoked">
+      <img src="opencode/fork/running.png" alt="OpenCode fork running in terminal">
+      <img src="opencode/fork/exit.png" alt="OpenCode fork exit screen">
+
+    </div>
+  </details>
+
+
+        </section>
+
+        <section id="freemodels" class="guide-section reveal" role="region" aria-label="Free AI Models hosted by Hugging Face">
+
+          <h2>Free AI Models Hosted By Hugging Face
+            <span class="project-count-badge"><i class="fa-solid fa-cube"></i> open-source</span>
+          </h2>
+
+          <p>
+            <a href="https://huggingface.co" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:#38bdf8;">Hugging Face</a>
+            hosts thousands of high-quality open-source and free-to-use AI models
+            that you can run locally or access via API. No subscriptions required.
+          </p>
+
+          <div class="link-row" style="margin-top:1.5rem;">
+            <a href="https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct" target="_blank" rel="noopener noreferrer">Llama 3.3 (70B)</a>
+            <a href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3" target="_blank" rel="noopener noreferrer">Mistral 7B</a>
+            <a href="https://huggingface.co/microsoft/Phi-3-mini-4k-instruct" target="_blank" rel="noopener noreferrer">Phi-3 Mini</a>
+            <a href="https://huggingface.co/Qwen/Qwen2.5-7B-Instruct" target="_blank" rel="noopener noreferrer">Qwen 2.5 (7B)</a>
+            <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1" target="_blank" rel="noopener noreferrer">DeepSeek R1</a>
+            <a href="https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1" target="_blank" rel="noopener noreferrer">Mixtral 8x7B</a>
+            <a href="https://huggingface.co/google/gemma-2-9b-it" target="_blank" rel="noopener noreferrer">Gemma 2 (9B)</a>
+            <a href="https://huggingface.co/stabilityai/stable-diffusion-3.5-large" target="_blank" rel="noopener noreferrer">Stable Diffusion 3.5</a>
+          </div>
+
+          <div style="margin-top:1.5rem;padding:1rem;background:rgba(56,189,248,0.06);border-radius:8px;border:1px solid rgba(56,189,248,0.12);">
+            <p style="margin:0;font-size:0.85rem;color:rgba(148,163,184,0.8);">
+              <i class="fa-solid fa-lightbulb" style="margin-right:0.4rem;color:#38bdf8;"></i>
+              All models listed run locally via
+              <a href="https://ollama.com" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">Ollama</a>,
+              <a href="https://github.com/ggerganov/llama.cpp" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">llama.cpp</a>,
+              or on
+              <a href="https://huggingface.co" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">Hugging Face</a>.
+            </p>
+          </div>
+
+        </section>
+
+        <section id="nvmodels" class="guide-section reveal" role="region" aria-label="Free AI Models with API key hosted by Nvidia">
+
+          <h2>Free AI Models (With Key) Hosted By Nvidia
+            <span class="project-count-badge"><i class="fa-solid fa-microchip"></i> NVIDIA</span>
+          </h2>
+
+          <div style="margin:1rem 0;padding:0.75rem 1rem;background:rgba(249,115,22,0.08);border-radius:8px;border:1px solid rgba(249,115,22,0.2);">
+            <p style="margin:0;font-size:0.85rem;color:rgba(148,163,184,0.9);">
+              <i class="fa-solid fa-triangle-exclamation" style="margin-right:0.4rem;color:#f97316;"></i>
+              <strong>NOT ANONYMOUS</strong> — requires signing up for an API key.
+            </p>
+          </div>
+
+          <p>
+            <a href="https://build.nvidia.com" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:#38bdf8;">NVIDIA NIM</a>
+            offers free access to leading AI models with just a free API key.
+            Sign up at the NVIDIA GPU Cloud (NGC) and start inferring immediately.
+          </p>
+
+          <div class="link-row" style="margin-top:1.5rem;">
+            <a href="https://build.nvidia.com/meta/llama-3_3-70b-instruct" target="_blank" rel="noopener noreferrer">Llama 3.3 70B</a>
+            <a href="https://build.nvidia.com/mistralai/mistral-large-3-675b-instruct-2512" target="_blank" rel="noopener noreferrer">Mistral Large 3</a>
+            <a href="https://build.nvidia.com/nvidia/llama-3_1-nemotron-70b-instruct" target="_blank" rel="noopener noreferrer">Nemotron 70B</a>
+            <a href="https://build.nvidia.com/google/gemma-2-27b-it" target="_blank" rel="noopener noreferrer">Gemma 2 27B</a>
+            <a href="https://build.nvidia.com/mistralai/mistral-nemotron" target="_blank" rel="noopener noreferrer">Mistral-Nemotron</a>
+            <a href="https://build.nvidia.com/deepseek-ai/deepseek-r1" target="_blank" rel="noopener noreferrer">DeepSeek R1</a>
+            <a href="https://build.nvidia.com/stabilityai/stable-diffusion-3_5-large" target="_blank" rel="noopener noreferrer">Stable Diffusion 3.5</a>
+          </div>
+
+          <div style="margin-top:1.5rem;padding:1rem;background:rgba(56,189,248,0.06);border-radius:8px;border:1px solid rgba(56,189,248,0.12);">
+            <p style="margin:0;font-size:0.85rem;color:rgba(148,163,184,0.8);">
+              <i class="fa-solid fa-key" style="margin-right:0.4rem;color:#38bdf8;"></i>
+              Get your free API key at
+              <a href="https://build.nvidia.com" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">build.nvidia.com</a>.
+              No credit card required for the free tier.
+            </p>
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+
+    <footer>
+      <span>AI Playground • Coding Guide</span>
+      <span>2026 • AI generated</span>
+    </footer>
+
+  </main>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function () {
+      const backToTop = document.getElementById("backToTop");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+      if (backToTop) {
+        window.addEventListener("scroll", () => {
+          backToTop.classList.toggle("visible", window.scrollY > 400);
+        });
+
+        backToTop.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      document.querySelectorAll(".sidebar a[href^='#']").forEach(function(link) {
+        link.addEventListener("click", function(e) {
+          e.preventDefault();
+          const id = this.getAttribute("href").slice(1);
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (el.tagName === "DETAILS") {
+            el.setAttribute("open", "");
+          }
+          const rect = el.getBoundingClientRect();
+          const offset = 90;
+          const top = rect.top + window.pageYOffset - offset;
+          window.scrollTo({ top: top, behavior: "smooth" });
+        });
+      });
+
+      function closeAllExamples() {
+        document.querySelectorAll("details.project[open]").forEach(function(d) {
+          d.removeAttribute("open");
+        });
+      }
+      document.getElementById("closeAllBtn").addEventListener("click", closeAllExamples);
+      document.getElementById("closeAllSidebarBtn").addEventListener("click", closeAllExamples);
+
+      document.querySelectorAll("pre").forEach((pre) => {
+        const btn = document.createElement("button");
+        btn.className = "copy-btn";
+        btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+        btn.setAttribute("aria-label", "Copy code");
+        pre.appendChild(btn);
+
+        btn.addEventListener("click", () => {
+          const code = pre.querySelector("code");
+          const text = (code || pre).textContent;
+          navigator.clipboard.writeText(text).then(() => {
+            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            btn.classList.add("copied");
+            setTimeout(() => {
+              btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+              btn.classList.remove("copied");
+            }, 2000);
+          });
+        });
+      });
+
+      /* Scroll progress */
+      const progressBar = document.getElementById('scroll-progress');
+      const scrollLabel = document.getElementById('scroll-label');
+      if (progressBar) {
+        window.addEventListener('scroll', () => {
+          const scrollTop = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+          progressBar.style.width = pct + '%';
+          progressBar.setAttribute('aria-valuenow', Math.round(pct));
+          if (scrollLabel) scrollLabel.textContent = Math.round(pct) + '%';
+        });
+      }
+
+      /* Project filter */
+      const filterInput = document.getElementById('projectFilter');
+      const filterCount = document.getElementById('filterCount');
+      if (filterInput && filterCount) {
+        filterInput.addEventListener('input', () => {
+          const q = filterInput.value.toLowerCase().trim();
+          const details = document.querySelectorAll('details.project');
+          let visible = 0;
+          details.forEach(d => {
+            const text = d.textContent.toLowerCase();
+            const match = !q || text.includes(q);
+            d.classList.toggle('filter-hidden', !match);
+            d.classList.toggle('filter-match', match && q);
+            if (match) visible++;
+          });
+          filterCount.textContent = visible + ' / ' + details.length;
+        });
+      }
+
+      /* Keyboard shortcuts */
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key === 'f' || e.key === 'F') {
+          e.preventDefault();
+          var fi = document.getElementById('projectFilter');
+          if (fi) { fi.focus(); fi.select(); }
+        }
+        if (e.key === 'c' || e.key === 'C') {
+          e.preventDefault();
+          closeAllExamples();
+        }
+        if (e.key === 't' || e.key === 'T') {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+      var fi = document.getElementById('projectFilter');
+      var fh = document.getElementById('filterHint');
+      if (fi && fh) {
+        fi.addEventListener('focus', function() { fh.style.display = 'none'; });
+        fi.addEventListener('blur', function() { fh.style.display = ''; });
+        fh.style.display = '';
+      }
+
+      /* Sidebar active tracking */
+      const sidebarLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+      const allSections = document.querySelectorAll('[id^="section"], [id^="example"]');
+      function updateSidebar() {
+        let current = '';
+        allSections.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 200) current = el.id;
+        });
+        sidebarLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+      }
+      window.addEventListener('scroll', updateSidebar);
+      updateSidebar();
+
+      /* Collapse state persistence */
+      const projectDetails = document.querySelectorAll('details.project');
+      projectDetails.forEach(d => {
+        d.addEventListener('toggle', () => {
+          try { sessionStorage.setItem('open-' + d.id, d.open ? '1' : '0'); } catch(e) {}
+        });
+        try {
+          if (sessionStorage.getItem('open-' + d.id) === '1') d.setAttribute('open', '');
+        } catch(e) {}
+      });
+    })();
+  </script>
+
+  <script>
+    (function() {
+
+      /* === Particle canvas === */
+      const particleCanvas = document.getElementById('particle-canvas');
+      let particleCtx, particles = [], mouse = { x: null, y: null, radius: 150 };
+
+      if (particleCanvas) {
+        particleCtx = particleCanvas.getContext('2d');
+
+        function resizeParticles() {
+          particleCanvas.width = window.innerWidth;
+          particleCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeParticles);
+        resizeParticles();
+
+        class Particle {
+          constructor() {
+            this.x = Math.random() * particleCanvas.width;
+            this.y = Math.random() * particleCanvas.height;
+            this.size = Math.random() * 2 + 1.2;
+            this.speedX = (Math.random() - 0.5) * 0.4;
+            this.speedY = (Math.random() - 0.5) * 0.4;
+            this.opacity = Math.random() * 0.5 + 0.25;
+          }
+          update() {
+            if (mouse.x !== null) {
+              const dx = mouse.x - this.x;
+              const dy = mouse.y - this.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < mouse.radius && dist > 0) {
+                const force = (mouse.radius - dist) / mouse.radius;
+                this.speedX += (dx / dist) * force * 0.02;
+                this.speedY += (dy / dist) * force * 0.02;
+              }
+            }
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.speedX *= 0.98;
+            this.speedY *= 0.98;
+            if (this.x < -20) this.x = particleCanvas.width + 20;
+            if (this.x > particleCanvas.width + 20) this.x = -20;
+            if (this.y < -20) this.y = particleCanvas.height + 20;
+            if (this.y > particleCanvas.height + 20) this.y = -20;
+          }
+          draw() {
+            particleCtx.beginPath();
+            particleCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            particleCtx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
+            particleCtx.fill();
+          }
+        }
+
+        function initParticles() {
+          const area = particleCanvas.width * particleCanvas.height;
+          const count = Math.min(80, Math.max(30, Math.floor(area / 14000)));
+          particles = Array.from({ length: count }, () => new Particle());
+        }
+
+        function connectParticles() {
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const dx = particles[i].x - particles[j].x;
+              const dy = particles[i].y - particles[j].y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 130) {
+                const opacity = (1 - dist / 130) * 0.2;
+                particleCtx.beginPath();
+                particleCtx.moveTo(particles[i].x, particles[i].y);
+                particleCtx.lineTo(particles[j].x, particles[j].y);
+                particleCtx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
+                particleCtx.lineWidth = 0.5;
+                particleCtx.stroke();
+              }
+            }
+          }
+        }
+
+        initParticles();
+
+        let particleResizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(particleResizeTimer);
+          particleResizeTimer = setTimeout(() => { resizeParticles(); initParticles(); }, 200);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+        });
+
+        document.addEventListener('mouseleave', () => {
+          mouse.x = null;
+          mouse.y = null;
+        });
+
+        const particleAnimate = () => {
+          particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+          particles.forEach(p => { p.update(); p.draw(); });
+          connectParticles();
+          requestAnimationFrame(particleAnimate);
+        };
+        particleAnimate();
+      }
+
+      /* === Portal canvas === */
+      const portalCanvas = document.createElement('canvas');
+      portalCanvas.id = 'portal-canvas';
+      portalCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;';
+      const pc = document.getElementById('particle-canvas');
+      if (pc && pc.parentNode) pc.parentNode.insertBefore(portalCanvas, pc.nextSibling);
+      else document.body.appendChild(portalCanvas);
+      const portalCtx = portalCanvas.getContext('2d');
+      let W, H;
+      function resizePortal() { W = portalCanvas.width = window.innerWidth; H = portalCanvas.height = window.innerHeight; }
+      resizePortal();
+      window.addEventListener('resize', resizePortal);
+
+      const RINGS = 6;
+      const RAYS = 24;
+      const ORBS = 40;
+      let birth = 0;
+      let time = 0;
+
+      class Orb {
+        constructor() {
+          this.angle = Math.random() * Math.PI * 2;
+          this.radius = 60 + Math.random() * 280;
+          this.speed = (0.002 + Math.random() * 0.006) * (Math.random() > 0.5 ? 1 : -1);
+          this.size = 2 + Math.random() * 5;
+          this.phase = Math.random() * Math.PI * 2;
+          this.color = ['#38bdf8','#a855f7','#f97316','#22d3ee','#c084fc','#34d399'][Math.floor(Math.random() * 6)];
+          this.bobAmp = 5 + Math.random() * 15;
+          this.bobSpeed = 0.01 + Math.random() * 0.02;
+        }
+      }
+
+      const orbs = [];
+      for (let i = 0; i < ORBS; i++) orbs.push(new Orb());
+
+      function drawRing(cx, cy, r, pulse, idx) {
+        const alpha = 0.15 + 0.1 * Math.sin(time * 0.5 + idx * 0.8 + pulse * 2);
+        portalCtx.beginPath();
+        portalCtx.arc(cx, cy, r, 0, Math.PI * 2);
+        portalCtx.strokeStyle = 'rgba(56,189,248,' + (alpha * Math.min(1, birth * 4)) + ')';
+        portalCtx.lineWidth = 1.5 + Math.sin(time + idx) * 0.8;
+        portalCtx.stroke();
+
+        portalCtx.beginPath();
+        portalCtx.arc(cx, cy, r + 4, 0, Math.PI * 2);
+        portalCtx.strokeStyle = 'rgba(168,85,247,' + (alpha * 0.4 * Math.min(1, birth * 4)) + ')';
+        portalCtx.lineWidth = 0.5;
+        portalCtx.stroke();
+      }
+
+      function portalAnimate() {
+        birth = Math.min(birth + 0.005, 1);
+        time += 0.02;
+        const exp = Math.min(1, birth * 2.5);
+        const cx = W / 2, cy = H / 2;
+
+        portalCtx.clearRect(0, 0, W, H);
+
+        if (exp < 0.05) { requestAnimationFrame(portalAnimate); return; }
+
+        const maxR = Math.min(W, H) * 0.45 * exp;
+
+        const cg = portalCtx.createRadialGradient(cx, cy, 0, cx, cy, maxR * 0.5);
+        cg.addColorStop(0, 'rgba(56,189,248,' + (0.12 * exp) + ')');
+        cg.addColorStop(0.3, 'rgba(168,85,247,' + (0.07 * exp) + ')');
+        cg.addColorStop(0.7, 'rgba(249,115,22,' + (0.03 * exp) + ')');
+        cg.addColorStop(1, 'rgba(0,0,0,0)');
+        portalCtx.fillStyle = cg;
+        portalCtx.fillRect(0, 0, W, H);
+
+        for (let r = 0; r < RAYS; r++) {
+          const ra = (r / RAYS) * Math.PI * 2 + time * 0.1;
+          const len = maxR * (0.7 + 0.3 * Math.sin(ra * 3 + time));
+          portalCtx.beginPath();
+          portalCtx.moveTo(cx, cy);
+          portalCtx.lineTo(cx + Math.cos(ra) * len, cy + Math.sin(ra) * len);
+          const alpha = 0.04 + 0.03 * Math.sin(ra * 2 + time * 1.5);
+          portalCtx.strokeStyle = 'rgba(56,189,248,' + (alpha * exp) + ')';
+          portalCtx.lineWidth = 1 + Math.sin(ra * 4 + time) * 0.5;
+          portalCtx.stroke();
+        }
+
+        const og = portalCtx.createRadialGradient(cx - maxR * 0.2, cy - maxR * 0.2, 0, cx, cy, maxR);
+        og.addColorStop(0, 'rgba(0,0,0,0)');
+        og.addColorStop(0.6, 'rgba(56,189,248,' + (0.02 * exp) + ')');
+        og.addColorStop(0.8, 'rgba(168,85,247,' + (0.04 * exp) + ')');
+        og.addColorStop(1, 'rgba(0,0,0,0)');
+        portalCtx.fillStyle = og;
+        portalCtx.beginPath();
+        portalCtx.arc(cx, cy, maxR, 0, Math.PI * 2);
+        portalCtx.fill();
+
+        for (let ri = 0; ri < RINGS; ri++) {
+          const rr = (maxR / RINGS) * (ri + 0.5) + Math.sin(time * 0.3 + ri * 1.2) * 8;
+          drawRing(cx, cy, rr, (ri / RINGS), ri);
+        }
+
+        for (let o = 0; o < orbs.length; o++) {
+          const ob = orbs[o];
+          ob.angle += ob.speed;
+          ob.radius += Math.sin(time * ob.bobSpeed + ob.phase) * 0.15;
+          if (ob.radius > maxR * 0.9) ob.radius = maxR * 0.1;
+          if (ob.radius < maxR * 0.05) ob.radius = maxR * 0.1;
+          const ox = cx + Math.cos(ob.angle) * ob.radius;
+          const oy = cy + Math.sin(ob.angle) * ob.radius + Math.sin(time * ob.bobSpeed + ob.phase) * ob.bobAmp;
+          const alpha = 0.3 + 0.4 * (0.5 + 0.5 * Math.sin(time + ob.phase));
+          portalCtx.globalAlpha = alpha * exp;
+          portalCtx.fillStyle = ob.color;
+          portalCtx.beginPath();
+          portalCtx.arc(ox, oy, ob.size * (0.7 + 0.3 * Math.sin(time + ob.phase)), 0, Math.PI * 2);
+          portalCtx.fill();
+
+          const gg = portalCtx.createRadialGradient(ox, oy, 0, ox, oy, ob.size * 3);
+          gg.addColorStop(0, ob.color.replace(')', ',0.15)').replace('rgb', 'rgba'));
+          gg.addColorStop(1, 'rgba(0,0,0,0)');
+          portalCtx.fillStyle = gg;
+          portalCtx.beginPath();
+          portalCtx.arc(ox, oy, ob.size * 3, 0, Math.PI * 2);
+          portalCtx.fill();
+        }
+
+        const pulseR = ((time * 60) % (maxR * 2));
+        if (pulseR < maxR) {
+          portalCtx.globalAlpha = 0.15 * (1 - pulseR / maxR) * exp;
+          portalCtx.strokeStyle = '#38bdf8';
+          portalCtx.lineWidth = 2;
+          portalCtx.beginPath();
+          portalCtx.arc(cx, cy, pulseR, 0, Math.PI * 2);
+          portalCtx.stroke();
+        }
+
+        portalCtx.globalAlpha = 1;
+        requestAnimationFrame(portalAnimate);
+      }
+      portalAnimate();
+
+    })();
+  </script>
+
 </body>
 </html>
