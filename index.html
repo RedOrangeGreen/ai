@@ -2,18 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
   <meta name="description" content="Explore free AI chatbots and local AI tools. No sign-up required." />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
   <title>AI Playground – Free AI Tools</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "AI Playground – Free AI Tools",
+    "description": "Explore free AI chatbots and local AI tools. No sign-up required.",
+    "url": "https://aiplayground.example.com",
+    "about": {
+      "@type": "Thing",
+      "name": "Artificial Intelligence"
+    }
+  }
+  </script>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet" crossorigin="anonymous"
+    rel="stylesheet" crossorigin="anonymous" fetchpriority="high"
   />
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -44,6 +58,7 @@
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
       min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
     }
     a { text-decoration: none; }
     #particle-canvas {
@@ -250,12 +265,14 @@
       .clock-pill-label { font-size: 0.7rem; }
       .clock-pill-time { font-size: 0.8rem; }
     }
-    html { scroll-behavior: smooth; overflow-y: scroll; }
+    html { scroll-behavior: smooth; overflow-y: scroll; scrollbar-gutter: stable; overscroll-behavior: none; }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg-body); }
     ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.4); }
     ::selection { background: rgba(56,189,248,0.3); color: #fff; }
+    h1, h2, h3, p { text-wrap: pretty; }
+    .tool-card { content-visibility: auto; contain-intrinsic-size: 220px; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     @keyframes pulseDot { 0%, 100% { box-shadow: 0 0 0 6px rgba(34,197,94,0.25); } 50% { box-shadow: 0 0 0 12px rgba(34,197,94,0.1); } }
@@ -364,10 +381,14 @@
     .city-modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.65);
       display: flex; align-items: center; justify-content: center;
-      z-index: 9999; opacity: 0; pointer-events: none;
-      transition: opacity 0.25s ease;
+      z-index: 9999;
+      transition: opacity 0.25s ease, overlay 0.25s ease, display 0.25s ease allow-discrete;
+      opacity: 0;
+      border: none;
     }
-    .city-modal-overlay.visible { opacity: 1; pointer-events: auto; }
+    .city-modal-overlay[open] { opacity: 1; }
+    @starting-style { .city-modal-overlay[open] { opacity: 0; } }
+    .city-modal-overlay::backdrop { background: rgba(0,0,0,0.65); }
     .city-modal-box {
       background: #0b1020; border: 1px solid var(--border-subtle);
       border-radius: 16px; padding: 1.5rem 2rem; max-width: 360px;
@@ -380,6 +401,7 @@
       margin-top: 1rem; border: none; background: rgba(56,189,248,0.15);
       color: var(--accent); padding: 0.35rem 1.2rem; border-radius: 999px;
       font-size: 0.82rem; cursor: pointer; transition: background 0.2s ease;
+      font-family: inherit;
     }
     .city-modal-box .cm-close:hover { background: rgba(56,189,248,0.25); }
     .clock-pill { cursor: pointer; }
@@ -388,7 +410,7 @@
       margin: -0.3rem 0 0.8rem 0; border-radius: 12px;
       background: rgba(15,23,42,0.5); border: 1px solid var(--border-subtle);
     }
-    .news-ticker-inner { will-change: transform; transition: opacity 0.35s ease, filter 0.35s ease; }
+    .news-ticker-inner { transition: opacity 0.35s ease, filter 0.35s ease; }
     .news-ticker-reset .news-ticker-inner {
       opacity: 0; filter: blur(4px);
     }
@@ -487,6 +509,13 @@
           <div class="news-ticker-refresh-msg">⟳ Refreshing…</div>
           <div class="news-ticker-inner"><div class="news-ticker-loading">Loading news…</div></div>
         </div>
+        <div class="news-label"><i class="fa-solid fa-trophy"></i><span>Sports News</span><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerSports" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerSports" title="Reset speed"></i></span></div>
+        <div class="news-ticker" id="tickerSports" role="region" aria-label="Sports news headlines">
+          <div class="news-ticker-grad top"></div>
+          <div class="news-ticker-grad bot"></div>
+          <div class="news-ticker-refresh-msg">⟳ Refreshing…</div>
+          <div class="news-ticker-inner"><div class="news-ticker-loading">Loading news…</div></div>
+        </div>
         <div class="hero-badges">
           <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> $0, anonymous, instant use</div>
           <div class="hero-badge"><i class="fa-solid fa-laptop-code"></i> Web &amp; local options</div>
@@ -533,7 +562,7 @@
           <p class="tool-card-body">General‑purpose AI assistant for chat, writing, brainstorming, and coding. Great default starting point.</p>
           <div class="tool-card-footer">
             <div class="tool-card-footer-left"><label class="toggle-wrap"><input type="checkbox" data-key="chatgpt" checked></label><span>Best for quick ideas &amp; drafts</span></div>
-            <a href="https://www.chatgpt.com" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
         <article class="tool-card tool" data-category="web" data-key="copilot" data-tags="copilot microsoft bing search web office">
@@ -551,7 +580,7 @@
           </div>
           <p class="tool-card-body">AI assistant integrated with web search and Microsoft services. Strong for research and summarising pages.</p>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><label class="toggle-wrap"><input type="checkbox" data-key="copilot"></label><span>Great for web‑aware answers</span></div>
+            <div class="tool-card-footer-left"><label class="toggle-wrap"><input type="checkbox" data-key="copilot" checked></label><span>Great for web‑aware answers</span></div>
             <a href="https://www.bing.com/chat" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
@@ -666,22 +695,6 @@
         <div class="section-heading-sub">Curated video content about AI-assisted development.</div>
       </header>
       <div class="tool-grid">
-        <article class="tool-card tool" data-category="videos" data-tags="videos youtube channel guide">
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-brands fa-youtube"></i></div>
-                <div><h3>YouTube Videos</h3><div class="tool-card-provider">AI Playground</div></div>
-              </div>
-            </div>
-            <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-play"></i> Videos</span></div>
-          </div>
-          <p class="tool-card-body">Watch tutorials, walkthroughs, and deep dives into AI-powered development workflows.</p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><span>Browse the AI Playground channel</span></div>
-            <a href="https://www.youtube.com/@aiplagro/videos" target="_blank" rel="noopener noreferrer" class="btn-open">YouTube Videos <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          </div>
-        </article>
         <article class="tool-card tool" data-category="videos" data-tags="italian language learning ai video">
           <div class="tool-card-header">
             <div>
@@ -710,6 +723,38 @@
             <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
         </article>
+        <article class="tool-card tool" data-category="videos" data-tags="ai generated short film cannes award" style="grid-column: 1 / -1;">
+          <div class="tool-card-header">
+            <div>
+              <div class="tool-card-title">
+                <div class="tool-card-title-icon"><i class="fa-solid fa-robot"></i></div>
+                <div><h3>The Crow</h3><div class="tool-card-provider">Glenn Marshall</div></div>
+              </div>
+            </div>
+            <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-award"></i> AI Film</span></div>
+          </div>
+          <p class="tool-card-body">Award-winning AI-generated short film. Created using OpenAI's CLIP neural network, it won the Jury Award at the Cannes Short Film Festival.</p>
+          <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/5dvxY6vXHsA" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </article>
+        <article class="tool-card tool" data-category="videos" data-tags="ai generated fantasy pixabay cc0">
+          <div class="tool-card-header">
+            <div>
+              <div class="tool-card-title">
+                <div class="tool-card-title-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div><h3>AI Fantasy Scene</h3><div class="tool-card-provider">Pixabay (CC0)</div></div>
+              </div>
+            </div>
+            <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-paintbrush"></i> AI Generated</span></div>
+          </div>
+          <p class="tool-card-body">AI-generated fantasy video — a woman in a mystical forest clearing. CC0 licensed, free to use.</p>
+          <div style="margin:1rem;border-radius:8px;overflow:hidden;">
+            <video controls style="width:100%;display:block;border-radius:8px;" preload="metadata">
+              <source src="https://cdn.pixabay.com/video/2023/11/05/188010-881528775_large.mp4" type="video/mp4">
+            </video>
+          </div>
+        </article>
       </div>
     </section>
     <footer>
@@ -718,24 +763,28 @@
         <span>2026</span>
         <span class="dot"></span>
         <span>Built for experimenting, learning, and tinkering</span>
+        <span class="dot"></span>
+        <span>AI generated</span>
       </div>
     </footer>
   </main>
-  <div class="city-modal-overlay" id="cityModal">
-    <div class="city-modal-box">
+  <dialog class="city-modal-overlay" id="cityModal">
+    <div class="city-modal-box" role="document">
       <h3 id="cmCity"></h3>
       <div class="cm-continent" id="cmContinent"></div>
       <div class="cm-fact" id="cmFact"></div>
-      <button class="cm-close" id="cmClose">Close</button>
+      <form method="dialog">
+        <button class="cm-close" type="submit">Close</button>
+      </form>
     </div>
-  </div>
+  </dialog>
   <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     (function() {
       const WEB_FLAGS = {
         chatgpt: true,
-        copilot: false,
+        copilot: true,
         google: true,
       };
       document.querySelectorAll('.tool-card[data-category="web"]').forEach(function(card) {
@@ -823,6 +872,7 @@
           var url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feedUrl);
           fetch(url).then(function(r) { return r.json(); }).then(function(data) {
             if (!data || !data.items) return;
+            data.items.sort(function(a, b) { return new Date(b.pubDate) - new Date(a.pubDate); });
             var frag = document.createDocumentFragment();
             var newItems = [];
             var count = Math.min(data.items.length, 5);
@@ -881,6 +931,7 @@
       }
       createTicker('tickerWorld', 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml');
       createTicker('tickerAI', 'https://techcrunch.com/feed/');
+      createTicker('tickerSports', 'https://www.theguardian.com/sport/rss');
       document.querySelectorAll('.ticker-speed').forEach(function(slider) {
         slider.addEventListener('input', function() {
           var id = this.getAttribute('data-ticker');
@@ -961,14 +1012,8 @@
         document.getElementById('cmCity').textContent = name;
         document.getElementById('cmContinent').textContent = info.continent;
         document.getElementById('cmFact').textContent = info.fact;
-        document.getElementById('cityModal').classList.add('visible');
+        document.getElementById('cityModal').showModal();
       }
-      document.getElementById('cmClose').addEventListener('click', function() {
-        document.getElementById('cityModal').classList.remove('visible');
-      });
-      document.getElementById('cityModal').addEventListener('click', function(e) {
-        if (e.target === this) this.classList.remove('visible');
-      });
       document.querySelectorAll('.clock-pill').forEach(function(pill) {
         if (pill.id === 'wonderland-pill' || pill.id === 'yourcity-pill') return;
         pill.addEventListener('click', function() {
