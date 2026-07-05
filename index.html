@@ -143,6 +143,11 @@
     }
     .section-heading-main h2 { font-size: 1.05rem; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; color: #e5e7eb; }
     .section-heading-sub { font-size: 0.8rem; color: var(--text-muted); }
+    .chatbot-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+    .chatbot-list li { padding: 0.65rem 0.9rem; background: rgba(15, 23, 42, 0.7); border-radius: 12px; border: 1px solid var(--border-subtle); font-size: 0.9rem; color: var(--text-muted); transition: border-color var(--transition-fast); }
+    .chatbot-list li:hover { border-color: rgba(56, 189, 248, 0.6); }
+    .chatbot-list a { color: var(--accent); font-weight: 600; }
+    .chatbot-list a::after { content: " \2197"; font-size: 0.75rem; }
     .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1rem; }
     .tool-card {
       border-radius: var(--radius-lg); background: rgba(15, 23, 42, 0.96);
@@ -522,69 +527,11 @@
         <div class="section-heading-main"><i class="fa-solid fa-globe"></i><h2>Web‑based AI chatbots</h2></div>
         <div class="section-heading-sub">General assistants you can open in a tab and start chatting with.</div>
       </header>
-      <div class="tool-grid">
-        <article class="tool-card tool" data-category="web" data-key="chatgpt" data-tags="chatgpt openai chat writing coding general">
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-regular fa-compass"></i></div>
-                <div><h3>ChatGPT</h3><div class="tool-card-provider">OpenAI</div></div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free"><i class="fa-solid fa-circle-check"></i> Free</span>
-              <span class="tool-badge"><i class="fa-solid fa-user"></i> Optional Sign up</span>
-            </div>
-          </div>
-          <p class="tool-card-body">General‑purpose AI assistant for chat, writing, brainstorming, and coding. Great default starting point.</p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><span>Best for quick ideas &amp; drafts</span></div>
-            <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          </div>
-        </article>
-        <article class="tool-card tool" data-category="web" data-key="copilot" data-tags="copilot microsoft bing search web office">
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                <div><h3>Microsoft Copilot</h3><div class="tool-card-provider">Microsoft</div></div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free"><i class="fa-solid fa-circle-check"></i> Free</span>
-              <span class="tool-badge"><i class="fa-solid fa-user"></i> Optional Sign up</span>
-            </div>
-          </div>
-          <p class="tool-card-body">AI assistant integrated with web search and Microsoft services. Strong for research and summarising pages.</p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><span>Great for web‑aware answers</span></div>
-            <a href="https://www.bing.com/chat" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          </div>
-        </article>
-
-        <article class="tool-card tool" data-category="web" data-key="google" data-tags="google ai search results serp">
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-brands fa-google"></i></div>
-                <div><h3>Google AI Search</h3><div class="tool-card-provider">Google</div></div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge free"><i class="fa-solid fa-circle-check"></i> Free</span>
-              <span class="tool-badge"><i class="fa-solid fa-user"></i> Optional Sign up</span>
-            </div>
-          </div>
-          <p class="tool-card-body">AI‑enhanced search results from Google, blending classic search with summarised answers.</p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><span>Familiar search + AI layer</span></div>
-            <a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer" class="btn-open">Open <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          </div>
-        </article>
-
-
-
-      </div>
+      <ul class="chatbot-list">
+        <li><a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General‑purpose AI assistant for chat, writing, brainstorming, and coding.</li>
+        <li><a href="https://www.bing.com/chat" target="_blank" rel="noopener noreferrer">Microsoft Copilot</a> &mdash; AI assistant with web search integration. Strong for research and summarising pages.</li>
+        <li><a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google AI Search</a> &mdash; AI‑enhanced search blending classic search with summarised answers.</li>
+      </ul>
     </section>
     <section class="reveal">
       <header class="section-heading">
