@@ -192,7 +192,7 @@
     }
     .tool-card-footer a.btn-open:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9); filter: brightness(1.05); }
     .btn-open-ghost { background: transparent !important; color: var(--accent) !important; border: 1px solid rgba(56, 189, 248, 0.7) !important; box-shadow: none !important; }
-    .toggle-wrap { display: inline-flex; align-items: center; }
+    .toggle-wrap { display: inline-flex; align-items: center; flex-shrink: 0; }
     .toggle-wrap input[type="checkbox"] {
       appearance: none; -webkit-appearance: none;
       width: 28px; height: 16px; border-radius: 999px;
@@ -214,7 +214,8 @@
       border-radius: var(--radius-lg);
       pointer-events: none; z-index: 1;
     }
-    .tool-card.toggled-off .toggle-wrap {
+    .tool-card.toggled-off .toggle-wrap,
+    .tool-card.toggled-off .btn-open {
       position: relative; z-index: 2;
     }
     .info-banner {
@@ -723,38 +724,22 @@
             <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
         </article>
-        <article class="tool-card tool" data-category="videos" data-tags="ai generated short film cannes award" style="grid-column: 1 / -1;">
+        <article class="tool-card tool" data-category="videos" data-tags="ai short film seedance 2.0 bytedance" style="grid-column: 1 / -1;">
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
                 <div class="tool-card-title-icon"><i class="fa-solid fa-robot"></i></div>
-                <div><h3>The Crow</h3><div class="tool-card-provider">Glenn Marshall</div></div>
+                <div><h3>AI MAN</h3><div class="tool-card-provider">Seedance 2.0 (ByteDance)</div></div>
               </div>
             </div>
             <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-award"></i> AI Film</span></div>
           </div>
-          <p class="tool-card-body">Award-winning AI-generated short film. Created using OpenAI's CLIP neural network, it won the Jury Award at the Cannes Short Film Festival.</p>
+          <p class="tool-card-body">AI-generated short film created with Seedance 2.0 — ByteDance's multimodal AI video model. Blends sci-fi satire with surreal humour, showcasing cinematic motion and character consistency.</p>
           <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
-            <iframe src="https://www.youtube.com/embed/5dvxY6vXHsA" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/6D4_ZMnPx7I" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
         </article>
-        <article class="tool-card tool" data-category="videos" data-tags="ai generated fantasy pixabay cc0">
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                <div><h3>AI Fantasy Scene</h3><div class="tool-card-provider">Pixabay (CC0)</div></div>
-              </div>
-            </div>
-            <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-paintbrush"></i> AI Generated</span></div>
-          </div>
-          <p class="tool-card-body">AI-generated fantasy video — a woman in a mystical forest clearing. CC0 licensed, free to use.</p>
-          <div style="margin:1rem;border-radius:8px;overflow:hidden;">
-            <video controls style="width:100%;display:block;border-radius:8px;" preload="metadata">
-              <source src="https://cdn.pixabay.com/video/2023/11/05/188010-881528775_large.mp4" type="video/mp4">
-            </video>
-          </div>
-        </article>
+
       </div>
     </section>
     <footer>
