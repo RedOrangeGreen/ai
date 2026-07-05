@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <title>Todo List</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg-body: #050816;
+      --bg-elevated: #0b1020;
+      --bg-elevated-soft: #0f172a;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --accent-strong: #0ea5e9;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.7);
+      --transition-fast: 0.18s ease-out;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .page-shell {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 3vw + 1rem, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+    }
+
+    .card {
+      padding: 1.4rem 1.6rem;
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle);
+      margin-bottom: 1.5rem;
+    }
+
+    .add-row {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .add-row input {
+      flex: 1;
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .add-row input:focus {
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+    }
+
+    .add-row input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      border-radius: var(--radius-pill);
+      padding: 0.5rem 1.1rem;
+      font-size: 0.88rem;
+      border: none;
+      background: linear-gradient(120deg, #38bdf8, #0ea5e9);
+      color: #0b1120;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.25s ease, filter 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9);
+      filter: brightness(1.05);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    .btn-sm {
+      padding: 0.3rem 0.75rem;
+      font-size: 0.78rem;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      box-shadow: none;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      color: var(--accent);
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .btn-danger {
+      background: linear-gradient(120deg, #ef4444, #dc2626);
+    }
+
+    .btn-danger:hover {
+      box-shadow: 0 14px 35px rgba(220, 38, 38, 0.6);
+    }
+
+    .btn-active {
+      border-color: rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .todo-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .todo-stats .count {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: var(--radius-pill);
+      padding: 0.2rem 0.65rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .todo-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      transition: opacity 0.2s ease;
+    }
+
+    .todo-item:last-child {
+      border-bottom: none;
+    }
+
+    .todo-item.dragging {
+      opacity: 0.3;
+    }
+
+    .todo-item.drag-over {
+      border-bottom-color: var(--accent);
+    }
+
+    .todo-item .todo-drag {
+      cursor: grab;
+      color: rgba(148, 163, 184, 0.25);
+      font-size: 0.8rem;
+      padding: 0.2rem;
+      flex-shrink: 0;
+      transition: color 0.2s ease;
+      user-select: none;
+    }
+
+    .todo-item .todo-drag:hover {
+      color: rgba(148, 163, 184, 0.6);
+    }
+
+    .todo-item .todo-drag:active {
+      cursor: grabbing;
+    }
+
+    .todo-item .todo-number {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      min-width: 1.5rem;
+      text-align: right;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .todo-item .todo-text {
+      flex: 1;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .todo-item .todo-text.done {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .todo-item .todo-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 2px solid rgba(148, 163, 184, 0.4);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      color: transparent;
+      font-size: 0.6rem;
+    }
+
+    .todo-item .todo-check.checked {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0b1120;
+    }
+
+    .todo-item .todo-delete {
+      background: none;
+      border: none;
+      color: rgba(148, 163, 184, 0.4);
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 0.2rem;
+      transition: color 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .todo-item .todo-delete:hover {
+      color: #ef4444;
+    }
+
+    .todo-empty {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .filter-row .btn-filter {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .filter-row .btn-filter:hover {
+      color: var(--accent);
+    }
+
+    .filter-row .btn-filter.active {
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.4); }
+
+    ::selection { background: rgba(56,189,248,0.3); color: #fff; }
+
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(2, 6, 23, 0.7);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      padding: 1.6rem 1.8rem;
+      max-width: 400px;
+      width: 90%;
+      animation: modalIn 0.2s ease-out;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.94) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-box h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .modal-box p {
+      margin: 0 0 1.4rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 1rem; }
+      .page-shell { padding: 1rem 0.75rem 2rem; }
+      .add-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <h1 class="hero-title"><span>Todo List</span></h1>
+    <p class="hero-subtitle">A simple Todo List manager, lists saved and loaded locally.</p>
+
+    <div class="card">
+      <div class="add-row">
+        <input type="text" id="todoInput" placeholder="Add a new task..." spellcheck="false" autocomplete="off" />
+        <button class="btn" id="addBtn"><i class="fa-solid fa-plus"></i> Add</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="todo-stats">
+        <span><span class="count"><span id="totalCount">0</span> total</span></span>
+        <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-sm btn-ghost" id="deleteAllDoneBtn"><i class="fa-solid fa-check-double"></i> Delete All Done</button>
+        </div>
+      </div>
+      <ul class="todo-list" id="todoList"></ul>
+      <div class="todo-empty" id="emptyMsg">Nothing here yet. Add a task above!</div>
+    </div>
+
+    <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-sm btn-ghost" id="saveXmlBtn"><i class="fa-solid fa-download"></i> Save</button>
+      <button class="btn btn-sm btn-ghost" id="loadXmlBtn"><i class="fa-solid fa-upload"></i> Load</button>
+      <button class="btn btn-sm btn-ghost" id="reportBtn"><i class="fa-solid fa-file-lines"></i> Create report</button>
+      <input type="file" id="xmlFileInput" accept=".xml" style="display:none" />
+
+    </div>
+
+    <footer>
+      <span>Todo List</span>
+      <span id="dateDisplay"></span>. <span>Ai generated.</span>
+    </footer>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle"></h3>
+      <p id="modalMessage"></p>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'todos';
+
+      let todos = [];
+      let draggedId = null;
+
+      const todoList = document.getElementById('todoList');
+      const emptyMsg = document.getElementById('emptyMsg');
+      const totalCount = document.getElementById('totalCount');
+      const todoInput = document.getElementById('todoInput');
+      const addBtn = document.getElementById('addBtn');
+      const deleteAllDoneBtn = document.getElementById('deleteAllDoneBtn');
+
+      const saveXmlBtn = document.getElementById('saveXmlBtn');
+      const loadXmlBtn = document.getElementById('loadXmlBtn');
+      const xmlFileInput = document.getElementById('xmlFileInput');
+      const modalOverlay = document.getElementById('modalOverlay');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalMessage = document.getElementById('modalMessage');
+      const modalActions = document.getElementById('modalActions');
+
+      function loadTodos() {
+        try {
+          const data = localStorage.getItem(STORAGE_KEY);
+          todos = data ? JSON.parse(data) : [];
+        } catch { todos = []; }
+      }
+
+      function saveTodos() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+      }
+
+      function render() {
+        todoList.innerHTML = '';
+
+        todos.forEach((todo, i) => {
+          const li = document.createElement('li');
+          li.className = 'todo-item show-numbers';
+          li.draggable = true;
+          li.dataset.id = todo.id;
+
+          const drag = document.createElement('span');
+          drag.className = 'todo-drag';
+          drag.innerHTML = '<i class="fa-solid fa-grip-vertical"></i>';
+          drag.setAttribute('aria-label', 'Drag to reorder');
+
+          const number = document.createElement('span');
+          number.className = 'todo-number';
+          number.textContent = '#' + (i + 1);
+
+          const check = document.createElement('span');
+          check.className = 'todo-check' + (todo.done ? ' checked' : '');
+          check.innerHTML = todo.done ? '<i class="fa-solid fa-check"></i>' : '';
+          check.setAttribute('role', 'checkbox');
+          check.setAttribute('aria-checked', todo.done);
+          check.setAttribute('tabindex', '0');
+          check.addEventListener('click', () => toggleTodo(todo.id));
+          check.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleTodo(todo.id); }
+          });
+
+          const text = document.createElement('span');
+          text.className = 'todo-text' + (todo.done ? ' done' : '');
+          text.textContent = todo.text;
+
+          const del = document.createElement('button');
+          del.className = 'todo-delete';
+          del.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+          del.setAttribute('aria-label', 'Delete task');
+          del.addEventListener('click', (e) => { e.stopPropagation(); deleteTodo(todo.id); });
+
+          li.appendChild(drag);
+          li.appendChild(number);
+          li.appendChild(check);
+          li.appendChild(text);
+          li.appendChild(del);
+          todoList.appendChild(li);
+
+          li.addEventListener('dragstart', onDragStart);
+          li.addEventListener('dragend', onDragEnd);
+          li.addEventListener('dragover', onDragOver);
+          li.addEventListener('dragleave', onDragLeave);
+          li.addEventListener('drop', onDrop);
+        });
+
+        const count = todos.length;
+        totalCount.textContent = count;
+        emptyMsg.style.display = todos.length === 0 ? 'block' : 'none';
+        const hasDone = todos.some(t => t.done);
+        deleteAllDoneBtn.classList.toggle('disabled', !hasDone);
+        saveTodos();
+      }
+
+      function onDragStart(e) {
+        const li = e.target.closest('.todo-item');
+        if (!li) return;
+        draggedId = Number(li.dataset.id);
+        li.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', li.dataset.id);
+      }
+
+      function onDragEnd(e) {
+        const li = e.target.closest('.todo-item');
+        if (li) li.classList.remove('dragging');
+        document.querySelectorAll('.todo-item.drag-over').forEach(el => el.classList.remove('drag-over'));
+        draggedId = null;
+      }
+
+      function onDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const li = e.target.closest('.todo-item');
+        if (!li || Number(li.dataset.id) === draggedId) return;
+
+        const rect = li.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        const side = e.clientY < midY ? 'before' : 'after';
+        li.dataset.dropSide = side;
+        li.classList.add('drag-over');
+      }
+
+      function onDragLeave(e) {
+        const li = e.target.closest('.todo-item');
+        if (li) li.classList.remove('drag-over');
+      }
+
+      function onDrop(e) {
+        e.preventDefault();
+        const target = e.target.closest('.todo-item');
+        if (!target) return;
+        const targetId = Number(target.dataset.id);
+        if (targetId === draggedId) return;
+
+        const side = target.dataset.dropSide || 'after';
+        const fromIdx = todos.findIndex(t => t.id === draggedId);
+        let toIdx = todos.findIndex(t => t.id === targetId);
+        if (fromIdx === -1 || toIdx === -1) return;
+
+        const [moved] = todos.splice(fromIdx, 1);
+        toIdx = todos.findIndex(t => t.id === targetId);
+        if (side === 'after' && toIdx < todos.length) toIdx++;
+        todos.splice(toIdx, 0, moved);
+
+        document.querySelectorAll('.todo-item.drag-over').forEach(el => el.classList.remove('drag-over'));
+        draggedId = null;
+        render();
+      }
+
+      function addTodo() {
+        const text = todoInput.value.trim();
+        if (!text) return;
+        todos.push({ id: Date.now(), text, done: false });
+        todoInput.value = '';
+        todoInput.focus();
+        render();
+      }
+
+      function toggleTodo(id) {
+        const todo = todos.find(t => t.id === id);
+        if (todo) { todo.done = !todo.done; render(); }
+      }
+
+      function deleteTodo(id) {
+        todos = todos.filter(t => t.id !== id);
+        render();
+      }
+
+      async function deleteAllDone() {
+        const done = todos.filter(t => t.done);
+        if (!done.length) return;
+        const ok = await modalConfirm('Delete all completed tasks? This cannot be undone.');
+        if (!ok) return;
+        todos = todos.filter(t => !t.done);
+        render();
+      }
+
+      function modalAlert(msg) {
+        return new Promise(resolve => {
+          modalTitle.textContent = 'Todo List';
+          modalMessage.textContent = msg;
+          modalActions.innerHTML = '<button class="btn btn-sm" id="modalOkBtn">OK</button>';
+          modalOverlay.classList.add('open');
+          document.getElementById('modalOkBtn').addEventListener('click', () => {
+            modalOverlay.classList.remove('open');
+            resolve();
+          });
+          modalOverlay.addEventListener('click', function handler(e) {
+            if (e.target === modalOverlay) { modalOverlay.classList.remove('open'); modalOverlay.removeEventListener('click', handler); resolve(); }
+          });
+        });
+      }
+
+      function modalPrompt(msg, defaultValue) {
+        return new Promise(resolve => {
+          modalTitle.textContent = 'Todo List';
+          modalMessage.textContent = msg;
+          modalActions.innerHTML = '<button class="btn btn-sm" id="modalPromptOkBtn">OK</button><button class="btn btn-sm btn-ghost" id="modalPromptCancelBtn">Cancel</button>';
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.value = defaultValue || '';
+          input.style.cssText = 'width:100%;padding:0.5rem 0.75rem;border-radius:8px;border:1px solid var(--border-subtle);background:rgba(15,23,42,0.9);color:var(--text-main);font-size:0.9rem;outline:none;margin-bottom:1rem;box-sizing:border-box;';
+          modalMessage.after(input);
+          modalOverlay.classList.add('open');
+          input.focus();
+          input.select();
+          function cleanup() {
+            modalOverlay.classList.remove('open');
+            input.remove();
+          }
+          document.getElementById('modalPromptOkBtn').addEventListener('click', () => {
+            const val = input.value.trim();
+            cleanup();
+            resolve(val || defaultValue || null);
+          });
+          document.getElementById('modalPromptCancelBtn').addEventListener('click', () => {
+            cleanup();
+            resolve(null);
+          });
+          input.addEventListener('keydown', function handler(e) {
+            if (e.key === 'Enter') {
+              const val = input.value.trim();
+              cleanup();
+              input.removeEventListener('keydown', handler);
+              resolve(val || defaultValue || null);
+            }
+            if (e.key === 'Escape') {
+              cleanup();
+              input.removeEventListener('keydown', handler);
+              resolve(null);
+            }
+          });
+          modalOverlay.addEventListener('click', function handler(e) {
+            if (e.target === modalOverlay) { cleanup(); modalOverlay.removeEventListener('click', handler); resolve(null); }
+          });
+        });
+      }
+
+      function modalConfirm(msg) {
+        return new Promise(resolve => {
+          modalTitle.textContent = 'Todo List';
+          modalMessage.textContent = msg;
+          modalActions.innerHTML = '<button class="btn btn-sm" id="modalConfirmBtn">OK</button><button class="btn btn-sm btn-ghost" id="modalCancelBtn">Cancel</button>';
+          modalOverlay.classList.add('open');
+          document.getElementById('modalConfirmBtn').addEventListener('click', () => {
+            modalOverlay.classList.remove('open');
+            resolve(true);
+          });
+          document.getElementById('modalCancelBtn').addEventListener('click', () => {
+            modalOverlay.classList.remove('open');
+            resolve(false);
+          });
+          modalOverlay.addEventListener('click', function handler(e) {
+            if (e.target === modalOverlay) { modalOverlay.classList.remove('open'); modalOverlay.removeEventListener('click', handler); resolve(false); }
+          });
+        });
+      }
+
+      function setFilter(f) {
+        filter = f;
+        filterBtns.forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.filter === f);
+        });
+        render();
+      }
+
+      async function saveXML() {
+        const name = await modalPrompt('Enter filename:', 'todos.xml');
+        if (!name) return;
+        let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<todos>\n';
+        todos.forEach(t => {
+          xml += '  <todo>\n';
+          xml += '    <id>' + t.id + '</id>\n';
+          xml += '    <text>' + escXml(t.text) + '</text>\n';
+          xml += '    <done>' + t.done + '</done>\n';
+          xml += '  </todo>\n';
+        });
+        xml += '</todos>';
+
+        const blob = new Blob([xml], { type: 'application/xml' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = name.endsWith('.xml') ? name : name + '.xml';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+      }
+
+      function escXml(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+      }
+
+      function loadXML() {
+        xmlFileInput.value = '';
+        xmlFileInput.click();
+      }
+
+      function parseXMLFile(file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          try {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(e.target.result, 'application/xml');
+            const parseErr = doc.querySelector('parsererror');
+            if (parseErr) throw new Error('Invalid XML: ' + parseErr.textContent);
+
+            const items = doc.querySelectorAll('todos > todo');
+            if (!items.length) throw new Error('No <todo> entries found under <todos>.');
+
+            const loaded = [];
+            items.forEach(item => {
+              const idEl = item.querySelector('id');
+              const textEl = item.querySelector('text');
+              const doneEl = item.querySelector('done');
+              if (!idEl || !textEl || !doneEl) return;
+              loaded.push({
+                id: Number(idEl.textContent) || Date.now() + Math.random(),
+                text: textEl.textContent,
+                done: doneEl.textContent === 'true'
+              });
+            });
+
+            if (!loaded.length) throw new Error('No valid todo items found.');
+
+            todos = loaded;
+            render();
+            modalAlert('Loaded ' + loaded.length + ' tasks from "' + file.name + '".');
+          } catch (err) {
+            modalAlert('Failed to load XML: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      async function createReport() {
+        if (!todos.length) { modalAlert('No tasks to report.'); return; }
+        const name = await modalPrompt('Enter report filename:', 'report.html');
+        if (!name) return;
+        const done = todos.filter(t => t.done);
+        const pending = todos.filter(t => !t.done);
+        const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        let html = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Todo Report</title>';
+        html += '<style>body{font-family:system-ui,sans-serif;max-width:600px;margin:2rem auto;padding:0 1rem;color:#1f2937;background:#f9fafb;}';
+        html += 'h1{font-size:1.5rem;}';
+        html += '.summary{display:flex;gap:1rem;margin:1rem 0;}';
+        html += '.summary div{flex:1;padding:1rem;border-radius:8px;text-align:center;font-weight:600;}';
+        html += '.summary .total{background:#e5e7eb;}';
+        html += '.summary .done{background:#d1fae5;color:#065f46;}';
+        html += '.summary .pending{background:#fef3c7;color:#92400e;}';
+        html += 'ul{padding:0;list-style:none;}';
+        html += 'li{padding:0.5rem 0;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:0.5rem;}';
+        html += 'li.done{text-decoration:line-through;color:#9ca3af;}';
+        html += '.date{color:#6b7280;font-size:0.85rem;margin-top:1.5rem;}</style></head><body>';
+        html += '<h1>Todo Report</h1>';
+        html += '<div class="summary"><div class="total">Total: ' + todos.length + '</div><div class="done">Done: ' + done.length + '</div><div class="pending">Pending: ' + pending.length + '</div></div>';
+        html += '<ul>';
+        todos.forEach((t, i) => {
+          html += '<li class="' + (t.done ? 'done' : '') + '">#' + (i + 1) + ' ' + escXml(t.text) + '</li>';
+        });
+        html += '</ul>';
+        html += '<div class="date">Generated: ' + date + '</div></body></html>';
+
+        const blob = new Blob([html], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = name.endsWith('.html') ? name : name + '.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+      }
+
+      addBtn.addEventListener('click', addTodo);
+      deleteAllDoneBtn.addEventListener('click', deleteAllDone);
+      todoInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addTodo(); });
+      saveXmlBtn.addEventListener('click', saveXML);
+      loadXmlBtn.addEventListener('click', loadXML);
+      document.getElementById('reportBtn').addEventListener('click', createReport);
+      xmlFileInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) parseXMLFile(e.target.files[0]);
+      });
+      document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('en-US', {
+        year: 'numeric', month: 'short', day: 'numeric'
+      });
+
+      loadTodos();
+      render();
+    })();
+  </script>
+</body>
+</html>
