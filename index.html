@@ -243,9 +243,10 @@
     .city-dropdown div.selected { color: var(--accent); font-weight: 600; background: rgba(56,189,248,0.08); }
     @media (max-width: 576px) {
       .search-section { align-items: stretch; }
-      .clock-pill { padding: 0.25rem 3.3rem; font-size: 0.75rem; }
-      .clock-pill-label { font-size: 0.7rem; }
-      .clock-pill-time { font-size: 0.8rem; }
+      .clock-pill { padding: 0.25rem 1rem; font-size: 0.7rem; }
+      .clock-pill-label { font-size: 0.6rem; }
+      .clock-pill-time { font-size: 0.7rem; }
+      .clock-row { flex-wrap: wrap; }
     }
     html { scroll-behavior: smooth; overflow-y: scroll; scrollbar-gutter: stable; overscroll-behavior: none; }
     ::-webkit-scrollbar { width: 6px; }
@@ -450,6 +451,23 @@
     .ticker-speed-label { font-size: 0.7rem; color: var(--text-muted); min-width: 2.2rem; }
     .ticker-speed-reset { font-size: 0.7rem; color: rgba(148,163,184,0.4); cursor: pointer; transition: color 0.2s ease; }
     .ticker-speed-reset:hover { color: var(--accent); }
+    .chatbot-list li { display: flex; align-items: center; transition: opacity 0.25s ease; }
+    .chatbot-list li.disabled { opacity: 0.4; }
+    .chatbot-list li.disabled a { pointer-events: none; }
+    .chatbot-toggle {
+      flex-shrink: 0; width: 32px; height: 18px; border-radius: 999px;
+      background: rgba(148,163,184,0.3); border: none; cursor: pointer;
+      position: relative; margin-right: 0.65rem; padding: 0;
+      transition: background 0.2s ease;
+    }
+    .chatbot-toggle::after {
+      content: ''; position: absolute; top: 2px; left: 2px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #e5e7eb; transition: transform 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .chatbot-toggle.on { background: var(--accent); }
+    .chatbot-toggle.on::after { transform: translateX(14px); }
   </style>
 </head>
 <body>
@@ -527,10 +545,19 @@
         <div class="section-heading-main"><i class="fa-solid fa-globe"></i><h2>Web‑based AI chatbots</h2></div>
         <div class="section-heading-sub">General assistants you can open in a tab and start chatting with.</div>
       </header>
-      <ul class="chatbot-list">
-        <li><a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General‑purpose AI assistant for chat, writing, brainstorming, and coding.</li>
-        <li><a href="https://www.bing.com/chat" target="_blank" rel="noopener noreferrer">Microsoft Copilot</a> &mdash; AI assistant with web search integration. Strong for research and summarising pages.</li>
-        <li><a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google AI Search</a> &mdash; AI‑enhanced search blending classic search with summarised answers.</li>
+      <ul class="chatbot-list" id="chatbotList">
+        <li data-enabled="true">
+          <button class="chatbot-toggle on" aria-label="Toggle ChatGPT"></button>
+          <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General‑purpose AI assistant for chat, writing, brainstorming, and coding.
+        </li>
+        <li data-enabled="false" class="disabled">
+          <button class="chatbot-toggle" aria-label="Toggle Microsoft Copilot"></button>
+          <a href="https://www.bing.com/chat" target="_blank" rel="noopener noreferrer">Microsoft Copilot</a> &mdash; AI assistant with web search integration. Strong for research and summarising pages.
+        </li>
+        <li data-enabled="true">
+          <button class="chatbot-toggle on" aria-label="Toggle Google AI Search"></button>
+          <a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google AI Search</a> &mdash; AI‑enhanced search blending classic search with summarised answers.
+        </li>
       </ul>
     </section>
     <section class="reveal">
@@ -679,7 +706,6 @@
     </div>
   </dialog>
   <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     (function() {
       const zones = [
@@ -900,6 +926,12 @@
         pill.addEventListener('click', function() {
           showCityModal(this.querySelector('.clock-pill-label').textContent.trim());
         });
+        pill.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            showCityModal(this.querySelector('.clock-pill-label').textContent.trim());
+          }
+        });
       });
       function updateClocks() {
         const now = new Date();
@@ -935,7 +967,11 @@
       }
       updateClocks();
       setInterval(updateClocks, 1000);
-      document.getElementById('wonderland-pill').addEventListener('click', function() {
+      document.getElementById('wonderland-pill').addEventListener('click', triggerWonderland);
+      document.getElementById('wonderland-pill').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); triggerWonderland(); }
+      });
+      function triggerWonderland() {
         let alice = document.getElementById('alice');
         if (alice) alice.remove();
         alice = document.createElement('div');
@@ -989,7 +1025,7 @@
           let wo = document.getElementById('wonder-overlay');
           if (wo) wo.remove();
         }, 3000);
-      });
+      }
     })();
     (function () {
       const searchInput = document.getElementById("search");
@@ -999,14 +1035,31 @@
       let activeFilter = "all";
       function applyFilters() {
         const query = (searchInput.value || "").toLowerCase().trim();
+        let visible = 0;
         tools.forEach((tool) => {
           const category = tool.getAttribute("data-category");
           const tags = (tool.getAttribute("data-tags") || "").toLowerCase();
           const text = tool.textContent.toLowerCase();
           const matchesCategory = activeFilter === "all" || category === activeFilter;
           const matchesSearch = !query || text.includes(query) || tags.includes(query);
-          tool.style.display = matchesCategory && matchesSearch ? "" : "none";
+          const match = matchesCategory && matchesSearch;
+          tool.style.display = match ? "" : "none";
+          if (match) visible++;
         });
+        var emptyState = document.getElementById('noToolsMsg');
+        if (visible === 0) {
+          if (!emptyState) {
+            emptyState = document.createElement('div');
+            emptyState.id = 'noToolsMsg';
+            emptyState.style.cssText = 'text-align:center;padding:2rem 0;color:var(--text-muted);font-size:0.9rem;';
+            emptyState.textContent = 'No tools match that filter or search term. Try adjusting your query.';
+            var localSection = document.querySelector('.tool-grid');
+            if (localSection) localSection.parentNode.insertBefore(emptyState, localSection.nextSibling);
+          }
+          emptyState.style.display = 'block';
+        } else if (emptyState) {
+          emptyState.style.display = 'none';
+        }
       }
       searchInput.addEventListener("input", applyFilters);
       applyFilters();
@@ -1043,6 +1096,13 @@
     (function() {
       const pc = document.getElementById('particle-canvas');
       if (!pc) return;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion) { pc.style.display = 'none'; return; }
+      let animating = true;
+      document.addEventListener('visibilitychange', function() {
+        animating = !document.hidden;
+        if (animating) { if (typeof animateParticles === 'function') animateParticles(); if (typeof animatePortal === 'function') animatePortal(); }
+      });
       const pctx = pc.getContext('2d');
       const cc = document.createElement('canvas');
       cc.id = 'portal-canvas';
@@ -1215,13 +1275,14 @@
           cctx.stroke();
         }
         cctx.globalAlpha = 1;
-        requestAnimationFrame(animatePortal);
+        if (animating) requestAnimationFrame(animatePortal);
       }
       function animateParticles() {
+        if (!animating) return;
         pctx.clearRect(0, 0, W, H);
         particles.forEach(p => { p.update(); p.draw(); });
         connectParticles();
-        requestAnimationFrame(animateParticles);
+        if (animating) requestAnimationFrame(animateParticles);
       }
       function resize() {
         W = cc.width = pc.width = window.innerWidth;
@@ -1244,6 +1305,35 @@
       document.addEventListener('mouseleave', () => {
         mouse.x = null;
         mouse.y = null;
+      });
+    })();
+
+    (function() {
+      var list = document.getElementById('chatbotList');
+      if (!list) return;
+      var items = list.querySelectorAll('li');
+      items.forEach(function(li) {
+        var btn = li.querySelector('.chatbot-toggle');
+        if (!btn) return;
+        var key = 'chatbot-' + li.querySelector('a').textContent;
+        var saved = localStorage.getItem(key);
+        if (saved === 'false') {
+          li.dataset.enabled = 'false';
+          li.classList.add('disabled');
+          btn.classList.remove('on');
+        } else if (saved === 'true') {
+          li.dataset.enabled = 'true';
+          li.classList.remove('disabled');
+          btn.classList.add('on');
+        }
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var enabled = li.dataset.enabled !== 'true';
+          li.dataset.enabled = enabled;
+          li.classList.toggle('disabled', !enabled);
+          btn.classList.toggle('on', enabled);
+          try { localStorage.setItem(key, enabled); } catch(ex) {}
+        });
       });
     })();
   </script>

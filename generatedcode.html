@@ -112,6 +112,11 @@
       .guide-layout {
         grid-template-columns: 1fr;
       }
+      .sidebar {
+        position: relative;
+        top: 0;
+        max-height: none;
+      }
     }
 
     .sidebar {
@@ -935,7 +940,7 @@ opencode</code></pre>
 
           <div class="project-search-wrap">
             <i class="fa-solid fa-search search-icon"></i>
-            <input type="text" id="projectFilter" placeholder="Filter projects by name or language..." spellcheck="false" autocomplete="off">
+            <input type="text" id="projectFilter" placeholder="Filter projects by name or language..." aria-label="Filter projects by name or language" spellcheck="false" autocomplete="off">
             <span class="search-count" id="filterCount">6 / 6</span>
             <span style="font-size:0.65rem;color:rgba(148,163,184,0.4);position:absolute;right:3.5rem;top:50%;transform:translateY(-50%);pointer-events:none;display:none;" id="filterHint">[F]</span>
           </div>
@@ -964,11 +969,11 @@ AI Agentic development really put in a good show here ... new 'instant' working 
                 Developed on a Ubuntu 26.04 LTS Live USB.
               </p>
 
-              <img src="opencode/websitemonitor/screenshot1.png"
+              <img src="opencode/websitemonitor/screenshot1.png" width="800" height="500"
                    alt="Website Monitor app screenshot showing the main interface">
-              <img src="opencode/websitemonitor/screenshot2.png"
+              <img src="opencode/websitemonitor/screenshot2.png" width="800" height="500"
                    alt="Website Monitor app screenshot showing monitoring results">
-              <img src="opencode/websitemonitor/screenshot3.png"
+              <img src="opencode/websitemonitor/screenshot3.png" width="800" height="500"
                    alt="Website Monitor app screenshot showing configuration">
 
               <p>Here's the AI generated Linux source code (OpenCode also generated 'android', 'ios', 'macos', 'web' and 'windows' directories which I'm guessing held generated source for those platforms):
@@ -976,7 +981,6 @@ AI Agentic development really put in a good show here ... new 'instant' working 
 <a href="https://github.com/RedOrangeGreen/ai/tree/main/opencode/websitemonitor/website_monitor" target="_blank" rel="noopener noreferrer">
         Website Monitor Flutter Linux Source
       </a>
-              <p></p>
             </div>
           </details>
 
@@ -1023,9 +1027,9 @@ gemma3 chat</code></pre>
               <p>Run using:</p>
               <pre><code>python3 ./ai-snap-manager.py</code></pre>
 
-              <img src="opencode/aisnapmanager/aisnapmanager1.png"
+              <img src="opencode/aisnapmanager/aisnapmanager1.png" width="800" height="500"
                    alt="AI Snap Manager application showing available models">
-              <img src="opencode/aisnapmanager/aisnapmanager2.png"
+              <img src="opencode/aisnapmanager/aisnapmanager2.png" width="800" height="500"
                    alt="AI Snap Manager application showing chat interface">
 
             </div>
@@ -1064,7 +1068,7 @@ gemma3 chat</code></pre>
 
   <pre><code>./build/bin/llama-cli -m ./models/gemma-4-E2B-it-Q8_0.gguf</code></pre>
 
-      <img src="opencode/llamarevisited/llamarevisited.png" alt="Llama.cpp running in terminal with Google Gemma model">
+      <img src="opencode/llamarevisited/llamarevisited.png" width="800" height="500" alt="Llama.cpp running in terminal with Google Gemma model">
 
     </div>
   </details>
@@ -1103,7 +1107,7 @@ gemma3 chat</code></pre>
 
       <p>Read Makefile and snippet.cpp to understand the codebase then install all build tools required to build the codebase.</p>
 
-      <img src="opencode/snippet/snippet.png" alt="Code snippet app screenshot showing terminal output">
+      <img src="opencode/snippet/snippet.png" width="800" height="500" alt="Code snippet app screenshot showing terminal output">
 
     </div>
   </details>
@@ -1133,11 +1137,11 @@ gemma3 chat</code></pre>
 
       <p>'Clear clipboard' button greyed out if clipboard empty...</p>
 
-      <img src="opencode/clipboard/clipboard2.png" alt="Clipboard monitor with empty clipboard - clear button disabled">
+      <img src="opencode/clipboard/clipboard2.png" width="800" height="500" alt="Clipboard monitor with empty clipboard - clear button disabled">
 
       <p>But enabled if something is on it...</p>
 
-      <img src="opencode/clipboard/clipboard3.png" alt="Clipboard monitor with content - clear button enabled">
+      <img src="opencode/clipboard/clipboard3.png" width="800" height="500" alt="Clipboard monitor with content - clear button enabled">
 
     </div>
   </details>
@@ -1179,7 +1183,7 @@ gemma3 chat</code></pre>
 
       <p>The baby is born...</p>
 
-      <img src="opencode/fork/taskcomplete.png" alt="OpenCode fork task complete in terminal">
+      <img src="opencode/fork/taskcomplete.png" width="800" height="500" alt="OpenCode fork task complete in terminal">
 
       <p>
         It has been given a little something extra its mother
@@ -1187,13 +1191,13 @@ gemma3 chat</code></pre>
         does not have...
       </p>
 
-      <img src="opencode/fork/info.png" alt="Fork info showing version details">
+      <img src="opencode/fork/info.png" width="800" height="500" alt="Fork info showing version details">
 
       <p>But everything else works as expected...</p>
 
-      <img src="opencode/fork/invoke.png" alt="OpenCode fork being invoked">
-      <img src="opencode/fork/running.png" alt="OpenCode fork running in terminal">
-      <img src="opencode/fork/exit.png" alt="OpenCode fork exit screen">
+      <img src="opencode/fork/invoke.png" width="800" height="500" alt="OpenCode fork being invoked">
+      <img src="opencode/fork/running.png" width="800" height="500" alt="OpenCode fork running in terminal">
+      <img src="opencode/fork/exit.png" width="800" height="500" alt="OpenCode fork exit screen">
 
     </div>
   </details>
@@ -1291,7 +1295,6 @@ gemma3 chat</code></pre>
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     (function () {
       const backToTop = document.getElementById("backToTop");
@@ -1353,14 +1356,30 @@ gemma3 chat</code></pre>
         btn.addEventListener("click", () => {
           const code = pre.querySelector("code");
           const text = (code || pre).textContent;
-          navigator.clipboard.writeText(text).then(() => {
+          const fallback = function() {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch(e) {}
+            document.body.removeChild(ta);
             btn.innerHTML = '<i class="fa-solid fa-check"></i>';
             btn.classList.add("copied");
-            setTimeout(() => {
+            setTimeout(function() {
               btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
               btn.classList.remove("copied");
             }, 2000);
-          });
+          };
+          navigator.clipboard.writeText(text).then(function() {
+            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            btn.classList.add("copied");
+            setTimeout(function() {
+              btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+              btn.classList.remove("copied");
+            }, 2000);
+          })['catch'](fallback);
         });
       });
 
@@ -1457,8 +1476,13 @@ gemma3 chat</code></pre>
       /* === Particle canvas === */
       const particleCanvas = document.getElementById('particle-canvas');
       let particleCtx, particles = [], mouse = { x: null, y: null, radius: 150 };
+      let animating = true;
+      document.addEventListener('visibilitychange', function() {
+        animating = !document.hidden;
+      });
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (particleCanvas) {
+      if (particleCanvas && !reducedMotion) {
         particleCtx = particleCanvas.getContext('2d');
 
         function resizeParticles() {
@@ -1549,6 +1573,7 @@ gemma3 chat</code></pre>
         });
 
         const particleAnimate = () => {
+          if (!animating) { requestAnimationFrame(particleAnimate); return; }
           particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
           particles.forEach(p => { p.update(); p.draw(); });
           connectParticles();
@@ -1558,6 +1583,7 @@ gemma3 chat</code></pre>
       }
 
       /* === Portal canvas === */
+      if (!reducedMotion) {
       const portalCanvas = document.createElement('canvas');
       portalCanvas.id = 'portal-canvas';
       portalCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;';
@@ -1608,6 +1634,7 @@ gemma3 chat</code></pre>
       }
 
       function portalAnimate() {
+        if (!animating) { requestAnimationFrame(portalAnimate); return; }
         birth = Math.min(birth + 0.005, 1);
         time += 0.02;
         const exp = Math.min(1, birth * 2.5);
@@ -1692,6 +1719,7 @@ gemma3 chat</code></pre>
         requestAnimationFrame(portalAnimate);
       }
       portalAnimate();
+      }
 
     })();
   </script>

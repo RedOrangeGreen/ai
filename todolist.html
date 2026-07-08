@@ -171,6 +171,36 @@
       background: rgba(56, 189, 248, 0.08);
     }
 
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.35rem 0;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover { color: var(--accent); }
+
+    .report-dropdown-wrap { position: relative; display: inline-flex; }
+    .report-dropdown-menu {
+      display: none; position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%);
+      background: rgba(15,23,42,0.98); border: 1px solid var(--border-subtle);
+      border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      padding: 0.3rem; min-width: 140px; z-index: 100;
+    }
+    .report-dropdown-menu.open { display: block; }
+    .report-dropdown-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.45rem 0.75rem; border-radius: 8px;
+      font-size: 0.82rem; color: var(--text-muted); cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease; border: none;
+      background: none; width: 100%; text-align: left; font-family: inherit;
+    }
+    .report-dropdown-item:hover { background: rgba(56,189,248,0.1); color: var(--accent); }
+    .report-dropdown-item i { width: 1rem; }
+
     .todo-stats {
       display: flex;
       justify-content: space-between;
@@ -207,7 +237,8 @@
       gap: 0.75rem;
       padding: 0.7rem 0;
       border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-      transition: opacity 0.2s ease;
+      transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
     }
 
     .todo-item:last-child {
@@ -215,11 +246,31 @@
     }
 
     .todo-item.dragging {
-      opacity: 0.3;
+      opacity: 0.2;
+      transform: scale(0.96);
     }
 
-    .todo-item.drag-over {
-      border-bottom-color: var(--accent);
+    .todo-item.drag-over-before::before,
+    .todo-item.drag-over-after::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #38bdf8, #a855f7);
+      border-radius: 2px;
+      z-index: 2;
+      pointer-events: none;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+    .todo-item.drag-over-before::before {
+      top: -2px;
+    }
+    .todo-item.drag-over-after::after {
+      bottom: -2px;
+    }
+    .todo-item.drag-over-before {
+      border-top-color: transparent;
     }
 
     .todo-item .todo-drag {
@@ -411,8 +462,13 @@
 </head>
 <body>
   <main class="page-shell">
+    <div style="margin-bottom:0.5rem;">
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i> Back
+      </a>
+    </div>
     <h1 class="hero-title"><span>Todo List</span></h1>
-    <p class="hero-subtitle">A simple Todo List manager, lists saved and loaded locally.</p>
+    <p class="hero-subtitle">A simple free and anonymous ToDo List manager. Lists saved and loaded locally.</p>
 
     <div class="card">
       <div class="add-row">
@@ -425,24 +481,32 @@
       <div class="todo-stats">
         <span><span class="count"><span id="totalCount">0</span> total</span></span>
         <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
-          <button class="btn btn-sm btn-ghost" id="deleteAllDoneBtn"><i class="fa-solid fa-check-double"></i> Delete All Done</button>
+          <button class="btn btn-sm btn-ghost" id="deleteAllDoneBtn"><i class="fa-solid fa-check-double"></i> Delete Completed</button>
+          <button class="btn btn-sm btn-ghost" id="sortBtn"><i class="fa-solid fa-arrow-down-a-z"></i> Sort</button>
+          <button class="btn btn-sm btn-ghost" id="deleteAllBtn"><i class="fa-solid fa-trash-can"></i> Delete All</button>
         </div>
       </div>
-      <ul class="todo-list" id="todoList"></ul>
+      <ul class="todo-list" id="todoList" role="list"></ul>
       <div class="todo-empty" id="emptyMsg">Nothing here yet. Add a task above!</div>
+      <div id="srLive" class="sr-only" aria-live="polite" aria-atomic="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;"></div>
     </div>
 
     <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;">
       <button class="btn btn-sm btn-ghost" id="saveXmlBtn"><i class="fa-solid fa-download"></i> Save</button>
       <button class="btn btn-sm btn-ghost" id="loadXmlBtn"><i class="fa-solid fa-upload"></i> Load</button>
-      <button class="btn btn-sm btn-ghost" id="reportBtn"><i class="fa-solid fa-file-lines"></i> Create report</button>
+      <div class="report-dropdown-wrap">
+        <button class="btn btn-sm btn-ghost" id="reportBtn"><i class="fa-solid fa-file-lines"></i> Create report <i class="fa-solid fa-caret-up"></i></button>
+        <div class="report-dropdown-menu" id="reportDropdown">
+          <button class="report-dropdown-item" data-format="html"><i class="fa-solid fa-file-code"></i> HTML report</button>
+          <button class="report-dropdown-item" data-format="txt"><i class="fa-solid fa-file-lines"></i> TXT report</button>
+        </div>
+      </div>
       <input type="file" id="xmlFileInput" accept=".xml" style="display:none" />
 
     </div>
 
     <footer>
-      <span>Todo List</span>
-      <span id="dateDisplay"></span>. <span>Ai generated.</span>
+      <span>AI generated.</span>
     </footer>
   </main>
 
@@ -467,6 +531,9 @@
       const todoInput = document.getElementById('todoInput');
       const addBtn = document.getElementById('addBtn');
       const deleteAllDoneBtn = document.getElementById('deleteAllDoneBtn');
+      const deleteAllBtn = document.getElementById('deleteAllBtn');
+      const sortBtn = document.getElementById('sortBtn');
+      const reportBtn = document.getElementById('reportBtn');
 
       const saveXmlBtn = document.getElementById('saveXmlBtn');
       const loadXmlBtn = document.getElementById('loadXmlBtn');
@@ -475,6 +542,8 @@
       const modalTitle = document.getElementById('modalTitle');
       const modalMessage = document.getElementById('modalMessage');
       const modalActions = document.getElementById('modalActions');
+      const srLive = document.getElementById('srLive');
+      function announce(msg) { srLive.textContent = ''; setTimeout(function() { srLive.textContent = msg; }, 50); }
 
       function loadTodos() {
         try {
@@ -494,6 +563,8 @@
           const li = document.createElement('li');
           li.className = 'todo-item show-numbers';
           li.draggable = true;
+          li.tabIndex = 0;
+          li.setAttribute('role', 'listitem');
           li.dataset.id = todo.id;
 
           const drag = document.createElement('span');
@@ -538,13 +609,24 @@
           li.addEventListener('dragover', onDragOver);
           li.addEventListener('dragleave', onDragLeave);
           li.addEventListener('drop', onDrop);
+          li.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+              e.preventDefault();
+              var idx = todos.findIndex(function(t) { return t.id === todo.id; });
+              if (idx === -1) return;
+              var dir = e.key === 'ArrowUp' ? -1 : 1;
+              var newIdx = idx + dir;
+              if (newIdx < 0 || newIdx >= todos.length) return;
+              var m = todos.splice(idx, 1)[0];
+              todos.splice(newIdx, 0, m);
+              render();
+              var movedEl = todoList.querySelector('[data-id="' + todo.id + '"]');
+              if (movedEl) movedEl.focus();
+            }
+          });
         });
 
-        const count = todos.length;
-        totalCount.textContent = count;
-        emptyMsg.style.display = todos.length === 0 ? 'block' : 'none';
-        const hasDone = todos.some(t => t.done);
-        deleteAllDoneBtn.classList.toggle('disabled', !hasDone);
+        updateUI();
         saveTodos();
       }
 
@@ -555,12 +637,20 @@
         li.classList.add('dragging');
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', li.dataset.id);
+        setTimeout(function() {
+          li.style.display = 'none';
+        }, 0);
       }
 
       function onDragEnd(e) {
         const li = e.target.closest('.todo-item');
-        if (li) li.classList.remove('dragging');
-        document.querySelectorAll('.todo-item.drag-over').forEach(el => el.classList.remove('drag-over'));
+        if (li) {
+          li.classList.remove('dragging');
+          li.style.display = '';
+        }
+        document.querySelectorAll('.todo-item.drag-over-before, .todo-item.drag-over-after').forEach(function(el) {
+          el.classList.remove('drag-over-before', 'drag-over-after');
+        });
         draggedId = null;
       }
 
@@ -573,13 +663,21 @@
         const rect = li.getBoundingClientRect();
         const midY = rect.top + rect.height / 2;
         const side = e.clientY < midY ? 'before' : 'after';
+        var prevSide = li.dataset.dropSide;
+        if (prevSide === side) return;
         li.dataset.dropSide = side;
-        li.classList.add('drag-over');
+        document.querySelectorAll('.todo-item.drag-over-before, .todo-item.drag-over-after').forEach(function(el) {
+          el.classList.remove('drag-over-before', 'drag-over-after');
+        });
+        li.classList.add('drag-over-' + side);
       }
 
       function onDragLeave(e) {
-        const li = e.target.closest('.todo-item');
-        if (li) li.classList.remove('drag-over');
+        var li = e.target.closest('.todo-item');
+        if (!li) return;
+        var related = e.relatedTarget;
+        if (related && li.contains(related)) return;
+        li.classList.remove('drag-over-before', 'drag-over-after');
       }
 
       function onDrop(e) {
@@ -599,37 +697,78 @@
         if (side === 'after' && toIdx < todos.length) toIdx++;
         todos.splice(toIdx, 0, moved);
 
-        document.querySelectorAll('.todo-item.drag-over').forEach(el => el.classList.remove('drag-over'));
+        var draggedEl = todoList.querySelector('[data-id="' + draggedId + '"]');
+        var targetEl = todoList.querySelector('[data-id="' + targetId + '"]');
+        if (draggedEl) draggedEl.style.display = '';
+        if (targetEl && draggedEl) {
+          if (side === 'before') {
+            targetEl.parentNode.insertBefore(draggedEl, targetEl);
+          } else {
+            targetEl.parentNode.insertBefore(draggedEl, targetEl.nextSibling);
+          }
+        }
+
+        document.querySelectorAll('.todo-item.drag-over-before, .todo-item.drag-over-after').forEach(function(el) {
+          el.classList.remove('drag-over-before', 'drag-over-after');
+        });
         draggedId = null;
-        render();
+        renumberAndSave();
+      }
+
+      function renumberAndSave() {
+        var items = todoList.querySelectorAll('.todo-item');
+        items.forEach(function(li, i) {
+          var num = li.querySelector('.todo-number');
+          if (num) num.textContent = '#' + (i + 1);
+        });
+        updateUI();
+        saveTodos();
+      }
+
+      function updateUI() {
+        totalCount.textContent = todos.length;
+        emptyMsg.style.display = todos.length === 0 ? 'block' : 'none';
+        var hasDone = todos.some(function(t) { return t.done; });
+        deleteAllDoneBtn.classList.toggle('disabled', !hasDone);
+        deleteAllBtn.classList.toggle('disabled', todos.length === 0);
+        sortBtn.classList.toggle('disabled', todos.length < 2);
+        saveXmlBtn.classList.toggle('disabled', todos.length === 0);
+        reportBtn.classList.toggle('disabled', todos.length === 0);
       }
 
       function addTodo() {
         const text = todoInput.value.trim();
         if (!text) return;
-        todos.push({ id: Date.now(), text, done: false });
+        todos.push({ id: crypto.randomUUID(), text: text, done: false });
         todoInput.value = '';
         todoInput.focus();
         render();
+        announce('Task added');
       }
 
       function toggleTodo(id) {
         const todo = todos.find(t => t.id === id);
-        if (todo) { todo.done = !todo.done; render(); }
+        if (todo) { todo.done = !todo.done; render(); announce(todo.done ? 'Task completed' : 'Task uncompleted'); }
       }
 
       function deleteTodo(id) {
+        var deletedText = (todos.find(function(t) { return t.id === id; }) || {}).text || 'Task';
         todos = todos.filter(t => t.id !== id);
         render();
+        announce('Deleted: ' + deletedText);
+        var remaining = todoList.querySelector('.todo-item');
+        if (remaining) { remaining.focus(); }
+        else { todoInput.focus(); }
       }
 
       async function deleteAllDone() {
         const done = todos.filter(t => t.done);
         if (!done.length) return;
-        const ok = await modalConfirm('Delete all completed tasks? This cannot be undone.');
+        const ok = await modalConfirm('Delete completed tasks?');
         if (!ok) return;
         todos = todos.filter(t => !t.done);
         render();
+        announce('Completed tasks deleted');
       }
 
       function modalAlert(msg) {
@@ -638,12 +777,15 @@
           modalMessage.textContent = msg;
           modalActions.innerHTML = '<button class="btn btn-sm" id="modalOkBtn">OK</button>';
           modalOverlay.classList.add('open');
-          document.getElementById('modalOkBtn').addEventListener('click', () => {
-            modalOverlay.classList.remove('open');
-            resolve();
-          });
+          var okBtn = document.getElementById('modalOkBtn');
+          okBtn.focus();
+          function close() { modalOverlay.classList.remove('open'); }
+          okBtn.addEventListener('click', function() { close(); resolve(); });
           modalOverlay.addEventListener('click', function handler(e) {
-            if (e.target === modalOverlay) { modalOverlay.classList.remove('open'); modalOverlay.removeEventListener('click', handler); resolve(); }
+            if (e.target === modalOverlay) { close(); modalOverlay.removeEventListener('click', handler); resolve(); }
+          });
+          document.addEventListener('keydown', function handler(e) {
+            if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); resolve(); }
           });
         });
       }
@@ -665,18 +807,18 @@
             modalOverlay.classList.remove('open');
             input.remove();
           }
-          document.getElementById('modalPromptOkBtn').addEventListener('click', () => {
-            const val = input.value.trim();
+          document.getElementById('modalPromptOkBtn').addEventListener('click', function() {
+            var val = input.value.trim();
             cleanup();
             resolve(val || defaultValue || null);
           });
-          document.getElementById('modalPromptCancelBtn').addEventListener('click', () => {
+          document.getElementById('modalPromptCancelBtn').addEventListener('click', function() {
             cleanup();
             resolve(null);
           });
           input.addEventListener('keydown', function handler(e) {
             if (e.key === 'Enter') {
-              const val = input.value.trim();
+              var val = input.value.trim();
               cleanup();
               input.removeEventListener('keydown', handler);
               resolve(val || defaultValue || null);
@@ -690,6 +832,9 @@
           modalOverlay.addEventListener('click', function handler(e) {
             if (e.target === modalOverlay) { cleanup(); modalOverlay.removeEventListener('click', handler); resolve(null); }
           });
+          document.addEventListener('keydown', function handler(e) {
+            if (e.key === 'Escape') { cleanup(); document.removeEventListener('keydown', handler); resolve(null); }
+          });
         });
       }
 
@@ -699,16 +844,17 @@
           modalMessage.textContent = msg;
           modalActions.innerHTML = '<button class="btn btn-sm" id="modalConfirmBtn">OK</button><button class="btn btn-sm btn-ghost" id="modalCancelBtn">Cancel</button>';
           modalOverlay.classList.add('open');
-          document.getElementById('modalConfirmBtn').addEventListener('click', () => {
-            modalOverlay.classList.remove('open');
-            resolve(true);
-          });
-          document.getElementById('modalCancelBtn').addEventListener('click', () => {
-            modalOverlay.classList.remove('open');
-            resolve(false);
-          });
+          var confirmBtn = document.getElementById('modalConfirmBtn');
+          var cancelBtn = document.getElementById('modalCancelBtn');
+          confirmBtn.focus();
+          function close() { modalOverlay.classList.remove('open'); }
+          confirmBtn.addEventListener('click', function() { close(); resolve(true); });
+          cancelBtn.addEventListener('click', function() { close(); resolve(false); });
           modalOverlay.addEventListener('click', function handler(e) {
-            if (e.target === modalOverlay) { modalOverlay.classList.remove('open'); modalOverlay.removeEventListener('click', handler); resolve(false); }
+            if (e.target === modalOverlay) { close(); modalOverlay.removeEventListener('click', handler); resolve(false); }
+          });
+          document.addEventListener('keydown', function handler(e) {
+            if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); resolve(false); }
           });
         });
       }
@@ -790,38 +936,54 @@
         reader.readAsText(file);
       }
 
-      async function createReport() {
+      async function createReport(fmt) {
         if (!todos.length) { modalAlert('No tasks to report.'); return; }
-        const name = await modalPrompt('Enter report filename:', 'report.html');
+        const ext = fmt === 'txt' ? 'txt' : 'html';
+        const name = await modalPrompt('Enter report filename:', 'report.' + ext);
         if (!name) return;
         const done = todos.filter(t => t.done);
         const pending = todos.filter(t => !t.done);
-        const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-        let html = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Todo Report</title>';
-        html += '<style>body{font-family:system-ui,sans-serif;max-width:600px;margin:2rem auto;padding:0 1rem;color:#1f2937;background:#f9fafb;}';
-        html += 'h1{font-size:1.5rem;}';
-        html += '.summary{display:flex;gap:1rem;margin:1rem 0;}';
-        html += '.summary div{flex:1;padding:1rem;border-radius:8px;text-align:center;font-weight:600;}';
-        html += '.summary .total{background:#e5e7eb;}';
-        html += '.summary .done{background:#d1fae5;color:#065f46;}';
-        html += '.summary .pending{background:#fef3c7;color:#92400e;}';
-        html += 'ul{padding:0;list-style:none;}';
-        html += 'li{padding:0.5rem 0;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:0.5rem;}';
-        html += 'li.done{text-decoration:line-through;color:#9ca3af;}';
-        html += '.date{color:#6b7280;font-size:0.85rem;margin-top:1.5rem;}</style></head><body>';
-        html += '<h1>Todo Report</h1>';
-        html += '<div class="summary"><div class="total">Total: ' + todos.length + '</div><div class="done">Done: ' + done.length + '</div><div class="pending">Pending: ' + pending.length + '</div></div>';
-        html += '<ul>';
-        todos.forEach((t, i) => {
-          html += '<li class="' + (t.done ? 'done' : '') + '">#' + (i + 1) + ' ' + escXml(t.text) + '</li>';
-        });
-        html += '</ul>';
-        html += '<div class="date">Generated: ' + date + '</div></body></html>';
-
-        const blob = new Blob([html], { type: 'text/html' });
+        const date = new Date().toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        let content, mime;
+        if (fmt === 'txt') {
+          content = 'Todo Report\n';
+          content += '='.repeat(40) + '\n';
+          content += 'Total: ' + todos.length + '  |  Done: ' + done.length + '  |  Pending: ' + pending.length + '\n';
+          content += '-'.repeat(40) + '\n\n';
+          todos.forEach((t, i) => {
+            var mark = t.done ? '[x]' : '[ ]';
+            content += mark + ' #' + (i + 1) + ' ' + t.text + '\n';
+          });
+          content += '\n' + '-'.repeat(40) + '\n';
+          content += 'Generated: ' + date + '\n';
+          mime = 'text/plain';
+        } else {
+          content = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Todo Report</title>';
+          content += '<style>body{font-family:system-ui,sans-serif;max-width:600px;margin:2rem auto;padding:0 1rem;color:#1f2937;background:#f9fafb;}';
+          content += 'h1{font-size:1.5rem;}';
+          content += '.summary{display:flex;gap:1rem;margin:1rem 0;}';
+          content += '.summary div{flex:1;padding:1rem;border-radius:8px;text-align:center;font-weight:600;}';
+          content += '.summary .total{background:#e5e7eb;}';
+          content += '.summary .done{background:#d1fae5;color:#065f46;}';
+          content += '.summary .pending{background:#fef3c7;color:#92400e;}';
+          content += 'ul{padding:0;list-style:none;}';
+          content += 'li{padding:0.5rem 0;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:0.5rem;}';
+          content += 'li.done{text-decoration:line-through;color:#9ca3af;}';
+          content += '.date{color:#6b7280;font-size:0.85rem;margin-top:1.5rem;}</style></head><body>';
+          content += '<h1>Todo Report</h1>';
+          content += '<div class="summary"><div class="total">Total: ' + todos.length + '</div><div class="done">Done: ' + done.length + '</div><div class="pending">Pending: ' + pending.length + '</div></div>';
+          content += '<ul>';
+          todos.forEach((t, i) => {
+            content += '<li class="' + (t.done ? 'done' : '') + '">#' + (i + 1) + ' ' + escXml(t.text) + '</li>';
+          });
+          content += '</ul>';
+          content += '<div class="date">Generated: ' + date + '</div></body></html>';
+          mime = 'text/html';
+        }
+        const blob = new Blob([content], { type: mime });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = name.endsWith('.html') ? name : name + '.html';
+        a.download = name.endsWith('.' + ext) ? name : name + '.' + ext;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -833,12 +995,38 @@
       todoInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addTodo(); });
       saveXmlBtn.addEventListener('click', saveXML);
       loadXmlBtn.addEventListener('click', loadXML);
-      document.getElementById('reportBtn').addEventListener('click', createReport);
+      document.getElementById('deleteAllBtn').addEventListener('click', async function() {
+        var ok = await modalConfirm('Delete all tasks?');
+        if (!ok) return;
+        todos = [];
+        render();
+        announce('All tasks deleted');
+      });
+      document.getElementById('sortBtn').addEventListener('click', async function() {
+        if (todos.length < 2) return;
+        var ok = await modalConfirm('Sort tasks alphabetically?');
+        if (!ok) return;
+        todos.sort(function(a, b) { return a.text.localeCompare(b.text); });
+        render();
+        announce('Tasks sorted alphabetically');
+      });
+      var reportDropdown = document.getElementById('reportDropdown');
+      reportBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = reportDropdown.classList.toggle('open');
+        reportBtn.setAttribute('aria-expanded', open);
+      });
+      reportBtn.setAttribute('aria-haspopup', 'true');
+      reportBtn.setAttribute('aria-expanded', 'false');
+      reportDropdown.querySelectorAll('.report-dropdown-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+          reportDropdown.classList.remove('open');
+          createReport(this.dataset.format);
+        });
+      });
+      document.addEventListener('click', function() { reportDropdown.classList.remove('open'); });
       xmlFileInput.addEventListener('change', (e) => {
         if (e.target.files && e.target.files[0]) parseXMLFile(e.target.files[0]);
-      });
-      document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('en-US', {
-        year: 'numeric', month: 'short', day: 'numeric'
       });
 
       loadTodos();
