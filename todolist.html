@@ -8,6 +8,7 @@
   <title>Todo List</title>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+
   <style>
     :root {
       --bg-body: #050816;
@@ -157,13 +158,7 @@
       pointer-events: none;
     }
 
-    .btn-danger {
-      background: linear-gradient(120deg, #ef4444, #dc2626);
-    }
-
-    .btn-danger:hover {
-      box-shadow: 0 14px 35px rgba(220, 38, 38, 0.6);
-    }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
 
     .btn-active {
       border-color: rgba(56, 189, 248, 0.3);
@@ -361,6 +356,8 @@
       gap: 0.4rem;
     }
 
+    .todo-list.hide-numbers .todo-number { display: none; }
+
     .filter-row .btn-filter {
       background: transparent;
       border: 1px solid transparent;
@@ -453,6 +450,21 @@
       justify-content: flex-end;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .btn:hover { transform: none; }
+    }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .btn, .btn-back, #addBtn, footer { display: none !important; }
+      .card { border: 1px solid #ddd !important; box-shadow: none !important; }
+      .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; }
+      input { display: none !important; }
+      .todo-item .todo-check { border-color: #999 !important; }
+      .todo-item .todo-check.checked { background: #111 !important; }
+    }
+
     @media (max-width: 480px) {
       .card { padding: 1rem; }
       .page-shell { padding: 1rem 0.75rem 2rem; }
@@ -472,6 +484,7 @@
 
     <div class="card">
       <div class="add-row">
+        <label for="todoInput" class="sr-only">New task</label>
         <input type="text" id="todoInput" placeholder="Add a new task..." spellcheck="false" autocomplete="off" />
         <button class="btn" id="addBtn"><i class="fa-solid fa-plus"></i> Add</button>
       </div>
@@ -483,6 +496,7 @@
         <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
           <button class="btn btn-sm btn-ghost" id="deleteAllDoneBtn"><i class="fa-solid fa-check-double"></i> Delete Completed</button>
           <button class="btn btn-sm btn-ghost" id="sortBtn"><i class="fa-solid fa-arrow-down-a-z"></i> Sort</button>
+          <button class="btn btn-sm btn-ghost" id="numbersToggle"><i class="fa-solid fa-list-ol"></i> Numbers</button>
           <button class="btn btn-sm btn-ghost" id="deleteAllBtn"><i class="fa-solid fa-trash-can"></i> Delete All</button>
         </div>
       </div>
@@ -497,8 +511,9 @@
       <div class="report-dropdown-wrap">
         <button class="btn btn-sm btn-ghost" id="reportBtn"><i class="fa-solid fa-file-lines"></i> Create report <i class="fa-solid fa-caret-up"></i></button>
         <div class="report-dropdown-menu" id="reportDropdown">
-          <button class="report-dropdown-item" data-format="html"><i class="fa-solid fa-file-code"></i> HTML report</button>
-          <button class="report-dropdown-item" data-format="txt"><i class="fa-solid fa-file-lines"></i> TXT report</button>
+          <button class="report-dropdown-item" data-format="html"><i class="fa-solid fa-file-code"></i> HTML</button>
+          <button class="report-dropdown-item" data-format="txt"><i class="fa-solid fa-file-lines"></i> TXT</button>
+          <button class="report-dropdown-item" data-format="pdf"><i class="fa-solid fa-file-pdf"></i> PDF</button>
         </div>
       </div>
       <input type="file" id="xmlFileInput" accept=".xml" style="display:none" />
@@ -506,7 +521,7 @@
     </div>
 
     <footer>
-      <span>AI generated.</span>
+      <span>AI generated <span id="footerDate"></span>.</span>
     </footer>
   </main>
 
@@ -523,6 +538,7 @@
       const STORAGE_KEY = 'todos';
 
       let todos = [];
+      let showNumbers = true;
       let draggedId = null;
 
       const todoList = document.getElementById('todoList');
@@ -549,7 +565,9 @@
         try {
           const data = localStorage.getItem(STORAGE_KEY);
           todos = data ? JSON.parse(data) : [];
+          todos.forEach(function(t) { if (typeof t.id !== 'string') t.id = String(t.id); });
         } catch { todos = []; }
+        try { showNumbers = localStorage.getItem('showNumbers') !== 'false'; } catch {}
       }
 
       function saveTodos() {
@@ -558,10 +576,13 @@
 
       function render() {
         todoList.innerHTML = '';
+        todoList.classList.toggle('hide-numbers', !showNumbers);
+        var nt = document.getElementById('numbersToggle');
+        if (nt) nt.classList.toggle('btn-active', showNumbers);
 
         todos.forEach((todo, i) => {
           const li = document.createElement('li');
-          li.className = 'todo-item show-numbers';
+          li.className = 'todo-item';
           li.draggable = true;
           li.tabIndex = 0;
           li.setAttribute('role', 'listitem');
@@ -633,7 +654,7 @@
       function onDragStart(e) {
         const li = e.target.closest('.todo-item');
         if (!li) return;
-        draggedId = Number(li.dataset.id);
+        draggedId = li.dataset.id;
         li.classList.add('dragging');
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', li.dataset.id);
@@ -658,7 +679,7 @@
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
         const li = e.target.closest('.todo-item');
-        if (!li || Number(li.dataset.id) === draggedId) return;
+        if (!li || li.dataset.id === draggedId) return;
 
         const rect = li.getBoundingClientRect();
         const midY = rect.top + rect.height / 2;
@@ -678,13 +699,14 @@
         var related = e.relatedTarget;
         if (related && li.contains(related)) return;
         li.classList.remove('drag-over-before', 'drag-over-after');
+        delete li.dataset.dropSide;
       }
 
       function onDrop(e) {
         e.preventDefault();
         const target = e.target.closest('.todo-item');
         if (!target) return;
-        const targetId = Number(target.dataset.id);
+        const targetId = target.dataset.id;
         if (targetId === draggedId) return;
 
         const side = target.dataset.dropSide || 'after';
@@ -730,16 +752,36 @@
         emptyMsg.style.display = todos.length === 0 ? 'block' : 'none';
         var hasDone = todos.some(function(t) { return t.done; });
         deleteAllDoneBtn.classList.toggle('disabled', !hasDone);
+        deleteAllDoneBtn.setAttribute('tabindex', !hasDone ? '-1' : '0');
+        deleteAllDoneBtn.setAttribute('aria-disabled', !hasDone ? 'true' : 'false');
         deleteAllBtn.classList.toggle('disabled', todos.length === 0);
+        deleteAllBtn.setAttribute('tabindex', todos.length === 0 ? '-1' : '0');
+        deleteAllBtn.setAttribute('aria-disabled', todos.length === 0 ? 'true' : 'false');
         sortBtn.classList.toggle('disabled', todos.length < 2);
+        sortBtn.setAttribute('tabindex', todos.length < 2 ? '-1' : '0');
+        sortBtn.setAttribute('aria-disabled', todos.length < 2 ? 'true' : 'false');
         saveXmlBtn.classList.toggle('disabled', todos.length === 0);
+        saveXmlBtn.setAttribute('tabindex', todos.length === 0 ? '-1' : '0');
+        saveXmlBtn.setAttribute('aria-disabled', todos.length === 0 ? 'true' : 'false');
         reportBtn.classList.toggle('disabled', todos.length === 0);
+        reportBtn.setAttribute('tabindex', todos.length === 0 ? '-1' : '0');
+        reportBtn.setAttribute('aria-disabled', todos.length === 0 ? 'true' : 'false');
+        var nt = document.getElementById('numbersToggle');
+        if (nt) {
+          nt.classList.toggle('disabled', todos.length === 0);
+          nt.setAttribute('tabindex', todos.length === 0 ? '-1' : '0');
+          nt.setAttribute('aria-disabled', todos.length === 0 ? 'true' : 'false');
+        }
+      }
+
+      function genId() {
+        try { return crypto.randomUUID(); } catch(e) { return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 9); }
       }
 
       function addTodo() {
         const text = todoInput.value.trim();
         if (!text) return;
-        todos.push({ id: crypto.randomUUID(), text: text, done: false });
+        todos.push({ id: genId(), text: text, done: false });
         todoInput.value = '';
         todoInput.focus();
         render();
@@ -785,8 +827,8 @@
             if (e.target === modalOverlay) { close(); modalOverlay.removeEventListener('click', handler); resolve(); }
           });
           document.addEventListener('keydown', function handler(e) {
-            if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); resolve(); }
-          });
+            if (e.key === 'Escape') { close(); resolve(); }
+          }, { once: true });
         });
       }
 
@@ -824,6 +866,7 @@
               resolve(val || defaultValue || null);
             }
             if (e.key === 'Escape') {
+              e.stopPropagation();
               cleanup();
               input.removeEventListener('keydown', handler);
               resolve(null);
@@ -833,8 +876,8 @@
             if (e.target === modalOverlay) { cleanup(); modalOverlay.removeEventListener('click', handler); resolve(null); }
           });
           document.addEventListener('keydown', function handler(e) {
-            if (e.key === 'Escape') { cleanup(); document.removeEventListener('keydown', handler); resolve(null); }
-          });
+            if (e.key === 'Escape') { cleanup(); resolve(null); }
+          }, { once: true });
         });
       }
 
@@ -854,17 +897,9 @@
             if (e.target === modalOverlay) { close(); modalOverlay.removeEventListener('click', handler); resolve(false); }
           });
           document.addEventListener('keydown', function handler(e) {
-            if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); resolve(false); }
-          });
+            if (e.key === 'Escape') { close(); resolve(false); }
+          }, { once: true });
         });
-      }
-
-      function setFilter(f) {
-        filter = f;
-        filterBtns.forEach(btn => {
-          btn.classList.toggle('active', btn.dataset.filter === f);
-        });
-        render();
       }
 
       async function saveXML() {
@@ -918,7 +953,7 @@
               const doneEl = item.querySelector('done');
               if (!idEl || !textEl || !doneEl) return;
               loaded.push({
-                id: Number(idEl.textContent) || Date.now() + Math.random(),
+                id: idEl.textContent || genId(),
                 text: textEl.textContent,
                 done: doneEl.textContent === 'true'
               });
@@ -938,7 +973,7 @@
 
       async function createReport(fmt) {
         if (!todos.length) { modalAlert('No tasks to report.'); return; }
-        const ext = fmt === 'txt' ? 'txt' : 'html';
+        const ext = fmt === 'txt' ? 'txt' : fmt === 'pdf' ? 'pdf' : 'html';
         const name = await modalPrompt('Enter report filename:', 'report.' + ext);
         if (!name) return;
         const done = todos.filter(t => t.done);
@@ -957,41 +992,105 @@
           content += '\n' + '-'.repeat(40) + '\n';
           content += 'Generated: ' + date + '\n';
           mime = 'text/plain';
+        } else if (fmt === 'pdf') {
+          content = buildHtmlReport(done, pending, date);
+          mime = 'text/html';
         } else {
-          content = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Todo Report</title>';
-          content += '<style>body{font-family:system-ui,sans-serif;max-width:600px;margin:2rem auto;padding:0 1rem;color:#1f2937;background:#f9fafb;}';
-          content += 'h1{font-size:1.5rem;}';
-          content += '.summary{display:flex;gap:1rem;margin:1rem 0;}';
-          content += '.summary div{flex:1;padding:1rem;border-radius:8px;text-align:center;font-weight:600;}';
-          content += '.summary .total{background:#e5e7eb;}';
-          content += '.summary .done{background:#d1fae5;color:#065f46;}';
-          content += '.summary .pending{background:#fef3c7;color:#92400e;}';
-          content += 'ul{padding:0;list-style:none;}';
-          content += 'li{padding:0.5rem 0;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:0.5rem;}';
-          content += 'li.done{text-decoration:line-through;color:#9ca3af;}';
-          content += '.date{color:#6b7280;font-size:0.85rem;margin-top:1.5rem;}</style></head><body>';
-          content += '<h1>Todo Report</h1>';
-          content += '<div class="summary"><div class="total">Total: ' + todos.length + '</div><div class="done">Done: ' + done.length + '</div><div class="pending">Pending: ' + pending.length + '</div></div>';
-          content += '<ul>';
-          todos.forEach((t, i) => {
-            content += '<li class="' + (t.done ? 'done' : '') + '">#' + (i + 1) + ' ' + escXml(t.text) + '</li>';
-          });
-          content += '</ul>';
-          content += '<div class="date">Generated: ' + date + '</div></body></html>';
+          content = buildHtmlReport(done, pending, date);
           mime = 'text/html';
         }
-        const blob = new Blob([content], { type: mime });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = name.endsWith('.' + ext) ? name : name + '.' + ext;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(a.href);
+
+        if (fmt === 'pdf') {
+          try {
+            if (typeof window.jspdf === 'undefined') {
+              await new Promise(function(resolve, reject) {
+                var s = document.createElement('script');
+                s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                s.crossOrigin = 'anonymous';
+                s.onload = resolve;
+                s.onerror = reject;
+                document.head.appendChild(s);
+              });
+            }
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: 'in', format: 'letter' });
+            const margin = 0.75;
+            const pageW = 8.5;
+            const pageH = 11;
+            let y = margin;
+            const lineH = 0.28;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(18);
+            doc.text('Todo Report', margin, y);
+            y += 0.35;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.text('Total: ' + todos.length + '    Done: ' + done.length + '    Pending: ' + pending.length, margin, y);
+            y += 0.25;
+            doc.setDrawColor(200, 200, 200);
+            doc.setLineWidth(0.01);
+            doc.line(margin, y, pageW - margin, y);
+            y += 0.2;
+            doc.setFontSize(11);
+            todos.forEach(function(t, i) {
+              if (y + lineH > pageH - margin) {
+                doc.addPage();
+                y = margin;
+              }
+              var mark = t.done ? '[x] ' : '[ ] ';
+              doc.setTextColor(t.done ? 150 : 50, t.done ? 150 : 50, t.done ? 150 : 50);
+              doc.text(mark + '#' + (i + 1) + '  ' + t.text, margin, y);
+              y += lineH;
+            });
+            doc.setTextColor(150, 150, 150);
+            doc.setFontSize(8);
+            doc.text('Generated: ' + date, margin, pageH - 0.4);
+            const fname = name.endsWith('.pdf') ? name : name + '.pdf';
+            doc.save(fname);
+          } catch(e) { modalAlert('PDF generation failed: ' + e.message); }
+        } else {
+          const blob = new Blob([content], { type: mime });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = name.endsWith('.' + ext) ? name : name + '.' + ext;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(a.href);
+        }
+      }
+
+      function buildHtmlReport(done, pending, date) {
+        let c = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Todo Report</title>';
+        c += '<style>body{font-family:system-ui,sans-serif;max-width:600px;margin:2rem auto;padding:0 1rem;color:#1f2937;background:#f9fafb;}';
+        c += 'h1{font-size:1.5rem;}';
+        c += '.summary{display:flex;gap:1rem;margin:1rem 0;}';
+        c += '.summary div{flex:1;padding:1rem;border-radius:8px;text-align:center;font-weight:600;}';
+        c += '.summary .total{background:#e5e7eb;}';
+        c += '.summary .done{background:#d1fae5;color:#065f46;}';
+        c += '.summary .pending{background:#fef3c7;color:#92400e;}';
+        c += 'ul{padding:0;list-style:none;}';
+        c += 'li{padding:0.5rem 0;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:0.5rem;}';
+        c += 'li.done{text-decoration:line-through;color:#9ca3af;}';
+        c += '.date{color:#6b7280;font-size:0.85rem;margin-top:1.5rem;}</style></head><body>';
+        c += '<h1>Todo Report</h1>';
+        c += '<div class="summary"><div class="total">Total: ' + (done.length + pending.length) + '</div><div class="done">Done: ' + done.length + '</div><div class="pending">Pending: ' + pending.length + '</div></div>';
+        c += '<ul>';
+        todos.forEach((t, i) => {
+          c += '<li class="' + (t.done ? 'done' : '') + '">#' + (i + 1) + ' ' + escXml(t.text) + '</li>';
+        });
+        c += '</ul>';
+        c += '<div class="date">Generated: ' + date + '</div></body></html>';
+        return c;
       }
 
       addBtn.addEventListener('click', addTodo);
       deleteAllDoneBtn.addEventListener('click', deleteAllDone);
+      document.getElementById('numbersToggle').addEventListener('click', function() {
+        showNumbers = !showNumbers;
+        try { localStorage.setItem('showNumbers', showNumbers); } catch {}
+        render();
+      });
       todoInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addTodo(); });
       saveXmlBtn.addEventListener('click', saveXML);
       loadXmlBtn.addEventListener('click', loadXML);
@@ -1031,6 +1130,8 @@
 
       loadTodos();
       render();
+      var fd = document.getElementById('footerDate');
+      if (fd) fd.textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     })();
   </script>
 </body>

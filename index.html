@@ -86,6 +86,7 @@
     .hero-kicker span.badge-dot {
       width: 7px; height: 7px; border-radius: 999px;
       background: #22c55e; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.25);
+      animation: pulseDot 2s ease-in-out infinite;
     }
     .hero-title {
       font-size: clamp(2.3rem, 3vw + 1.4rem, 3.1rem);
@@ -144,7 +145,7 @@
     .section-heading-main h2 { font-size: 1.05rem; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; color: #e5e7eb; }
     .section-heading-sub { font-size: 0.8rem; color: var(--text-muted); }
     .chatbot-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
-    .chatbot-list li { padding: 0.65rem 0.9rem; background: rgba(15, 23, 42, 0.7); border-radius: 12px; border: 1px solid var(--border-subtle); font-size: 0.9rem; color: var(--text-muted); transition: border-color var(--transition-fast); }
+    .chatbot-list li { padding: 0.65rem 0.9rem; background: rgba(15, 23, 42, 0.7); border-radius: 12px; border: 1px solid var(--border-subtle); font-size: 0.9rem; color: var(--text-muted); transition: border-color var(--transition-fast), opacity 0.25s ease; display: flex; align-items: center; }
     .chatbot-list li:hover { border-color: rgba(56, 189, 248, 0.6); }
     .chatbot-list a { color: var(--accent); font-weight: 600; }
     .chatbot-list a::after { content: " \2197"; font-size: 0.75rem; }
@@ -211,11 +212,19 @@
     footer .footer-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
     footer .footer-meta span.dot { width: 3px; height: 3px; border-radius: 999px; background: rgba(148, 163, 184, 0.7); }
     .clock-row { margin-bottom: 1.2rem; display: flex; flex-wrap: nowrap; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted); padding: 0.35rem 0; overflow-x: visible; }
+    .cosmos-btn {
+      background: none; border: 1px solid rgba(148,163,184,0.4); color: var(--text-muted);
+      border-radius: var(--radius-pill); padding: 0.2rem 0.65rem; font-size: 0.72rem;
+      cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease;
+      display: inline-flex; align-items: center; gap: 0.35rem; flex-shrink: 0;
+    }
+    .cosmos-btn:hover { border-color: var(--accent); color: var(--accent); }
+    body.cosmos-off #particle-canvas, body.cosmos-off #portal-canvas { display: none !important; }
     .clock-pill {
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.1rem;
       border: 1px solid rgba(255,255,255,0.4); border-radius: var(--radius-pill);
       padding: 0.2rem 3.3rem; background: rgba(15,23,42,0.6);
-      flex: 1; min-width: 0; line-height: 1.3;
+      flex: 1; min-width: 0; line-height: 1.3; cursor: pointer;
     }
     .clock-pill-label { color: var(--text-main); font-weight: 500; font-size: 0.82rem; white-space: nowrap; }
     .clock-pill-time { font-variant-numeric: tabular-nums; color: var(--text-main); font-weight: 600; font-size: 0.95rem; }
@@ -253,10 +262,10 @@
     ::-webkit-scrollbar-track { background: var(--bg-body); }
     ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.4); }
+    * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     ::selection { background: rgba(56,189,248,0.3); color: #fff; }
     h1, h2, h3, p { text-wrap: pretty; }
     
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     @keyframes pulseDot { 0%, 100% { box-shadow: 0 0 0 6px rgba(34,197,94,0.25); } 50% { box-shadow: 0 0 0 12px rgba(34,197,94,0.1); } }
     @keyframes pulseClick { 0%, 100% { box-shadow: 0 0 0 0px rgba(56,189,248,0.6); transform: scale(1); } 50% { box-shadow: 0 0 12px 4px rgba(56,189,248,0.3); transform: scale(1.04); } }
@@ -342,7 +351,6 @@
     .hatter-arm.r .hatter-hand { right: 0px; }
     .hatter-legs { display: flex; justify-content: center; gap: 7px; margin-top: -2px; }
     .hatter-leg { width: 9px; height: 24px; background: #2c2c2c; border-radius: 3px; }
-    .hero-kicker span.badge-dot { animation: pulseDot 2s ease-in-out infinite; }
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .back-to-top {
@@ -359,8 +367,9 @@
     *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .skip-link { position: absolute; top: -999px; left: 0.5rem; z-index: 9999; background: #0b1120; color: var(--accent); padding: 0.5rem 1rem; border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; border: 1px solid var(--accent); border-top: none; }
     .skip-link:focus { top: 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
-    @media print { #particle-canvas, #portal-canvas { display: none !important; } body { background: #fff; color: #000; } .filter-chip, .search-input-wrap { display: none; } }
+    @media print { #particle-canvas, #portal-canvas { display: none !important; } body { background: #fff; color: #000; } .filter-chip, .search-input-wrap { display: none; } a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; } .hero-title span.highlight { color: #1a1a2e !important; -webkit-background-clip: unset; background-clip: unset; background: none; } }
     .city-modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.65);
       display: flex; align-items: center; justify-content: center;
@@ -387,7 +396,6 @@
       font-family: inherit;
     }
     .city-modal-box .cm-close:hover { background: rgba(56,189,248,0.25); }
-    .clock-pill { cursor: pointer; }
     .news-ticker {
       position: relative; overflow: hidden; height: 100px;
       margin: -0.3rem 0 0.8rem 0; border-radius: 12px;
@@ -451,7 +459,12 @@
     .ticker-speed-label { font-size: 0.7rem; color: var(--text-muted); min-width: 2.2rem; }
     .ticker-speed-reset { font-size: 0.7rem; color: rgba(148,163,184,0.4); cursor: pointer; transition: color 0.2s ease; }
     .ticker-speed-reset:hover { color: var(--accent); }
-    .chatbot-list li { display: flex; align-items: center; transition: opacity 0.25s ease; }
+    .ticker-pause {
+      background: none; border: none; padding: 0 0.2rem;
+      font-size: 0.8rem; color: rgba(148,163,184,0.5); cursor: pointer;
+      transition: color 0.2s ease; margin-left: 0.3rem; display: inline-flex; align-items: center;
+    }
+    .ticker-pause:hover { color: var(--accent); }
     .chatbot-list li.disabled { opacity: 0.4; }
     .chatbot-list li.disabled a { pointer-events: none; }
     .chatbot-toggle {
@@ -481,11 +494,11 @@
           Live directory of free AI tools
         </div>
         <h1 class="hero-title">
-          Explore <span class="highlight">AI tools</span> you can use
-          today— no sign‑up, no credit card.
+          Free <span class="highlight">AI tools</span>. No sign-up. No credit card.
         </h1>
+        <div id="cosmos-row" style="margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;"><button class="cosmos-btn" id="cosmosToggle"><i aria-hidden="true" class="fa-solid fa-globe"></i> Cosmos</button><span style="font-size:0.72rem;color:var(--text-muted);">toggle background effects</span></div>
         <div id="clock-row" class="clock-row">
-          <div class="clock-label"><i class="fa-regular fa-clock"></i><span>World Clocks</span></div>
+          <div class="clock-label"><i aria-hidden="true" class="fa-regular fa-clock"></i><span>World Clocks</span></div>
           <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">London</span> <span id="clock-london" class="clock-pill-time"></span> <span id="icon-london" class="clock-pill-icon"></span></div>
           <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">New York</span> <span id="clock-nyc" class="clock-pill-time"></span> <span id="icon-nyc" class="clock-pill-icon"></span></div>
           <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Los Angeles</span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
@@ -495,21 +508,21 @@
           <div class="clock-pill" id="wonderland-pill" title="Click to see Alice in Wonderland"><span class="clock-pill-label">Wonderland</span> <span id="clock-wonderland" class="clock-pill-time"></span> <span id="icon-wonderland" class="clock-pill-icon"></span></div>
         </div>
         <div id="city-dropdown" class="city-dropdown"></div>
-        <div class="news-label"><i class="fa-regular fa-newspaper"></i><span>World News</span><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed"></i></span></div>
+        <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>World News</span><button class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed"></i></span></div>
         <div class="news-ticker" id="tickerWorld" role="region" aria-label="World news headlines">
           <div class="news-ticker-grad top"></div>
           <div class="news-ticker-grad bot"></div>
           <div class="news-ticker-refresh-msg">⟳ Refreshing…</div>
           <div class="news-ticker-inner"><div class="news-ticker-loading">Loading news…</div></div>
         </div>
-        <div class="news-label"><i class="fa-solid fa-brain"></i><span>AI News</span><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerAI" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerAI" title="Reset speed"></i></span></div>
+        <div class="news-label"><i aria-hidden="true" class="fa-solid fa-brain"></i><span>AI News</span><button class="ticker-pause" data-ticker="tickerAI" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerAI" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerAI" title="Reset speed"></i></span></div>
         <div class="news-ticker" id="tickerAI" role="region" aria-label="AI news headlines">
           <div class="news-ticker-grad top"></div>
           <div class="news-ticker-grad bot"></div>
           <div class="news-ticker-refresh-msg">⟳ Refreshing…</div>
           <div class="news-ticker-inner"><div class="news-ticker-loading">Loading news…</div></div>
         </div>
-        <div class="news-label"><i class="fa-solid fa-trophy"></i><span>Sports News</span><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerSports" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerSports" title="Reset speed"></i></span></div>
+        <div class="news-label"><i aria-hidden="true" class="fa-solid fa-trophy"></i><span>Sports News</span><button class="ticker-pause" data-ticker="tickerSports" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerSports" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerSports" title="Reset speed"></i></span></div>
         <div class="news-ticker" id="tickerSports" role="region" aria-label="Sports news headlines">
           <div class="news-ticker-grad top"></div>
           <div class="news-ticker-grad bot"></div>
@@ -517,9 +530,9 @@
           <div class="news-ticker-inner"><div class="news-ticker-loading">Loading news…</div></div>
         </div>
         <div class="hero-badges">
-          <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> $0, anonymous, instant use</div>
-          <div class="hero-badge"><i class="fa-solid fa-laptop-code"></i> Web &amp; local options</div>
-          <div class="hero-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Chat, search, &amp; coding</div>
+          <div class="hero-badge"><i aria-hidden="true" class="fa-solid fa-shield-halved"></i> $0, anonymous, instant use</div>
+          <div class="hero-badge"><i aria-hidden="true" class="fa-solid fa-laptop-code"></i> Web &amp; local options</div>
+          <div class="hero-badge"><i aria-hidden="true" class="fa-solid fa-wand-magic-sparkles"></i> Chat, search, &amp; coding</div>
         </div>
         <div class="hero-meta">
           <div><strong>Fast scan:</strong> type to filter by name, feature, or tag.</div>
@@ -529,20 +542,20 @@
     </section>
     <section class="search-section">
       <div class="search-input-wrap">
-        <i class="fa-solid fa-magnifying-glass"></i>
+        <i aria-hidden="true" class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="search" class="search-input" placeholder="Search tools by name, feature, or tag…" aria-label="Search tools" spellcheck="false" autocomplete="off" />
       </div>
       <div class="filter-chips">
-        <button class="filter-chip active" data-filter="all" type="button"><i class="fa-solid fa-layer-group"></i> All tools</button>
-        <button class="filter-chip" data-filter="web" type="button"><i class="fa-solid fa-globe"></i> Web chatbots</button>
-        <button class="filter-chip" data-filter="local" type="button"><i class="fa-solid fa-laptop"></i> Local only</button>
-        <button class="filter-chip" data-filter="coding" type="button"><i class="fa-solid fa-code"></i> Coding</button>
-        <button class="filter-chip" data-filter="videos" type="button"><i class="fa-brands fa-youtube"></i> Videos</button>
+        <button class="filter-chip active" data-filter="all" type="button"><i aria-hidden="true" class="fa-solid fa-layer-group"></i> All tools</button>
+        <button class="filter-chip" data-filter="web" type="button"><i aria-hidden="true" class="fa-solid fa-globe"></i> Web chatbots</button>
+        <button class="filter-chip" data-filter="local" type="button"><i aria-hidden="true" class="fa-solid fa-laptop"></i> Local only</button>
+        <button class="filter-chip" data-filter="coding" type="button"><i aria-hidden="true" class="fa-solid fa-code"></i> Coding</button>
+        <button class="filter-chip" data-filter="videos" type="button"><i aria-hidden="true" class="fa-brands fa-youtube"></i> Videos</button>
       </div>
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i class="fa-solid fa-globe"></i><h2>Web‑based AI chatbots</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-globe"></i><h2>Web‑based AI chatbots</h2></div>
         <div class="section-heading-sub">General assistants you can open in a tab and start chatting with.</div>
       </header>
       <ul class="chatbot-list" id="chatbotList">
@@ -562,11 +575,11 @@
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i class="fa-solid fa-laptop"></i><h2>Run AI locally</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-laptop"></i><h2>Run AI locally</h2></div>
         <div class="section-heading-sub">Tools that run models on your own machine for privacy and offline use.</div>
       </header>
       <div class="info-banner">
-        <i class="fa-solid fa-circle-info"></i>
+        <i aria-hidden="true" class="fa-solid fa-circle-info"></i>
         <div>Local tools keep computation on your device. They can be more private, but may require a capable GPU or CPU and a bit more setup.</div>
       </div>
       <div class="tool-grid">
@@ -574,40 +587,40 @@
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-solid fa-download"></i></div>
+                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-download"></i></div>
                 <div><h3>Ollama</h3><div class="tool-card-provider">Ollama</div></div>
               </div>
             </div>
             <div class="tool-card-badges">
-              <span class="tool-badge local"><i class="fa-solid fa-laptop"></i> Local</span>
-              <span class="tool-badge"><i class="fa-solid fa-face-smile"></i> Beginner‑friendly</span>
+              <span class="tool-badge local"><i aria-hidden="true" class="fa-solid fa-laptop"></i> Local</span>
+              <span class="tool-badge"><i aria-hidden="true" class="fa-solid fa-face-smile"></i> Beginner‑friendly</span>
             </div>
           </div>
           <p class="tool-card-body">Simple way to run popular models locally with a clean CLI and one‑line installs for many models.</p>
           <div class="tool-card-footer">
             <div class="tool-card-footer-left"><span>Great first step into local AI</span></div>
-            <a href="https://ollama.com" target="_blank" rel="noopener noreferrer" class="btn-open">Homepage <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="https://ollama.com" target="_blank" rel="noopener noreferrer" class="btn-open">Homepage <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
         <article class="tool-card tool" data-category="local" data-tags="llama.cpp c++ engine advanced local performance">
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-solid fa-code"></i></div>
+                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-code"></i></div>
                 <div><h3>llama.cpp</h3><div class="tool-card-provider">ggml‑org</div></div>
               </div>
             </div>
             <div class="tool-card-badges">
-              <span class="tool-badge local"><i class="fa-solid fa-laptop"></i> Local</span>
-              <span class="tool-badge advanced"><i class="fa-solid fa-fire"></i> Advanced</span>
+              <span class="tool-badge local"><i aria-hidden="true" class="fa-solid fa-laptop"></i> Local</span>
+              <span class="tool-badge advanced"><i aria-hidden="true" class="fa-solid fa-fire"></i> Advanced</span>
             </div>
           </div>
           <p class="tool-card-body">High‑performance C++ engine for running LLMs locally across many platforms. Very flexible, very fast.</p>
           <div class="tool-card-footer">
             <div class="tool-card-footer-left"><span>For tinkerers &amp; power users</span></div>
             <div class="d-flex gap-2">
-              <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener noreferrer" class="btn-open">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-              <a href="baremetal/index.html" class="btn-open btn-open-ghost">Quickstart <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener noreferrer" class="btn-open">GitHub <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <a href="baremetal/index.html" class="btn-open btn-open-ghost">Quickstart <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </article>
@@ -615,7 +628,7 @@
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i class="fa-solid fa-code"></i><h2>Coding with AI</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-code"></i><h2>Coding with AI</h2></div>
         <div class="section-heading-sub">Guides and workflows for using AI as a pair‑programmer.</div>
       </header>
       <div class="tool-grid">
@@ -623,26 +636,26 @@
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-solid fa-wrench"></i></div>
+                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-wrench"></i></div>
                 <div><h3>AI Coding Guide</h3><div class="tool-card-provider">AI Playground</div></div>
               </div>
             </div>
             <div class="tool-card-badges">
-              <span class="tool-badge guide"><i class="fa-solid fa-book-open"></i> Guides</span>
-              <span class="tool-badge"><i class="fa-solid fa-flask"></i> Examples</span>
+              <span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-book-open"></i> Guides</span>
+              <span class="tool-badge"><i aria-hidden="true" class="fa-solid fa-flask"></i> Examples</span>
             </div>
           </div>
           <p class="tool-card-body">Practical patterns for using AI in software development—prompt recipes, refactoring flows, and debugging strategies.</p>
           <div class="tool-card-footer">
             <div class="tool-card-footer-left"><span>Turn AI into a reliable coding partner</span></div>
-            <a href="generatedcode.html" class="btn-open">Open guide <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="generatedcode.html" class="btn-open">Open guide <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
       </div>
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i class="fa-solid fa-mobile-screen-button"></i><h2>APPS CODED BY AI</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-mobile-screen-button"></i><h2>APPS CODED BY AI</h2></div>
         <div class="section-heading-sub">Apps and tools built entirely by AI.</div>
       </header>
       <ul class="chatbot-list">
@@ -651,7 +664,7 @@
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i class="fa-brands fa-youtube"></i><h2>AI Videos</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-brands fa-youtube"></i><h2>AI Videos</h2></div>
         <div class="section-heading-sub">Curated video content about AI-assisted development.</div>
       </header>
       <div class="tool-grid">
@@ -659,11 +672,11 @@
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-solid fa-language"></i></div>
+                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-language"></i></div>
                 <div><h3>Learn Italian AI Style</h3><div class="tool-card-provider">AI Playground</div></div>
               </div>
             </div>
-            <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-play"></i> Video</span></div>
+            <div class="tool-card-badges"><span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-play"></i> Video</span></div>
           </div>
           <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
             <iframe src="https://www.youtube.com/embed/kbX5I-MYLLE" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
@@ -673,11 +686,11 @@
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i class="fa-solid fa-robot"></i></div>
+                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-robot"></i></div>
                 <div><h3>AI Stunner Models</h3><div class="tool-card-provider">AI Playground</div></div>
               </div>
             </div>
-            <div class="tool-card-badges"><span class="tool-badge guide"><i class="fa-solid fa-play"></i> Video</span></div>
+            <div class="tool-card-badges"><span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-play"></i> Video</span></div>
           </div>
           <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
             <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
@@ -744,6 +757,8 @@
         var d = document.createElement('div');
         d.textContent = parts[1];
         d.setAttribute('data-tz', parts[0]);
+        d.setAttribute('tabindex', '0');
+        d.setAttribute('role', 'option');
         d.addEventListener('click', function() {
           var name = this.textContent;
           var tz = this.getAttribute('data-tz');
@@ -753,6 +768,12 @@
           this.classList.add('selected');
           dropdown.classList.remove('visible');
           showCityModal(name);
+        });
+        d.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
         });
         dropdown.appendChild(d);
       }
@@ -774,7 +795,7 @@
         var items = [];
         var pos = 0;
         tickerSpeeds[containerId] = 0.35;
-        var paused = false;
+        container.__paused = false;
         function load() {
           var url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feedUrl);
           fetch(url).then(function(r) { return r.json(); }).then(function(data) {
@@ -789,6 +810,7 @@
               var titleSpan = document.createElement('span');
               titleSpan.className = 'ni-title';
               titleSpan.textContent = data.items[i].title;
+              titleSpan.title = data.items[i].title;
               var timeSpan = document.createElement('span');
               timeSpan.className = 'ni-time';
               var d = new Date(data.items[i].pubDate);
@@ -811,7 +833,7 @@
         load();
         var resetting = false;
         function tick() {
-          if (paused || resetting) { requestAnimationFrame(tick); return; }
+          if (container.__paused || container.__hoverPaused || resetting) { requestAnimationFrame(tick); return; }
           if (holdFrames > 0) { holdFrames--; requestAnimationFrame(tick); return; }
           pos += tickerSpeeds[containerId];
           var h = inner.scrollHeight;
@@ -833,8 +855,8 @@
         }
         var holdFrames = 90;
         tick();
-        container.addEventListener('mouseenter', function() { paused = true; });
-        container.addEventListener('mouseleave', function() { paused = false; });
+        container.addEventListener('mouseenter', function() { container.__hoverPaused = true; });
+        container.addEventListener('mouseleave', function() { container.__hoverPaused = false; });
       }
       createTicker('tickerWorld', 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml');
       createTicker('tickerAI', 'https://techcrunch.com/feed/');
@@ -852,6 +874,21 @@
           if (slider) {
             slider.value = '0.35';
             tickerSpeeds[id] = 0.35;
+          }
+        });
+      });
+      document.querySelectorAll('.ticker-pause').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var id = this.getAttribute('data-ticker');
+          var container = document.getElementById(id);
+          if (!container) return;
+          container.__paused = !container.__paused;
+          var icon = this.querySelector('i');
+          if (!icon) return;
+          if (container.__paused) {
+            icon.className = 'fa-solid fa-play';
+          } else {
+            icon.className = 'fa-solid fa-pause';
           }
         });
       });
@@ -942,13 +979,13 @@
           el.textContent = now.toLocaleTimeString('en-GB', { timeZone: z.tz, hour: '2-digit', minute: '2-digit', second: '2-digit' });
           if (iconEl) {
             const hour = parseInt(now.toLocaleString('en-GB', { timeZone: z.tz, hour: '2-digit', hour12: false }));
-            iconEl.textContent = hour >= 6 && hour < 24 ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            iconEl.textContent = hour >= 6 && hour < 18 ? '\u2600\uFE0F' : '\uD83C\uDF19';
           }
         }
         const wl = document.getElementById('clock-wonderland');
         if (wl) wl.textContent = '18:00:00';
         const wlIcon = document.getElementById('icon-wonderland');
-        if (wlIcon) wlIcon.innerHTML = '<i class="fa-solid fa-mug-saucer"></i>';
+        if (wlIcon) wlIcon.innerHTML = '<i aria-hidden="true" class="fa-solid fa-mug-saucer"></i>';
         var yc = document.getElementById('clock-yourcity');
         var yi = document.getElementById('icon-yourcity');
         if (yourTz) {
@@ -958,7 +995,7 @@
           }
           if (yi) {
             var h = parseInt(now.toLocaleString('en-GB', { timeZone: yourTz, hour: '2-digit', hour12: false }));
-            yi.textContent = h >= 6 && h < 24 ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            yi.textContent = h >= 6 && h < 18 ? '\u2600\uFE0F' : '\uD83C\uDF19';
           }
         } else {
           if (yc) { yc.style.display = 'none'; yc.textContent = ''; }
@@ -1033,6 +1070,11 @@
       const tools = document.querySelectorAll(".tool");
       const backToTop = document.getElementById("backToTop");
       let activeFilter = "all";
+      var liveRegion = document.createElement('div');
+      liveRegion.setAttribute('aria-live', 'polite');
+      liveRegion.setAttribute('aria-atomic', 'true');
+      liveRegion.className = 'sr-only';
+      document.body.appendChild(liveRegion);
       function applyFilters() {
         const query = (searchInput.value || "").toLowerCase().trim();
         let visible = 0;
@@ -1046,20 +1088,23 @@
           tool.style.display = match ? "" : "none";
           if (match) visible++;
         });
-        var emptyState = document.getElementById('noToolsMsg');
-        if (visible === 0) {
-          if (!emptyState) {
-            emptyState = document.createElement('div');
-            emptyState.id = 'noToolsMsg';
-            emptyState.style.cssText = 'text-align:center;padding:2rem 0;color:var(--text-muted);font-size:0.9rem;';
-            emptyState.textContent = 'No tools match that filter or search term. Try adjusting your query.';
-            var localSection = document.querySelector('.tool-grid');
-            if (localSection) localSection.parentNode.insertBefore(emptyState, localSection.nextSibling);
+        document.querySelectorAll('.tool-grid, #chatbotList').forEach(function(container) {
+          var section = container.closest('section') || container.parentElement;
+          var existing = section.querySelector('.no-match-msg');
+          var vis = container.querySelectorAll('.tool:not([style*="display: none"]), li:not([style*="display: none"])');
+          if (vis.length === 0 && query !== '') {
+            if (!existing) {
+              var msg = document.createElement('div');
+              msg.className = 'no-match-msg';
+              msg.style.cssText = 'text-align:center;padding:1rem;color:var(--text-muted);font-size:0.85rem;';
+              msg.textContent = 'No tools match your filter.';
+              container.parentElement.insertBefore(msg, container.nextSibling);
+            }
+          } else if (existing) {
+            existing.remove();
           }
-          emptyState.style.display = 'block';
-        } else if (emptyState) {
-          emptyState.style.display = 'none';
-        }
+        });
+        liveRegion.textContent = visible + ' tools shown';
       }
       searchInput.addEventListener("input", applyFilters);
       applyFilters();
@@ -1332,8 +1377,18 @@
           li.dataset.enabled = enabled;
           li.classList.toggle('disabled', !enabled);
           btn.classList.toggle('on', enabled);
-          try { localStorage.setItem(key, enabled); } catch(ex) {}
+          try { localStorage.setItem(key, enabled); } catch(ex) { console.warn('Could not save chatbot toggle state', ex); }
         });
+      });
+    })();
+
+    (function() {
+      var btn = document.getElementById('cosmosToggle');
+      if (!btn) return;
+      try { if (localStorage.getItem('cosmosOff') !== 'false') document.body.classList.add('cosmos-off'); } catch(e) { console.warn('Could not read cosmos state', e); document.body.classList.add('cosmos-off'); }
+      btn.addEventListener('click', function() {
+        document.body.classList.toggle('cosmos-off');
+        try { localStorage.setItem('cosmosOff', document.body.classList.contains('cosmos-off')); } catch(e) { console.warn('Could not save cosmos state', e); }
       });
     })();
   </script>

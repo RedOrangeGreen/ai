@@ -91,6 +91,7 @@
       background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
       -webkit-background-clip: text;
       background-clip: text;
+      color: #38bdf8;
       color: transparent;
     }
 
@@ -309,6 +310,8 @@
     ::-webkit-scrollbar-track { background: var(--bg-body); }
     ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.4); }
+
+    * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) #050816; }
 
     ::selection { background: rgba(56,189,248,0.3); color: #fff; }
 
@@ -535,6 +538,7 @@
         background: #fff;
         color: #000;
       }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .sidebar {
         display: none;
       }
@@ -861,8 +865,8 @@ table.report-table {
   <main id="main-content" class="page-shell">
 
   <div class="mb-2">
-    <a href="index.html" class="btn-back">
-      <i class="fa-solid fa-arrow-left"></i> Back
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back
     </a>
   </div>
 
@@ -880,25 +884,25 @@ table.report-table {
 
       <aside class="sidebar" role="navigation" aria-label="Page contents">
         <h3>Contents</h3>
-        <a href="#section1"><i class="fa-solid fa-terminal sidebar-icon"></i>OpenCode On Ubuntu</a>
-        <a href="#example1"><i class="fa-solid fa-mobile-screen sidebar-icon"></i>1. Website Monitor, Flutter</a>
-        <a href="#example2"><i class="fa-brands fa-python sidebar-icon"></i>2. AI Snap Manager, Python</a>
-        <a href="#example3"><i class="fa-solid fa-code sidebar-icon"></i>3. Llama.cpp Revisited, C++</a>
-        <a href="#example4"><i class="fa-solid fa-code sidebar-icon"></i>4. Code Snippets, C++</a>
-        <a href="#example5"><i class="fa-brands fa-python sidebar-icon"></i>5. Clipboard Monitor, Python</a>
-        <a href="#example6"><i class="fa-solid fa-code-branch sidebar-icon"></i>6. Self-Forking OpenCode</a>
-        <a href="#freemodels"><i class="fa-solid fa-cube sidebar-icon"></i>Free AI Models Hosted By Hugging Face</a>
-        <a href="#nvmodels"><i class="fa-solid fa-microchip sidebar-icon"></i>Free AI Models (With Key) Hosted By Nvidia</a>
+        <a href="#section1"><i class="fa-solid fa-terminal sidebar-icon" aria-hidden="true"></i>OpenCode On Ubuntu</a>
+        <a href="#example1"><i class="fa-solid fa-mobile-screen sidebar-icon" aria-hidden="true"></i>1. Website Monitor, Flutter</a>
+        <a href="#example2"><i class="fa-brands fa-python sidebar-icon" aria-hidden="true"></i>2. AI Snap Manager, Python</a>
+        <a href="#example3"><i class="fa-solid fa-code sidebar-icon" aria-hidden="true"></i>3. Llama.cpp Revisited, C++</a>
+        <a href="#example4"><i class="fa-solid fa-code sidebar-icon" aria-hidden="true"></i>4. Code Snippets, C++</a>
+        <a href="#example5"><i class="fa-brands fa-python sidebar-icon" aria-hidden="true"></i>5. Clipboard Monitor, Python</a>
+        <a href="#example6"><i class="fa-solid fa-code-branch sidebar-icon" aria-hidden="true"></i>6. Self-Forking OpenCode</a>
+        <a href="#freemodels"><i class="fa-solid fa-cube sidebar-icon" aria-hidden="true"></i>Free AI Models Hosted By Hugging Face</a>
+        <a href="#nvmodels"><i class="fa-solid fa-microchip sidebar-icon" aria-hidden="true"></i>Free AI Models (With Key) Hosted By Nvidia</a>
 
         <div class="sidebar-divider"></div>
 
-        <button id="closeAllSidebarBtn" class="close-all-btn sidebar-close-btn" type="button" title="Close all open examples [C]">
-          <i class="fa-solid fa-compress"></i>
+        <button id="closeAllSidebarBtn" class="close-all-btn sidebar-close-btn" type="button" title="Close all open examples [C]" aria-label="Close all examples">
+          <i class="fa-solid fa-compress" aria-hidden="true"></i>
           Close all
         </button>
 
         <div style="margin-top:1rem;font-size:0.65rem;color:rgba(148,163,184,0.35);line-height:1.6;">
-          <div><i class="fa-regular fa-keyboard" style="margin-right:0.3rem;"></i>F filter · C close · T top</div>
+          <div><i class="fa-regular fa-keyboard" style="margin-right:0.3rem;" aria-hidden="true"></i>F filter · C close · T top</div>
         </div>
 
       </aside>
@@ -909,9 +913,9 @@ table.report-table {
         <section id="section1" class="guide-section reveal" role="region" aria-label="OpenCode on Ubuntu Linux examples">
 
           <h2>OpenCode On Ubuntu Linux Examples
-            <span class="project-count-badge"><i class="fa-solid fa-layer-group"></i> <span id="projectCount">6</span> projects</span>
-            <button id="closeAllBtn" class="close-all-btn" type="button" title="Close all open examples">
-              <i class="fa-solid fa-compress"></i>
+            <span class="project-count-badge"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> <span id="projectCount">6</span> projects</span>
+            <button id="closeAllBtn" class="close-all-btn" type="button" title="Close all open examples" aria-label="Close all examples">
+              <i class="fa-solid fa-compress" aria-hidden="true"></i>
               Close all
             </button>
           </h2>
@@ -929,17 +933,17 @@ opencode</code></pre>
           <p>
             <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer" class="repo-link">
               <span class="repo-link-icon">
-                <i class="fa-solid fa-terminal"></i>
+                <i class="fa-solid fa-terminal" aria-hidden="true"></i>
               </span>
               <span class="repo-link-body">
                 <span class="repo-link-name">OpenCode</span>
-                <span class="repo-link-desc">terminal AI coding agent <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                <span class="repo-link-desc">terminal AI coding agent <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
               </span>
             </a>
           </p>
 
           <div class="project-search-wrap">
-            <i class="fa-solid fa-search search-icon"></i>
+            <i class="fa-solid fa-search search-icon" aria-hidden="true"></i>
             <input type="text" id="projectFilter" placeholder="Filter projects by name or language..." aria-label="Filter projects by name or language" spellcheck="false" autocomplete="off">
             <span class="search-count" id="filterCount">6 / 6</span>
             <span style="font-size:0.65rem;color:rgba(148,163,184,0.4);position:absolute;right:3.5rem;top:50%;transform:translateY(-50%);pointer-events:none;display:none;" id="filterHint">[F]</span>
@@ -951,7 +955,7 @@ opencode</code></pre>
               <span class="summary-left">
                 <span>1. Website Monitor, Flutter</span>
               </span>
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+              <i class="fa-solid fa-chevron-down summary-chevron" aria-hidden="true"></i>
             </summary>
 
             <div class="project-body">
@@ -990,7 +994,7 @@ AI Agentic development really put in a good show here ... new 'instant' working 
               <span class="summary-left">
                 <span>2. Ubuntu Native AI Inference Snap Manager, Python</span>
               </span>
-              <i class="fa-solid fa-chevron-down summary-chevron"></i>
+              <i class="fa-solid fa-chevron-down summary-chevron" aria-hidden="true"></i>
             </summary>
 
             <div class="project-body">
@@ -1041,7 +1045,7 @@ gemma3 chat</code></pre>
       <span class="summary-left">
         <span>3. Llama.cpp Revisited, C++</span>
       </span>
-      <i class="fa-solid fa-chevron-down summary-chevron"></i>
+      <i class="fa-solid fa-chevron-down summary-chevron" aria-hidden="true"></i>
     </summary>
 
     <div class="project-body">
@@ -1079,7 +1083,7 @@ gemma3 chat</code></pre>
       <span class="summary-left">
         <span>4. Code Snippets, C++</span>
       </span>
-      <i class="fa-solid fa-chevron-down summary-chevron"></i>
+      <i class="fa-solid fa-chevron-down summary-chevron" aria-hidden="true"></i>
     </summary>
 
     <div class="project-body">
@@ -1118,7 +1122,7 @@ gemma3 chat</code></pre>
               <span class="summary-left">
                 <span>5. Clipboard Monitor, Python</span>
       </span>
-      <i class="fa-solid fa-chevron-down summary-chevron"></i>
+      <i class="fa-solid fa-chevron-down summary-chevron" aria-hidden="true"></i>
     </summary>
 
     <div class="project-body">
@@ -1152,7 +1156,7 @@ gemma3 chat</code></pre>
       <span class="summary-left">
         <span>6. Self-Forking The OpenCode Terminal</span>
       </span>
-      <i class="fa-solid fa-chevron-down summary-chevron"></i>
+      <i class="fa-solid fa-chevron-down summary-chevron" aria-hidden="true"></i>
     </summary>
 
     <div class="project-body">
@@ -1208,7 +1212,7 @@ gemma3 chat</code></pre>
         <section id="freemodels" class="guide-section reveal" role="region" aria-label="Free AI Models hosted by Hugging Face">
 
           <h2>Free AI Models Hosted By Hugging Face
-            <span class="project-count-badge"><i class="fa-solid fa-cube"></i> open-source</span>
+            <span class="project-count-badge"><i class="fa-solid fa-cube" aria-hidden="true"></i> open-source</span>
           </h2>
 
           <p>
@@ -1230,7 +1234,7 @@ gemma3 chat</code></pre>
 
           <div style="margin-top:1.5rem;padding:1rem;background:rgba(56,189,248,0.06);border-radius:8px;border:1px solid rgba(56,189,248,0.12);">
             <p style="margin:0;font-size:0.85rem;color:rgba(148,163,184,0.8);">
-              <i class="fa-solid fa-lightbulb" style="margin-right:0.4rem;color:#38bdf8;"></i>
+              <i class="fa-solid fa-lightbulb" style="margin-right:0.4rem;color:#38bdf8;" aria-hidden="true"></i>
               All models listed run locally via
               <a href="https://ollama.com" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">Ollama</a>,
               <a href="https://github.com/ggerganov/llama.cpp" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">llama.cpp</a>,
@@ -1244,12 +1248,12 @@ gemma3 chat</code></pre>
         <section id="nvmodels" class="guide-section reveal" role="region" aria-label="Free AI Models with API key hosted by Nvidia">
 
           <h2>Free AI Models (With Key) Hosted By Nvidia
-            <span class="project-count-badge"><i class="fa-solid fa-microchip"></i> NVIDIA</span>
+            <span class="project-count-badge"><i class="fa-solid fa-microchip" aria-hidden="true"></i> NVIDIA</span>
           </h2>
 
           <div style="margin:1rem 0;padding:0.75rem 1rem;background:rgba(249,115,22,0.08);border-radius:8px;border:1px solid rgba(249,115,22,0.2);">
             <p style="margin:0;font-size:0.85rem;color:rgba(148,163,184,0.9);">
-              <i class="fa-solid fa-triangle-exclamation" style="margin-right:0.4rem;color:#f97316;"></i>
+              <i class="fa-solid fa-triangle-exclamation" style="margin-right:0.4rem;color:#f97316;" aria-hidden="true"></i>
               <strong>NOT ANONYMOUS</strong> — requires signing up for an API key.
             </p>
           </div>
@@ -1272,7 +1276,7 @@ gemma3 chat</code></pre>
 
           <div style="margin-top:1.5rem;padding:1rem;background:rgba(56,189,248,0.06);border-radius:8px;border:1px solid rgba(56,189,248,0.12);">
             <p style="margin:0;font-size:0.85rem;color:rgba(148,163,184,0.8);">
-              <i class="fa-solid fa-key" style="margin-right:0.4rem;color:#38bdf8;"></i>
+              <i class="fa-solid fa-key" style="margin-right:0.4rem;color:#38bdf8;" aria-hidden="true"></i>
               Get your free API key at
               <a href="https://build.nvidia.com" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">build.nvidia.com</a>.
               No credit card required for the free tier.
@@ -1313,10 +1317,6 @@ gemma3 chat</code></pre>
       document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
       if (backToTop) {
-        window.addEventListener("scroll", () => {
-          backToTop.classList.toggle("visible", window.scrollY > 400);
-        });
-
         backToTop.addEventListener("click", () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         });
@@ -1335,6 +1335,16 @@ gemma3 chat</code></pre>
           const offset = 90;
           const top = rect.top + window.pageYOffset - offset;
           window.scrollTo({ top: top, behavior: "smooth" });
+          setTimeout(function() {
+            if (el.tagName === 'DETAILS') {
+              var summary = el.querySelector('summary');
+              if (summary) summary.setAttribute('tabindex', '-1');
+              if (summary) summary.focus({ preventScroll: true });
+            } else {
+              el.setAttribute('tabindex', '-1');
+              el.focus({ preventScroll: true });
+            }
+          }, 600);
         });
       });
 
@@ -1345,6 +1355,15 @@ gemma3 chat</code></pre>
       }
       document.getElementById("closeAllBtn").addEventListener("click", closeAllExamples);
       document.getElementById("closeAllSidebarBtn").addEventListener("click", closeAllExamples);
+
+      function showCopied(btn) {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          btn.classList.remove('copied');
+        }, 2000);
+      }
 
       document.querySelectorAll("pre").forEach((pre) => {
         const btn = document.createElement("button");
@@ -1365,20 +1384,10 @@ gemma3 chat</code></pre>
             ta.select();
             try { document.execCommand('copy'); } catch(e) {}
             document.body.removeChild(ta);
-            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-            btn.classList.add("copied");
-            setTimeout(function() {
-              btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-              btn.classList.remove("copied");
-            }, 2000);
+            showCopied(btn);
           };
           navigator.clipboard.writeText(text).then(function() {
-            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-            btn.classList.add("copied");
-            setTimeout(function() {
-              btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-              btn.classList.remove("copied");
-            }, 2000);
+            showCopied(btn);
           })['catch'](fallback);
         });
       });
@@ -1386,16 +1395,6 @@ gemma3 chat</code></pre>
       /* Scroll progress */
       const progressBar = document.getElementById('scroll-progress');
       const scrollLabel = document.getElementById('scroll-label');
-      if (progressBar) {
-        window.addEventListener('scroll', () => {
-          const scrollTop = window.scrollY;
-          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-          const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-          progressBar.style.width = pct + '%';
-          progressBar.setAttribute('aria-valuenow', Math.round(pct));
-          if (scrollLabel) scrollLabel.textContent = Math.round(pct) + '%';
-        });
-      }
 
       /* Project filter */
       const filterInput = document.getElementById('projectFilter');
@@ -1441,21 +1440,32 @@ gemma3 chat</code></pre>
         fh.style.display = '';
       }
 
-      /* Sidebar active tracking */
       const sidebarLinks = document.querySelectorAll('.sidebar a[href^="#"]');
-      const allSections = document.querySelectorAll('[id^="section"], [id^="example"]');
-      function updateSidebar() {
-        let current = '';
-        allSections.forEach(el => {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 200) current = el.id;
-        });
-        sidebarLinks.forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-        });
-      }
-      window.addEventListener('scroll', updateSidebar);
-      updateSidebar();
+      const allSections = document.querySelectorAll('[id^="section"], [id^="example"], #freemodels, #nvmodels');
+      var scrollTicking = false;
+      window.addEventListener('scroll', function() {
+        if (!scrollTicking) {
+          requestAnimationFrame(function() {
+            var scrollTop = window.scrollY;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            backToTop.classList.toggle('visible', scrollTop > 400);
+            progressBar.style.width = pct + '%';
+            progressBar.setAttribute('aria-valuenow', Math.round(pct));
+            if (scrollLabel) scrollLabel.textContent = Math.round(pct) + '%';
+            var current = '';
+            allSections.forEach(function(el) {
+              var rect = el.getBoundingClientRect();
+              if (rect.top <= 200) current = el.id;
+            });
+            sidebarLinks.forEach(function(a) {
+              a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+            scrollTicking = false;
+          });
+          scrollTicking = true;
+        }
+      });
 
       /* Collapse state persistence */
       const projectDetails = document.querySelectorAll('details.project');
@@ -1489,7 +1499,6 @@ gemma3 chat</code></pre>
           particleCanvas.width = window.innerWidth;
           particleCanvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeParticles);
         resizeParticles();
 
         class Particle {
