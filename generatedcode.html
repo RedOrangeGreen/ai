@@ -824,6 +824,11 @@
       vertical-align: middle;
       margin-left: 0.5rem;
     }
+    .reading-time {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.5rem;
+    }
+    .reading-time i { color: var(--accent); font-size: 0.7rem; }
 
 table.report-table {
       width: 100%;
@@ -874,6 +879,10 @@ table.report-table {
       AI engineering is about creating applications that use AI models to make predictions,
       understand language, analyze data, or automate tasks.
     </p>
+    <div class="reading-time" id="readingTime">
+      <i class="fa-regular fa-clock" aria-hidden="true"></i>
+      <span></span>
+    </div>
 
   </header>
 
@@ -1214,19 +1223,16 @@ gemma3 chat</code></pre>
 
           <p>
             <a href="https://huggingface.co" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:#38bdf8;">Hugging Face</a>
-            hosts thousands of high-quality open-source and free-to-use AI models
+            hosts millions of high-quality open-source and free-to-use AI models
             that you can run locally or access via API. No subscriptions required.
           </p>
 
           <div class="link-row" style="margin-top:1.5rem;">
-            <a href="https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct" target="_blank" rel="noopener noreferrer">Llama 3.3 (70B)</a>
-            <a href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3" target="_blank" rel="noopener noreferrer">Mistral 7B</a>
-            <a href="https://huggingface.co/microsoft/Phi-3-mini-4k-instruct" target="_blank" rel="noopener noreferrer">Phi-3 Mini</a>
-            <a href="https://huggingface.co/Qwen/Qwen2.5-7B-Instruct" target="_blank" rel="noopener noreferrer">Qwen 2.5 (7B)</a>
-            <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1" target="_blank" rel="noopener noreferrer">DeepSeek R1</a>
-            <a href="https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1" target="_blank" rel="noopener noreferrer">Mixtral 8x7B</a>
-            <a href="https://huggingface.co/google/gemma-2-9b-it" target="_blank" rel="noopener noreferrer">Gemma 2 (9B)</a>
-            <a href="https://huggingface.co/stabilityai/stable-diffusion-3.5-large" target="_blank" rel="noopener noreferrer">Stable Diffusion 3.5</a>
+            <a href="https://huggingface.co/zai-org/GLM-5.2" target="_blank" rel="noopener noreferrer">GLM-5.2</a>
+            <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash" target="_blank" rel="noopener noreferrer">DeepSeek V4</a>
+            <a href="https://huggingface.co/moonshotai/Kimi-K2.6" target="_blank" rel="noopener noreferrer">Kimi K2.6</a>
+            <a href="https://huggingface.co/Qwen/Qwen3-235B-A22B" target="_blank" rel="noopener noreferrer">Qwen3 235B</a>
+            <a href="https://huggingface.co/google/gemma-4-26B-A4B-it" target="_blank" rel="noopener noreferrer">Gemma 4 26B</a>
           </div>
 
           <div style="margin-top:1.5rem;padding:1rem;background:rgba(56,189,248,0.06);border-radius:8px;border:1px solid rgba(56,189,248,0.12);">
@@ -1257,18 +1263,17 @@ gemma3 chat</code></pre>
 
           <p>
             <a href="https://build.nvidia.com" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:#38bdf8;">NVIDIA NIM</a>
-            offers free access to leading AI models with just a free API key.
+            offers free access to 100+ leading AI models with just a free API key.
             Sign up at the NVIDIA GPU Cloud (NGC) and start inferring immediately.
           </p>
 
           <div class="link-row" style="margin-top:1.5rem;">
-            <a href="https://build.nvidia.com/meta/llama-3_3-70b-instruct" target="_blank" rel="noopener noreferrer">Llama 3.3 70B</a>
+            <a href="https://build.nvidia.com/deepseek-ai/deepseek-v4-flash" target="_blank" rel="noopener noreferrer">DeepSeek V4</a>
+            <a href="https://build.nvidia.com/qwen/qwen3.5-397b-a17b" target="_blank" rel="noopener noreferrer">Qwen3.5 397B</a>
+            <a href="https://build.nvidia.com/z-ai/glm-5.2" target="_blank" rel="noopener noreferrer">GLM-5.2</a>
+            <a href="https://build.nvidia.com/moonshotai/kimi-k2.6" target="_blank" rel="noopener noreferrer">Kimi K2.6</a>
             <a href="https://build.nvidia.com/mistralai/mistral-large-3-675b-instruct-2512" target="_blank" rel="noopener noreferrer">Mistral Large 3</a>
             <a href="https://build.nvidia.com/nvidia/llama-3_1-nemotron-70b-instruct" target="_blank" rel="noopener noreferrer">Nemotron 70B</a>
-            <a href="https://build.nvidia.com/google/gemma-2-27b-it" target="_blank" rel="noopener noreferrer">Gemma 2 27B</a>
-            <a href="https://build.nvidia.com/mistralai/mistral-nemotron" target="_blank" rel="noopener noreferrer">Mistral-Nemotron</a>
-            <a href="https://build.nvidia.com/deepseek-ai/deepseek-r1" target="_blank" rel="noopener noreferrer">DeepSeek R1</a>
-            <a href="https://build.nvidia.com/stabilityai/stable-diffusion-3_5-large" target="_blank" rel="noopener noreferrer">Stable Diffusion 3.5</a>
           </div>
 
           <div style="margin-top:1.5rem;padding:1rem;background:rgba(56,189,248,0.06);border-radius:8px;border:1px solid rgba(56,189,248,0.12);">
@@ -1299,6 +1304,14 @@ gemma3 chat</code></pre>
   <script>
     (function () {
       const backToTop = document.getElementById("backToTop");
+
+      var readingTimeEl = document.getElementById('readingTime');
+      if (readingTimeEl) {
+        var textContent = document.querySelector('.page-shell').textContent;
+        var wordCount = textContent.split(/\s+/).length;
+        var minutes = Math.max(1, Math.round(wordCount / 200));
+        readingTimeEl.querySelector('span').textContent = minutes + ' min read';
+      }
 
       const observer = new IntersectionObserver(
         (entries) => {

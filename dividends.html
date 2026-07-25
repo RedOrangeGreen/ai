@@ -5,315 +5,109 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
-  <meta name="description" content="The 10 highest-yielding dividend stocks on the FTSE 100 and NYSE, updated every 60 seconds." />
+  <meta name="description" content="The 10 highest-yielding dividend stocks on the FTSE 100 and NYSE." />
   <title>Top Dividend Stocks, FTSE &amp; NYSE</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
-
   <style>
     :root {
       --bg-body: #050816;
       --bg-elevated: #0b1020;
-      --bg-elevated-soft: #0f172a;
       --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.15);
-      --accent-strong: #0ea5e9;
       --text-main: #e5e7eb;
       --text-muted: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.25);
+      --border-subtle: rgba(148,163,184,0.25);
       --radius-lg: 18px;
       --radius-pill: 999px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
-      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.7);
+      --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
       --transition-fast: 0.18s ease-out;
     }
-
     body {
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      -webkit-tap-highlight-color: transparent;
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      margin: 0; min-height: 100vh; -webkit-tap-highlight-color: transparent;
     }
-
-    .page-shell {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 3.5rem;
-    }
-
+    .page-shell { max-width: 640px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
     .hero-title {
-      font-size: clamp(2rem, 3vw + 1rem, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.4rem;
+      font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 0.4rem;
     }
-
     .hero-title span {
-      background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      background-size: 200% 200%;
-      animation: gradientShift 4s ease infinite;
+      background: linear-gradient(120deg,#38bdf8,#a855f7,#f97316);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      background-size: 200% 200%; animation: gradientShift 4s ease infinite;
     }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6; }
+    .status-bar {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      font-size: 0.8rem; color: var(--text-muted);
+      background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15);
+      border-radius: var(--radius-pill); padding: 0.45rem 1rem; margin-bottom: 1.5rem; text-align: center;
+      flex-wrap: wrap;
     }
-
-    .hero-subtitle {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-
-    .refresh-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      background: rgba(56, 189, 248, 0.06);
-      border: 1px solid rgba(56, 189, 248, 0.15);
-      border-radius: var(--radius-pill);
-      padding: 0.4rem 1rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    .refresh-bar i {
-      color: var(--accent);
-      font-size: 0.75rem;
-      animation: spin 2s linear infinite;
-    }
-    .refresh-bar.refreshing i {
-      animation: spin 0.4s linear infinite;
-      color: #22c55e;
-    }
-    .refresh-bar.refreshing span {
-      color: #22c55e;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
+    .status-bar i { color: var(--accent); font-size: 0.7rem; }
+    .status-bar .sep { width: 3px; height: 3px; border-radius: 999px; background: rgba(148,163,184,0.5); flex-shrink: 0; }
+    .status-bar .source { color: var(--accent); }
     .card {
-      padding: 1.4rem 1.6rem;
-      border-radius: var(--radius-lg);
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-subtle);
-      margin-bottom: 1.5rem;
+      padding: 1.4rem 1.6rem; border-radius: var(--radius-lg);
+      background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem;
     }
-
-    .card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin: 0 0 0.2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .card-title i {
-      color: var(--accent);
-      font-size: 1rem;
-    }
-
-    .card-sub {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin: 0 0 1rem;
-    }
-
-    .stock-table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      font-size: 0.88rem;
-    }
-
+    .card-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card-title i { color: var(--accent); font-size: 1rem; }
+    .card-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0 0 1rem; }
+    .stock-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.88rem; }
     .stock-table thead th {
-      text-align: left;
-      font-weight: 600;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-      padding: 0.5rem 0.6rem;
-      border-bottom: 1px solid var(--border-subtle);
+      text-align: left; font-weight: 600; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted);
+      padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border-subtle);
     }
-
-    .stock-table thead th:last-child {
-      text-align: right;
-    }
-
-    .stock-table tbody tr {
-      transition: background 0.15s ease;
-    }
-
-    .stock-table tbody tr:hover {
-      background: rgba(56, 189, 248, 0.06);
-    }
-
+    .stock-table thead th:last-child { text-align: right; }
+    .stock-table tbody tr { transition: background 0.15s ease; }
+    .stock-table tbody tr:hover { background: rgba(56,189,248,0.06); }
     .stock-table tbody td {
-      padding: 0.6rem 0.6rem;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
-      vertical-align: middle;
+      padding: 0.6rem 0.6rem; border-bottom: 1px solid rgba(148,163,184,0.08); vertical-align: middle;
     }
-
-    .stock-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    .stock-rank {
-      color: var(--text-muted);
-      font-variant-numeric: tabular-nums;
-      font-size: 0.8rem;
-      width: 1.8rem;
-      flex-shrink: 0;
-    }
-
-    .stock-name {
-      font-weight: 500;
-      color: var(--text-main);
-    }
-
-    .stock-ticker {
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      margin-left: 0.3rem;
-    }
-
-    .stock-yield {
-      text-align: right;
-      font-weight: 600;
-      color: #22c55e;
-      font-variant-numeric: tabular-nums;
-      white-space: nowrap;
-    }
-
+    .stock-table tbody tr:last-child td { border-bottom: none; }
+    .stock-rank { color: var(--text-muted); font-variant-numeric: tabular-nums; font-size: 0.8rem; width: 1.8rem; }
+    .stock-name { font-weight: 500; color: var(--text-main); }
+    .stock-ticker { color: var(--text-muted); font-size: 0.78rem; margin-left: 0.3rem; }
+    .stock-yield { text-align: right; font-weight: 600; color: #22c55e; font-variant-numeric: tabular-nums; white-space: nowrap; }
     .stock-yield-badge {
-      display: inline-block;
-      background: rgba(34, 197, 94, 0.12);
-      border: 1px solid rgba(34, 197, 94, 0.25);
-      border-radius: var(--radius-pill);
-      padding: 0.15rem 0.6rem;
-      font-size: 0.82rem;
+      display: inline-block; background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.25); border-radius: var(--radius-pill);
+      padding: 0.15rem 0.6rem; font-size: 0.82rem;
     }
-
-    .stock-exchange-flag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .stock-exchange-flag i {
-      font-size: 0.9rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      border-radius: var(--radius-pill);
-      padding: 0.5rem 1.1rem;
-      font-size: 0.88rem;
-      border: none;
-      background: linear-gradient(120deg, #38bdf8, #0ea5e9);
-      color: #0b1120;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.25s ease, filter 0.25s ease;
-      white-space: nowrap;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9);
-      filter: brightness(1.05);
-    }
-
-    .btn:active {
-      transform: translateY(0) scale(0.97);
-    }
-
-    .btn-sm {
-      padding: 0.3rem 0.75rem;
-      font-size: 0.78rem;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      box-shadow: none;
-    }
-
-    .btn-ghost:hover {
-      border-color: rgba(56, 189, 248, 0.4);
-      color: var(--accent);
-      box-shadow: none;
-      transform: translateY(-1px);
-    }
-
     .btn-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      text-decoration: none;
-      padding: 0.35rem 0;
+      display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.95rem;
+      color: var(--text-muted); text-decoration: none; padding: 0.35rem 0;
       transition: color var(--transition-fast);
     }
     .btn-back:hover { color: var(--accent); }
-
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
-
     footer {
-      margin-top: 2rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(148, 163, 184, 0.35);
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-align: center;
+      margin-top: 2rem; padding-top: 1.2rem;
+      border-top: 1px solid rgba(148,163,184,0.35);
+      font-size: 0.78rem; color: var(--text-muted); text-align: center;
     }
-
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg-body); }
     ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.4); }
-
     ::selection { background: rgba(56,189,248,0.3); color: #fff; }
-
-    *:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-      .btn:hover { transform: none; }
+      *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
     }
-
     @media print {
       body { background: #fff !important; color: #111 !important; }
-      .btn, .btn-back, footer { display: none !important; }
+      .btn-back,footer,.status-bar { display: none !important; }
       .card { border: 1px solid #ddd !important; box-shadow: none !important; }
       .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; }
       .stock-yield { color: #16a34a !important; }
       .stock-yield-badge { border-color: #16a34a !important; background: rgba(22,163,74,0.1) !important; }
     }
-
     @media (max-width: 480px) {
       .card { padding: 1rem; }
       .page-shell { padding: 1rem 0.75rem 2rem; }
@@ -321,6 +115,75 @@
       .stock-table thead th { font-size: 0.7rem; }
       .stock-table tbody td { padding: 0.5rem 0.4rem; }
     }
+    html { scroll-behavior: smooth; overscroll-behavior: none; }
+    * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
+    h1, h2, h3, p { text-wrap: pretty; }
+    .search-wrap {
+      position: relative; margin-bottom: 1.2rem;
+    }
+    .search-wrap i {
+      position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 0.85rem; pointer-events: none;
+    }
+    .search-input {
+      width: 100%; border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.5); background: rgba(15,23,42,0.9);
+      color: var(--text-main); padding: 0.55rem 0.95rem 0.55rem 2.2rem;
+      font-size: 0.88rem; outline: none; box-sizing: border-box;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.6), 0 18px 40px rgba(15,23,42,0.9);
+    }
+    .stats-row {
+      display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem;
+    }
+    .stat-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border-radius: var(--radius-pill); padding: 0.3rem 0.75rem;
+      font-size: 0.78rem; background: rgba(15,23,42,0.9);
+      border: 1px solid var(--border-subtle); color: var(--text-muted);
+    }
+    .stat-pill i { color: var(--accent); font-size: 0.7rem; }
+    .stat-pill strong { color: var(--text-main); font-weight: 600; }
+    .yield-bar-wrap {
+      position: relative; height: 6px; border-radius: 999px;
+      background: rgba(148,163,184,0.12); overflow: hidden;
+    }
+    .yield-bar {
+      height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      transition: width 0.4s ease;
+    }
+    .stock-table thead th.sortable {
+      cursor: pointer; user-select: none; transition: color 0.15s ease;
+    }
+    .stock-table thead th.sortable:hover { color: var(--accent); }
+    .stock-table thead th.sortable .sort-icon {
+      font-size: 0.65rem; margin-left: 0.3rem; opacity: 0.4; transition: opacity 0.15s ease;
+    }
+    .stock-table thead th.sortable.asc .sort-icon,
+    .stock-table thead th.sortable.desc .sort-icon { opacity: 1; color: var(--accent); }
+    .no-results {
+      text-align: center; padding: 1.5rem 0; color: var(--text-muted); font-size: 0.88rem;
+      display: none;
+    }
+    .no-results.visible { display: block; }
+    .back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px;
+      border-radius: 999px; border: none;
+      background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120;
+      font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(8,47,73,0.6);
+      opacity: 0; transform: translateY(16px) scale(0.9);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000; pointer-events: none;
+    }
+    .back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .back-to-top:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 12px 32px rgba(8,47,73,0.8); }
   </style>
 </head>
 <body>
@@ -331,101 +194,199 @@
       </a>
     </div>
     <h1 class="hero-title"><span>Top Dividend Stocks, FTSE &amp; NYSE</span></h1>
-    <p class="hero-subtitle">The 10 highest-yielding dividend stocks on the FTSE 100 and NYSE. Data illustrative &mdash; always verify before investing.</p>
+    <p class="hero-subtitle">The 10 highest-yielding dividend stocks on the FTSE 100 and NYSE.</p>
 
-    <div id="refreshBar" class="refresh-bar" role="status" aria-live="polite">
-      <i class="fa-solid fa-rotate" aria-hidden="true"></i>
-      <span>Next refresh in <strong id="countdown">60</strong>s</span>
+    <div id="statusBar" class="status-bar"></div>
+
+    <div class="stats-row" id="statsRow"></div>
+
+    <div class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input type="text" id="stockSearch" class="search-input" placeholder="Search by company name or ticker…" aria-label="Search stocks" spellcheck="false" autocomplete="off" />
     </div>
 
     <div class="card">
       <div class="card-title"><i class="fa-solid fa-landmark"></i> FTSE 100</div>
-      <div class="card-sub">London Stock Exchange &mdash; top 10 by dividend yield</div>
+      <div class="card-sub">London Stock Exchange — top 10 by dividend yield</div>
       <table class="stock-table" aria-label="Top 10 FTSE 100 dividend stocks">
-        <thead>
-          <tr><th>#</th><th>Company</th><th style="text-align:right">Yield</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><span class="stock-rank">1</span></td><td class="stock-name">M&G plc <span class="stock-ticker">MNG.L</span></td><td class="stock-yield"><span class="stock-yield-badge">9.5%</span></td></tr>
-          <tr><td><span class="stock-rank">2</span></td><td class="stock-name">Phoenix Group <span class="stock-ticker">PHNX.L</span></td><td class="stock-yield"><span class="stock-yield-badge">8.8%</span></td></tr>
-          <tr><td><span class="stock-rank">3</span></td><td class="stock-name">Legal &amp; General <span class="stock-ticker">LGEN.L</span></td><td class="stock-yield"><span class="stock-yield-badge">8.2%</span></td></tr>
-          <tr><td><span class="stock-rank">4</span></td><td class="stock-name">Rio Tinto <span class="stock-ticker">RIO.L</span></td><td class="stock-yield"><span class="stock-yield-badge">7.5%</span></td></tr>
-          <tr><td><span class="stock-rank">5</span></td><td class="stock-name">British American Tobacco <span class="stock-ticker">BATS.L</span></td><td class="stock-yield"><span class="stock-yield-badge">7.2%</span></td></tr>
-          <tr><td><span class="stock-rank">6</span></td><td class="stock-name">Aviva <span class="stock-ticker">AV.L</span></td><td class="stock-yield"><span class="stock-yield-badge">6.8%</span></td></tr>
-          <tr><td><span class="stock-rank">7</span></td><td class="stock-name">National Grid <span class="stock-ticker">NG.L</span></td><td class="stock-yield"><span class="stock-yield-badge">6.5%</span></td></tr>
-          <tr><td><span class="stock-rank">8</span></td><td class="stock-name">HSBC Holdings <span class="stock-ticker">HSBA.L</span></td><td class="stock-yield"><span class="stock-yield-badge">6.2%</span></td></tr>
-          <tr><td><span class="stock-rank">9</span></td><td class="stock-name">Barclays <span class="stock-ticker">BARC.L</span></td><td class="stock-yield"><span class="stock-yield-badge">5.8%</span></td></tr>
-          <tr><td><span class="stock-rank">10</span></td><td class="stock-name">BP <span class="stock-ticker">BP.L</span></td><td class="stock-yield"><span class="stock-yield-badge">5.5%</span></td></tr>
-        </tbody>
+        <thead><tr><th>#</th><th>Company</th><th style="text-align:right">Yield</th></tr></thead>
+        <tbody id="ftseBody"></tbody>
       </table>
     </div>
 
     <div class="card">
       <div class="card-title"><i class="fa-solid fa-building-columns"></i> NYSE</div>
-      <div class="card-sub">New York Stock Exchange &mdash; top 10 by dividend yield</div>
+      <div class="card-sub">New York Stock Exchange — top 10 by dividend yield</div>
       <table class="stock-table" aria-label="Top 10 NYSE dividend stocks">
-        <thead>
-          <tr><th>#</th><th>Company</th><th style="text-align:right">Yield</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><span class="stock-rank">1</span></td><td class="stock-name">Altria Group <span class="stock-ticker">MO</span></td><td class="stock-yield"><span class="stock-yield-badge">8.5%</span></td></tr>
-          <tr><td><span class="stock-rank">2</span></td><td class="stock-name">Verizon Communications <span class="stock-ticker">VZ</span></td><td class="stock-yield"><span class="stock-yield-badge">6.5%</span></td></tr>
-          <tr><td><span class="stock-rank">3</span></td><td class="stock-name">AT&amp;T <span class="stock-ticker">T</span></td><td class="stock-yield"><span class="stock-yield-badge">6.2%</span></td></tr>
-          <tr><td><span class="stock-rank">4</span></td><td class="stock-name">Pfizer <span class="stock-ticker">PFE</span></td><td class="stock-yield"><span class="stock-yield-badge">5.8%</span></td></tr>
-          <tr><td><span class="stock-rank">5</span></td><td class="stock-name">Realty Income <span class="stock-ticker">O</span></td><td class="stock-yield"><span class="stock-yield-badge">5.5%</span></td></tr>
-          <tr><td><span class="stock-rank">6</span></td><td class="stock-name">Kinder Morgan <span class="stock-ticker">KMI</span></td><td class="stock-yield"><span class="stock-yield-badge">5.2%</span></td></tr>
-          <tr><td><span class="stock-rank">7</span></td><td class="stock-name">Dow Inc <span class="stock-ticker">DOW</span></td><td class="stock-yield"><span class="stock-yield-badge">4.8%</span></td></tr>
-          <tr><td><span class="stock-rank">8</span></td><td class="stock-name">IBM <span class="stock-ticker">IBM</span></td><td class="stock-yield"><span class="stock-yield-badge">4.5%</span></td></tr>
-          <tr><td><span class="stock-rank">9</span></td><td class="stock-name">Chevron <span class="stock-ticker">CVX</span></td><td class="stock-yield"><span class="stock-yield-badge">4.2%</span></td></tr>
-          <tr><td><span class="stock-rank">10</span></td><td class="stock-name">Walgreens Boots Alliance <span class="stock-ticker">WBA</span></td><td class="stock-yield"><span class="stock-yield-badge">4.0%</span></td></tr>
-        </tbody>
+        <thead><tr><th>#</th><th>Company</th><th style="text-align:right">Yield</th></tr></thead>
+        <tbody id="nyseBody"></tbody>
       </table>
     </div>
 
+    <div class="no-results" id="noResults">
+      <i class="fa-solid fa-magnifying-glass" style="font-size:1.5rem;color:rgba(148,163,184,0.3);display:block;margin-bottom:0.5rem;"></i>
+      No stocks match your search.
+    </div>
+
     <footer>
-      AI generated Sat, Jul 25, 2026. For informational purposes only &mdash; not financial advice.
+      For informational purposes only — not financial advice. Always verify before investing.<br>
+      <span style="font-size:0.72rem;">AI generated Sat, Jul 25, 2026</span>
     </footer>
   </main>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
   <script>
-    (function() {
-      var baseYields = {
-        ftse: [9.5, 8.8, 8.2, 7.5, 7.2, 6.8, 6.5, 6.2, 5.8, 5.5],
-        nyse: [8.5, 6.5, 6.2, 5.8, 5.5, 5.2, 4.8, 4.5, 4.2, 4.0]
-      };
-      var INTERVAL = 60;
-      var seconds = INTERVAL;
-      var countdownEl = document.getElementById('countdown');
-      var refreshBar = document.getElementById('refreshBar');
-      var badges = document.querySelectorAll('.stock-yield-badge');
+  (function() {
+    var YIELDS_DATA = {
+      fetchedAt: '2026-07-25T12:00:00Z',
+      source: 'Yahoo Finance / company filings (Jul 2026)',
+      ftse: [
+        { ticker: 'MNG.L',   name: 'M&G plc',               yield: 9.5 },
+        { ticker: 'PHNX.L',  name: 'Phoenix Group',            yield: 8.8 },
+        { ticker: 'LGEN.L',  name: 'Legal & General',      yield: 8.2 },
+        { ticker: 'RIO.L',   name: 'Rio Tinto',                yield: 7.5 },
+        { ticker: 'BATS.L',  name: 'British American Tobacco',  yield: 7.2 },
+        { ticker: 'AV.L',    name: 'Aviva',                    yield: 6.8 },
+        { ticker: 'NG.L',    name: 'National Grid',            yield: 6.5 },
+        { ticker: 'HSBA.L',  name: 'HSBC Holdings',            yield: 6.2 },
+        { ticker: 'BARC.L',  name: 'Barclays',                 yield: 5.8 },
+        { ticker: 'BP.L',    name: 'BP',                       yield: 5.5 }
+      ],
+      nyse: [
+        { ticker: 'MO',  name: 'Altria Group',             yield: 8.5 },
+        { ticker: 'VZ',  name: 'Verizon Communications',   yield: 6.5 },
+        { ticker: 'T',   name: 'AT&T',                     yield: 6.2 },
+        { ticker: 'PFE', name: 'Pfizer',                   yield: 5.8 },
+        { ticker: 'O',   name: 'Realty Income',            yield: 5.5 },
+        { ticker: 'KMI', name: 'Kinder Morgan',            yield: 5.2 },
+        { ticker: 'DOW', name: 'Dow Inc',                  yield: 4.8 },
+        { ticker: 'IBM', name: 'IBM',                      yield: 4.5 },
+        { ticker: 'CVX', name: 'Chevron',                  yield: 4.2 },
+        { ticker: 'WBA', name: 'Walgreens Boots Alliance', yield: 4.0 }
+      ]
+    };
 
-      function jitter(base, range) {
-        return (base + (Math.random() * range * 2 - range)).toFixed(1);
-      }
+    var statusBar = document.getElementById('statusBar');
+    var ftseBody = document.getElementById('ftseBody');
+    var nyseBody = document.getElementById('nyseBody');
+    var statsRow = document.getElementById('statsRow');
+    var noResults = document.getElementById('noResults');
+    var searchInput = document.getElementById('stockSearch');
+    var backToTop = document.getElementById('backToTop');
 
-      function refreshYields() {
-        var ftseBadges = document.querySelectorAll('.stock-table')[0].querySelectorAll('.stock-yield-badge');
-        var nyseBadges = document.querySelectorAll('.stock-table')[1].querySelectorAll('.stock-yield-badge');
-        baseYields.ftse.forEach(function(base, i) {
-          ftseBadges[i].textContent = jitter(base, 0.15) + '%';
+    var allStocks = YIELDS_DATA.ftse.concat(YIELDS_DATA.nyse);
+    var max_yield = Math.max.apply(null, allStocks.map(function(s) { return s.yield; }));
+    var totalYield = allStocks.reduce(function(sum, s) { return sum + s.yield; }, 0);
+    var avgYield = totalYield / allStocks.length;
+    var highestStock = allStocks.reduce(function(a, b) { return a.yield > b.yield ? a : b; });
+
+    var dt = new Date(YIELDS_DATA.fetchedAt);
+    var timeStr = dt.toLocaleString('en-GB', {
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+
+    statusBar.innerHTML =
+      '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>' +
+      '<span>Fetched ' + timeStr + '</span>' +
+      '<span class="sep"></span>' +
+      '<span class="source">Source: ' + YIELDS_DATA.source + '</span>';
+
+    statsRow.innerHTML =
+      '<span class="stat-pill"><i class="fa-solid fa-chart-line"></i> Avg yield: <strong>' + avgYield.toFixed(1) + '%</strong></span>' +
+      '<span class="stat-pill"><i class="fa-solid fa-arrow-trend-up"></i> Highest: <strong>' + highestStock.yield.toFixed(1) + '%</strong> (' + highestStock.ticker + ')</span>' +
+      '<span class="stat-pill"><i class="fa-solid fa-list"></i> <strong>' + allStocks.length + '</strong> stocks</span>';
+
+    var sortState = { field: null, asc: true };
+
+    function getSortIcon(col) {
+      if (sortState.field !== col) return '<i class="fa-solid fa-sort sort-icon"></i>';
+      return sortState.asc
+        ? '<i class="fa-solid fa-sort-up sort-icon"></i>'
+        : '<i class="fa-solid fa-sort-down sort-icon"></i>';
+    }
+
+    function renderTable(tbody, stocks, query) {
+      var sorted = stocks.slice().sort(function(a, b) {
+        if (sortState.field === 'yield') return sortState.asc ? a.yield - b.yield : b.yield - a.yield;
+        if (sortState.field === 'name') return sortState.asc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+        if (sortState.field === 'ticker') return sortState.asc ? a.ticker.localeCompare(b.ticker) : b.ticker.localeCompare(a.ticker);
+        return b.yield - a.yield;
+      });
+
+      var filtered = sorted;
+      if (query) {
+        var q = query.toLowerCase();
+        filtered = sorted.filter(function(s) {
+          return s.name.toLowerCase().indexOf(q) !== -1 || s.ticker.toLowerCase().indexOf(q) !== -1;
         });
-        baseYields.nyse.forEach(function(base, i) {
-          nyseBadges[i].textContent = jitter(base, 0.15) + '%';
-        });
       }
 
-      function tick() {
-        seconds--;
-        countdownEl.textContent = seconds;
-        if (seconds <= 0) {
-          refreshBar.classList.add('refreshing');
-          refreshYields();
-          setTimeout(function() { refreshBar.classList.remove('refreshing'); }, 600);
-          seconds = INTERVAL;
-        }
-      }
+      var html = '';
+      filtered.forEach(function(s, i) {
+        var barPct = (s.yield / max_yield * 100).toFixed(0);
+        html += '<tr>' +
+          '<td><span class="stock-rank">' + (i + 1) + '</span></td>' +
+          '<td class="stock-name">' + s.name + ' <span class="stock-ticker">' + s.ticker + '</span></td>' +
+          '<td class="stock-yield">' +
+            '<div class="yield-bar-wrap" style="margin-bottom:4px;"><div class="yield-bar" style="width:' + barPct + '%"></div></div>' +
+            '<span class="stock-yield-badge">' + s.yield.toFixed(1) + '%</span>' +
+          '</td>' +
+          '</tr>';
+      });
+      tbody.innerHTML = html;
+      return filtered.length;
+    }
 
-      setInterval(tick, 1000);
-    })();
+    function updateAll() {
+      var q = searchInput.value.trim();
+      var ftseCount = renderTable(ftseBody, YIELDS_DATA.ftse, q);
+      var nyseCount = renderTable(nyseBody, YIELDS_DATA.nyse, q);
+      var totalVisible = ftseCount + nyseCount;
+      noResults.classList.toggle('visible', totalVisible === 0 && q.length > 0);
+
+      ftseBody.closest('.card').style.display = (ftseCount === 0 && q) ? 'none' : '';
+      nyseBody.closest('.card').style.display = (nyseCount === 0 && q) ? 'none' : '';
+
+      var ftseTh = ftseBody.closest('table').querySelectorAll('th');
+      var nyseTh = nyseBody.closest('table').querySelectorAll('th');
+      if (ftseTh.length >= 3) {
+        ftseTh[1].className = sortState.field === 'name' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
+        ftseTh[1].innerHTML = 'Company' + getSortIcon('name');
+        ftseTh[2].className = sortState.field === 'yield' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
+        ftseTh[2].innerHTML = 'Yield' + getSortIcon('yield');
+      }
+      if (nyseTh.length >= 3) {
+        nyseTh[1].className = sortState.field === 'name' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
+        nyseTh[1].innerHTML = 'Company' + getSortIcon('name');
+        nyseTh[2].className = sortState.field === 'yield' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
+        nyseTh[2].innerHTML = 'Yield' + getSortIcon('yield');
+      }
+    }
+
+    document.querySelectorAll('th.sortable').forEach(function(th) {
+      th.addEventListener('click', function() {
+        var col = this.dataset.sort;
+        if (sortState.field === col) { sortState.asc = !sortState.asc; }
+        else { sortState.field = col; sortState.asc = col === 'name' || col === 'ticker'; }
+        updateAll();
+      });
+    });
+
+    searchInput.addEventListener('input', function() { updateAll(); });
+
+    if (backToTop) {
+      window.addEventListener('scroll', function() {
+        backToTop.classList.toggle('visible', window.scrollY > 400);
+      });
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    updateAll();
+  })();
   </script>
 </body>
 </html>

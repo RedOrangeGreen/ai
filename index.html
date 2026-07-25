@@ -485,6 +485,22 @@
     .news-ticker-loading {
       padding: 0.5rem 0.9rem; font-size: 0.8rem; color: var(--text-muted); font-style: italic;
     }
+    .skeleton-line {
+      height: 12px; border-radius: 6px; margin: 0.6rem 0.9rem;
+      background: linear-gradient(90deg, rgba(148,163,184,0.08) 25%, rgba(148,163,184,0.15) 50%, rgba(148,163,184,0.08) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
+    .skeleton-line:nth-child(2) { width: 75%; }
+    .skeleton-line:nth-child(3) { width: 60%; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .ticker-refresh-btn {
+      background: none; border: none; padding: 0 0.2rem; cursor: pointer;
+      font-size: 0.75rem; color: rgba(148,163,184,0.5); transition: color 0.2s ease;
+      display: inline-flex; align-items: center;
+    }
+    .ticker-refresh-btn:hover { color: var(--accent); }
+    h1, h2, h3, p { text-wrap: pretty; }
     .news-label {
       display: flex; align-items: center; gap: 0.5rem;
       font-size: 0.78rem; color: var(--text-muted); margin: 0.2rem 0 0.3rem;
@@ -557,26 +573,26 @@
           <div class="clock-pill" id="wonderland-pill" title="Click to see the Cheshire Cat"><span class="clock-pill-label">Wonderland</span> <span id="date-wonderland" class="clock-pill-date"></span> <span id="clock-wonderland" class="clock-pill-time"></span> <span id="icon-wonderland" class="clock-pill-icon"></span></div>
         </div>
         <div id="city-dropdown" class="city-dropdown"></div>
-        <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>World News</span><button class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed"></i></span></div>
+        <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>World News</span><button class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><button class="ticker-refresh-btn" data-ticker="tickerWorld" title="Refresh feed"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed"></i></span></div>
         <div class="news-ticker" id="tickerWorld" role="region" aria-label="World news headlines">
           <div class="news-ticker-grad top"></div>
           <div class="news-ticker-grad bot"></div>
-          <div class="news-ticker-refresh-msg">⟳ Refreshing…</div>
-          <div class="news-ticker-inner"><div class="news-ticker-loading">Loading news…</div></div>
+          <div class="news-ticker-refresh-msg">Refreshing…</div>
+          <div class="news-ticker-inner"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
         </div>
-        <div class="news-label"><i aria-hidden="true" class="fa-solid fa-brain"></i><span>AI News</span><button class="ticker-pause" data-ticker="tickerAI" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerAI" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerAI" title="Reset speed"></i></span></div>
+        <div class="news-label"><i aria-hidden="true" class="fa-solid fa-brain"></i><span>AI News</span><button class="ticker-pause" data-ticker="tickerAI" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><button class="ticker-refresh-btn" data-ticker="tickerAI" title="Refresh feed"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerAI" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerAI" title="Reset speed"></i></span></div>
         <div class="news-ticker" id="tickerAI" role="region" aria-label="AI news headlines">
           <div class="news-ticker-grad top"></div>
           <div class="news-ticker-grad bot"></div>
-          <div class="news-ticker-refresh-msg">⟳ Refreshing…</div>
-          <div class="news-ticker-inner"><div class="news-ticker-loading">Loading news…</div></div>
+          <div class="news-ticker-refresh-msg">Refreshing…</div>
+          <div class="news-ticker-inner"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
         </div>
-        <div class="news-label"><i aria-hidden="true" class="fa-solid fa-trophy"></i><span>Sports News</span><button class="ticker-pause" data-ticker="tickerSports" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerSports" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerSports" title="Reset speed"></i></span></div>
+        <div class="news-label"><i aria-hidden="true" class="fa-solid fa-trophy"></i><span>Sports News</span><button class="ticker-pause" data-ticker="tickerSports" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><button class="ticker-refresh-btn" data-ticker="tickerSports" title="Refresh feed"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerSports" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerSports" title="Reset speed"></i></span></div>
         <div class="news-ticker" id="tickerSports" role="region" aria-label="Sports news headlines">
           <div class="news-ticker-grad top"></div>
           <div class="news-ticker-grad bot"></div>
-          <div class="news-ticker-refresh-msg">⟳ Refreshing…</div>
-          <div class="news-ticker-inner"><div class="news-ticker-loading">Loading news…</div></div>
+          <div class="news-ticker-refresh-msg">Refreshing…</div>
+          <div class="news-ticker-inner"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
         </div>
         <div class="hero-badges">
           <div class="hero-badge"><i aria-hidden="true" class="fa-solid fa-shield-halved"></i> $0, anonymous, instant use</div>
@@ -680,6 +696,8 @@
       <ul class="chatbot-list">
         <li><a href="todolist.html">Todo List</a> &mdash; A simple Todo List manager, lists saved and loaded locally.</li>
         <li><a href="dividends.html">Top Dividend Stocks</a> &mdash; The 10 highest-yielding dividend stocks on the FTSE and NYSE.</li>
+        <li><a href="secretmessage.html">Secret Message</a> &mdash; Encrypt and decrypt messages with AES-256-GCM encryption.</li>
+        <li><a href="gibberlink.html">Gibberlink</a> &mdash; Convert messages to and from Gibberlink, the fast, syllable-based language AI agents use to communicate.</li>
       </ul>
     </section>
     <section class="reveal">
@@ -822,6 +840,7 @@
       document.addEventListener('click', function() { dropdown.classList.remove('visible'); });
 
       var tickerSpeeds = {};
+      var tickerLoaders = {};
       function createTicker(containerId, feedUrl) {
         var container = document.getElementById(containerId);
         if (!container) return;
@@ -875,7 +894,8 @@
           if (pos > h) {
               resetting = true;
             container.classList.add('news-ticker-reset');
-            load();
+        tickerLoaders[containerId] = load;
+        load();
             setTimeout(function() {
               pos = 0;
               inner.style.transform = 'translateY(0px)';
@@ -923,6 +943,19 @@
             icon.className = 'fa-solid fa-play';
           } else {
             icon.className = 'fa-solid fa-pause';
+          }
+        });
+      });
+      document.querySelectorAll('.ticker-refresh-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var id = this.getAttribute('data-ticker');
+          if (tickerLoaders[id]) {
+            var container = document.getElementById(id);
+            if (container) {
+              container.classList.add('news-ticker-reset');
+              setTimeout(function() { container.classList.remove('news-ticker-reset'); }, 400);
+            }
+            tickerLoaders[id]();
           }
         });
       });
