@@ -26,10 +26,6 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet" crossorigin="anonymous" fetchpriority="high"
-  />
-  <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     rel="stylesheet" crossorigin="anonymous"
   />
@@ -70,7 +66,7 @@
       margin: 0 auto; padding: 1.6rem 1.25rem 3.5rem;
     }
     @media (min-width: 992px) { .page-shell { padding-top: 1.85rem; } }
-    .hero { max-width: none; margin-bottom: 2.75rem; }
+    .hero { margin-bottom: 2.75rem; }
     @media (max-width: 768px) {
       .hero { text-align: center; }
       .hero-subtitle { max-width: 100%; }
@@ -155,15 +151,9 @@
       border: 1px solid var(--border-subtle); padding: 0.95rem;
       display: flex; flex-direction: column; gap: 0.55rem;
       box-shadow: var(--shadow-subtle); position: relative;
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+      transition: box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
     }
-    .tool-card::before {
-      content: ""; position: absolute; inset: 0;
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%);
-      opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
-    }
-    .tool-card:hover { box-shadow: 0 28px 60px rgba(15, 23, 42, 0.95); border-color: rgba(56, 189, 248, 0.7); background: #020617; }
-    .tool-card:hover::before { opacity: 1; }
+    .tool-card:hover, .tool-card:focus-within { box-shadow: 0 28px 60px rgba(15, 23, 42, 0.95); border-color: rgba(56, 189, 248, 0.7); background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%), #020617; }
     .tool-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; }
     .tool-card-title { display: flex; align-items: center; gap: 0.55rem; }
     .tool-card-title-icon {
@@ -185,7 +175,7 @@
     .tool-badge.advanced { border-color: rgba(248, 113, 113, 0.7); color: #fee2e2; background: rgba(185, 28, 28, 0.2); }
     .tool-badge.guide { border-color: rgba(129, 140, 248, 0.7); color: #e0e7ff; background: rgba(79, 70, 229, 0.18); }
     .tool-card-body { font-size: 0.83rem; color: var(--text-muted); flex: 1; }
-    .tool-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); }
+    .tool-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); position: relative; z-index: 1; }
     .tool-card-footer-left { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
     .tool-card-footer-left span.dot { width: 3px; height: 3px; border-radius: 999px; background: rgba(148, 163, 184, 0.7); }
     .tool-card-footer a.btn-open {
@@ -195,7 +185,7 @@
       box-shadow: 0 10px 25px rgba(8, 47, 73, 0.7);
       transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, filter 0.25s ease;
     }
-    .tool-card-footer a.btn-open:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9); filter: brightness(1.05); }
+    .tool-card-footer a.btn-open:hover { box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9); }
     .btn-open-ghost { background: transparent !important; color: var(--accent) !important; border: 1px solid rgba(56, 189, 248, 0.7) !important; box-shadow: none !important; }
     .tool-card.toggled-off .btn-open {
       position: relative; z-index: 2;
@@ -223,10 +213,11 @@
     .clock-pill {
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.1rem;
       border: 1px solid rgba(255,255,255,0.4); border-radius: var(--radius-pill);
-      padding: 0.2rem 3.3rem; background: rgba(15,23,42,0.6);
+      padding: 0.2rem 1.75rem; background: rgba(15,23,42,0.6);
       flex: 1; min-width: 0; line-height: 1.3; cursor: pointer;
     }
     .clock-pill-label { color: var(--text-main); font-weight: 500; font-size: 0.82rem; white-space: nowrap; }
+    .clock-pill-date { color: var(--text-main); font-size: 0.7rem; white-space: nowrap; }
     .clock-pill-time { font-variant-numeric: tabular-nums; color: var(--text-main); font-weight: 600; font-size: 0.95rem; }
     .clock-pill-icon { font-size: 0.85rem; line-height: 1; }
     .clock-pill-icon i { color: #f59e0b; }
@@ -252,8 +243,9 @@
     .city-dropdown div.selected { color: var(--accent); font-weight: 600; background: rgba(56,189,248,0.08); }
     @media (max-width: 576px) {
       .search-section { align-items: stretch; }
-      .clock-pill { padding: 0.25rem 1rem; font-size: 0.7rem; }
+      .clock-pill { padding: 0.25rem 0.8rem; font-size: 0.7rem; }
       .clock-pill-label { font-size: 0.6rem; }
+      .clock-pill-date { font-size: 0.55rem; }
       .clock-pill-time { font-size: 0.7rem; }
       .clock-row { flex-wrap: wrap; }
     }
@@ -270,87 +262,141 @@
     @keyframes pulseDot { 0%, 100% { box-shadow: 0 0 0 6px rgba(34,197,94,0.25); } 50% { box-shadow: 0 0 0 12px rgba(34,197,94,0.1); } }
     @keyframes pulseClick { 0%, 100% { box-shadow: 0 0 0 0px rgba(56,189,248,0.6); transform: scale(1); } 50% { box-shadow: 0 0 12px 4px rgba(56,189,248,0.3); transform: scale(1.04); } }
     #wonderland-pill { cursor: pointer; animation: pulseClick 2s ease-in-out infinite; }
-    .alice { position: fixed; top: 55%; left: -200px; z-index: 9999; pointer-events: none; opacity: 0; }
-    .alice.fly { animation: aliceFly 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-    .alice.fly .alice-arm.l { animation: armSwingL 0.4s ease-in-out infinite; }
-    .alice.fly .alice-arm.r { animation: armSwingR 0.4s ease-in-out infinite; }
-    .alice.fly .alice-leg:nth-child(1) { animation: legKick 0.4s ease-in-out infinite; }
-    .alice.fly .alice-leg:nth-child(2) { animation: legKick 0.4s ease-in-out infinite reverse; }
-    @keyframes armSwingL { 0%, 100% { transform: rotate(15deg); } 50% { transform: rotate(-20deg); } }
-    @keyframes armSwingR { 0%, 100% { transform: rotate(-15deg); } 50% { transform: rotate(20deg); } }
-    @keyframes legKick { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
-    @keyframes aliceFly {
-      0% { left: -200px; opacity: 0; transform: translateY(0) scale(0.8) rotate(0deg); }
-      5% { opacity: 1; }
-      20% { left: 20vw; transform: translateY(-40px) scale(1) rotate(-3deg); }
-      40% { left: 40vw; transform: translateY(15px) scale(1.05) rotate(2deg); }
-      60% { left: 60vw; transform: translateY(-25px) scale(1) rotate(-2deg); }
-      80% { left: 80vw; transform: translateY(10px) scale(0.95) rotate(3deg); }
-      100% { left: 110vw; transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
+    .cheshire-wrap {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 9999; pointer-events: none; overflow: hidden;
     }
-    .alice-head { width: 44px; height: 44px; background: #ffe0bd; border-radius: 50%; position: relative; margin: 0 auto; z-index: 2; }
-    .alice-hair { width: 52px; height: 36px; background: #d4a017; border-radius: 50% 50% 0 0; position: absolute; top: -4px; left: -4px; z-index: 3; }
-    .alice-hair-bangs { width: 50px; height: 14px; background: #d4a017; position: absolute; top: 22px; left: -3px; border-radius: 0 0 50% 50%; z-index: 3; }
-    .alice-hair-tail { width: 12px; height: 18px; background: #d4a017; position: absolute; top: 8px; right: -8px; border-radius: 0 50% 50% 0; z-index: 3; }
-    .alice-eyes { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 4; }
-    .alice-eye { width: 4px; height: 4px; background: #2c1810; border-radius: 50%; }
-    .alice-smile { width: 10px; height: 5px; border-bottom: 2px solid #c97b6b; border-radius: 0 0 10px 10px; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 4; }
-    .alice-body { width: 60px; height: 65px; background: #4169e1; border-radius: 12px 12px 18px 18px; margin: -6px auto 0; position: relative; z-index: 1; }
-    .alice-apron { width: 34px; height: 50px; background: #f0f0f0; border-radius: 0 0 10px 10px; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); }
-    .alice-apron-strap { width: 2px; height: 12px; background: #ddd; position: absolute; top: -8px; }
-    .alice-apron-strap.l { left: 6px; }
-    .alice-apron-strap.r { right: 6px; }
-    .alice-arm { width: 10px; height: 32px; background: #ffe0bd; border-radius: 6px; position: absolute; top: 10px; z-index: 0; }
-    .alice-arm.l { left: -8px; transform: rotate(15deg); transform-origin: top center; }
-    .alice-arm.r { right: -8px; transform: rotate(-15deg); transform-origin: top center; }
-    .alice-legs { display: flex; justify-content: center; gap: 8px; margin-top: -2px; }
-    .alice-leg { width: 10px; height: 28px; background: #ffe0bd; border-radius: 4px; }
-    .alice-shoe { width: 14px; height: 6px; background: #2c1810; border-radius: 4px 4px 6px 6px; margin-top: -2px; }
-    .hatter { position: fixed; top: 45%; left: -250px; z-index: 9998; pointer-events: none; opacity: 0; }
-    .hatter.fly { animation: hatterFly 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-    .hatter.fly .hatter-arm.l { animation: hatterArmSwingL 0.45s ease-in-out infinite; }
-    .hatter.fly .hatter-arm.r { animation: hatterArmSwingR 0.45s ease-in-out infinite; }
-    .hatter.fly .hatter-leg:nth-child(1) { animation: hatterLegKick 0.45s ease-in-out infinite; }
-    .hatter.fly .hatter-leg:nth-child(2) { animation: hatterLegKick 0.45s ease-in-out infinite reverse; }
-    @keyframes hatterArmSwingL { 0%, 100% { transform: rotate(-20deg); } 50% { transform: rotate(25deg); } }
-    @keyframes hatterArmSwingR { 0%, 100% { transform: rotate(20deg); } 50% { transform: rotate(-25deg); } }
-    @keyframes hatterLegKick { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
-    @keyframes hatterFly {
-      0% { left: -250px; opacity: 0; transform: translateY(0) scale(0.8) rotate(0deg); }
-      5% { opacity: 1; }
-      20% { left: 18vw; transform: translateY(-20px) scale(1) rotate(2deg); }
-      40% { left: 38vw; transform: translateY(30px) scale(1.05) rotate(-3deg); }
-      60% { left: 58vw; transform: translateY(-10px) scale(1) rotate(2deg); }
-      80% { left: 78vw; transform: translateY(25px) scale(0.95) rotate(-2deg); }
-      100% { left: 110vw; transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
+    .cheshire {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 80px; height: 80px;
+      margin: -40px 0 0 -40px;
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
     }
-    .hatter-hat { width: 50px; height: 10px; background: #2c2c2c; border-radius: 2px; margin: 0 auto; position: relative; z-index: 3; }
-    .hatter-hat-top { width: 36px; height: 24px; background: #2c2c2c; margin: -22px auto 0; border-radius: 2px 2px 0 0; position: relative; z-index: 3; }
-    .hatter-hat-band { width: 38px; height: 4px; background: #8b4513; margin: -2px auto 0; position: relative; z-index: 4; }
-    .hatter-hat-tag { width: 6px; height: 8px; background: #f5f5dc; position: absolute; top: 2px; right: -4px; border-radius: 1px; font-size: 5px; line-height: 8px; text-align: center; color: #333; }
-    .hatter-head { width: 40px; height: 40px; background: #ffe0bd; border-radius: 50%; margin: -2px auto 0; position: relative; z-index: 2; }
-    .hatter-hair { width: 44px; height: 28px; background: #e87d2f; border-radius: 50% 50% 0 0; position: absolute; top: -4px; left: -2px; z-index: 3; }
-    .hatter-hair-side { width: 14px; height: 24px; background: #e87d2f; position: absolute; top: 6px; border-radius: 50%; z-index: 3; }
-    .hatter-hair-side.l { left: -6px; }
-    .hatter-hair-side.r { right: -6px; }
-    .hatter-eyes { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 4; }
-    .hatter-eye { width: 4px; height: 5px; background: #2c1810; border-radius: 50%; }
-    .hatter-eye.l { transform: rotate(-5deg); }
-    .hatter-eye.r { transform: rotate(5deg); }
-    .hatter-smile { width: 14px; height: 6px; border-bottom: 2px solid #c97b6b; border-radius: 0 0 10px 10px; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 4; }
-    .hatter-body { width: 54px; height: 60px; background: #2e8b57; border-radius: 10px 10px 16px 16px; margin: -4px auto 0; position: relative; z-index: 1; }
-    .hatter-shirt { width: 22px; height: 30px; background: #f5f5dc; border-radius: 0 0 6px 6px; position: absolute; top: 4px; left: 50%; transform: translateX(-50%); }
-    .hatter-bowtie { width: 8px; height: 4px; background: #8b0000; position: absolute; top: 4px; left: 50%; transform: translateX(-50%); border-radius: 2px; z-index: 2; }
-    .hatter-bowtie::before { content: ''; position: absolute; width: 6px; height: 4px; background: #8b0000; left: -4px; border-radius: 2px 0 0 2px; }
-    .hatter-bowtie::after { content: ''; position: absolute; width: 6px; height: 4px; background: #8b0000; right: -4px; border-radius: 0 2px 2px 0; }
-    .hatter-arm { width: 9px; height: 28px; background: #2e8b57; border-radius: 5px; position: absolute; top: 8px; z-index: 0; }
-    .hatter-arm.l { left: -7px; transform: rotate(-20deg); transform-origin: top center; }
-    .hatter-arm.r { right: -7px; transform: rotate(20deg); transform-origin: top center; }
-    .hatter-hand { width: 8px; height: 8px; background: #ffe0bd; border-radius: 50%; position: absolute; bottom: -4px; }
-    .hatter-arm.l .hatter-hand { left: 0px; }
-    .hatter-arm.r .hatter-hand { right: 0px; }
-    .hatter-legs { display: flex; justify-content: center; gap: 7px; margin-top: -2px; }
-    .hatter-leg { width: 9px; height: 24px; background: #2c2c2c; border-radius: 3px; }
+    .cheshire-head {
+      width: 80px; height: 64px;
+      background: #7b2d8e;
+      border-radius: 50% 50% 40% 40%;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+    .cheshire-head::before {
+      content: '';
+      position: absolute;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent, transparent 6px,
+        rgba(200, 120, 255, 0.35) 6px, rgba(200, 120, 255, 0.35) 10px
+      );
+      border-radius: inherit;
+    }
+    .cheshire-ear {
+      position: absolute;
+      width: 0; height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 20px solid #7b2d8e;
+      z-index: 1;
+    }
+    .cheshire-ear.l { top: -14px; left: 6px; transform: rotate(-15deg); }
+    .cheshire-ear.r { top: -14px; right: 6px; transform: rotate(15deg); }
+    .cheshire-ear::after {
+      content: '';
+      position: absolute;
+      width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 14px solid #d98ef5;
+      top: 6px; left: -6px;
+    }
+    .cheshire-eye {
+      position: absolute;
+      width: 14px; height: 14px;
+      background: #d4ff00;
+      border-radius: 50%;
+      top: 16px; z-index: 3;
+      box-shadow: 0 0 8px 2px rgba(212, 255, 0, 0.5);
+    }
+    .cheshire-eye.l { left: 14px; }
+    .cheshire-eye.r { right: 14px; }
+    .cheshire-eye::after {
+      content: '';
+      position: absolute;
+      width: 6px; height: 8px;
+      background: #1a0033;
+      border-radius: 50%;
+      top: 3px; left: 4px;
+    }
+    .cheshire-grin {
+      position: absolute;
+      bottom: 6px; left: 50%;
+      transform: translateX(-50%);
+      width: 50px; height: 16px;
+      border-bottom: 3px solid #fff;
+      border-left: 3px solid #fff;
+      border-right: 3px solid #fff;
+      border-radius: 0 0 50% 50%;
+      z-index: 3;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+    .cheshire-tail {
+      position: absolute;
+      bottom: -30px; right: -10px;
+      width: 60px; height: 20px;
+      border: 4px solid #7b2d8e;
+      border-top: none;
+      border-left: none;
+      border-radius: 0 0 40px 0;
+      z-index: 1;
+      animation: tailWag 0.5s ease-in-out infinite alternate;
+    }
+    .cheshire-tail::before {
+      content: '';
+      position: absolute;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent, transparent 6px,
+        rgba(200, 120, 255, 0.35) 6px, rgba(200, 120, 255, 0.35) 10px
+      );
+      border-radius: inherit;
+    }
+    .cheshire-body {
+      width: 60px; height: 36px;
+      background: #7b2d8e;
+      border-radius: 30px;
+      margin: -4px auto 0;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .cheshire-body::before {
+      content: '';
+      position: absolute;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent, transparent 5px,
+        rgba(200, 120, 255, 0.35) 5px, rgba(200, 120, 255, 0.35) 9px
+      );
+    }
+    .cheshire-paw {
+      width: 14px; height: 10px;
+      background: #7b2d8e;
+      border-radius: 0 0 8px 8px;
+      position: absolute;
+      bottom: -6px; z-index: 1;
+    }
+    .cheshire-paw.l { left: 8px; }
+    .cheshire-paw.r { right: 8px; }
+    @keyframes tailWag {
+      0% { transform: rotate(-10deg); }
+      100% { transform: rotate(15deg); }
+    }
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .back-to-top {
@@ -369,6 +415,7 @@
     .skip-link:focus { top: 0; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
+    .video-embed { position: relative; padding: 56.25% 0 0 0; margin: 1rem; border-radius: 8px; overflow: hidden; }
     @media print { #particle-canvas, #portal-canvas { display: none !important; } body { background: #fff; color: #000; } .filter-chip, .search-input-wrap { display: none; } a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; } .hero-title span.highlight { color: #1a1a2e !important; -webkit-background-clip: unset; background-clip: unset; background: none; } }
     .city-modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.65);
@@ -396,6 +443,8 @@
       font-family: inherit;
     }
     .city-modal-box .cm-close:hover { background: rgba(56,189,248,0.25); }
+    #localFirstLink { color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent); cursor: pointer; transition: color 0.2s ease; }
+    #localFirstLink:hover { color: #7dd3fc; }
     .news-ticker {
       position: relative; overflow: hidden; height: 100px;
       margin: -0.3rem 0 0.8rem 0; border-radius: 12px;
@@ -491,7 +540,7 @@
       <div>
         <div class="hero-kicker">
           <span class="badge-dot"></span>
-          Live directory of free AI tools
+          Live directory
         </div>
         <h1 class="hero-title">
           Free <span class="highlight">AI tools</span>. No sign-up. No credit card.
@@ -499,13 +548,13 @@
         <div id="cosmos-row" style="margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;"><button class="cosmos-btn" id="cosmosToggle"><i aria-hidden="true" class="fa-solid fa-globe"></i> Cosmos</button><span style="font-size:0.72rem;color:var(--text-muted);">toggle background effects</span></div>
         <div id="clock-row" class="clock-row">
           <div class="clock-label"><i aria-hidden="true" class="fa-regular fa-clock"></i><span>World Clocks</span></div>
-          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">London</span> <span id="clock-london" class="clock-pill-time"></span> <span id="icon-london" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">New York</span> <span id="clock-nyc" class="clock-pill-time"></span> <span id="icon-nyc" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Los Angeles</span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Moscow</span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Beijing</span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" id="yourcity-pill" title="Click to choose your city"><span class="clock-pill-label" id="yourcity-label">Select City</span> <span id="clock-yourcity" class="clock-pill-time"></span> <span id="icon-yourcity" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" id="wonderland-pill" title="Click to see Alice in Wonderland"><span class="clock-pill-label">Wonderland</span> <span id="clock-wonderland" class="clock-pill-time"></span> <span id="icon-wonderland" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">London</span> <span id="date-london" class="clock-pill-date"></span> <span id="clock-london" class="clock-pill-time"></span> <span id="icon-london" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">New York</span> <span id="date-nyc" class="clock-pill-date"></span> <span id="clock-nyc" class="clock-pill-time"></span> <span id="icon-nyc" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Los Angeles</span> <span id="date-la" class="clock-pill-date"></span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Moscow</span> <span id="date-moscow" class="clock-pill-date"></span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Beijing</span> <span id="date-beijing" class="clock-pill-date"></span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" id="yourcity-pill" title="Click to choose your city"><span class="clock-pill-label" id="yourcity-label">Select City</span> <span id="date-yourcity" class="clock-pill-date"></span> <span id="clock-yourcity" class="clock-pill-time"></span> <span id="icon-yourcity" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" id="wonderland-pill" title="Click to see the Cheshire Cat"><span class="clock-pill-label">Wonderland</span> <span id="date-wonderland" class="clock-pill-date"></span> <span id="clock-wonderland" class="clock-pill-time"></span> <span id="icon-wonderland" class="clock-pill-icon"></span></div>
         </div>
         <div id="city-dropdown" class="city-dropdown"></div>
         <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>World News</span><button class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed"></i></span></div>
@@ -546,11 +595,11 @@
         <input type="text" id="search" class="search-input" placeholder="Search tools by name, feature, or tag…" aria-label="Search tools" spellcheck="false" autocomplete="off" />
       </div>
       <div class="filter-chips">
-        <button class="filter-chip active" data-filter="all" type="button"><i aria-hidden="true" class="fa-solid fa-layer-group"></i> All tools</button>
-        <button class="filter-chip" data-filter="web" type="button"><i aria-hidden="true" class="fa-solid fa-globe"></i> Web chatbots</button>
-        <button class="filter-chip" data-filter="local" type="button"><i aria-hidden="true" class="fa-solid fa-laptop"></i> Local only</button>
-        <button class="filter-chip" data-filter="coding" type="button"><i aria-hidden="true" class="fa-solid fa-code"></i> Coding</button>
-        <button class="filter-chip" data-filter="videos" type="button"><i aria-hidden="true" class="fa-brands fa-youtube"></i> Videos</button>
+        <button class="filter-chip active" data-filter="all" type="button" aria-pressed="true"><i aria-hidden="true" class="fa-solid fa-layer-group"></i> All tools</button>
+        <button class="filter-chip" data-filter="web" type="button" aria-pressed="false"><i aria-hidden="true" class="fa-solid fa-globe"></i> Web chatbots</button>
+        <button class="filter-chip" data-filter="local" type="button" aria-pressed="false"><i aria-hidden="true" class="fa-solid fa-laptop"></i> Local only</button>
+        <button class="filter-chip" data-filter="coding" type="button" aria-pressed="false"><i aria-hidden="true" class="fa-solid fa-code"></i> Coding</button>
+        <button class="filter-chip" data-filter="videos" type="button" aria-pressed="false"><i aria-hidden="true" class="fa-brands fa-youtube"></i> Videos</button>
       </div>
     </section>
     <section class="reveal">
@@ -582,49 +631,19 @@
         <i aria-hidden="true" class="fa-solid fa-circle-info"></i>
         <div>Local tools keep computation on your device. They can be more private, but may require a capable GPU or CPU and a bit more setup.</div>
       </div>
-      <div class="tool-grid">
-        <article class="tool-card tool" data-category="local" data-tags="ollama local beginner friendly desktop mac windows">
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-download"></i></div>
-                <div><h3>Ollama</h3><div class="tool-card-provider">Ollama</div></div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge local"><i aria-hidden="true" class="fa-solid fa-laptop"></i> Local</span>
-              <span class="tool-badge"><i aria-hidden="true" class="fa-solid fa-face-smile"></i> Beginner‑friendly</span>
-            </div>
-          </div>
-          <p class="tool-card-body">Simple way to run popular models locally with a clean CLI and one‑line installs for many models.</p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><span>Great first step into local AI</span></div>
+      <ul class="chatbot-list">
+        <li>Ollama — Simple way to run popular models locally with a clean CLI and one-line installs. Great first step into local AI.
+          <span style="margin-left:auto;display:flex;gap:0.5rem;flex-shrink:0;">
             <a href="https://ollama.com" target="_blank" rel="noopener noreferrer" class="btn-open">Homepage <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          </div>
-        </article>
-        <article class="tool-card tool" data-category="local" data-tags="llama.cpp c++ engine advanced local performance">
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-code"></i></div>
-                <div><h3>llama.cpp</h3><div class="tool-card-provider">ggml‑org</div></div>
-              </div>
-            </div>
-            <div class="tool-card-badges">
-              <span class="tool-badge local"><i aria-hidden="true" class="fa-solid fa-laptop"></i> Local</span>
-              <span class="tool-badge advanced"><i aria-hidden="true" class="fa-solid fa-fire"></i> Advanced</span>
-            </div>
-          </div>
-          <p class="tool-card-body">High‑performance C++ engine for running LLMs locally across many platforms. Very flexible, very fast.</p>
-          <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><span>For tinkerers &amp; power users</span></div>
-            <div class="d-flex gap-2">
-              <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener noreferrer" class="btn-open">GitHub <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
-              <a href="baremetal/index.html" class="btn-open btn-open-ghost">Quickstart <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-            </div>
-          </div>
-        </article>
-      </div>
+          </span>
+        </li>
+        <li>llama.cpp — High-performance C++ engine for running LLMs locally. Very flexible, very fast.
+          <span style="margin-left:auto;display:flex;gap:0.5rem;flex-shrink:0;">
+            <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener noreferrer" class="btn-open">GitHub <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="baremetal/index.html" class="btn-open btn-open-ghost">Quickstart <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+          </span>
+        </li>
+      </ul>
     </section>
     <section class="reveal">
       <header class="section-heading">
@@ -655,11 +674,12 @@
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-mobile-screen-button"></i><h2>APPS CODED BY AI</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-mobile-screen-button"></i><h2>APPS CODED BY AI (<a href="#" id="localFirstLink">LOCAL FIRST</a>)</h2></div>
         <div class="section-heading-sub">Apps and tools built entirely by AI.</div>
       </header>
       <ul class="chatbot-list">
         <li><a href="todolist.html">Todo List</a> &mdash; A simple Todo List manager, lists saved and loaded locally.</li>
+        <li><a href="dividends.html">Top Dividend Stocks</a> &mdash; The 10 highest-yielding dividend stocks on the FTSE and NYSE.</li>
       </ul>
     </section>
     <section class="reveal">
@@ -678,8 +698,8 @@
             </div>
             <div class="tool-card-badges"><span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-play"></i> Video</span></div>
           </div>
-          <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
-            <iframe src="https://www.youtube.com/embed/kbX5I-MYLLE" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/kbX5I-MYLLE" title="Learn Italian AI Style video" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
         </article>
         <article class="tool-card tool" data-category="videos" data-tags="ai stunner models daisy dukes fashion video">
@@ -692,19 +712,16 @@
             </div>
             <div class="tool-card-badges"><span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-play"></i> Video</span></div>
           </div>
-          <div style="position:relative;padding:56.25% 0 0 0;margin:1rem;border-radius:8px;overflow:hidden;">
-            <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" title="AI Stunner Models video" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
+        </article>
       </div>
     </section>
     <footer>
       <div><span class="brand">AI Playground</span> • Free AI tools directory</div>
       <div class="footer-meta">
-        <span>2026</span>
-        <span class="dot"></span>
-        <span>Built for experimenting, learning, and tinkering</span>
-        <span class="dot"></span>
-        <span>AI generated</span>
+        <span>AI generated Sat, Jul 25, 2026</span>
       </div>
     </footer>
   </main>
@@ -718,15 +735,32 @@
       </form>
     </div>
   </dialog>
+  <dialog class="city-modal-overlay" id="localFirstModal">
+    <div class="city-modal-box" role="document">
+      <h3>Local First</h3>
+      <div class="cm-fact" style="text-align:left;font-size:0.85rem;line-height:1.6;color:var(--text-muted);">
+        <p style="margin:0 0 0.7rem;">Local-first apps run on <strong style="color:var(--text-main);">your device</strong>, not in the cloud. Your data stays private and the app works offline.</p>
+        <p style="margin:0 0 0.7rem;">They're coded by AI and designed to be:</p>
+        <ul style="margin:0;padding-left:1.2rem;">
+          <li><strong style="color:var(--text-main);">Private</strong> — no accounts, no servers, no tracking.</li>
+          <li><strong style="color:var(--text-main);">Offline</strong> — works without an internet connection.</li>
+          <li><strong style="color:var(--text-main);">Instant</strong> — zero setup, just open and use.</li>
+        </ul>
+      </div>
+      <form method="dialog">
+        <button class="cm-close" type="submit">Close</button>
+      </form>
+    </div>
+  </dialog>
   <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
   <script>
     (function() {
       const zones = [
-        { id: 'clock-london',   icon: 'icon-london',   tz: 'Europe/London' },
-        { id: 'clock-nyc',      icon: 'icon-nyc',      tz: 'America/New_York' },
-        { id: 'clock-la',       icon: 'icon-la',       tz: 'America/Los_Angeles' },
-        { id: 'clock-moscow',   icon: 'icon-moscow',   tz: 'Europe/Moscow' },
-        { id: 'clock-beijing',  icon: 'icon-beijing',   tz: 'Asia/Shanghai' },
+        { id: 'clock-london',   icon: 'icon-london',   date: 'date-london',   tz: 'Europe/London' },
+        { id: 'clock-nyc',      icon: 'icon-nyc',      date: 'date-nyc',      tz: 'America/New_York' },
+        { id: 'clock-la',       icon: 'icon-la',       date: 'date-la',       tz: 'America/Los_Angeles' },
+        { id: 'clock-moscow',   icon: 'icon-moscow',   date: 'date-moscow',   tz: 'Europe/Moscow' },
+        { id: 'clock-beijing',  icon: 'icon-beijing',   date: 'date-beijing',  tz: 'Asia/Shanghai' },
       ];
       var yourTz = '';
       var CITIES = [
@@ -975,8 +1009,10 @@
         for (const z of zones) {
           const el = document.getElementById(z.id);
           const iconEl = document.getElementById(z.icon);
+          const dateEl = document.getElementById(z.date);
           if (!el) continue;
           el.textContent = now.toLocaleTimeString('en-GB', { timeZone: z.tz, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          if (dateEl) dateEl.textContent = now.toLocaleDateString('en-GB', { timeZone: z.tz, weekday: 'short', day: 'numeric', month: 'short' });
           if (iconEl) {
             const hour = parseInt(now.toLocaleString('en-GB', { timeZone: z.tz, hour: '2-digit', hour12: false }));
             iconEl.textContent = hour >= 6 && hour < 18 ? '\u2600\uFE0F' : '\uD83C\uDF19';
@@ -984,14 +1020,21 @@
         }
         const wl = document.getElementById('clock-wonderland');
         if (wl) wl.textContent = '18:00:00';
+        const wlDate = document.getElementById('date-wonderland');
+        if (wlDate) wlDate.textContent = 'Tue, 4 May 1865';
         const wlIcon = document.getElementById('icon-wonderland');
         if (wlIcon) wlIcon.innerHTML = '<i aria-hidden="true" class="fa-solid fa-mug-saucer"></i>';
         var yc = document.getElementById('clock-yourcity');
         var yi = document.getElementById('icon-yourcity');
+        var yd = document.getElementById('date-yourcity');
         if (yourTz) {
           if (yc) {
             yc.style.display = '';
             yc.textContent = now.toLocaleTimeString('en-GB', { timeZone: yourTz, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          }
+          if (yd) {
+            yd.style.display = '';
+            yd.textContent = now.toLocaleDateString('en-GB', { timeZone: yourTz, weekday: 'short', day: 'numeric', month: 'short' });
           }
           if (yi) {
             var h = parseInt(now.toLocaleString('en-GB', { timeZone: yourTz, hour: '2-digit', hour12: false }));
@@ -999,6 +1042,7 @@
           }
         } else {
           if (yc) { yc.style.display = 'none'; yc.textContent = ''; }
+          if (yd) { yd.style.display = 'none'; yd.textContent = ''; }
           if (yi) yi.textContent = '';
         }
       }
@@ -1009,59 +1053,88 @@
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); triggerWonderland(); }
       });
       function triggerWonderland() {
-        let alice = document.getElementById('alice');
-        if (alice) alice.remove();
-        alice = document.createElement('div');
-        alice.id = 'alice';
-        alice.className = 'alice';
-        alice.innerHTML = '<div style="width:80px;">' +
-          '<div class="alice-head"><div class="alice-hair"></div><div class="alice-hair-bangs"></div><div class="alice-hair-tail"></div><div class="alice-eyes"><div class="alice-eye"></div><div class="alice-eye"></div></div><div class="alice-smile"></div></div>' +
-          '<div class="alice-body"><div class="alice-arm l"></div><div class="alice-arm r"></div><div class="alice-apron"><div class="alice-apron-strap l"></div><div class="alice-apron-strap r"></div></div></div>' +
-          '<div class="alice-legs"><div class="alice-leg"><div class="alice-shoe"></div></div><div class="alice-leg"><div class="alice-shoe"></div></div></div>' +
-          '</div>';
-        document.body.appendChild(alice);
-        let hatter = document.createElement('div');
-        hatter.className = 'hatter';
-        hatter.innerHTML = '<div style="width:80px;">' +
-          '<div class="hatter-hat"><div class="hatter-hat-top"><div class="hatter-hat-band"><div class="hatter-hat-tag">10/6</div></div></div></div>' +
-          '<div class="hatter-head"><div class="hatter-hair"></div><div class="hatter-hair-side l"></div><div class="hatter-hair-side r"></div><div class="hatter-eyes"><div class="hatter-eye l"></div><div class="hatter-eye r"></div></div><div class="hatter-smile"></div></div>' +
-          '<div class="hatter-body"><div class="hatter-arm l"><div class="hatter-hand"></div></div><div class="hatter-arm r"><div class="hatter-hand"></div></div><div class="hatter-shirt"></div><div class="hatter-bowtie"></div></div>' +
-          '<div class="hatter-legs"><div class="hatter-leg"></div><div class="hatter-leg"></div></div>' +
-          '</div>';
-        document.body.appendChild(hatter);
-        let wonderOverlay = document.createElement('div');
-        wonderOverlay.id = 'wonder-overlay';
-        wonderOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9999;';
-        let wonderImages = [
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Alice-in-Wonderland_by-David-Revoy_2010-07-21.jpg/960px-Alice-in-Wonderland_by-David-Revoy_2010-07-21.jpg',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Alice-Rackham-027.jpg/960px-Alice-Rackham-027.jpg',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Alice-Rackham-008.jpg/960px-Alice-Rackham-008.jpg',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Alice-Rackham-067.jpg/960px-Alice-Rackham-067.jpg',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alice-Rackham-092.jpg/960px-Alice-Rackham-092.jpg',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Alice-Rackham-103.jpg/960px-Alice-Rackham-103.jpg',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Alice-Rackham-109.jpg/960px-Alice-Rackham-109.jpg',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Alice-Rackham-117.jpg/960px-Alice-Rackham-117.jpg',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Alice-Rackham-123.jpg/960px-Alice-Rackham-123.jpg',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Alice-Rackham-191.jpg/960px-Alice-Rackham-191.jpg'
-        ];
-        let wonderImg = document.createElement('img');
-        wonderImg.src = wonderImages[Math.floor(Math.random() * wonderImages.length)];
-        wonderImg.style.cssText = 'max-width:90%;max-height:90%;border-radius:12px;box-shadow:0 0 30px rgba(255,255,255,0.3);';
-        wonderImg.alt = 'Alice in Wonderland';
-        wonderOverlay.appendChild(wonderImg);
-        document.body.appendChild(wonderOverlay);
-        requestAnimationFrame(function() {
-          alice.classList.add('fly');
-          hatter.classList.add('fly');
-        });
-        setTimeout(function() {
-          if (alice) alice.remove();
-          if (hatter) hatter.remove();
-        }, 5000);
-        setTimeout(function() {
-          let wo = document.getElementById('wonder-overlay');
-          if (wo) wo.remove();
-        }, 3000);
+        var oldWrap = document.getElementById('cheshire-wrap');
+        if (oldWrap) oldWrap.remove();
+
+        var wrap = document.createElement('div');
+        wrap.id = 'cheshire-wrap';
+        wrap.className = 'cheshire-wrap';
+        document.body.appendChild(wrap);
+
+        var catHTML = '<div class="cheshire-head">' +
+          '<div class="cheshire-ear l"></div><div class="cheshire-ear r"></div>' +
+          '<div class="cheshire-eye l"></div><div class="cheshire-eye r"></div>' +
+          '<div class="cheshire-grin"></div>' +
+          '</div>' +
+          '<div class="cheshire-body"><div class="cheshire-paw l"></div><div class="cheshire-paw r"></div></div>' +
+          '<div class="cheshire-tail"></div>';
+
+        var cats = [];
+        var baseAngles = [-30, 150, 270];
+        for (var i = 0; i < 3; i++) {
+          var cat = document.createElement('div');
+          cat.className = 'cheshire';
+          cat.innerHTML = catHTML;
+          wrap.appendChild(cat);
+          cats.push({
+            el: cat,
+            dir: baseAngles[i] * Math.PI / 180,
+            spinSpeed: 2.8 + i * 0.4,
+            delay: i * 250
+          });
+        }
+
+        var start = null;
+        var DURATION = 3500;
+
+        function animateCat(cat, elapsed) {
+          var t = Math.min(elapsed / DURATION, 1);
+          var easedT = t * t * (3 - 2 * t);
+          var progress = easedT;
+          var maxR = Math.max(window.innerWidth, window.innerHeight) * 0.65;
+
+          if (progress < 0.02) {
+            cat.el.style.opacity = '0';
+            return;
+          }
+
+          var fadeIn = Math.min((progress - 0.02) / 0.06, 1);
+          var fadeOut = t > 0.82 ? (t - 0.82) / 0.18 : 0;
+          var opacity = fadeIn * (1 - fadeOut);
+
+          var radius = progress * maxR;
+          var angularTravel = progress < 0.35
+            ? (progress / 0.35) * Math.PI * 2
+            : Math.PI * 2 + (progress - 0.35) * cat.spinSpeed;
+          var angle = cat.dir + angularTravel;
+
+          var x = Math.cos(angle) * radius;
+          var y = Math.sin(angle) * radius;
+          var scale = 0.04 + progress * 2.4;
+          var selfRot = angularTravel * (180 / Math.PI);
+
+          cat.el.style.opacity = String(opacity);
+          cat.el.style.transform =
+            'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) ' +
+            'rotate(' + selfRot.toFixed(1) + 'deg) ' +
+            'scale(' + scale.toFixed(3) + ')';
+        }
+
+        function tick(ts) {
+          if (!start) start = ts;
+          var allDone = true;
+          for (var i = 0; i < cats.length; i++) {
+            var c = cats[i];
+            var elapsed = ts - start - c.delay;
+            if (elapsed < 0) { allDone = false; continue; }
+            animateCat(c, elapsed);
+            if (elapsed < DURATION) allDone = false;
+          }
+          if (!allDone) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+
+        setTimeout(function() { if (wrap) wrap.remove(); }, 4000);
       }
     })();
     (function () {
@@ -1110,8 +1183,9 @@
       applyFilters();
       filterChips.forEach((chip) => {
         chip.addEventListener("click", () => {
-          filterChips.forEach((c) => c.classList.remove("active"));
+          filterChips.forEach((c) => { c.classList.remove("active"); c.setAttribute("aria-pressed", "false"); });
           chip.classList.add("active");
+          chip.setAttribute("aria-pressed", "true");
           activeFilter = chip.getAttribute("data-filter") || "all";
           applyFilters();
         });
@@ -1133,6 +1207,14 @@
         });
         backToTop.addEventListener("click", () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+      var localFirstLink = document.getElementById('localFirstLink');
+      var localFirstModal = document.getElementById('localFirstModal');
+      if (localFirstLink && localFirstModal) {
+        localFirstLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          localFirstModal.showModal();
         });
       }
     })();
@@ -1303,7 +1385,12 @@
           cctx.arc(ox, oy, ob.size * (0.7 + 0.3 * Math.sin(time + ob.phase)), 0, Math.PI * 2);
           cctx.fill();
           const gg = cctx.createRadialGradient(ox, oy, 0, ox, oy, ob.size * 3);
-          gg.addColorStop(0, ob.color.replace(')', ',0.15)').replace('rgb', 'rgba'));
+          var oc = ob.color;
+          if (oc[0] === '#') {
+            var r = parseInt(oc.slice(1,3),16), g = parseInt(oc.slice(3,5),16), b = parseInt(oc.slice(5,7),16);
+            oc = 'rgba('+r+','+g+','+b+',0.15)';
+          } else { oc = oc.replace(')', ',0.15)').replace('rgb', 'rgba'); }
+          gg.addColorStop(0, oc);
           gg.addColorStop(1, 'rgba(0,0,0,0)');
           cctx.fillStyle = gg;
           cctx.beginPath();

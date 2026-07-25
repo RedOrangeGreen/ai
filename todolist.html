@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
+  <meta name="description" content="A simple free and anonymous ToDo List manager. Save and load lists locally in XML or JSON." />
   <title>Todo List</title>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
@@ -465,6 +466,31 @@
       .todo-item .todo-check.checked { background: #111 !important; }
     }
 
+    .format-toggle {
+      display: inline-flex;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      font-size: 0.75rem;
+    }
+    .format-toggle button {
+      background: transparent;
+      border: none;
+      padding: 0.25rem 0.65rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .format-toggle button.active {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+    }
+    .format-toggle button:hover:not(.active) {
+      color: var(--text-main);
+    }
+
     @media (max-width: 480px) {
       .card { padding: 1rem; }
       .page-shell { padding: 1rem 0.75rem 2rem; }
@@ -486,7 +512,7 @@
       <div class="add-row">
         <label for="todoInput" class="sr-only">New task</label>
         <input type="text" id="todoInput" placeholder="Add a new task..." spellcheck="false" autocomplete="off" />
-        <button class="btn" id="addBtn"><i class="fa-solid fa-plus"></i> Add</button>
+        <button class="btn" id="addBtn" title="Add a new task to the list"><i class="fa-solid fa-plus"></i> Add</button>
       </div>
     </div>
 
@@ -494,10 +520,10 @@
       <div class="todo-stats">
         <span><span class="count"><span id="totalCount">0</span> total</span></span>
         <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
-          <button class="btn btn-sm btn-ghost" id="deleteAllDoneBtn"><i class="fa-solid fa-check-double"></i> Delete Completed</button>
-          <button class="btn btn-sm btn-ghost" id="sortBtn"><i class="fa-solid fa-arrow-down-a-z"></i> Sort</button>
-          <button class="btn btn-sm btn-ghost" id="numbersToggle"><i class="fa-solid fa-list-ol"></i> Numbers</button>
-          <button class="btn btn-sm btn-ghost" id="deleteAllBtn"><i class="fa-solid fa-trash-can"></i> Delete All</button>
+          <button class="btn btn-sm btn-ghost" id="deleteAllDoneBtn" title="Remove all tasks marked as done"><i class="fa-solid fa-check-double"></i> Delete Completed</button>
+          <button class="btn btn-sm btn-ghost" id="sortBtn" title="Sort all tasks in alphabetical order"><i class="fa-solid fa-arrow-down-a-z"></i> Sort</button>
+          <button class="btn btn-sm btn-ghost" id="numbersToggle" title="Show or hide task numbers"><i class="fa-solid fa-list-ol"></i> Numbers</button>
+          <button class="btn btn-sm btn-ghost" id="deleteAllBtn" title="Permanently remove every task"><i class="fa-solid fa-trash-can"></i> Delete All</button>
         </div>
       </div>
       <ul class="todo-list" id="todoList" role="list"></ul>
@@ -505,18 +531,22 @@
       <div id="srLive" class="sr-only" aria-live="polite" aria-atomic="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;"></div>
     </div>
 
-    <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;">
-      <button class="btn btn-sm btn-ghost" id="saveXmlBtn"><i class="fa-solid fa-download"></i> Save</button>
-      <button class="btn btn-sm btn-ghost" id="loadXmlBtn"><i class="fa-solid fa-upload"></i> Load</button>
+    <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;align-items:center;">
+      <div class="format-toggle" id="formatToggle">
+        <button class="active" data-format="xml" title="Save files in XML format">XML</button>
+        <button data-format="json" title="Save files in JSON format">JSON</button>
+      </div>
+      <button class="btn btn-sm btn-ghost" id="saveXmlBtn" title="Download the current todo list to a file"><i class="fa-solid fa-download"></i> Save</button>
+      <button class="btn btn-sm btn-ghost" id="loadXmlBtn" title="Import a todo list from an XML or JSON file"><i class="fa-solid fa-upload"></i> Load</button>
       <div class="report-dropdown-wrap">
-        <button class="btn btn-sm btn-ghost" id="reportBtn"><i class="fa-solid fa-file-lines"></i> Create report <i class="fa-solid fa-caret-up"></i></button>
+        <button class="btn btn-sm btn-ghost" id="reportBtn" title="Generate a summary report of your tasks"><i class="fa-solid fa-file-lines"></i> Create report <i class="fa-solid fa-caret-up"></i></button>
         <div class="report-dropdown-menu" id="reportDropdown">
-          <button class="report-dropdown-item" data-format="html"><i class="fa-solid fa-file-code"></i> HTML</button>
-          <button class="report-dropdown-item" data-format="txt"><i class="fa-solid fa-file-lines"></i> TXT</button>
-          <button class="report-dropdown-item" data-format="pdf"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+          <button class="report-dropdown-item" data-format="html" title="Download report as an HTML page"><i class="fa-solid fa-file-code"></i> HTML</button>
+          <button class="report-dropdown-item" data-format="txt" title="Download report as plain text"><i class="fa-solid fa-file-lines"></i> TXT</button>
+          <button class="report-dropdown-item" data-format="pdf" title="Download report as a PDF document"><i class="fa-solid fa-file-pdf"></i> PDF</button>
         </div>
       </div>
-      <input type="file" id="xmlFileInput" accept=".xml" style="display:none" />
+      <input type="file" id="xmlFileInput" accept=".xml,.json" style="display:none" />
 
     </div>
 
@@ -540,6 +570,7 @@
       let todos = [];
       let showNumbers = true;
       let draggedId = null;
+      let saveFormat = 'xml';
 
       const todoList = document.getElementById('todoList');
       const emptyMsg = document.getElementById('emptyMsg');
@@ -903,22 +934,31 @@
       }
 
       async function saveXML() {
-        const name = await modalPrompt('Enter filename:', 'todos.xml');
+        const isJson = saveFormat === 'json';
+        const ext = isJson ? 'json' : 'xml';
+        const mime = isJson ? 'application/json' : 'application/xml';
+        const name = await modalPrompt('Enter filename:', 'todos.' + ext);
         if (!name) return;
-        let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<todos>\n';
-        todos.forEach(t => {
-          xml += '  <todo>\n';
-          xml += '    <id>' + t.id + '</id>\n';
-          xml += '    <text>' + escXml(t.text) + '</text>\n';
-          xml += '    <done>' + t.done + '</done>\n';
-          xml += '  </todo>\n';
-        });
-        xml += '</todos>';
+        let content;
+        if (isJson) {
+          content = JSON.stringify({ todos: todos }, null, 2);
+        } else {
+          let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<todos>\n';
+          todos.forEach(t => {
+            xml += '  <todo>\n';
+            xml += '    <id>' + t.id + '</id>\n';
+            xml += '    <text>' + escXml(t.text) + '</text>\n';
+            xml += '    <done>' + t.done + '</done>\n';
+            xml += '  </todo>\n';
+          });
+          xml += '</todos>';
+          content = xml;
+        }
 
-        const blob = new Blob([xml], { type: 'application/xml' });
+        const blob = new Blob([content], { type: mime });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = name.endsWith('.xml') ? name : name + '.xml';
+        a.download = name.endsWith('.' + ext) ? name : name + '.' + ext;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -938,26 +978,42 @@
         const reader = new FileReader();
         reader.onload = function (e) {
           try {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(e.target.result, 'application/xml');
-            const parseErr = doc.querySelector('parsererror');
-            if (parseErr) throw new Error('Invalid XML: ' + parseErr.textContent);
+            const text = e.target.result;
+            let loaded = [];
 
-            const items = doc.querySelectorAll('todos > todo');
-            if (!items.length) throw new Error('No <todo> entries found under <todos>.');
-
-            const loaded = [];
-            items.forEach(item => {
-              const idEl = item.querySelector('id');
-              const textEl = item.querySelector('text');
-              const doneEl = item.querySelector('done');
-              if (!idEl || !textEl || !doneEl) return;
-              loaded.push({
-                id: idEl.textContent || genId(),
-                text: textEl.textContent,
-                done: doneEl.textContent === 'true'
+            if (file.name.endsWith('.json')) {
+              const parsed = JSON.parse(text);
+              const items = Array.isArray(parsed) ? parsed : (parsed.todos || []);
+              items.forEach(item => {
+                if (item.text !== undefined) {
+                  loaded.push({
+                    id: item.id || genId(),
+                    text: item.text,
+                    done: !!item.done
+                  });
+                }
               });
-            });
+            } else {
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(text, 'application/xml');
+              const parseErr = doc.querySelector('parsererror');
+              if (parseErr) throw new Error('Invalid XML: ' + parseErr.textContent);
+
+              const items = doc.querySelectorAll('todos > todo');
+              if (!items.length) throw new Error('No <todo> entries found under <todos>.');
+
+              items.forEach(item => {
+                const idEl = item.querySelector('id');
+                const textEl = item.querySelector('text');
+                const doneEl = item.querySelector('done');
+                if (!idEl || !textEl || !doneEl) return;
+                loaded.push({
+                  id: idEl.textContent || genId(),
+                  text: textEl.textContent,
+                  done: doneEl.textContent === 'true'
+                });
+              });
+            }
 
             if (!loaded.length) throw new Error('No valid todo items found.');
 
@@ -965,7 +1021,7 @@
             render();
             modalAlert('Loaded ' + loaded.length + ' tasks from "' + file.name + '".');
           } catch (err) {
-            modalAlert('Failed to load XML: ' + err.message);
+            modalAlert('Failed to load file: ' + err.message);
           }
         };
         reader.readAsText(file);
@@ -1124,14 +1180,28 @@
         });
       });
       document.addEventListener('click', function() { reportDropdown.classList.remove('open'); });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && reportDropdown.classList.contains('open')) {
+          reportDropdown.classList.remove('open');
+          reportBtn.setAttribute('aria-expanded', 'false');
+          reportBtn.focus();
+        }
+      });
       xmlFileInput.addEventListener('change', (e) => {
         if (e.target.files && e.target.files[0]) parseXMLFile(e.target.files[0]);
+      });
+
+      document.getElementById('formatToggle').addEventListener('click', function(e) {
+        var btn = e.target.closest('button');
+        if (!btn) return;
+        saveFormat = btn.dataset.format;
+        this.querySelectorAll('button').forEach(function(b) { b.classList.toggle('active', b === btn); });
       });
 
       loadTodos();
       render();
       var fd = document.getElementById('footerDate');
-      if (fd) fd.textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+      if (fd) fd.textContent = new Date('2026-07-25').toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     })();
   </script>
 </body>
