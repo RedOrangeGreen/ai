@@ -154,6 +154,8 @@
       transition: box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
     }
     .tool-card:hover, .tool-card:focus-within { box-shadow: 0 28px 60px rgba(15, 23, 42, 0.95); border-color: rgba(56, 189, 248, 0.7); background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%), #020617; }
+    #videos-section .tool-card:hover, #videos-section .tool-card:focus-within { box-shadow: var(--shadow-subtle); border-color: var(--border-subtle); background: rgba(15, 23, 42, 0.96); }
+    #videos-section .tool-card * { pointer-events: auto !important; }
     .tool-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; }
     .tool-card-title { display: flex; align-items: center; gap: 0.55rem; }
     .tool-card-title-icon {
@@ -700,7 +702,7 @@
         <li><a href="gibberlink.html">Gibberlink</a> &mdash; Convert messages to and from Gibberlink, the fast, syllable-based language AI agents use to communicate.</li>
       </ul>
     </section>
-    <section class="reveal">
+    <section class="reveal" id="videos-section">
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-brands fa-youtube"></i><h2>AI Videos</h2></div>
         <div class="section-heading-sub">Curated video content about AI-assisted development.</div>
@@ -717,7 +719,7 @@
             <div class="tool-card-badges"><span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-play"></i> Video</span></div>
           </div>
           <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/kbX5I-MYLLE" title="Learn Italian AI Style video" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/kbX5I-MYLLE" title="Learn Italian AI Style video" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
         </article>
         <article class="tool-card tool" data-category="videos" data-tags="ai stunner models daisy dukes fashion video">
@@ -731,7 +733,7 @@
             <div class="tool-card-badges"><span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-play"></i> Video</span></div>
           </div>
           <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" title="AI Stunner Models video" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" title="AI Stunner Models video" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
         </article>
       </div>
@@ -739,7 +741,7 @@
     <footer>
       <div><span class="brand">AI Playground</span> • Free AI tools directory</div>
       <div class="footer-meta">
-        <span>AI generated Sat, Jul 25, 2026</span>
+        <span>AI generated Sun, Jul 26, 2026</span>
       </div>
     </footer>
   </main>
