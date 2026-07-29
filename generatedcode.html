@@ -31,22 +31,28 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
 
   <style>
-    :root {
-      --bg-body: #050816;
-      --bg-elevated: #0b1020;
-      --bg-elevated-soft: #0f172a;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.15);
-      --accent-strong: #0ea5e9;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.25);
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
-      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.7);
-      --transition-fast: 0.18s ease-out;
-      --transition-med: 0.25s ease-out;
+    @layer reset, base, components, utilities;
+
+    @layer base {
+      :root {
+        accent-color: #38bdf8;
+        interpolate-size: allow-keywords;
+        --bg-body: #050816;
+        --bg-elevated: #0b1020;
+        --bg-elevated-soft: #0f172a;
+        --accent: #38bdf8;
+        --accent-soft: rgba(56,189,248,0.15);
+        --accent-strong: #0ea5e9;
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-subtle: rgba(148,163,184,0.25);
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
+        --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
+        --transition-fast: 0.18s ease-out;
+        --transition-med: 0.25s ease-out;
+      }
     }
 
     body {
@@ -855,6 +861,17 @@ table.report-table {
       color: var(--text-muted);
       font-size: 0.85rem;
     }
+
+    .guide-section { container-type: inline-size; container-name: guide; }
+    @container guide (max-width: 500px) {
+      .guide-section h2 { font-size: 1.1rem; }
+      .link-row { flex-direction: column; }
+      .link-row a { width: 100%; justify-content: center; }
+    }
+    input { field-sizing: content; }
+    @media (prefers-contrast: more) {
+      code, pre { border-width: 2px; }
+    }
   </style>
 </head>
 
@@ -948,12 +965,12 @@ opencode</code></pre>
             </a>
           </p>
 
-          <div class="project-search-wrap">
+          <search class="project-search-wrap">
             <i class="fa-solid fa-search search-icon" aria-hidden="true"></i>
             <input type="text" id="projectFilter" placeholder="Filter projects by name or language..." aria-label="Filter projects by name or language" spellcheck="false" autocomplete="off">
             <span class="search-count" id="filterCount">6 / 6</span>
             <span style="font-size:0.65rem;color:rgba(148,163,184,0.4);position:absolute;right:3.5rem;top:50%;transform:translateY(-50%);pointer-events:none;display:none;" id="filterHint">[F]</span>
-          </div>
+          </search>
 
           <!-- EXAMPLE 1 -->
           <details id="example1" class="project">
@@ -1292,7 +1309,7 @@ gemma3 chat</code></pre>
 
     <footer>
       <span>AI Playground • Coding Guide</span>
-      <span>2026 • AI generated Sun, Jul 26, 2026</span>
+      <span>AI generated <span id="fileDate"></span></span>
     </footer>
 
   </main>
@@ -1746,6 +1763,8 @@ gemma3 chat</code></pre>
       }
 
     })();
+    var fd = document.getElementById('fileDate');
+    if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
   </script>
 
 </body>

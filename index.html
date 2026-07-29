@@ -30,22 +30,28 @@
     rel="stylesheet" crossorigin="anonymous"
   />
   <style>
-    :root {
-      --bg-body: #050816;
-      --bg-elevated: #0b1020;
-      --bg-elevated-soft: #0f172a;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.15);
-      --accent-strong: #0ea5e9;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.25);
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
-      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.7);
-      --transition-fast: 0.18s ease-out;
-      --transition-med: 0.25s ease-out;
+    @layer reset, base, components, utilities;
+
+    @layer base {
+      :root {
+        accent-color: #38bdf8;
+        interpolate-size: allow-keywords;
+        --bg-body: #050816;
+        --bg-elevated: #0b1020;
+        --bg-elevated-soft: #0f172a;
+        --accent: #38bdf8;
+        --accent-soft: rgba(56,189,248,0.15);
+        --accent-strong: #0ea5e9;
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-subtle: rgba(148,163,184,0.25);
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
+        --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
+        --transition-fast: 0.18s ease-out;
+        --transition-med: 0.25s ease-out;
+      }
     }
     * { box-sizing: border-box; }
     body {
@@ -548,6 +554,21 @@
     }
     .chatbot-toggle.on { background: var(--accent); }
     .chatbot-toggle.on::after { transform: translateX(14px); }
+
+    .tool-grid { container-type: inline-size; container-name: tools; }
+    @container tools (max-width: 380px) {
+      .tool-card { padding: 0.75rem; }
+      .tool-card-footer { flex-direction: column; align-items: flex-start; }
+    }
+    .news-ticker { container-type: inline-size; container-name: ticker; }
+    .clock-row { container-type: inline-size; container-name: clocks; }
+    @container clocks (max-width: 500px) {
+      .clock-pill { padding: 0.2rem 0.6rem; }
+    }
+    input { field-sizing: content; }
+    @media (prefers-contrast: more) {
+      .tool-card { border-width: 2px; }
+    }
   </style>
 </head>
 <body>
@@ -608,10 +629,10 @@
       </div>
     </section>
     <section class="search-section">
-      <div class="search-input-wrap">
+      <search class="search-input-wrap">
         <i aria-hidden="true" class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="search" class="search-input" placeholder="Search tools by name, feature, or tag…" aria-label="Search tools" spellcheck="false" autocomplete="off" />
-      </div>
+      </search>
       <div class="filter-chips">
         <button class="filter-chip active" data-filter="all" type="button" aria-pressed="true"><i aria-hidden="true" class="fa-solid fa-layer-group"></i> All tools</button>
         <button class="filter-chip" data-filter="web" type="button" aria-pressed="false"><i aria-hidden="true" class="fa-solid fa-globe"></i> Web chatbots</button>
@@ -697,9 +718,10 @@
       </header>
       <ul class="chatbot-list">
         <li><a href="todolist.html">Todo List</a> &mdash; A simple Todo List manager, lists saved and loaded locally.</li>
-        <li><a href="dividends.html">Top Dividend Stocks</a> &mdash; The 10 highest-yielding dividend stocks on the FTSE and NYSE.</li>
+        <li><a href="dividends.html">Top Dividend Stocks</a> &mdash; The 10 highest-yielding dividend stocks on the LSE, NYSE and NASDAQ.</li>
 
         <li><a href="gibberlink.html">Gibberlink</a> &mdash; Convert messages to and from Gibberlink, the fast, syllable-based language AI agents use to communicate.</li>
+        <li><a href="soi6pattaya.html">Soi 6, Pattaya, Thailand</a> &mdash; Human Behaviour Analysis For AI Agents</li>
       </ul>
     </section>
     <section class="reveal" id="videos-section">
@@ -741,7 +763,7 @@
     <footer>
       <div><span class="brand">AI Playground</span> • Free AI tools directory</div>
       <div class="footer-meta">
-        <span>AI generated Sun, Jul 26, 2026</span>
+        <span>AI generated <span id="fileDate"></span></span>
       </div>
     </footer>
   </main>
@@ -1513,6 +1535,8 @@
         try { localStorage.setItem('cosmosOff', document.body.classList.contains('cosmos-off')); } catch(e) { console.warn('Could not save cosmos state', e); }
       });
     })();
+    var fd = document.getElementById('fileDate');
+    if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
   </script>
 </body>
 </html>

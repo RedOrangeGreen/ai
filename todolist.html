@@ -12,21 +12,27 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
 
   <style>
-    :root {
-      --bg-body: #050816;
-      --bg-elevated: #0b1020;
-      --bg-elevated-soft: #0f172a;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.15);
-      --accent-strong: #0ea5e9;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.25);
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
-      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.7);
-      --transition-fast: 0.18s ease-out;
+    @layer reset, base, components, utilities;
+
+    @layer base {
+      :root {
+        accent-color: #38bdf8;
+        interpolate-size: allow-keywords;
+        --bg-body: #050816;
+        --bg-elevated: #0b1020;
+        --bg-elevated-soft: #0f172a;
+        --accent: #38bdf8;
+        --accent-soft: rgba(56,189,248,0.15);
+        --accent-strong: #0ea5e9;
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-subtle: rgba(148,163,184,0.25);
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
+        --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
+        --transition-fast: 0.18s ease-out;
+      }
     }
 
     body {
@@ -325,11 +331,15 @@
       font-size: 0.6rem;
     }
 
+    .todo-item .todo-check i { opacity: 0; transition: opacity 0.2s ease; }
+
     .todo-item .todo-check.checked {
       background: var(--accent);
       border-color: var(--accent);
       color: #0b1120;
     }
+
+    .todo-item .todo-check.checked i { opacity: 1; }
 
     .todo-item .todo-delete {
       background: none;
@@ -557,6 +567,18 @@
     }
     .back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
     .back-to-top:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 12px 32px rgba(8,47,73,0.8); }
+
+    .card { container-type: inline-size; container-name: card; }
+    @container card (max-width: 400px) {
+      .add-row { flex-direction: column; }
+      .todo-stats { flex-direction: column; align-items: flex-start; }
+      .stats-breakdown { width: 100%; }
+    }
+    input { field-sizing: content; }
+    @media (prefers-contrast: more) {
+      .todo-item { border-bottom-width: 2px; }
+      .search-tasks { border-width: 2px; }
+    }
   </style>
 </head>
 <body>
@@ -593,10 +615,10 @@
         </div>
       </div>
       <div class="completion-bar"><div class="completion-bar-fill" id="completionBar" style="width:0%"></div></div>
-      <div class="search-wrap">
+      <search class="search-wrap">
         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
         <input type="text" id="searchTasks" class="search-tasks" placeholder="Search tasks…" aria-label="Search tasks" spellcheck="false" autocomplete="off" />
-      </div>
+      </search>
       <ul class="todo-list" id="todoList" role="list"></ul>
       <div class="todo-empty" id="emptyMsg">Nothing here yet. Add a task above!</div>
       <div class="todo-empty" id="noMatchMsg" style="display:none;">No tasks match your search.</div>
@@ -725,7 +747,7 @@
 
           const check = document.createElement('span');
           check.className = 'todo-check' + (todo.done ? ' checked' : '');
-          check.innerHTML = todo.done ? '<i class="fa-solid fa-check"></i>' : '';
+          check.innerHTML = '<i class="fa-solid fa-check"></i>';
           check.setAttribute('role', 'checkbox');
           check.setAttribute('aria-checked', todo.done);
           check.setAttribute('tabindex', '0');
@@ -769,6 +791,10 @@
               render();
               var movedEl = todoList.querySelector('[data-id="' + todo.id + '"]');
               if (movedEl) movedEl.focus();
+            }
+            if (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') {
+              e.preventDefault();
+              toggleTodo(todo.id);
             }
           });
         });
@@ -923,7 +949,21 @@
 
       function toggleTodo(id) {
         const todo = todos.find(t => t.id === id);
-        if (todo) { todo.done = !todo.done; render(); announce(todo.done ? 'Task completed' : 'Task uncompleted'); }
+        if (!todo) return;
+        todo.done = !todo.done;
+        var el = todoList.querySelector('[data-id="' + id + '"]');
+        if (el) {
+          var check = el.querySelector('.todo-check');
+          var text = el.querySelector('.todo-text');
+          if (check) {
+            check.className = 'todo-check' + (todo.done ? ' checked' : '');
+            check.setAttribute('aria-checked', todo.done);
+          }
+          if (text) { text.className = 'todo-text' + (todo.done ? ' done' : ''); }
+        }
+        updateUI();
+        saveTodos();
+        announce(todo.done ? 'Task completed' : 'Task uncompleted');
       }
 
       function deleteTodo(id) {
@@ -1317,7 +1357,7 @@
       loadTodos();
       render();
       var fd = document.getElementById('footerDate');
-      if (fd) fd.textContent = new Date('2026-07-25').toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+      if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     })();
   </script>
 </body>

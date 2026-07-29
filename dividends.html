@@ -5,23 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
-  <meta name="description" content="The 10 highest-yielding dividend stocks on the FTSE 100 and NYSE." />
-  <title>Top Dividend Stocks, FTSE &amp; NYSE</title>
+  <meta name="description" content="The 10 highest-yielding dividend stocks on the LSE, NYSE and NASDAQ." />
+  <title>Top Dividend Stocks, LSE, NYSE &amp; NASDAQ</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
   <style>
-    :root {
-      --bg-body: #050816;
-      --bg-elevated: #0b1020;
-      --accent: #38bdf8;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --border-subtle: rgba(148,163,184,0.25);
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
-      --transition-fast: 0.18s ease-out;
+    @layer reset, base, components, utilities;
+
+    @layer base {
+      :root {
+        accent-color: #38bdf8;
+        interpolate-size: allow-keywords;
+        --bg-body: #050816;
+        --bg-elevated: #0b1020;
+        --accent: #38bdf8;
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-subtle: rgba(148,163,184,0.25);
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
+        --transition-fast: 0.18s ease-out;
+        --yield-color: #22c55e;
+      }
     }
     body {
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
@@ -75,7 +82,7 @@
     .stock-rank { color: var(--text-muted); font-variant-numeric: tabular-nums; font-size: 0.8rem; width: 1.8rem; }
     .stock-name { font-weight: 500; color: var(--text-main); }
     .stock-ticker { color: var(--text-muted); font-size: 0.78rem; margin-left: 0.3rem; }
-    .stock-yield { text-align: right; font-weight: 600; color: #22c55e; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .stock-yield { text-align: right; font-weight: 600; color: var(--yield-color); font-variant-numeric: tabular-nums; white-space: nowrap; }
     .stock-yield-badge {
       display: inline-block; background: rgba(34,197,94,0.12);
       border: 1px solid rgba(34,197,94,0.25); border-radius: var(--radius-pill);
@@ -184,6 +191,19 @@
     }
     .back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
     .back-to-top:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 12px 32px rgba(8,47,73,0.8); }
+
+    @container card (max-width: 380px) {
+      .stock-table { font-size: 0.78rem; }
+      .stat-pill { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+    }
+    .card { container-type: inline-size; container-name: card; }
+    @media (prefers-contrast: more) {
+      .stock-table tbody td { border-bottom-width: 2px; }
+      .stock-yield-badge { border-width: 2px; }
+    }
+    @supports (field-sizing: content) {
+      input, textarea { field-sizing: content; }
+    }
   </style>
 </head>
 <body>
@@ -193,24 +213,24 @@
         <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back
       </a>
     </div>
-    <h1 class="hero-title"><span>Top Dividend Stocks, FTSE &amp; NYSE</span></h1>
-    <p class="hero-subtitle">The 10 highest-yielding dividend stocks on the FTSE 100 and NYSE.</p>
+    <h1 class="hero-title"><span>Top Dividend Stocks, LSE, NYSE &amp; NASDAQ</span></h1>
+    <p class="hero-subtitle">The 10 highest-yielding dividend stocks on the LSE, NYSE and NASDAQ.</p>
 
     <div id="statusBar" class="status-bar"></div>
 
     <div class="stats-row" id="statsRow"></div>
 
-    <div class="search-wrap">
+    <search class="search-wrap">
       <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
       <input type="text" id="stockSearch" class="search-input" placeholder="Search by company name or ticker…" aria-label="Search stocks" spellcheck="false" autocomplete="off" />
-    </div>
+    </search>
 
     <div class="card">
-      <div class="card-title"><i class="fa-solid fa-landmark"></i> FTSE 100</div>
+      <div class="card-title"><i class="fa-solid fa-landmark"></i> LSE</div>
       <div class="card-sub">London Stock Exchange — top 10 by dividend yield</div>
-      <table class="stock-table" aria-label="Top 10 FTSE 100 dividend stocks">
-        <thead><tr><th>#</th><th>Company</th><th style="text-align:right">Yield</th></tr></thead>
-        <tbody id="ftseBody"></tbody>
+      <table class="stock-table" aria-label="Top 10 LSE dividend stocks">
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name">Company</th><th scope="col" class="sortable" data-sort="yield" style="text-align:right">Yield</th></tr></thead>
+        <tbody id="lseBody"></tbody>
       </table>
     </div>
 
@@ -218,8 +238,17 @@
       <div class="card-title"><i class="fa-solid fa-building-columns"></i> NYSE</div>
       <div class="card-sub">New York Stock Exchange — top 10 by dividend yield</div>
       <table class="stock-table" aria-label="Top 10 NYSE dividend stocks">
-        <thead><tr><th>#</th><th>Company</th><th style="text-align:right">Yield</th></tr></thead>
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name">Company</th><th scope="col" class="sortable" data-sort="yield" style="text-align:right">Yield</th></tr></thead>
         <tbody id="nyseBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-solid fa-chart-simple"></i> NASDAQ</div>
+      <div class="card-sub">NASDAQ — top 10 by dividend yield</div>
+      <table class="stock-table" aria-label="Top 10 NASDAQ dividend stocks">
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name">Company</th><th scope="col" class="sortable" data-sort="yield" style="text-align:right">Yield</th></tr></thead>
+        <tbody id="nasdaqBody"></tbody>
       </table>
     </div>
 
@@ -230,7 +259,7 @@
 
     <footer>
       For informational purposes only — not financial advice. Always verify before investing.<br>
-      <span style="font-size:0.72rem;">AI generated Sat, Jul 25, 2026</span>
+      <span style="font-size:0.72rem;">AI generated <span id="fileDate"></span></span>
     </footer>
   </main>
 
@@ -239,43 +268,56 @@
   <script>
   (function() {
     var YIELDS_DATA = {
-      fetchedAt: '2026-07-25T12:00:00Z',
+      fetchedAt: '2026-07-27T12:00:00Z',
       source: 'Yahoo Finance / company filings (Jul 2026)',
-      ftse: [
-        { ticker: 'MNG.L',   name: 'M&G plc',               yield: 9.5 },
-        { ticker: 'PHNX.L',  name: 'Phoenix Group',            yield: 8.8 },
-        { ticker: 'LGEN.L',  name: 'Legal & General',      yield: 8.2 },
-        { ticker: 'RIO.L',   name: 'Rio Tinto',                yield: 7.5 },
-        { ticker: 'BATS.L',  name: 'British American Tobacco',  yield: 7.2 },
-        { ticker: 'AV.L',    name: 'Aviva',                    yield: 6.8 },
-        { ticker: 'NG.L',    name: 'National Grid',            yield: 6.5 },
-        { ticker: 'HSBA.L',  name: 'HSBC Holdings',            yield: 6.2 },
-        { ticker: 'BARC.L',  name: 'Barclays',                 yield: 5.8 },
-        { ticker: 'BP.L',    name: 'BP',                       yield: 5.5 }
+      lse: [
+        { ticker: 'LGEN.L',  name: 'Legal & General',            yield: 7.59 },
+        { ticker: 'SDLF.L',  name: 'Standard Life',             yield: 6.66 },
+        { ticker: 'LMP.L',   name: 'Londonmetric Property',      yield: 6.58 },
+        { ticker: 'LAND.L',  name: 'Land Securities',           yield: 6.27 },
+        { ticker: 'INVP.L',  name: 'Investec',                  yield: 6.19 },
+        { ticker: 'MNG.L',   name: 'M&G plc',                   yield: 6.12 },
+        { ticker: 'AV.L',    name: 'Aviva',                     yield: 6.08 },
+        { ticker: 'ABDN.L',  name: 'Aberdeen Group',            yield: 6.07 },
+        { ticker: 'IMB.L',   name: 'Imperial Brands',           yield: 5.91 },
+        { ticker: 'BTRW.L',  name: 'Barratt Redrow',            yield: 5.82 }
       ],
       nyse: [
-        { ticker: 'MO',  name: 'Altria Group',             yield: 8.5 },
-        { ticker: 'VZ',  name: 'Verizon Communications',   yield: 6.5 },
-        { ticker: 'T',   name: 'AT&T',                     yield: 6.2 },
-        { ticker: 'PFE', name: 'Pfizer',                   yield: 5.8 },
-        { ticker: 'O',   name: 'Realty Income',            yield: 5.5 },
-        { ticker: 'KMI', name: 'Kinder Morgan',            yield: 5.2 },
-        { ticker: 'DOW', name: 'Dow Inc',                  yield: 4.8 },
-        { ticker: 'IBM', name: 'IBM',                      yield: 4.5 },
-        { ticker: 'CVX', name: 'Chevron',                  yield: 4.2 },
-        { ticker: 'WBA', name: 'Walgreens Boots Alliance', yield: 4.0 }
+        { ticker: 'PFE',  name: 'Pfizer',                      yield: 6.81 },
+        { ticker: 'VICI', name: 'Vici Properties',             yield: 6.64 },
+        { ticker: 'MAIN', name: 'Main Street Capital',         yield: 6.07 },
+        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 5.80 },
+        { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 5.67 },
+        { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 5.35 },
+        { ticker: 'ENB',  name: 'Enbridge',                    yield: 5.01 },
+        { ticker: 'O',    name: 'Realty Income',               yield: 4.93 },
+        { ticker: 'NNN',  name: 'NNN REIT',                    yield: 4.88 },
+        { ticker: 'CVX',  name: 'Chevron',                     yield: 3.72 }
+      ],
+      nasdaq: [
+        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.31 },
+        { ticker: 'CMCSA', name: 'Comcast',                    yield: 5.56 },
+        { ticker: 'GILD', name: 'Gilead Sciences',             yield: 4.82 },
+        { ticker: 'PAYX', name: 'Paychex',                     yield: 4.48 },
+        { ticker: 'TROW', name: 'T. Rowe Price Group',        yield: 4.22 },
+        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 3.95 },
+        { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.33 },
+        { ticker: 'CSCO', name: 'Cisco Systems',               yield: 3.18 },
+        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 3.05 },
+        { ticker: 'INTC', name: 'Intel Corporation',           yield: 2.45 }
       ]
     };
 
     var statusBar = document.getElementById('statusBar');
-    var ftseBody = document.getElementById('ftseBody');
+    var lseBody = document.getElementById('lseBody');
     var nyseBody = document.getElementById('nyseBody');
+    var nasdaqBody = document.getElementById('nasdaqBody');
     var statsRow = document.getElementById('statsRow');
     var noResults = document.getElementById('noResults');
     var searchInput = document.getElementById('stockSearch');
     var backToTop = document.getElementById('backToTop');
 
-    var allStocks = YIELDS_DATA.ftse.concat(YIELDS_DATA.nyse);
+    var allStocks = YIELDS_DATA.lse.concat(YIELDS_DATA.nyse).concat(YIELDS_DATA.nasdaq);
     var max_yield = Math.max.apply(null, allStocks.map(function(s) { return s.yield; }));
     var totalYield = allStocks.reduce(function(sum, s) { return sum + s.yield; }, 0);
     var avgYield = totalYield / allStocks.length;
@@ -341,28 +383,25 @@
 
     function updateAll() {
       var q = searchInput.value.trim();
-      var ftseCount = renderTable(ftseBody, YIELDS_DATA.ftse, q);
+      var lseCount = renderTable(lseBody, YIELDS_DATA.lse, q);
       var nyseCount = renderTable(nyseBody, YIELDS_DATA.nyse, q);
-      var totalVisible = ftseCount + nyseCount;
+      var nasdaqCount = renderTable(nasdaqBody, YIELDS_DATA.nasdaq, q);
+      var totalVisible = lseCount + nyseCount + nasdaqCount;
       noResults.classList.toggle('visible', totalVisible === 0 && q.length > 0);
 
-      ftseBody.closest('.card').style.display = (ftseCount === 0 && q) ? 'none' : '';
+      lseBody.closest('.card').style.display = (lseCount === 0 && q) ? 'none' : '';
       nyseBody.closest('.card').style.display = (nyseCount === 0 && q) ? 'none' : '';
+      nasdaqBody.closest('.card').style.display = (nasdaqCount === 0 && q) ? 'none' : '';
 
-      var ftseTh = ftseBody.closest('table').querySelectorAll('th');
-      var nyseTh = nyseBody.closest('table').querySelectorAll('th');
-      if (ftseTh.length >= 3) {
-        ftseTh[1].className = sortState.field === 'name' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
-        ftseTh[1].innerHTML = 'Company' + getSortIcon('name');
-        ftseTh[2].className = sortState.field === 'yield' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
-        ftseTh[2].innerHTML = 'Yield' + getSortIcon('yield');
-      }
-      if (nyseTh.length >= 3) {
-        nyseTh[1].className = sortState.field === 'name' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
-        nyseTh[1].innerHTML = 'Company' + getSortIcon('name');
-        nyseTh[2].className = sortState.field === 'yield' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
-        nyseTh[2].innerHTML = 'Yield' + getSortIcon('yield');
-      }
+      [lseBody, nyseBody, nasdaqBody].forEach(function(body) {
+        var th = body.closest('table').querySelectorAll('th');
+        if (th.length >= 3) {
+          th[1].className = sortState.field === 'name' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
+          th[1].innerHTML = 'Company' + getSortIcon('name');
+          th[2].className = sortState.field === 'yield' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
+          th[2].innerHTML = 'Yield' + getSortIcon('yield');
+        }
+      });
     }
 
     document.querySelectorAll('th.sortable').forEach(function(th) {
@@ -384,6 +423,9 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
+
+    var fd = document.getElementById('fileDate');
+    if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
 
     updateAll();
   })();
