@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="A simple free and anonymous Employee Database. Two related tables managed with a real JavaScript SQL engine, saved and loaded locally as JSON." />
+  <title>Employee Database</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👥</text></svg>" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alasql/4.17.3/alasql.min.js" defer crossorigin="anonymous"></script>
+
+  <style>
+    @layer reset, base, components, utilities;
+
+    @layer base {
+      :root {
+        accent-color: #38bdf8;
+        interpolate-size: allow-keywords;
+        --bg-body: #050816;
+        --bg-elevated: #0b1020;
+        --bg-elevated-soft: #0f172a;
+        --accent: #38bdf8;
+        --accent-soft: rgba(56,189,248,0.15);
+        --accent-strong: #0ea5e9;
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-subtle: rgba(148,163,184,0.25);
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --radius-md: 10px;
+        --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
+        --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
+        --transition-fast: 0.18s ease-out;
+      }
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .page-shell {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 3vw + 1rem, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+    }
+
+    .card {
+      padding: 1.4rem 1.6rem;
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle);
+      margin-bottom: 1.5rem;
+    }
+
+    .add-row {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .add-row .hint {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      border-radius: var(--radius-pill);
+      padding: 0.5rem 1.1rem;
+      font-size: 0.88rem;
+      border: none;
+      background: linear-gradient(120deg, #38bdf8, #0ea5e9);
+      color: #0b1120;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.25s ease, filter 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9);
+      filter: brightness(1.05);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    .btn-sm {
+      padding: 0.3rem 0.75rem;
+      font-size: 0.78rem;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      box-shadow: none;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      color: var(--accent);
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .btn-danger {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+      box-shadow: none;
+    }
+
+    .btn-danger:hover {
+      border-color: #ef4444;
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.08);
+      box-shadow: none;
+    }
+
+    .btn-active {
+      border-color: rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .toggle-chev {
+      transition: transform var(--transition-fast);
+    }
+    .btn-active .toggle-chev {
+      transform: rotate(180deg);
+    }
+
+    .advanced-panel {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1.4rem 1.6rem;
+    }
+    .advanced-panel.open {
+      display: block;
+    }
+
+    .advanced-head {
+      font-size: 0.8rem;
+      color: var(--text-main);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .advanced-head i {
+      color: var(--accent);
+      margin-right: 0.4rem;
+    }
+
+    .tables-info {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .tables-info .type {
+      color: #a855f7;
+    }
+
+    .sql-box {
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+      padding-top: 1rem;
+    }
+
+    .sql-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .sql-input {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 78px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--text-main);
+      background: rgba(2, 6, 23, 0.55);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.6rem 0.75rem;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      margin-bottom: 0.6rem;
+    }
+    .sql-input:focus {
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+    }
+
+    .sql-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+
+    .sql-example {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .sql-example select {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      color: var(--text-main);
+      font: inherit;
+      font-size: 0.78rem;
+      padding: 0.3rem 0.7rem;
+      outline: none;
+      cursor: pointer;
+      max-width: 220px;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .sql-example select:focus {
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+    }
+    .sql-example option {
+      background: #0f172a;
+      color: var(--text-main);
+    }
+
+    .sql-hint {
+      font-size: 0.74rem;
+      color: rgba(148, 163, 184, 0.6);
+      line-height: 1.5;
+    }
+    .sql-hint code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--accent);
+    }
+    .sql-hint .warn {
+      color: #fbbf24;
+    }
+
+    .sql-output {
+      margin-top: 0.6rem;
+      display: none;
+    }
+    .sql-output.show {
+      display: block;
+    }
+    .sql-output .table-wrap {
+      max-height: 280px;
+      overflow: auto;
+    }
+    .sql-output .sql-message {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-md);
+      background: rgba(2, 6, 23, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      word-break: break-word;
+    }
+    .sql-output .sql-message.error {
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+    .sql-output .sql-message.ok {
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.25);
+    }
+
+    .raw-actions {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 0.8rem 0 0.2rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .raw-label {
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-size: 0.7rem;
+      margin-right: 0.2rem;
+    }
+
+    .raw-editor {
+      display: none;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+      padding-top: 0.8rem;
+      margin-top: 0.6rem;
+    }
+    .raw-editor.open { display: block; }
+
+    .raw-editor-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .raw-editor-head .btns {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .raw-scroll {
+      overflow: auto;
+      max-height: 300px;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      border-radius: var(--radius-md);
+    }
+
+    .raw-table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.78rem;
+      min-width: 460px;
+    }
+    .raw-table th {
+      position: sticky;
+      top: 0;
+      background: #0f172a;
+      text-align: left;
+      padding: 0.4rem 0.5rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      z-index: 1;
+    }
+    .raw-table td {
+      padding: 0.3rem 0.4rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+      vertical-align: middle;
+    }
+    .raw-table tbody tr:hover td {
+      background: rgba(56, 189, 248, 0.04);
+    }
+    .raw-table input {
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 90px;
+      padding: 0.3rem 0.45rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font-size: 0.76rem;
+      outline: none;
+      font-family: inherit;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .raw-table input:focus {
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.1);
+    }
+    .raw-table input:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .raw-table input.invalid {
+      border-color: rgba(239, 68, 68, 0.6);
+    }
+    .raw-table .del-cell {
+      white-space: nowrap;
+      text-align: right;
+      width: 1px;
+    }
+    .raw-msg {
+      font-size: 0.76rem;
+      color: #4ade80;
+      margin-top: 0.5rem;
+      min-height: 1em;
+    }
+    .raw-msg.error { color: #f87171; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.35rem 0;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover { color: var(--accent); }
+
+    .emp-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .emp-stats .count {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: var(--radius-pill);
+      padding: 0.2rem 0.65rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .search-wrap {
+      position: relative; margin-bottom: 0.8rem;
+    }
+    .search-wrap i {
+      position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 0.85rem; pointer-events: none;
+    }
+    .search-emp {
+      width: 100%; border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.9);
+      color: var(--text-main); padding: 0.5rem 0.85rem 0.5rem 2.2rem;
+      font-size: 0.85rem; outline: none; box-sizing: border-box;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .search-emp::placeholder { color: var(--text-muted); }
+    .search-emp:focus {
+      border-color: rgba(56,189,248,0.5);
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(148,163,184,0.12);
+      border-radius: var(--radius-md);
+    }
+
+    .emp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 520px;
+    }
+
+    .emp-table th {
+      text-align: left;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 500;
+      padding: 0.6rem 0.9rem;
+      border-bottom: 1px solid rgba(148,163,184,0.15);
+      background: rgba(15,23,42,0.6);
+      white-space: nowrap;
+    }
+
+    .emp-table td {
+      padding: 0.55rem 0.9rem;
+      border-bottom: 1px solid rgba(148,163,184,0.08);
+      vertical-align: middle;
+    }
+
+    .emp-table tbody tr.emp-main:last-child td {
+      border-bottom: 1px solid rgba(148,163,184,0.08);
+    }
+
+    .emp-table tbody tr.emp-main:hover td {
+      background: rgba(56,189,248,0.04);
+    }
+
+    .emp-table tbody tr.emp-main.open td {
+      background: rgba(56,189,248,0.06);
+    }
+
+    .emp-table tbody tr.emp-main[draggable="true"] {
+      cursor: grab;
+    }
+    .emp-table tbody tr.emp-main.dragging {
+      opacity: 0.35;
+      cursor: grabbing;
+    }
+    .emp-table tbody tr.emp-main.drop-before td {
+      border-top: 2px solid var(--accent);
+    }
+    .emp-table tbody tr.emp-main.drop-after td {
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .emp-id {
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .name-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0.1rem 0;
+      text-align: left;
+    }
+
+    .name-toggle i.chev {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      transition: transform var(--transition-fast);
+      width: 0.8rem;
+    }
+
+    .name-toggle.open i.chev {
+      transform: rotate(90deg);
+    }
+
+    .name-toggle:hover { color: var(--accent); }
+
+    .cell-muted {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    .actions-col {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .actions-col td {
+      text-align: right;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      color: rgba(148,163,184,0.45);
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.4rem;
+      border-radius: 8px;
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .icon-btn:hover { color: var(--accent); background: rgba(56,189,248,0.1); }
+    .icon-btn.danger:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
+
+    .detail-row td {
+      padding: 0;
+      border-bottom: 1px solid rgba(148,163,184,0.12);
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.6rem 1.2rem;
+      padding: 0.9rem 1rem 1rem;
+      background: rgba(2,6,23,0.45);
+      animation: detailIn 0.2s ease-out;
+    }
+
+    @keyframes detailIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      min-width: 0;
+    }
+
+    .detail-item .k {
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+    }
+
+    .detail-item .v {
+      font-size: 0.86rem;
+      color: var(--text-main);
+      word-break: break-word;
+    }
+
+    .detail-item .v.missing {
+      color: rgba(148,163,184,0.35);
+      font-style: italic;
+      font-size: 0.78rem;
+    }
+
+    .detail-note {
+      grid-column: 1 / -1;
+      font-size: 0.74rem;
+      color: rgba(148,163,184,0.5);
+    }
+
+    .todo-empty {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .shortcut-help {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem;
+      font-size: 0.7rem; color: rgba(148,163,184,0.5);
+    }
+    .shortcut-help kbd {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.1rem 0.3rem; border-radius: 3px; font-size: 0.65rem;
+      background: rgba(15,23,42,0.9); border: 1px solid rgba(148,163,184,0.25);
+      color: rgba(148,163,184,0.7); font-family: inherit; min-width: 1rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.4); }
+
+    ::selection { background: rgba(56,189,248,0.3); color: #fff; }
+
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(2, 6, 23, 0.7);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      padding: 1.6rem 1.8rem;
+      max-width: 400px;
+      width: 90%;
+      animation: modalIn 0.2s ease-out;
+    }
+
+    .form-box {
+      max-width: 520px;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.94) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-box h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .modal-box p {
+      margin: 0 0 1.4rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: flex-end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-bottom: 0.9rem;
+      min-width: 0;
+    }
+
+    .field label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    .field label .req {
+      color: #f87171;
+    }
+
+    .field input {
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font-size: 0.88rem;
+      outline: none;
+      box-sizing: border-box;
+      width: 100%;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .field input:focus {
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+    }
+
+    .field input::placeholder { color: rgba(148,163,184,0.4); }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    .form-error {
+      display: none;
+      color: #f87171;
+      font-size: 0.78rem;
+      margin: 0 0 0.8rem;
+    }
+    .form-error.show { display: block; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .btn:hover { transform: none; }
+    }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .btn, .btn-back, .search-emp, footer, .icon-btn, .name-toggle i.chev { display: none !important; }
+      .card { border: 1px solid #ddd !important; box-shadow: none !important; }
+      .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; }
+      .detail-row td { border-top: 1px solid #ddd !important; }
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 1rem; }
+      .page-shell { padding: 1rem 0.75rem 2rem; }
+      .field-row { grid-template-columns: 1fr; gap: 0; }
+    }
+
+    html { scroll-behavior: smooth; overscroll-behavior: none; }
+    * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
+    h1, h2, h3, p { text-wrap: pretty; }
+    input { field-sizing: content; }
+
+    .engine-note {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 0.72rem;
+      color: rgba(56,189,248,0.7);
+      margin-top: 0.7rem;
+    }
+    .engine-note i { font-size: 0.7rem; }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <div style="margin-bottom:0.5rem;">
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i> Back
+      </a>
+    </div>
+    <h1 class="hero-title"><span>Employee Database</span></h1>
+    <p class="hero-subtitle">Powered by <a href="https://alasql.org" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">AlaSQL</a>, a pure JavaScript engine. The official <a href="https://sqlite.org/wasm" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">SQLite WebAssembly port</a> — WASM-compiled C — is the modern browser standard, but isn't used here for now: its asynchronous loading complicates running from a local file.</p>
+
+    <div class="card">
+      <div class="add-row">
+        <button class="btn" id="addBtn" title="Create a new employee record"><i class="fa-solid fa-user-plus"></i> Add Employee</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="emp-stats">
+        <span><span class="count" id="totalCount">0</span> employees</span>
+        <span class="cell-muted" id="dbState">SQL engine ready</span>
+      </div>
+      <search class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="text" id="searchEmp" class="search-emp" placeholder="Search by name, department or position…" aria-label="Search employees" spellcheck="false" autocomplete="off" />
+      </search>
+      <div class="table-wrap">
+        <table class="emp-table" id="empTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Position</th>
+              <th class="actions-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="empBody"></tbody>
+        </table>
+      </div>
+      <div class="todo-empty" id="emptyMsg">No employees yet. Add one above!</div>
+      <div class="todo-empty" id="noMatchMsg" style="display:none;">No employees match your search.</div>
+      <div class="shortcut-help">
+        <span><kbd>Drag</kbd> Reorder</span>
+        <span><kbd>Click name</kbd> View details</span>
+        <span><kbd>/</kbd> Search</span>
+        <span><kbd>Esc</kbd> Close</span>
+      </div>
+      <div id="srLive" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    </div>
+
+    <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;align-items:center;">
+      <button class="btn btn-sm btn-ghost" id="saveBtn" title="Download the whole database as a JSON file"><i class="fa-solid fa-download"></i> Save</button>
+      <button class="btn btn-sm btn-ghost" id="loadBtn" title="Import a database from a JSON file"><i class="fa-solid fa-upload"></i> Load</button>
+      <button class="btn btn-sm btn-ghost" id="clearBtn" title="Permanently remove every employee record"><i class="fa-solid fa-trash-can"></i> Delete All</button>
+      <button class="btn btn-sm btn-ghost" id="advancedToggle" aria-expanded="false" aria-controls="advancedPanel" title="Show table schemas and run raw SQL queries"><i class="fa-solid fa-sliders"></i> SQL Interface<i class="fa-solid fa-chevron-down toggle-chev"></i></button>
+      <input type="file" id="fileInput" accept=".json,application/json" style="display:none" />
+    </div>
+
+    <div class="card advanced-panel" id="advancedPanel">
+      <p style="margin:0 0 0.9rem;font-size:0.88rem;color:var(--text-muted);line-height:1.6;">Two related tables (&ldquo;employees&rdquo; and &ldquo;details&rdquo;) managed through a real JavaScript SQL engine. All data is saved and loaded locally as JSON.</p>
+      <div class="advanced-head"><i class="fa-solid fa-database"></i>Tables</div>
+      <div class="tables-info">
+        employees(id <span class="type">INTEGER</span> PK AUTOINCREMENT, name <span class="type">TEXT</span> NOT NULL, sort_order <span class="type">NUMERIC</span>)<br>
+        details(employee_id <span class="type">INTEGER</span> PK, email, phone, department, position, salary <span class="type">NUMERIC</span>, start_date <span class="type">TEXT</span>) &rarr; FK to employees.id
+      </div>
+
+      <div class="sql-box">
+        <div class="sql-label">
+          <span>Run SQL query</span>
+        </div>
+        <textarea id="sqlInput" class="sql-input" spellcheck="false" placeholder="SELECT e.id, e.name, d.position FROM employees e LEFT JOIN details d ON e.id = d.employee_id;"></textarea>
+        <div class="sql-toolbar">
+          <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+            <button class="btn btn-sm" id="sqlRunBtn"><i class="fa-solid fa-play"></i> Run</button>
+            <label class="sql-example" for="sqlExample">
+              <select id="sqlExample">
+                <option value="" selected>Choose an example query…</option>
+                <option value="SELECT * FROM employees;">List all employees</option>
+                <option value="SELECT e.id, e.name, e.sort_order, d.email, d.phone, d.department, d.position, d.salary, d.start_date FROM employees e LEFT JOIN details d ON e.id = d.employee_id ORDER BY e.sort_order;">List all employees and their details</option>
+                <option value="SELECT e.name, d.position, d.salary FROM employees e JOIN details d ON e.id = d.employee_id WHERE d.salary > 100000 ORDER BY d.salary DESC;">Employees earning over $100k</option>
+                <option value="SELECT d.department, COUNT(*) AS staff FROM employees e JOIN details d ON e.id = d.employee_id GROUP BY d.department ORDER BY staff DESC;">Staff count per department</option>
+              </select>
+            </label>
+          </div>
+          <div class="sql-hint">
+            Queries run against the live database. <kbd style="background:rgba(15,23,42,0.9);border:1px solid rgba(148,163,184,0.25);border-radius:3px;padding:0.05rem 0.3rem;font-size:0.65rem;color:rgba(148,163,184,0.7);">Ctrl+Enter</kbd> to run. <span class="warn">Write queries alter your data.</span>
+          </div>
+        </div>
+        <div class="sql-output" id="sqlOutput"></div>
+
+        <div class="raw-actions" id="rawActions">
+          <span class="raw-label">Raw tables:</span>
+          <button class="btn btn-sm btn-ghost" data-action="view" data-table="employees"><i class="fa-solid fa-eye"></i> View employees</button>
+          <button class="btn btn-sm btn-ghost" data-action="view" data-table="details"><i class="fa-solid fa-eye"></i> View details</button>
+          <button class="btn btn-sm btn-ghost" data-action="edit" data-table="employees"><i class="fa-solid fa-pen-to-square"></i> Edit employees</button>
+          <button class="btn btn-sm btn-ghost" data-action="edit" data-table="details"><i class="fa-solid fa-pen-to-square"></i> Edit details</button>
+        </div>
+
+        <div class="raw-editor" id="rawEditor">
+          <div class="raw-editor-head">
+            <span id="rawEditorTitle"></span>
+            <div class="btns">
+              <button class="btn btn-sm" id="rawAddBtn"><i class="fa-solid fa-plus"></i> Add row</button>
+              <button class="btn btn-sm btn-ghost" id="rawSaveBtn"><i class="fa-solid fa-check"></i> Save all</button>
+              <button class="btn btn-sm btn-ghost" id="rawCloseBtn"><i class="fa-solid fa-xmark"></i> Close</button>
+            </div>
+          </div>
+          <div class="raw-scroll">
+            <table class="raw-table">
+              <thead id="rawHead"></thead>
+              <tbody id="rawBody"></tbody>
+            </table>
+          </div>
+          <div class="raw-msg" id="rawMsg"></div>
+        </div>
+      </div>
+
+      <div class="engine-note" style="margin-top:0.9rem;"><i class="fa-solid fa-circle-check"></i> Powered by AlaSQL &mdash; in-memory relational engine, persisted to localStorage and exportable as JSON.</div>
+    </div>
+
+    <footer>
+      <span>AI generated <span id="footerDate"></span>.</span>
+    </footer>
+  </main>
+
+  <div class="modal-overlay" id="formModal" aria-hidden="true">
+    <div class="modal-box form-box" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+      <h3 id="formTitle">Add Employee</h3>
+      <form id="empForm" novalidate>
+        <div class="field">
+          <label for="fName">Full name <span class="req">*</span></label>
+          <input id="fName" name="name" placeholder="e.g. Ada Lovelace" autocomplete="off" spellcheck="false" required />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="fEmail">Email</label>
+            <input id="fEmail" name="email" type="email" placeholder="name@company.com" autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="field">
+            <label for="fPhone">Phone</label>
+            <input id="fPhone" name="phone" type="tel" placeholder="+1 555 0100" autocomplete="off" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="fDept">Department</label>
+            <input id="fDept" name="department" placeholder="e.g. Engineering" autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="field">
+            <label for="fPos">Position</label>
+            <input id="fPos" name="position" placeholder="e.g. Software Engineer" autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="fSalary">Salary (USD)</label>
+            <input id="fSalary" name="salary" type="number" min="0" step="0.01" placeholder="120000.00" inputmode="decimal" />
+          </div>
+          <div class="field">
+            <label for="fStart">Start date</label>
+            <input id="fStart" name="start_date" type="date" />
+          </div>
+        </div>
+        <p class="form-error" id="formError">Please enter at least a name.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-sm btn-ghost" id="formCancel">Cancel</button>
+          <button type="submit" class="btn btn-sm" id="formSave"><i class="fa-solid fa-check"></i> Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle"></h3>
+      <p id="modalMessage"></p>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const DB_NAME = 'empdb';
+      const STORAGE_KEY = 'employee_db_json';
+
+      let editingId = null;
+      let searchQuery = '';
+      let draggedId = null;
+      let currentIds = [];
+
+      const empBody = document.getElementById('empBody');
+      const emptyMsg = document.getElementById('emptyMsg');
+      const noMatchMsg = document.getElementById('noMatchMsg');
+      const totalCount = document.getElementById('totalCount');
+      const dbState = document.getElementById('dbState');
+      const searchEmp = document.getElementById('searchEmp');
+      const addBtn = document.getElementById('addBtn');
+      const saveBtn = document.getElementById('saveBtn');
+      const loadBtn = document.getElementById('loadBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const fileInput = document.getElementById('fileInput');
+      const formModal = document.getElementById('formModal');
+      const empForm = document.getElementById('empForm');
+      const formTitle = document.getElementById('formTitle');
+      const formError = document.getElementById('formError');
+      const modalOverlay = document.getElementById('modalOverlay');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalMessage = document.getElementById('modalMessage');
+      const modalActions = document.getElementById('modalActions');
+      const srLive = document.getElementById('srLive');
+      const advancedToggle = document.getElementById('advancedToggle');
+      const advancedPanel = document.getElementById('advancedPanel');
+      const sqlInput = document.getElementById('sqlInput');
+      const sqlRunBtn = document.getElementById('sqlRunBtn');
+      const sqlOutput = document.getElementById('sqlOutput');
+      const sqlExample = document.getElementById('sqlExample');
+      const rawActions = document.getElementById('rawActions');
+      const rawEditor = document.getElementById('rawEditor');
+      const rawEditorTitle = document.getElementById('rawEditorTitle');
+      const rawHead = document.getElementById('rawHead');
+      const rawBody = document.getElementById('rawBody');
+      const rawMsg = document.getElementById('rawMsg');
+      const rawAddBtn = document.getElementById('rawAddBtn');
+      const rawSaveBtn = document.getElementById('rawSaveBtn');
+      const rawCloseBtn = document.getElementById('rawCloseBtn');
+
+      const F = {
+        name: document.getElementById('fName'),
+        email: document.getElementById('fEmail'),
+        phone: document.getElementById('fPhone'),
+        department: document.getElementById('fDept'),
+        position: document.getElementById('fPos'),
+        salary: document.getElementById('fSalary'),
+        start_date: document.getElementById('fStart')
+      };
+
+      function announce(msg) {
+        srLive.textContent = '';
+        setTimeout(function () { srLive.textContent = msg; }, 50);
+      }
+
+      function fmtMoney(n) {
+        if (n === null || n === undefined || n === '' || isNaN(n)) return null;
+        try {
+          return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(Number(n));
+        } catch (e) { return String(n); }
+      }
+
+      function fmtDate(d) {
+        if (!d) return null;
+        const dt = new Date(d);
+        if (isNaN(dt.getTime())) return d;
+        return dt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+      }
+
+      function sqlExec(sql, params) {
+        try {
+          return params ? alasql(sql, params) : alasql(sql);
+        } catch (err) {
+          console.error('SQL error:', sql, err);
+          throw err;
+        }
+      }
+
+      function initDatabase() {
+        sqlExec('CREATE DATABASE IF NOT EXISTS ' + DB_NAME);
+        sqlExec('USE ' + DB_NAME);
+        sqlExec('CREATE TABLE IF NOT EXISTS employees (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, sort_order NUMERIC)');
+        sqlExec('CREATE TABLE IF NOT EXISTS details (employee_id INTEGER PRIMARY KEY, email TEXT, phone TEXT, department TEXT, position TEXT, salary NUMERIC, start_date TEXT)');
+        sqlExec('UPDATE employees SET sort_order = id WHERE sort_order IS NULL OR sort_order = \'\'');
+      }
+
+      function dumpDb() {
+        return {
+          version: 1,
+          exportedAt: new Date().toISOString(),
+          employees: sqlExec('SELECT * FROM employees ORDER BY sort_order, id'),
+          details: sqlExec('SELECT * FROM details ORDER BY employee_id')
+        };
+      }
+
+      function importData(data, opts) {
+        opts = opts || {};
+        if (!data || !Array.isArray(data.employees) || !Array.isArray(data.details)) {
+          throw new Error('Not a valid employee database JSON file.');
+        }
+        sqlExec('BEGIN TRANSACTION');
+        try {
+          sqlExec('DELETE FROM details');
+          sqlExec('DELETE FROM employees');
+          data.employees.forEach(function (e, i) {
+            if (typeof e.name !== 'string' || !e.name.trim()) return;
+            var id = Number.isFinite(Number(e.id)) ? Number(e.id) : null;
+            if (id === null || id < 1) return;
+            var so = e.sort_order != null && Number.isFinite(Number(e.sort_order)) ? Number(e.sort_order) : i + 1;
+            sqlExec('INSERT INTO employees (id, name, sort_order) VALUES (?, ?, ?)', [id, e.name.trim(), so]);
+          });
+          data.details.forEach(function (d) {
+            var eid = Number.isFinite(Number(d.employee_id)) ? Number(d.employee_id) : null;
+            if (eid === null || eid < 1) return;
+            sqlExec('INSERT INTO details (employee_id, email, phone, department, position, salary, start_date) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+              eid,
+              d.email == null ? null : String(d.email),
+              d.phone == null ? null : String(d.phone),
+              d.department == null ? null : String(d.department),
+              d.position == null ? null : String(d.position),
+              d.salary == null || d.salary === '' ? null : Number(d.salary),
+              d.start_date == null ? null : String(d.start_date)
+            ]);
+          });
+          sqlExec('COMMIT TRANSACTION');
+        } catch (err) {
+          try { sqlExec('ROLLBACK TRANSACTION'); } catch (e) {}
+          throw err;
+        }
+      }
+
+      function saveLocal() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(dumpDb()));
+        } catch (e) { console.warn('localStorage save failed', e); }
+      }
+
+      function restoreLocal() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          importData(JSON.parse(raw));
+        } catch (e) { console.warn('localStorage restore failed', e); }
+      }
+
+      function queryEmployees() {
+        const hasQ = searchQuery.length > 0;
+        const q = '%' + searchQuery + '%';
+        const sql = 'SELECT e.id, e.name, d.email, d.phone, d.department, d.position, d.salary, d.start_date ' +
+                    'FROM employees e LEFT JOIN details d ON e.id = d.employee_id ' +
+                    (hasQ ? 'WHERE e.name LIKE ? OR d.department LIKE ? OR d.position LIKE ? ' : '') +
+                    'ORDER BY e.sort_order, e.id';
+        return sqlExec(sql, hasQ ? [q, q, q] : []);
+      }
+
+      function render() {
+        let rows = [];
+        try {
+          rows = queryEmployees();
+        } catch (err) {
+          empBody.innerHTML = '';
+          totalCount.textContent = '0';
+          emptyMsg.style.display = 'block';
+          emptyMsg.textContent = 'SQL error: ' + err.message;
+          noMatchMsg.style.display = 'none';
+          return;
+        }
+
+        empBody.innerHTML = '';
+        let totalEmp = 0;
+        try { totalEmp = sqlExec('SELECT COUNT(*) AS c FROM employees')[0].c; } catch (e) {}
+        noMatchMsg.style.display = (rows.length === 0 && totalEmp > 0 && searchQuery) ? 'block' : 'none';
+        currentIds = rows.map(function (r) { return r.id; });
+
+        rows.forEach(function (r) {
+          const id = r.id;
+          const main = document.createElement('tr');
+          main.className = 'emp-main';
+          main.dataset.id = id;
+          main.draggable = !searchQuery;
+
+          const idCell = document.createElement('td');
+          idCell.className = 'emp-id';
+          idCell.textContent = '#' + id;
+
+          const nameCell = document.createElement('td');
+          const toggle = document.createElement('button');
+          toggle.className = 'name-toggle';
+          toggle.type = 'button';
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.innerHTML = '<i class="fa-solid fa-chevron-right chev" aria-hidden="true"></i><span class="name-text"></span>';
+          toggle.querySelector('.name-text').textContent = r.name;
+          toggle.addEventListener('click', function () {
+            const detailRow = empBody.querySelector('tr.detail-row[data-for="' + id + '"]');
+            if (detailRow) {
+              const open = detailRow.style.display !== 'none';
+              detailRow.style.display = open ? 'none' : '';
+              toggle.classList.toggle('open', !open);
+              toggle.setAttribute('aria-expanded', String(!open));
+            }
+          });
+          nameCell.appendChild(toggle);
+
+          const deptCell = document.createElement('td');
+          deptCell.className = 'cell-muted';
+          deptCell.textContent = r.department || '—';
+
+          const posCell = document.createElement('td');
+          posCell.className = 'cell-muted';
+          posCell.textContent = r.position || '—';
+
+          const actionsCell = document.createElement('td');
+          actionsCell.className = 'actions-col';
+
+          const editBtn = document.createElement('button');
+          editBtn.className = 'icon-btn';
+          editBtn.title = 'Edit employee';
+          editBtn.setAttribute('aria-label', 'Edit ' + r.name);
+          editBtn.innerHTML = '<i class="fa-solid fa-pen" aria-hidden="true"></i>';
+          editBtn.addEventListener('click', function () { openForm(id); });
+
+          const delBtn = document.createElement('button');
+          delBtn.className = 'icon-btn danger';
+          delBtn.title = 'Delete employee';
+          delBtn.setAttribute('aria-label', 'Delete ' + r.name);
+          delBtn.innerHTML = '<i class="fa-solid fa-trash" aria-hidden="true"></i>';
+          delBtn.addEventListener('click', function () { deleteEmployee(id, r.name); });
+
+          actionsCell.appendChild(editBtn);
+          actionsCell.appendChild(delBtn);
+
+          main.appendChild(idCell);
+          main.appendChild(nameCell);
+          main.appendChild(deptCell);
+          main.appendChild(posCell);
+          main.appendChild(actionsCell);
+          if (!searchQuery) {
+            main.addEventListener('dragstart', onDragStart);
+            main.addEventListener('dragend', onDragEnd);
+            main.addEventListener('dragover', onDragOver);
+            main.addEventListener('dragleave', onDragLeave);
+            main.addEventListener('drop', onDrop);
+          }
+          empBody.appendChild(main);
+
+          const detail = document.createElement('tr');
+          detail.className = 'detail-row';
+          detail.dataset.for = id;
+          detail.style.display = 'none';
+          const cell = document.createElement('td');
+          cell.colSpan = 5;
+          cell.appendChild(buildDetailGrid(r));
+          detail.appendChild(cell);
+          empBody.appendChild(detail);
+        });
+
+        totalCount.textContent = String(rows.length);
+        emptyMsg.style.display = rows.length === 0 ? 'block' : 'none';
+        emptyMsg.textContent = totalEmp > 0 ? 'No employees match your search.' : 'No employees yet. Add one above!';
+        if (totalEmp === 0) noMatchMsg.style.display = 'none';
+
+        const hasRows = rows.length > 0;
+        saveBtn.classList.toggle('disabled', !hasRows);
+        saveBtn.setAttribute('tabindex', hasRows ? '0' : '-1');
+        saveBtn.setAttribute('aria-disabled', String(!hasRows));
+        clearBtn.classList.toggle('disabled', !hasRows);
+        clearBtn.setAttribute('tabindex', hasRows ? '0' : '-1');
+        clearBtn.setAttribute('aria-disabled', String(!hasRows));
+      }
+
+      function clearDragClasses() {
+        document.querySelectorAll('.emp-main.dragging, .emp-main.drop-before, .emp-main.drop-after').forEach(function (tr) {
+          tr.classList.remove('dragging', 'drop-before', 'drop-after');
+          delete tr.dataset.dropSide;
+        });
+      }
+
+      function onDragStart(e) {
+        const tr = e.target.closest('.emp-main');
+        if (!tr) return;
+        draggedId = tr.dataset.id;
+        tr.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', draggedId);
+        try { e.dataTransfer.setDragImage(tr, 10, 10); } catch (err) {}
+      }
+
+      function onDragEnd() {
+        clearDragClasses();
+        draggedId = null;
+      }
+
+      function onDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const tr = e.target.closest('.emp-main');
+        if (!tr || tr.dataset.id === draggedId) return;
+        const rect = tr.getBoundingClientRect();
+        const before = e.clientY < rect.top + rect.height / 2;
+        clearDragClasses();
+        tr.classList.add(before ? 'drop-before' : 'drop-after');
+        tr.dataset.dropSide = before ? 'before' : 'after';
+      }
+
+      function onDragLeave(e) {
+        const tr = e.target.closest('.emp-main');
+        if (!tr) return;
+        const related = e.relatedTarget;
+        if (related && tr.contains(related)) return;
+        tr.classList.remove('drop-before', 'drop-after');
+        delete tr.dataset.dropSide;
+      }
+
+      function onDrop(e) {
+        e.preventDefault();
+        if (!draggedId) return;
+        const target = e.target.closest('.emp-main');
+        if (!target) return;
+        const targetId = Number(target.dataset.id);
+        const draggedIdNum = Number(draggedId);
+        if (targetId === draggedIdNum || !isFinite(targetId) || !isFinite(draggedIdNum)) {
+          clearDragClasses();
+          draggedId = null;
+          return;
+        }
+
+        const side = target.dataset.dropSide || 'after';
+        const ids = currentIds.slice();
+        const fromIdx = ids.indexOf(draggedIdNum);
+        const toIdx = ids.indexOf(targetId);
+        if (fromIdx === -1 || toIdx === -1) { clearDragClasses(); draggedId = null; return; }
+
+        const moved = ids.splice(fromIdx, 1)[0];
+        let insertAt = ids.indexOf(targetId);
+        if (side === 'after') insertAt++;
+        ids.splice(insertAt, 0, moved);
+
+        try {
+          sqlExec('BEGIN TRANSACTION');
+          ids.forEach(function (id, i) {
+            sqlExec('UPDATE employees SET sort_order = ? WHERE id = ?', [i + 1, id]);
+          });
+          sqlExec('COMMIT TRANSACTION');
+          saveLocal();
+          render();
+          announce('Employees reordered');
+        } catch (err) {
+          try { sqlExec('ROLLBACK TRANSACTION'); } catch (e) {}
+          modalAlert('Reorder failed: ' + err.message);
+        }
+        clearDragClasses();
+        draggedId = null;
+      }
+
+      function buildDetailGrid(r) {
+        const grid = document.createElement('div');
+        grid.className = 'details-grid';
+
+        const defs = [
+          ['Email', r.email],
+          ['Phone', r.phone],
+          ['Department', r.department],
+          ['Position', r.position],
+          ['Salary', fmtMoney(r.salary)],
+          ['Start date', fmtDate(r.start_date)]
+        ];
+        let filled = 0;
+        defs.forEach(function (d) {
+          const item = document.createElement('div');
+          item.className = 'detail-item';
+          const k = document.createElement('span');
+          k.className = 'k';
+          k.textContent = d[0];
+          const v = document.createElement('span');
+          v.className = 'v';
+          const val = d[1];
+          if (val === null || val === undefined || val === '') {
+            v.classList.add('missing');
+            v.textContent = 'not set';
+          } else {
+            filled++;
+            v.textContent = val;
+          }
+          item.appendChild(k);
+          item.appendChild(v);
+          grid.appendChild(item);
+        });
+
+        if (filled === 0) {
+          const note = document.createElement('div');
+          note.className = 'detail-note';
+          note.textContent = 'No details recorded yet — click the pencil to add email, phone, salary and more.';
+          grid.appendChild(note);
+        }
+        return grid;
+      }
+
+      function lastInsertId() {
+        try {
+          const res = sqlExec('SELECT LAST_INSERT_ID() AS id');
+          if (res && res.length && Number.isFinite(Number(res[0].id)) && Number(res[0].id) > 0) return Number(res[0].id);
+        } catch (e) {}
+        const max = sqlExec('SELECT MAX(id) AS id FROM employees');
+        return max && max.length ? Number(max[0].id) || 1 : 1;
+      }
+
+      function openForm(id) {
+        editingId = id || null;
+        empForm.reset();
+        formError.classList.remove('show');
+        if (editingId !== null) {
+          formTitle.textContent = 'Edit Employee';
+          let r = null;
+          try {
+            r = sqlExec('SELECT e.id, e.name, d.email, d.phone, d.department, d.position, d.salary, d.start_date ' +
+                        'FROM employees e LEFT JOIN details d ON e.id = d.employee_id WHERE e.id = ?', [editingId])[0];
+          } catch (e) {}
+          if (r) {
+            F.name.value = r.name || '';
+            F.email.value = r.email || '';
+            F.phone.value = r.phone || '';
+            F.department.value = r.department || '';
+            F.position.value = r.position || '';
+            F.salary.value = r.salary === null || r.salary === undefined ? '' : r.salary;
+            F.start_date.value = r.start_date || '';
+          }
+        } else {
+          formTitle.textContent = 'Add Employee';
+        }
+        formModal.classList.add('open');
+        formModal.setAttribute('aria-hidden', 'false');
+        setTimeout(function () { F.name.focus(); }, 30);
+      }
+
+      function closeForm() {
+        formModal.classList.remove('open');
+        formModal.setAttribute('aria-hidden', 'true');
+        empForm.reset();
+        editingId = null;
+        addBtn.focus();
+      }
+
+      function saveForm() {
+        const name = F.name.value.trim();
+        if (!name) {
+          formError.classList.add('show');
+          F.name.focus();
+          return;
+        }
+        const details = [
+          F.email.value.trim() || null,
+          F.phone.value.trim() || null,
+          F.department.value.trim() || null,
+          F.position.value.trim() || null,
+          F.salary.value === '' ? null : Number(F.salary.value),
+          F.start_date.value || null
+        ];
+
+        try {
+          if (editingId !== null) {
+            sqlExec('UPDATE employees SET name = ? WHERE id = ?', [name, editingId]);
+            const hasDetail = sqlExec('SELECT employee_id FROM details WHERE employee_id = ?', [editingId]).length > 0;
+            if (hasDetail) {
+              sqlExec('UPDATE details SET email = ?, phone = ?, department = ?, position = ?, salary = ?, start_date = ? WHERE employee_id = ?',
+                details.concat([editingId]));
+            } else {
+              sqlExec('INSERT INTO details (employee_id, email, phone, department, position, salary, start_date) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                [editingId].concat(details));
+            }
+            announce('Updated: ' + name);
+          } else {
+            const next = sqlExec('SELECT COALESCE(MAX(sort_order), 0) + 1 AS next FROM employees')[0].next;
+            sqlExec('INSERT INTO employees (name, sort_order) VALUES (?, ?)', [name, next]);
+            const newId = lastInsertId();
+            sqlExec('INSERT INTO details (employee_id, email, phone, department, position, salary, start_date) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              [newId].concat(details));
+            announce('Added: ' + name);
+          }
+          saveLocal();
+          render();
+          closeForm();
+        } catch (err) {
+          modalAlert('Save failed: ' + err.message);
+        }
+      }
+
+      function deleteEmployee(id, name) {
+        modalConfirm('Delete "' + name + '"?\nThis removes their row from employees and the linked details row too.').then(function (ok) {
+          if (!ok) return;
+          sqlExec('DELETE FROM details WHERE employee_id = ?', [id]);
+          sqlExec('DELETE FROM employees WHERE id = ?', [id]);
+          saveLocal();
+          render();
+          announce('Deleted: ' + name);
+        });
+      }
+
+      function clearAll() {
+        modalConfirm('Delete all employees and their details?\nThis cannot be undone.').then(function (ok) {
+          if (!ok) return;
+          sqlExec('DELETE FROM details');
+          sqlExec('DELETE FROM employees');
+          saveLocal();
+          render();
+          announce('All employees deleted');
+        });
+      }
+
+      function saveJson() {
+        if (!sqlExec('SELECT COUNT(*) AS c FROM employees')[0].c) return;
+        modalPrompt('Enter filename:', 'employees.json').then(function (name) {
+          if (!name) return;
+          const content = JSON.stringify(dumpDb(), null, 2);
+          const blob = new Blob([content], { type: 'application/json' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = name.endsWith('.json') ? name : name + '.json';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(a.href);
+        });
+      }
+
+      function loadJson() {
+        let count = 0;
+        try { count = sqlExec('SELECT COUNT(*) AS c FROM employees')[0].c; } catch (e) {}
+        if (count > 0) {
+          modalConfirm('You have ' + count + ' employee record' + (count === 1 ? '' : 's') + ' that have not been saved. Loading a file will replace all current data. Do you want to continue?', 'Load').then(function (ok) {
+            if (ok) pickLoadFile();
+          });
+        } else {
+          pickLoadFile();
+        }
+      }
+
+      function pickLoadFile() {
+        fileInput.value = '';
+        fileInput.click();
+      }
+
+      function parseFile(file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          try {
+            const data = JSON.parse(e.target.result);
+            importData(data);
+            saveLocal();
+            render();
+            const n = sqlExec('SELECT COUNT(*) AS c FROM employees')[0].c;
+            modalAlert('Loaded ' + n + ' employees from "' + file.name + '".');
+          } catch (err) {
+            modalAlert('Failed to load file: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function modalAlert(msg) {
+        return new Promise(function (resolve) {
+          modalTitle.textContent = 'Employee Database';
+          modalMessage.textContent = msg;
+          modalActions.innerHTML = '<button class="btn btn-sm" id="modalOkBtn">OK</button>';
+          modalOverlay.classList.add('open');
+          var okBtn = document.getElementById('modalOkBtn');
+          okBtn.focus();
+          function close() { modalOverlay.classList.remove('open'); }
+          okBtn.addEventListener('click', function () { close(); resolve(); });
+          modalOverlay.addEventListener('click', function handler(e) {
+            if (e.target === modalOverlay) { close(); modalOverlay.removeEventListener('click', handler); resolve(); }
+          });
+          document.addEventListener('keydown', function handler(e) {
+            if (e.key === 'Escape') { close(); resolve(); }
+          }, { once: true });
+        });
+      }
+
+      function modalConfirm(msg, okLabel) {
+        return new Promise(function (resolve) {
+          modalTitle.textContent = 'Employee Database';
+          modalMessage.textContent = msg;
+          modalActions.innerHTML = '<button class="btn btn-sm" id="modalConfirmBtn">' + (okLabel || 'Delete') + '</button><button class="btn btn-sm btn-ghost" id="modalCancelBtn">Cancel</button>';
+          modalOverlay.classList.add('open');
+          var confirmBtn = document.getElementById('modalConfirmBtn');
+          var cancelBtn = document.getElementById('modalCancelBtn');
+          confirmBtn.focus();
+          function close() { modalOverlay.classList.remove('open'); }
+          confirmBtn.addEventListener('click', function () { close(); resolve(true); });
+          cancelBtn.addEventListener('click', function () { close(); resolve(false); });
+          modalOverlay.addEventListener('click', function handler(e) {
+            if (e.target === modalOverlay) { close(); modalOverlay.removeEventListener('click', handler); resolve(false); }
+          });
+          document.addEventListener('keydown', function handler(e) {
+            if (e.key === 'Escape') { close(); resolve(false); }
+          }, { once: true });
+        });
+      }
+
+      function modalPrompt(msg, defaultValue) {
+        return new Promise(function (resolve) {
+          modalTitle.textContent = 'Employee Database';
+          modalMessage.textContent = msg;
+          modalActions.innerHTML = '<button class="btn btn-sm" id="modalPromptOkBtn">OK</button><button class="btn btn-sm btn-ghost" id="modalPromptCancelBtn">Cancel</button>';
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.value = defaultValue || '';
+          input.style.cssText = 'width:100%;padding:0.5rem 0.75rem;border-radius:8px;border:1px solid var(--border-subtle);background:rgba(15,23,42,0.9);color:var(--text-main);font-size:0.9rem;outline:none;margin-bottom:1rem;box-sizing:border-box;';
+          modalMessage.after(input);
+          modalOverlay.classList.add('open');
+          input.focus();
+          input.select();
+          function cleanup() {
+            modalOverlay.classList.remove('open');
+            input.remove();
+          }
+          document.getElementById('modalPromptOkBtn').addEventListener('click', function () {
+            var val = input.value.trim();
+            cleanup();
+            resolve(val || defaultValue || null);
+          });
+          document.getElementById('modalPromptCancelBtn').addEventListener('click', function () {
+            cleanup();
+            resolve(null);
+          });
+          input.addEventListener('keydown', function handler(e) {
+            if (e.key === 'Enter') {
+              var val = input.value.trim();
+              cleanup();
+              input.removeEventListener('keydown', handler);
+              resolve(val || defaultValue || null);
+            }
+            if (e.key === 'Escape') {
+              e.stopPropagation();
+              cleanup();
+              input.removeEventListener('keydown', handler);
+              resolve(null);
+            }
+          });
+          modalOverlay.addEventListener('click', function handler(e) {
+            if (e.target === modalOverlay) { cleanup(); modalOverlay.removeEventListener('click', handler); resolve(null); }
+          });
+          document.addEventListener('keydown', function handler(e) {
+            if (e.key === 'Escape') { cleanup(); resolve(null); }
+          }, { once: true });
+        });
+      }
+
+      function setAdvanced(open) {
+        advancedPanel.classList.toggle('open', open);
+        advancedToggle.classList.toggle('btn-active', open);
+        advancedToggle.setAttribute('aria-expanded', String(open));
+        try { localStorage.setItem('advancedOpen', open ? '1' : '0'); } catch (e) {}
+      }
+
+      function toggleAdvanced() {
+        const opening = !advancedPanel.classList.contains('open');
+        setAdvanced(opening);
+        if (opening) sqlInput.focus();
+      }
+
+      function isWriteSql(sql) {
+        var first = sql.trim().split(/[\s(]+/, 1)[0].toLowerCase();
+        return ['insert', 'update', 'delete', 'create', 'drop', 'alter', 'replace', 'truncate', 'use', 'begin', 'commit', 'rollback'].indexOf(first) !== -1;
+      }
+
+      function showSqlMessage(cls, text) {
+        sqlOutput.innerHTML = '';
+        var m = document.createElement('div');
+        m.className = 'sql-message ' + cls;
+        m.textContent = text;
+        sqlOutput.appendChild(m);
+        sqlOutput.classList.add('show');
+      }
+
+      function runSql() {
+        var sql = sqlInput.value.trim();
+        if (!sql) { showSqlMessage('error', 'Enter a SQL query first.'); return; }
+
+        var isWrite = isWriteSql(sql);
+        try {
+          var result = alasql(sql);
+          sqlExec('USE ' + DB_NAME);
+
+          if (Array.isArray(result) && result.length > 0 && result.every(function (r) { return typeof r === 'object' && r !== null; })) {
+            var keys = [];
+            result.forEach(function (row) {
+              Object.keys(row).forEach(function (k) {
+                if (keys.indexOf(k) === -1) keys.push(k);
+              });
+            });
+            sqlOutput.innerHTML = '';
+            var wrap = document.createElement('div');
+            wrap.className = 'table-wrap';
+            var table = document.createElement('table');
+            table.className = 'emp-table';
+            var thead = document.createElement('thead');
+            var hr = document.createElement('tr');
+            keys.forEach(function (k) {
+              var th = document.createElement('th');
+              th.textContent = k;
+              hr.appendChild(th);
+            });
+            thead.appendChild(hr);
+            table.appendChild(thead);
+            var tbody = document.createElement('tbody');
+            result.forEach(function (row) {
+              var tr = document.createElement('tr');
+              keys.forEach(function (k) {
+                var td = document.createElement('td');
+                var v = row[k];
+                td.textContent = (v === null || v === undefined) ? 'NULL' : String(v);
+                if (v === null || v === undefined) td.className = 'cell-muted';
+                tr.appendChild(td);
+              });
+              tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+            wrap.appendChild(table);
+            sqlOutput.appendChild(wrap);
+            var count = document.createElement('div');
+            count.className = 'sql-hint';
+            count.style.marginTop = '0.4rem';
+            count.textContent = result.length + ' row' + (result.length === 1 ? '' : 's');
+            sqlOutput.appendChild(count);
+            sqlOutput.classList.add('show');
+          } else {
+            var n = Array.isArray(result) ? result.length : null;
+            var txt = (n !== null) ? (n + ' row' + (n === 1 ? '' : 's') + ' returned')
+                      : String(result);
+            showSqlMessage('ok', txt);
+          }
+
+          if (isWrite) {
+            render();
+            saveLocal();
+          }
+        } catch (err) {
+          try { sqlExec('USE ' + DB_NAME); } catch (e) {}
+          showSqlMessage('error', 'SQL error: ' + err.message);
+        }
+      }
+
+      const RAW_COLS = {
+        employees: [
+          { k: 'id', label: 'id', type: 'number', pk: true },
+          { k: 'name', label: 'name', type: 'text', required: true },
+          { k: 'sort_order', label: 'sort_order', type: 'number' }
+        ],
+        details: [
+          { k: 'employee_id', label: 'employee_id', type: 'number', pk: true, required: true },
+          { k: 'email', label: 'email', type: 'text' },
+          { k: 'phone', label: 'phone', type: 'text' },
+          { k: 'department', label: 'department', type: 'text' },
+          { k: 'position', label: 'position', type: 'text' },
+          { k: 'salary', label: 'salary', type: 'number' },
+          { k: 'start_date', label: 'start_date', type: 'date' }
+        ]
+      };
+
+      let rawTable = null;
+
+      function showRawMsg(msg, isErr) {
+        rawMsg.textContent = msg;
+        rawMsg.classList.toggle('error', !!isErr);
+      }
+
+      function rawView(table) {
+        sqlInput.value = 'SELECT * FROM ' + table + ';';
+        sqlInput.focus();
+        runSql();
+      }
+
+      function rawEdit(table) {
+        rawTable = table;
+        loadRawEditor();
+      }
+
+      function rawClose() {
+        rawEditor.classList.remove('open');
+        rawTable = null;
+        showRawMsg('');
+      }
+
+      function rawRowInputs() {
+        return RAW_COLS[rawTable];
+      }
+
+      function loadRawEditor() {
+        if (!rawTable) return;
+        rawEditorTitle.textContent = 'Raw table editor — ' + rawTable;
+        showRawMsg('');
+        const cols = rawRowInputs();
+        const orderBy = rawTable === 'employees' ? 'sort_order' : 'employee_id';
+        let rows = [];
+        try {
+          rows = sqlExec('SELECT * FROM ' + rawTable + ' ORDER BY ' + orderBy);
+        } catch (e) {
+          showRawMsg('Failed to load table: ' + e.message, true);
+          return;
+        }
+
+        rawHead.innerHTML = '';
+        const hr = document.createElement('tr');
+        cols.forEach(function (c) {
+          const th = document.createElement('th');
+          th.textContent = c.label + (c.pk ? ' *' : '');
+          hr.appendChild(th);
+        });
+        const thDel = document.createElement('th');
+        thDel.className = 'del-cell';
+        hr.appendChild(thDel);
+        rawHead.appendChild(hr);
+
+        rawBody.innerHTML = '';
+        rows.forEach(function (r) { buildRawRow(r); });
+        rawEditor.classList.add('open');
+      }
+
+      function buildRawRow(row, isNew) {
+        const cols = rawRowInputs();
+        const pkCol = cols.find(function (c) { return c.pk; });
+        const tr = document.createElement('tr');
+        tr.dataset.new = isNew ? '1' : '';
+        tr.dataset.orig = (!isNew && row) ? String(row[pkCol.k]) : '';
+
+        cols.forEach(function (c) {
+          const td = document.createElement('td');
+          const input = document.createElement('input');
+          input.type = c.type === 'number' ? 'number' : c.type;
+          input.dataset.col = c.k;
+          input.step = c.type === 'number' ? 'any' : undefined;
+          if (isNew) {
+            if (c.pk) input.placeholder = rawTable === 'employees' ? 'auto' : 'required';
+            else if (c.k === 'sort_order') input.placeholder = 'auto';
+          } else if (c.pk) {
+            input.value = row[c.k] == null ? '' : String(row[c.k]);
+            input.disabled = true;
+          } else {
+            input.value = row[c.k] == null ? '' : String(row[c.k]);
+          }
+          td.appendChild(input);
+          tr.appendChild(td);
+        });
+
+        const delTd = document.createElement('td');
+        delTd.className = 'del-cell';
+        const del = document.createElement('button');
+        del.className = 'icon-btn danger';
+        del.type = 'button';
+        del.title = 'Delete row';
+        del.setAttribute('aria-label', 'Delete row');
+        del.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        del.addEventListener('click', function () { rawDeleteRow(tr); });
+        delTd.appendChild(del);
+        tr.appendChild(delTd);
+
+        rawBody.appendChild(tr);
+      }
+
+      function rawAddRow() {
+        if (!rawTable) return;
+        buildRawRow(null, true);
+        showRawMsg('');
+        const last = rawBody.lastElementChild;
+        if (last) {
+          const first = last.querySelector('input:not([disabled])');
+          if (first) first.focus();
+        }
+      }
+
+      function rawReadRows() {
+        const cols = rawRowInputs();
+        const rows = [];
+        rawBody.querySelectorAll('tr').forEach(function (tr) {
+          const isNew = tr.dataset.new === '1';
+          const orig = tr.dataset.orig || null;
+          const vals = {};
+          tr.querySelectorAll('input[data-col]').forEach(function (inp) {
+            const c = cols.find(function (x) { return x.k === inp.dataset.col; });
+            if (!c) return;
+            const raw = inp.value;
+            if (c.type === 'number') {
+              if (raw === '') vals[c.k] = null;
+              else { const n = Number(raw); vals[c.k] = isNaN(n) ? null : n; }
+            } else {
+              vals[c.k] = raw.trim() === '' ? null : raw.trim();
+            }
+          });
+          rows.push({ isNew: isNew, orig: orig, vals: vals });
+        });
+        return rows;
+      }
+
+      function rawSaveAll() {
+        if (!rawTable) return;
+        const cols = rawRowInputs();
+        const pkCol = cols.find(function (c) { return c.pk; });
+        const nonPk = cols.filter(function (c) { return !c.pk; });
+        const rows = rawReadRows();
+        if (!rows.length) { showRawMsg('Table has no rows.', true); return; }
+
+        let err = null;
+        rows.forEach(function (r) {
+          cols.forEach(function (c) {
+            if (c.required && (r.vals[c.k] === null || String(r.vals[c.k]).trim() === '')) {
+              if (!err) err = c.label + ' is required in every row.';
+            }
+          });
+        });
+        if (err) { showRawMsg(err, true); return; }
+
+        try {
+          sqlExec('BEGIN TRANSACTION');
+          rows.forEach(function (r) {
+            if (r.isNew) {
+              const insertVals = {};
+              cols.forEach(function (c) { insertVals[c.k] = r.vals[c.k]; });
+              if (insertVals[pkCol.k] === null) {
+                insertVals[pkCol.k] = sqlExec('SELECT COALESCE(MAX(' + pkCol.k + '), 0) + 1 AS n FROM ' + rawTable)[0].n;
+              }
+              if (rawTable === 'employees' && insertVals.sort_order === null) {
+                insertVals.sort_order = sqlExec('SELECT COALESCE(MAX(sort_order), 0) + 1 AS n FROM employees')[0].n;
+              }
+              if (rawTable === 'details') {
+                const exists = sqlExec('SELECT COUNT(*) AS c FROM employees WHERE id = ?', [Number(insertVals.employee_id)])[0].c;
+                if (!exists) throw new Error('details.employee_id ' + insertVals.employee_id + ' does not exist in employees.');
+              }
+              const keys = cols.map(function (c) { return c.k; });
+              const marks = keys.map(function () { return '?'; }).join(', ');
+              sqlExec('INSERT INTO ' + rawTable + ' (' + keys.join(', ') + ') VALUES (' + marks + ')',
+                keys.map(function (k) { return insertVals[k]; }));
+            } else {
+              const set = nonPk.map(function (c) { return c.k + ' = ?'; }).join(', ');
+              const params = nonPk.map(function (c) { return r.vals[c.k]; });
+              params.push(Number(r.orig));
+              sqlExec('UPDATE ' + rawTable + ' SET ' + set + ' WHERE ' + pkCol.k + ' = ?', params);
+            }
+          });
+          sqlExec('COMMIT TRANSACTION');
+          saveLocal();
+          render();
+          loadRawEditor();
+          showRawMsg('Saved ' + rows.length + ' row' + (rows.length === 1 ? '' : 's'));
+        } catch (e) {
+          try { sqlExec('ROLLBACK TRANSACTION'); } catch (e2) {}
+          showRawMsg('Save failed: ' + e.message, true);
+        }
+      }
+
+      function rawDeleteRow(tr) {
+        if (!rawTable) return;
+        const isNew = tr.dataset.new === '1';
+        if (isNew) {
+          tr.remove();
+          showRawMsg('Row removed.');
+          return;
+        }
+        const pkCol = rawRowInputs().find(function (c) { return c.pk; });
+        const pk = tr.dataset.orig;
+        modalConfirm('Delete this row (' + pkCol.k + ' = ' + pk + ') from "' + rawTable + '"?').then(function (ok) {
+          if (!ok) return;
+          try {
+            sqlExec('DELETE FROM ' + rawTable + ' WHERE ' + pkCol.k + ' = ?', [Number(pk)]);
+            saveLocal();
+            render();
+            showRawMsg('Row deleted.');
+            loadRawEditor();
+          } catch (e) {
+            showRawMsg('Delete failed: ' + e.message, true);
+          }
+        });
+      }
+
+      addBtn.addEventListener('click', function () { openForm(null); });
+      empForm.addEventListener('submit', function (e) { e.preventDefault(); saveForm(); });
+      document.getElementById('formCancel').addEventListener('click', closeForm);
+      saveBtn.addEventListener('click', saveJson);
+      loadBtn.addEventListener('click', loadJson);
+      clearBtn.addEventListener('click', clearAll);
+      fileInput.addEventListener('change', function (e) {
+        if (e.target.files && e.target.files[0]) parseFile(e.target.files[0]);
+      });
+      searchEmp.addEventListener('input', function () {
+        searchQuery = searchEmp.value.trim();
+        render();
+      });
+      formModal.addEventListener('click', function (e) {
+        if (e.target === formModal) closeForm();
+      });
+      advancedToggle.addEventListener('click', toggleAdvanced);
+      sqlRunBtn.addEventListener('click', runSql);
+      sqlExample.addEventListener('change', function () {
+        if (sqlExample.value) {
+          sqlInput.value = sqlExample.value;
+          sqlInput.focus();
+          sqlInput.selectionStart = sqlInput.selectionEnd = sqlInput.value.length;
+          sqlExample.value = '';
+        }
+      });
+      rawActions.addEventListener('click', function (e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const table = btn.dataset.table;
+        if (btn.dataset.action === 'view') rawView(table);
+        else if (btn.dataset.action === 'edit') rawEdit(table);
+      });
+      rawAddBtn.addEventListener('click', rawAddRow);
+      rawSaveBtn.addEventListener('click', rawSaveAll);
+      rawCloseBtn.addEventListener('click', rawClose);
+      sqlInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          runSql();
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && formModal.classList.contains('open')) {
+          closeForm();
+          return;
+        }
+        if (e.target === document.body || e.target === document.documentElement) {
+          if (e.key === '/') {
+            e.preventDefault();
+            searchEmp.focus();
+          }
+        }
+      });
+
+      function boot() {
+        if (typeof alasql === 'undefined') {
+          emptyMsg.textContent = 'Could not load the SQL engine (AlaSQL). Check your internet connection and reload.';
+          emptyMsg.style.display = 'block';
+          dbState.textContent = 'SQL engine unavailable';
+          return;
+        }
+        try {
+          initDatabase();
+          restoreLocal();
+          render();
+          dbState.textContent = 'SQL engine ready';
+          const emps = sqlExec('SELECT COUNT(*) AS c FROM employees')[0].c;
+          const dets = sqlExec('SELECT COUNT(*) AS c FROM details')[0].c;
+          if (emps || dets) {
+            dbState.textContent = emps + ' employees · ' + dets + ' details';
+          }
+          let advancedOpen = false;
+          try { advancedOpen = localStorage.getItem('advancedOpen') === '1'; } catch (e) {}
+          setAdvanced(advancedOpen);
+        } catch (err) {
+          emptyMsg.textContent = 'Failed to start SQL engine: ' + err.message;
+          emptyMsg.style.display = 'block';
+          dbState.textContent = 'error';
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+      } else {
+        boot();
+      }
+
+      var fd = document.getElementById('footerDate');
+      if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    })();
+  </script>
+</body>
+</html>

@@ -68,7 +68,7 @@
       z-index: 0; pointer-events: none;
     }
     .page-shell {
-      position: relative; z-index: 1; max-width: 960px;
+      position: relative; z-index: 1; max-width: 1200px;
       margin: 0 auto; padding: 1.6rem 1.25rem 3.5rem;
     }
     @media (min-width: 992px) { .page-shell { padding-top: 1.85rem; } }
@@ -454,7 +454,7 @@
     #localFirstLink { color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent); cursor: pointer; transition: color 0.2s ease; }
     #localFirstLink:hover { color: #7dd3fc; }
     .news-ticker {
-      position: relative; overflow: hidden; height: 100px;
+      position: relative; overflow: hidden; height: 200px;
       margin: -0.3rem 0 0.8rem 0; border-radius: 12px;
       background: rgba(15,23,42,0.5); border: 1px solid var(--border-subtle);
     }
@@ -470,7 +470,7 @@
       border-color: var(--accent);
     }
     .news-ticker-item {
-      padding: 0.55rem 0.9rem; font-size: 0.95rem; color: var(--text-muted);
+      padding: 0.55rem 0.9rem; font-size: 1.27rem; color: var(--text-muted);
       border-bottom: 1px solid rgba(148,163,184,0.1); cursor: pointer;
       transition: color 0.15s ease, background 0.15s ease;
       display: flex; justify-content: space-between; align-items: center; gap: 1rem;
@@ -478,7 +478,7 @@
     .news-ticker-item:hover { color: var(--accent); background: rgba(56,189,248,0.06); }
     .news-ticker-item:last-child { border-bottom: none; }
     .news-ticker-item .ni-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .news-ticker-item .ni-time { font-size: 0.8rem; color: rgba(148,163,184,0.85); white-space: nowrap; flex-shrink: 0; }
+    .news-ticker-item .ni-time { font-size: 1.07rem; color: rgba(148,163,184,0.85); white-space: nowrap; flex-shrink: 0; }
     .news-ticker-grad {
       position: absolute; left: 0; right: 0; height: 20px; pointer-events: none; z-index: 1;
     }
@@ -718,6 +718,7 @@
       </header>
       <ul class="chatbot-list">
         <li><a href="todolist.html">Todo List</a> &mdash; A simple Todo List manager, lists saved and loaded locally.</li>
+        <li><a href="employee.html">Employee Database</a> &mdash; An SQL based database.</li>
         <li><a href="dividends.html">Top Dividend Stocks</a> &mdash; The 10 highest-yielding dividend stocks on the LSE, NYSE and NASDAQ.</li>
 
         <li><a href="gibberlink.html">Gibberlink</a> &mdash; Convert messages to and from Gibberlink, the fast, syllable-based language AI agents use to communicate.</li>
