@@ -6,6 +6,16 @@
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="description" content="Convert messages to and from Gibberlink — a reversible text-to-gibberish encoding." />
+  <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
+  <meta property="og:title" content="Gibberlink" />
+  <meta property="og:description" content="Convert messages to and from Gibberlink — a reversible text-to-gibberish encoding." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Gibberlink" />
+  <meta name="twitter:description" content="Convert messages to and from Gibberlink — a reversible text-to-gibberish encoding." />
   <title>Gibberlink</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗣</text></svg>" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
@@ -244,10 +254,26 @@
       textarea { border-width: 2px; }
       .btn { border: 2px solid transparent; }
     }
+    .skip-link {
+      position: absolute; top: -999px; left: 0.5rem; z-index: 9999;
+      background: #0b1120; color: var(--accent); padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--accent); border-top: none;
+    }
+    .skip-link:focus { top: 0; }
+    .noscript-notice {
+      margin: 0 auto 1rem; max-width: 640px; padding: 0.9rem 1.1rem;
+      border-radius: 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    section[id], h1[id], h2[id], h3[id], #main-content { scroll-margin-top: 1.5rem; }
   </style>
 </head>
 <body>
-  <main class="page-shell">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page requires JavaScript to render its interactive content. Please enable JavaScript to continue.</div></noscript>
+  <main id="main-content" class="page-shell">
     <div style="margin-bottom:0.5rem;">
       <a href="index.html" class="btn-back">
         <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back

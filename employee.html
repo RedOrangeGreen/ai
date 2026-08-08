@@ -6,6 +6,16 @@
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="description" content="A simple free and anonymous Employee Database. Two related tables managed with a real JavaScript SQL engine, saved and loaded locally as JSON." />
+  <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
+  <meta property="og:title" content="Employee Database" />
+  <meta property="og:description" content="A simple free and anonymous Employee Database. Two related tables managed with a real JavaScript SQL engine, saved and loaded locally as JSON." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Employee Database" />
+  <meta name="twitter:description" content="A simple free and anonymous Employee Database. Two related tables managed with a real JavaScript SQL engine, saved and loaded locally as JSON." />
   <title>Employee Database</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👥</text></svg>" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
@@ -857,10 +867,29 @@
       margin-top: 0.7rem;
     }
     .engine-note i { font-size: 0.7rem; }
+    @media (prefers-reduced-transparency: reduce) {
+      .modal-overlay { backdrop-filter: none !important; background: rgba(2, 6, 23, 0.97); }
+    }
+    .skip-link {
+      position: absolute; top: -999px; left: 0.5rem; z-index: 9999;
+      background: #0b1120; color: var(--accent); padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--accent); border-top: none;
+    }
+    .skip-link:focus { top: 0; }
+    .noscript-notice {
+      margin: 0 auto 1rem; max-width: 640px; padding: 0.9rem 1.1rem;
+      border-radius: 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    section[id], h1[id], h2[id], h3[id], #main-content { scroll-margin-top: 1.5rem; }
   </style>
 </head>
 <body>
-  <main class="page-shell">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page requires JavaScript to render its interactive content. Please enable JavaScript to continue.</div></noscript>
+  <main id="main-content" class="page-shell">
     <div style="margin-bottom:0.5rem;">
       <a href="index.html" class="btn-back">
         <i class="fa-solid fa-arrow-left"></i> Back
@@ -1451,6 +1480,23 @@
         return max && max.length ? Number(max[0].id) || 1 : 1;
       }
 
+      function setModalInert(inert) {
+        const shell = document.querySelector('main.page-shell');
+        const skip = document.querySelector('.skip-link');
+        if (shell) shell.inert = inert;
+        if (skip) skip.inert = inert;
+      }
+
+      function trapFocus(e, overlay) {
+        if (e.key !== 'Tab') return;
+        const focusables = overlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+
       function openForm(id) {
         editingId = id || null;
         empForm.reset();
@@ -1476,12 +1522,16 @@
         }
         formModal.classList.add('open');
         formModal.setAttribute('aria-hidden', 'false');
+        setModalInert(true);
+        formModal.addEventListener('keydown', trapFocus);
         setTimeout(function () { F.name.focus(); }, 30);
       }
 
       function closeForm() {
         formModal.classList.remove('open');
         formModal.setAttribute('aria-hidden', 'true');
+        formModal.removeEventListener('keydown', trapFocus);
+        setModalInert(false);
         empForm.reset();
         editingId = null;
         addBtn.focus();
@@ -1609,9 +1659,11 @@
           modalMessage.textContent = msg;
           modalActions.innerHTML = '<button class="btn btn-sm" id="modalOkBtn">OK</button>';
           modalOverlay.classList.add('open');
+          setModalInert(true);
+          modalOverlay.addEventListener('keydown', trapFocus);
           var okBtn = document.getElementById('modalOkBtn');
           okBtn.focus();
-          function close() { modalOverlay.classList.remove('open'); }
+          function close() { modalOverlay.classList.remove('open'); setModalInert(false); modalOverlay.removeEventListener('keydown', trapFocus); }
           okBtn.addEventListener('click', function () { close(); resolve(); });
           modalOverlay.addEventListener('click', function handler(e) {
             if (e.target === modalOverlay) { close(); modalOverlay.removeEventListener('click', handler); resolve(); }
@@ -1628,10 +1680,12 @@
           modalMessage.textContent = msg;
           modalActions.innerHTML = '<button class="btn btn-sm" id="modalConfirmBtn">' + (okLabel || 'Delete') + '</button><button class="btn btn-sm btn-ghost" id="modalCancelBtn">Cancel</button>';
           modalOverlay.classList.add('open');
+          setModalInert(true);
+          modalOverlay.addEventListener('keydown', trapFocus);
           var confirmBtn = document.getElementById('modalConfirmBtn');
           var cancelBtn = document.getElementById('modalCancelBtn');
           confirmBtn.focus();
-          function close() { modalOverlay.classList.remove('open'); }
+          function close() { modalOverlay.classList.remove('open'); setModalInert(false); modalOverlay.removeEventListener('keydown', trapFocus); }
           confirmBtn.addEventListener('click', function () { close(); resolve(true); });
           cancelBtn.addEventListener('click', function () { close(); resolve(false); });
           modalOverlay.addEventListener('click', function handler(e) {
@@ -1654,10 +1708,14 @@
           input.style.cssText = 'width:100%;padding:0.5rem 0.75rem;border-radius:8px;border:1px solid var(--border-subtle);background:rgba(15,23,42,0.9);color:var(--text-main);font-size:0.9rem;outline:none;margin-bottom:1rem;box-sizing:border-box;';
           modalMessage.after(input);
           modalOverlay.classList.add('open');
+          setModalInert(true);
+          modalOverlay.addEventListener('keydown', trapFocus);
           input.focus();
           input.select();
           function cleanup() {
             modalOverlay.classList.remove('open');
+            setModalInert(false);
+            modalOverlay.removeEventListener('keydown', trapFocus);
             input.remove();
           }
           document.getElementById('modalPromptOkBtn').addEventListener('click', function () {

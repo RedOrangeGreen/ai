@@ -5,8 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
-  <meta name="description" content="The 10 highest-yielding dividend stocks on the LSE, NYSE and NASDAQ." />
-  <title>Top Dividend Stocks, LSE, NYSE &amp; NASDAQ</title>
+  <meta name="description" content="A curated watchlist of high-yielding dividend stocks on the LSE, NYSE and NASDAQ." />
+  <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
+  <meta property="og:title" content="High-Yield Dividend Stocks, LSE, NYSE &amp; NASDAQ" />
+  <meta property="og:description" content="A curated watchlist of high-yielding dividend stocks on the LSE, NYSE and NASDAQ." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="High-Yield Dividend Stocks, LSE, NYSE &amp; NASDAQ" />
+  <meta name="twitter:description" content="A curated watchlist of high-yielding dividend stocks on the LSE, NYSE and NASDAQ." />
+  <title>High-Yield Dividend Stocks, LSE, NYSE &amp; NASDAQ</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
@@ -204,17 +214,33 @@
     @supports (field-sizing: content) {
       input, textarea { field-sizing: content; }
     }
+    .skip-link {
+      position: absolute; top: -999px; left: 0.5rem; z-index: 9999;
+      background: #0b1120; color: var(--accent); padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--accent); border-top: none;
+    }
+    .skip-link:focus { top: 0; }
+    .noscript-notice {
+      margin: 0 auto 1rem; max-width: 640px; padding: 0.9rem 1.1rem;
+      border-radius: 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    section[id], h1[id], h2[id], h3[id], #main-content { scroll-margin-top: 1.5rem; }
   </style>
 </head>
 <body>
-  <main class="page-shell">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page requires JavaScript to render its interactive content. Please enable JavaScript to continue.</div></noscript>
+  <main id="main-content" class="page-shell">
     <div style="margin-bottom:0.5rem;">
       <a href="index.html" class="btn-back">
         <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back
       </a>
     </div>
-    <h1 class="hero-title"><span>Top Dividend Stocks, LSE, NYSE &amp; NASDAQ</span></h1>
-    <p class="hero-subtitle">The 10 highest-yielding dividend stocks on the LSE, NYSE and NASDAQ.</p>
+    <h1 class="hero-title"><span>High-Yield Dividend Stocks, LSE, NYSE &amp; NASDAQ</span></h1>
+    <p class="hero-subtitle">A curated watchlist of high-yield dividend stocks on the LSE, NYSE and NASDAQ.</p>
 
     <div id="statusBar" class="status-bar"></div>
 
@@ -227,8 +253,8 @@
 
     <div class="card">
       <div class="card-title"><i class="fa-solid fa-landmark"></i> LSE</div>
-      <div class="card-sub">London Stock Exchange — top 10 by dividend yield</div>
-      <table class="stock-table" aria-label="Top 10 LSE dividend stocks">
+      <div class="card-sub">London Stock Exchange — curated high-yield watchlist</div>
+      <table class="stock-table" aria-label="High-yield LSE dividend stocks">
         <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name">Company</th><th scope="col" class="sortable" data-sort="yield" style="text-align:right">Yield</th></tr></thead>
         <tbody id="lseBody"></tbody>
       </table>
@@ -236,8 +262,8 @@
 
     <div class="card">
       <div class="card-title"><i class="fa-solid fa-building-columns"></i> NYSE</div>
-      <div class="card-sub">New York Stock Exchange — top 10 by dividend yield</div>
-      <table class="stock-table" aria-label="Top 10 NYSE dividend stocks">
+      <div class="card-sub">New York Stock Exchange — curated high-yield watchlist</div>
+      <table class="stock-table" aria-label="High-yield NYSE dividend stocks">
         <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name">Company</th><th scope="col" class="sortable" data-sort="yield" style="text-align:right">Yield</th></tr></thead>
         <tbody id="nyseBody"></tbody>
       </table>
@@ -245,8 +271,8 @@
 
     <div class="card">
       <div class="card-title"><i class="fa-solid fa-chart-simple"></i> NASDAQ</div>
-      <div class="card-sub">NASDAQ — top 10 by dividend yield</div>
-      <table class="stock-table" aria-label="Top 10 NASDAQ dividend stocks">
+      <div class="card-sub">NASDAQ — curated high-yield watchlist</div>
+      <table class="stock-table" aria-label="High-yield NASDAQ dividend stocks">
         <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name">Company</th><th scope="col" class="sortable" data-sort="yield" style="text-align:right">Yield</th></tr></thead>
         <tbody id="nasdaqBody"></tbody>
       </table>
@@ -268,43 +294,42 @@
   <script>
   (function() {
     var YIELDS_DATA = {
-      fetchedAt: '2026-07-27T12:00:00Z',
-      source: 'Yahoo Finance / company filings (Jul 2026)',
+      fetchedAt: '2026-08-08T12:00:00Z',
+      source: 'Yahoo Finance / company filings (Aug 2026)',
       lse: [
-        { ticker: 'LGEN.L',  name: 'Legal & General',            yield: 7.59 },
-        { ticker: 'SDLF.L',  name: 'Standard Life',             yield: 6.66 },
-        { ticker: 'LMP.L',   name: 'Londonmetric Property',      yield: 6.58 },
-        { ticker: 'LAND.L',  name: 'Land Securities',           yield: 6.27 },
-        { ticker: 'INVP.L',  name: 'Investec',                  yield: 6.19 },
-        { ticker: 'MNG.L',   name: 'M&G plc',                   yield: 6.12 },
-        { ticker: 'AV.L',    name: 'Aviva',                     yield: 6.08 },
-        { ticker: 'ABDN.L',  name: 'Aberdeen Group',            yield: 6.07 },
-        { ticker: 'IMB.L',   name: 'Imperial Brands',           yield: 5.91 },
-        { ticker: 'BTRW.L',  name: 'Barratt Redrow',            yield: 5.82 }
+        { ticker: 'LGEN.L', name: 'Legal & General',           yield: 7.20 },
+        { ticker: 'LMP.L',  name: 'LondonMetric Property',     yield: 6.70 },
+        { ticker: 'PHNX.L', name: 'Phoenix Group',             yield: 6.44 },
+        { ticker: 'ABDN.L', name: 'abrdn',                     yield: 5.90 },
+        { ticker: 'LAND.L', name: 'Land Securities',           yield: 5.80 },
+        { ticker: 'INVP.L', name: 'Investec',                  yield: 5.80 },
+        { ticker: 'MNG.L',  name: 'M&G plc',                   yield: 5.80 },
+        { ticker: 'IMB.L',  name: 'Imperial Brands',           yield: 5.80 },
+        { ticker: 'BTRW.L', name: 'Barratt Redrow',            yield: 5.80 },
+        { ticker: 'AV.L',   name: 'Aviva',                     yield: 5.60 }
       ],
       nyse: [
-        { ticker: 'PFE',  name: 'Pfizer',                      yield: 6.81 },
-        { ticker: 'VICI', name: 'Vici Properties',             yield: 6.64 },
-        { ticker: 'MAIN', name: 'Main Street Capital',         yield: 6.07 },
-        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 5.80 },
-        { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 5.67 },
-        { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 5.35 },
-        { ticker: 'ENB',  name: 'Enbridge',                    yield: 5.01 },
-        { ticker: 'O',    name: 'Realty Income',               yield: 4.93 },
-        { ticker: 'NNN',  name: 'NNN REIT',                    yield: 4.88 },
-        { ticker: 'CVX',  name: 'Chevron',                     yield: 3.72 }
+        { ticker: 'VICI', name: 'Vici Properties',             yield: 6.77 },
+        { ticker: 'PFE',  name: 'Pfizer',                      yield: 6.50 },
+        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 6.10 },
+        { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 5.90 },
+        { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 5.70 },
+        { ticker: 'ENB',  name: 'Enbridge',                    yield: 5.50 },
+        { ticker: 'MAIN', name: 'Main Street Capital',         yield: 5.40 },
+        { ticker: 'NNN',  name: 'NNN REIT',                    yield: 5.26 },
+        { ticker: 'O',    name: 'Realty Income',               yield: 5.15 },
+        { ticker: 'CVX',  name: 'Chevron',                     yield: 3.77 }
       ],
       nasdaq: [
-        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.31 },
-        { ticker: 'CMCSA', name: 'Comcast',                    yield: 5.56 },
-        { ticker: 'GILD', name: 'Gilead Sciences',             yield: 4.82 },
-        { ticker: 'PAYX', name: 'Paychex',                     yield: 4.48 },
-        { ticker: 'TROW', name: 'T. Rowe Price Group',        yield: 4.22 },
-        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 3.95 },
-        { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.33 },
-        { ticker: 'CSCO', name: 'Cisco Systems',               yield: 3.18 },
-        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 3.05 },
-        { ticker: 'INTC', name: 'Intel Corporation',           yield: 2.45 }
+        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.40 },
+        { ticker: 'CMCSA', name: 'Comcast',                    yield: 5.20 },
+        { ticker: 'TROW', name: 'T. Rowe Price Group',         yield: 4.57 },
+        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 4.27 },
+        { ticker: 'PAYX', name: 'Paychex',                     yield: 3.96 },
+        { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.30 },
+        { ticker: 'GILD', name: 'Gilead Sciences',             yield: 2.40 },
+        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 2.05 },
+        { ticker: 'CSCO', name: 'Cisco Systems',               yield: 1.39 }
       ]
     };
 

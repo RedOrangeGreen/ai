@@ -6,6 +6,16 @@
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="description" content="A simple free and anonymous ToDo List manager. Save and load lists locally in XML or JSON." />
+  <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
+  <meta property="og:title" content="Todo List" />
+  <meta property="og:description" content="A simple free and anonymous ToDo List manager. Save and load lists locally in XML or JSON." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Todo List" />
+  <meta name="twitter:description" content="A simple free and anonymous ToDo List manager. Save and load lists locally in XML or JSON." />
   <title>Todo List</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
@@ -579,10 +589,29 @@
       .todo-item { border-bottom-width: 2px; }
       .search-tasks { border-width: 2px; }
     }
+    @media (prefers-reduced-transparency: reduce) {
+      .modal-overlay { backdrop-filter: none !important; background: rgba(2, 6, 23, 0.97); }
+    }
+    .skip-link {
+      position: absolute; top: -999px; left: 0.5rem; z-index: 9999;
+      background: #0b1120; color: var(--accent); padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--accent); border-top: none;
+    }
+    .skip-link:focus { top: 0; }
+    .noscript-notice {
+      margin: 0 auto 1rem; max-width: 640px; padding: 0.9rem 1.1rem;
+      border-radius: 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    section[id], h1[id], h2[id], h3[id], #main-content { scroll-margin-top: 1.5rem; }
   </style>
 </head>
 <body>
-  <main class="page-shell">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page requires JavaScript to render its interactive content. Please enable JavaScript to continue.</div></noscript>
+  <main id="main-content" class="page-shell">
     <div style="margin-bottom:0.5rem;">
       <a href="index.html" class="btn-back">
         <i class="fa-solid fa-arrow-left"></i> Back
@@ -986,15 +1015,23 @@
         announce('Completed tasks deleted');
       }
 
+      function setModalState(open) {
+        var shell = document.querySelector('main.page-shell');
+        var topBtn = document.getElementById('backToTop');
+        if (shell) shell.inert = open;
+        if (topBtn) topBtn.inert = open;
+      }
+
       function modalAlert(msg) {
         return new Promise(resolve => {
           modalTitle.textContent = 'Todo List';
           modalMessage.textContent = msg;
           modalActions.innerHTML = '<button class="btn btn-sm" id="modalOkBtn">OK</button>';
           modalOverlay.classList.add('open');
+          setModalState(true);
           var okBtn = document.getElementById('modalOkBtn');
           okBtn.focus();
-          function close() { modalOverlay.classList.remove('open'); }
+          function close() { modalOverlay.classList.remove('open'); setModalState(false); }
           okBtn.addEventListener('click', function() { close(); resolve(); });
           modalOverlay.addEventListener('click', function handler(e) {
             if (e.target === modalOverlay) { close(); modalOverlay.removeEventListener('click', handler); resolve(); }
@@ -1016,10 +1053,12 @@
           input.style.cssText = 'width:100%;padding:0.5rem 0.75rem;border-radius:8px;border:1px solid var(--border-subtle);background:rgba(15,23,42,0.9);color:var(--text-main);font-size:0.9rem;outline:none;margin-bottom:1rem;box-sizing:border-box;';
           modalMessage.after(input);
           modalOverlay.classList.add('open');
+          setModalState(true);
           input.focus();
           input.select();
           function cleanup() {
             modalOverlay.classList.remove('open');
+            setModalState(false);
             input.remove();
           }
           document.getElementById('modalPromptOkBtn').addEventListener('click', function() {
@@ -1060,10 +1099,11 @@
           modalMessage.textContent = msg;
           modalActions.innerHTML = '<button class="btn btn-sm" id="modalConfirmBtn">OK</button><button class="btn btn-sm btn-ghost" id="modalCancelBtn">Cancel</button>';
           modalOverlay.classList.add('open');
+          setModalState(true);
           var confirmBtn = document.getElementById('modalConfirmBtn');
           var cancelBtn = document.getElementById('modalCancelBtn');
           confirmBtn.focus();
-          function close() { modalOverlay.classList.remove('open'); }
+          function close() { modalOverlay.classList.remove('open'); setModalState(false); }
           confirmBtn.addEventListener('click', function() { close(); resolve(true); });
           cancelBtn.addEventListener('click', function() { close(); resolve(false); });
           modalOverlay.addEventListener('click', function handler(e) {

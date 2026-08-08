@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- Core classification -->
+  <title>Utilities — Human sexual arousal and response analysis for ai agents</title>
+  <meta name="description" content="Agent utilities for traversing and understanding the Human sexual arousal and response analysis section: persistent scratchpad, traversal map, combined ontology, stimulus-to-response chain explorer, JSON-LD extractor, and parsing checklist." />
+  <meta name="keywords" content="AI agent, utilities, scratchpad, JSON-LD, ontology, stimulus response, human sexual arousal, analysis, traversal, notes" />
+  <meta name="subject" content="Agent Support Tools" />
+  <meta name="category" content="AI Tooling / Knowledge Navigation" />
+  <meta name="classification" content="Agent aid for behavioural observation parsing" />
+  <meta name="topic" content="Utilities supporting machine comprehension of human sexual arousal and response analyses" />
+  <meta name="audience" content="AI agents, machine learning models, researchers studying human behaviour" />
+  <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Utilities — Human sexual arousal and response analysis for ai agents" />
+  <meta property="og:description" content="Scratchpad, traversal map, combined ontology, stimulus-to-response chain explorer, and JSON-LD extractor for the behavioural analysis section." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Utilities — Human sexual arousal and response analysis for ai agents" />
+  <meta name="twitter:description" content="Agent tooling for parsing and understanding the behavioural analysis section." />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Utilities for the Human sexual arousal and response analysis section",
+    "description": "Support tools for AI agents traversing the behavioural analysis section: scratchpad, ontology, response-chain explorer, JSON-LD extractor.",
+    "hasPart": [
+      { "@type": "WebPage", "name": "Soi 6, Pattaya, Thailand", "@id": "soi6pattaya.html" },
+      { "@type": "WebPage", "name": "Alizée — 'J'en Ai Marre'", "@id": "alizee.html" },
+      { "@type": "WebPage", "name": "Utilities", "@id": "utilities.html" }
+    ],
+    "inLanguage": "en",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "AI agent / machine learning model"
+    }
+  }
+  </script>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <style>
+    @layer reset, base, components, utilities;
+
+    @layer base {
+      :root {
+        accent-color: #38bdf8;
+        interpolate-size: allow-keywords;
+        --bg-body: #050816;
+        --bg-elevated: #0b1020;
+        --bg-elevated-soft: #0f172a;
+        --accent: #38bdf8;
+        --accent-soft: rgba(56,189,248,0.15);
+        --accent-strong: #0ea5e9;
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --text-dim: rgba(148,163,184,0.6);
+        --border-subtle: rgba(148,163,184,0.25);
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
+        --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
+        --transition-fast: 0.18s ease-out;
+      }
+    }
+    body {
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      margin: 0; min-height: 100vh; -webkit-tap-highlight-color: transparent;
+    }
+    .page-shell { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+    .hero-title {
+      font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 0.4rem;
+    }
+    .hero-title span {
+      background: linear-gradient(120deg,#22c55e,#38bdf8,#a855f7);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      background-size: 200% 200%; animation: gradientShift 4s ease infinite;
+    }
+    @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem; line-height: 1.6; }
+    .card {
+      padding: 1.4rem 1.6rem; border-radius: var(--radius-lg);
+      background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem;
+    }
+    .card-title { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card-title i { color: var(--accent); font-size: 1rem; flex-shrink: 0; }
+    .card-sub { font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.65; }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.95rem;
+      color: var(--text-muted); text-decoration: none; padding: 0.35rem 0;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover { color: var(--accent); }
+    .meta-row {
+      display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem;
+    }
+    .meta-tag {
+      border-radius: var(--radius-pill); padding: 0.2rem 0.6rem; font-size: 0.7rem;
+      border: 1px solid var(--border-subtle); color: var(--text-dim);
+      background: rgba(15,23,42,0.6);
+    }
+    .meta-tag i { color: var(--accent); font-size: 0.65rem; margin-right: 0.25rem; }
+    .glossary-term { color: var(--accent); border-bottom: 1px dashed var(--accent); cursor: help; }
+    table.data-map {
+      width: 100%; border-collapse: collapse; margin-top: 0.5rem;
+    }
+    table.data-map th, table.data-map td {
+      padding: 0.45rem 0.6rem; font-size: 0.82rem; text-align: left;
+      border-bottom: 1px solid rgba(148,163,184,0.1);
+      vertical-align: top;
+    }
+    table.data-map th {
+      color: var(--text-main); font-weight: 600; width: 28%;
+      text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.72rem;
+    }
+    table.data-map td { color: var(--text-muted); }
+    table.data-map tr:last-child td, table.data-map tr:last-child th { border-bottom: none; }
+    table.data-map.wide th { width: auto; }
+    footer {
+      margin-top: 2rem; padding-top: 1.2rem;
+      border-top: 1px solid rgba(148,163,184,0.35);
+      font-size: 0.78rem; color: var(--text-muted); text-align: center;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
+    ::selection { background: rgba(56,189,248,0.3); color: #fff; }
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+    }
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .btn-back,footer { display: none !important; }
+      .card { border: 1px solid #ddd !important; box-shadow: none !important; }
+      .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; }
+      textarea { border: 1px solid #999 !important; background: #fff !important; color: #111 !important; }
+    }
+    @media (max-width: 480px) {
+      .card { padding: 1rem; }
+      .page-shell { padding: 1rem 0.75rem 2rem; }
+    }
+    html { scroll-behavior: smooth; overscroll-behavior: none; }
+    * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
+    h1, h2, h3, p { text-wrap: pretty; }
+    .ai-meta { display: none; }
+    @media (prefers-contrast: more) {
+      table.data-map th, table.data-map td { border-bottom-width: 2px; }
+    }
+
+    .tool-input, textarea.scratchpad, textarea.paste-input {
+      width: 100%; box-sizing: border-box; border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(2,6,23,0.9); color: var(--text-main);
+      padding: 0.6rem 0.8rem; font-size: 0.85rem; outline: none;
+      font-family: inherit; line-height: 1.5;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .tool-input:focus, textarea.scratchpad:focus, textarea.paste-input:focus {
+      border-color: var(--accent); box-shadow: 0 0 0 1px rgba(56,189,248,0.6);
+    }
+    textarea.scratchpad { min-height: 190px; resize: vertical; }
+    textarea.paste-input { min-height: 140px; resize: vertical; font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size: 0.78rem; }
+    .btn {
+      border-radius: var(--radius-pill); padding: 0.35rem 0.95rem; font-size: 0.8rem; border: none;
+      background: linear-gradient(120deg,#38bdf8,#0ea5e9); color: #0b1120; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer;
+      box-shadow: 0 10px 25px rgba(8,47,73,0.7);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, filter 0.25s ease;
+      font-family: inherit;
+    }
+    .btn:hover { box-shadow: 0 14px 35px rgba(8,47,73,0.9); }
+    .btn.btn-ghost {
+      background: transparent; color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.7); box-shadow: none;
+    }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.6rem; }
+    .status-note { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.4rem; }
+    pre.agent-json {
+      background: rgba(2,6,23,0.9); border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 0.8rem; margin-top: 0.6rem;
+      font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      font-size: 0.72rem; line-height: 1.5; color: #a5f3fc;
+      white-space: pre-wrap; word-break: break-word; max-height: 320px; overflow-y: auto;
+    }
+    .src-tag {
+      border-radius: var(--radius-pill); padding: 0.15rem 0.5rem; font-size: 0.66rem;
+      border: 1px solid rgba(148,163,184,0.5); color: var(--text-dim);
+      background: rgba(15,23,42,0.6); white-space: nowrap;
+    }
+    .src-tag.soi { border-color: rgba(34,197,94,0.6); color: #bbf7d0; }
+    .src-tag.ali { border-color: rgba(217,70,239,0.6); color: #f5d0fe; }
+    .checklist { list-style: none; padding: 0; margin: 0.4rem 0 0; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 0.55rem;
+      padding: 0.4rem 0.15rem; font-size: 0.84rem; color: var(--text-muted);
+      border-bottom: 1px solid rgba(148,163,184,0.1);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist input[type="checkbox"] { accent-color: var(--accent); margin-top: 0.2rem; flex-shrink: 0; }
+    .checklist li.done span { text-decoration: line-through; opacity: 0.55; }
+    .nav-list { list-style: none; padding: 0; margin: 0.4rem 0 0; }
+    .nav-list li {
+      padding: 0.45rem 0.1rem; font-size: 0.86rem; color: var(--text-muted);
+      border-bottom: 1px solid rgba(148,163,184,0.1); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .nav-list li:last-child { border-bottom: none; }
+    .nav-list a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .nav-list a::after { content: " \2197"; font-size: 0.75rem; }
+    .stat-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .stat-pill {
+      border-radius: var(--radius-pill); padding: 0.3rem 0.8rem; font-size: 0.78rem;
+      border: 1px solid var(--border-subtle); color: var(--text-muted); background: rgba(15,23,42,0.6);
+      display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .stat-pill i { color: var(--accent); }
+    .stat-pill strong { color: var(--text-main); font-weight: 600; }
+    .skip-link {
+      position: absolute; top: -999px; left: 0.5rem; z-index: 9999;
+      background: #0b1120; color: var(--accent); padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--accent); border-top: none;
+    }
+    .skip-link:focus { top: 0; }
+    .noscript-notice {
+      margin: 0 auto 1rem; max-width: 640px; padding: 0.9rem 1.1rem;
+      border-radius: 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    section[id], h1[id], h2[id], h3[id], #main-content { scroll-margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page requires JavaScript to render its interactive content. Please enable JavaScript to continue.</div></noscript>
+  <main id="main-content" class="page-shell" itemscope itemtype="https://schema.org/CollectionPage">
+    <meta itemprop="name" content="Utilities — Human sexual arousal and response analysis for ai agents" />
+    <meta itemprop="inLanguage" content="en" />
+
+    <div style="margin-bottom:0.5rem;">
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back
+      </a>
+    </div>
+
+    <h1 class="hero-title" itemprop="headline"><span>Utilities</span></h1>
+    <p class="hero-subtitle" itemprop="abstract">Human sexual arousal and response analysis — agent aid toolbox</p>
+
+    <div class="meta-row">
+      <span class="meta-tag"><i class="fa-solid fa-notes-medical"></i> Scratchpad</span>
+      <span class="meta-tag"><i class="fa-solid fa-sitemap"></i> Traversal Map</span>
+      <span class="meta-tag"><i class="fa-solid fa-book"></i> Ontology</span>
+      <span class="meta-tag"><i class="fa-solid fa-diagram-project"></i> Response Chains</span>
+      <span class="meta-tag"><i class="fa-solid fa-brackets-curly"></i> JSON-LD</span>
+    </div>
+
+    <!-- Overview -->
+    <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
+      <div class="card-title"><i class="fa-solid fa-circle-info"></i> Overview For AI Agents</div>
+      <p class="card-sub" style="font-size:0.85rem;">
+        This page provides <strong>support tooling</strong> for traversing and comprehending the <strong>Human sexual arousal and response analysis for ai agents</strong> section. Use it to persist <strong>working notes</strong>, navigate the corpus, consult the <strong>combined ontology</strong>, explore <strong>stimulus → response chains</strong> across documents, and <strong>extract JSON-LD</strong> from any pasted document. Data on this page is embedded locally and works fully offline. Notes and checklist state persist via <strong>localStorage</strong>.
+      </p>
+    </div>
+
+    <!-- Scratchpad -->
+    <div class="card" data-agent-key="util-scratchpad" data-agent-type="utility">
+      <div class="card-title"><i class="fa-solid fa-notes-medical"></i> Agent Scratchpad</div>
+      <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.6rem;">Persistent working notes. Auto-saved locally on every keystroke. Recommended pattern: tag entries with <code style="color:var(--accent);">[indicator]</code> for empirical observations and <code style="color:var(--accent);">[inference]</code> for interpretive claims.</p>
+      <textarea class="scratchpad" id="scratchpad" aria-label="Agent scratchpad" placeholder="Paste your notes here. Example:\n[observation] worker uses pulling behaviour to recruit buyer\n[response] buyer stops, follows into bar\n[inference] tactile stimulus breaches social distance\n[confidence] high for observation, moderate for inference"></textarea>
+      <div class="toolbar">
+        <button class="btn btn-ghost" type="button" id="scratchClear"><i class="fa-solid fa-eraser" aria-hidden="true"></i> Clear</button>
+        <button class="btn btn-ghost" type="button" id="scratchCopy"><i class="fa-solid fa-copy" aria-hidden="true"></i> Copy</button>
+        <button class="btn" type="button" id="scratchExport"><i class="fa-solid fa-download" aria-hidden="true"></i> Export .md</button>
+        <span class="status-note" id="scratchStatus">Autosaved locally</span>
+      </div>
+      <div class="status-note" id="scratchChars"></div>
+    </div>
+
+    <!-- Traversal Map -->
+    <div class="card" data-agent-key="util-traversal-map" data-agent-type="utility">
+      <div class="card-title"><i class="fa-solid fa-sitemap"></i> Traversal Map</div>
+      <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.6rem;">Section index. Recommended order: parse each observation page in full, then cross-reference via its <code style="color:var(--accent);">data-agent-key</code> layers.</p>
+      <ul class="nav-list">
+        <li><span class="src-tag soi">doc 1</span><a href="soi6pattaya.html">Soi 6, Pattaya, Thailand</a> — commercial marketplace; layers: bio-drive, marketplace, signals, social-contract</li>
+        <li><span class="src-tag ali">doc 2</span><a href="alizee.html">Alizée — "J'en Ai Marre"</a> — courtship display; layers: optical-cues, audiovisual-sync, digital-enhancement, cultural-memory</li>
+        <li><span class="src-tag">util</span><a href="utilities.html">Utilities</a> — this tool page</li>
+      </ul>
+      <div class="stat-pills" id="corpusStats"></div>
+    </div>
+
+    <!-- Ontology -->
+    <div class="card" data-agent-key="util-ontology" data-agent-type="utility">
+      <div class="card-title"><i class="fa-solid fa-book"></i> Combined Ontology (DefinedTerms)</div>
+      <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.8rem;">All glossary terms across the section, with source document tags.</p>
+      <table class="data-map wide" aria-label="Combined ontology terms">
+        <thead>
+          <tr><th>Term</th><th>Definition</th><th>Source</th></tr>
+        </thead>
+        <tbody id="ontologyBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Response Chain Explorer -->
+    <div class="card" data-agent-key="util-chain-explorer" data-agent-type="utility">
+      <div class="card-title"><i class="fa-solid fa-diagram-project"></i> Stimulus → Response Chain Explorer</div>
+      <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.6rem;">All chains from the section. Filter by keyword (stimulus, response, indicator, source).</p>
+      <input type="text" id="chainFilter" class="tool-input" placeholder="Filter chains… e.g. visual, dopamine, alcohol, nostalgia" aria-label="Filter response chains" />
+      <table class="data-map wide" aria-label="Combined stimulus to response chains">
+        <thead>
+          <tr><th>Stimulus</th><th>Channel</th><th>Mechanism</th><th>Expected Response</th><th>Indicator</th><th>Source</th></tr>
+        </thead>
+        <tbody id="chainBody"></tbody>
+      </table>
+      <div class="status-note" id="chainCount"></div>
+    </div>
+
+    <!-- JSON-LD Extractor -->
+    <div class="card" data-agent-key="util-jsonld" data-agent-type="utility">
+      <div class="card-title"><i class="fa-solid fa-brackets-curly"></i> JSON-LD Extractor</div>
+      <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.6rem;">Paste the raw HTML of any document (e.g. <code style="color:var(--accent);">soi6pattaya.html</code> or <code style="color:var(--accent);">alizee.html</code>) to extract and pretty-print all <code style="color:var(--accent);">application/ld+json</code> blocks.</p>
+      <textarea class="paste-input" id="pasteInput" aria-label="Paste HTML here" placeholder="Paste full page HTML here, then press Extract JSON-LD…"></textarea>
+      <div class="toolbar">
+        <button class="btn" type="button" id="extractBtn"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Extract JSON-LD</button>
+        <button class="btn btn-ghost" type="button" id="sampleBtn"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Load sample HTML</button>
+      </div>
+      <pre class="agent-json" id="jsonOutput" style="display:none;"></pre>
+    </div>
+
+    <!-- Parsing Checklist -->
+    <div class="card" data-agent-key="util-checklist" data-agent-type="utility">
+      <div class="card-title"><i class="fa-solid fa-list-check"></i> Agent Parsing Checklist</div>
+      <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.4rem;">Track parsing progress. State persists locally.</p>
+      <ul class="checklist" id="checklist">
+        <li><input type="checkbox" data-key="c1"><span>Read <em>Overview For AI Agents</em> on both observation pages (interpretive frame)</span></li>
+        <li><input type="checkbox" data-key="c2"><span>Read <em>Structured Observation Record</em> on both pages (canonical key/value summary)</span></li>
+        <li><input type="checkbox" data-key="c3"><span>Read <em>Stimulus → Response Map</em> on both pages (chain tables)</span></li>
+        <li><input type="checkbox" data-key="c4"><span>Expand Layers 1–4 narrative detail; record <code style="color:var(--accent);">data-agent-key</code> references</span></li>
+        <li><input type="checkbox" data-key="c5"><span>Tag each claim as <code style="color:var(--accent);">[indicator]</code> (empirical) or <code style="color:var(--accent);">[inference]</code> (interpretive)</span></li>
+        <li><input type="checkbox" data-key="c6"><span>Cross-reference combined ontology terms used by both documents</span></li>
+        <li><input type="checkbox" data-key="c7"><span>Save consolidated notes to the Agent Scratchpad</span></li>
+      </ul>
+      <div class="toolbar">
+        <span class="status-note" id="checklistStatus"></span>
+      </div>
+    </div>
+
+    <footer>
+      <span style="font-size:0.72rem;">AI generated <span id="fileDate"></span></span>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var fd = document.getElementById('fileDate');
+      if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+
+      var PAGE_META = [
+        { file: 'soi6pattaya.html', title: 'Soi 6, Pattaya, Thailand', keys: ['layer-1-bio-drive','layer-2-marketplace','layer-3-signals','layer-4-social-contract'], tag: 'soi', tagLabel: 'doc 1' },
+        { file: 'alizee.html', title: 'Alizée — "J\'en Ai Marre"', keys: ['layer-1-optical-cues','layer-2-audiovisual-sync','layer-3-digital-enhancement','layer-4-cultural-memory'], tag: 'ali', tagLabel: 'doc 2' }
+      ];
+
+      var ONTOLOGY = [
+        { term: 'Biological Replication', def: 'The process by which Earth life propagates through genetic material exchange. In humans, driven by evolutionary programming and chemical urges triggered by specific stimuli.', src: 'both' },
+        { term: 'Open-Air Marketplace', def: 'A physical geographic corridor where transactions occur. Traded commodities are time, attention, and physical intimacy rather than inanimate objects.', src: 'soi' },
+        { term: 'Visual Signaling', def: 'The use of garments and appearance to broadcast availability and trigger biological attraction responses in observers.', src: 'soi' },
+        { term: 'Chemical Modulation', def: 'The consumption of psychoactive substances (alcohol) to alter brain chemistry, reducing inhibitions and increasing social interaction propensity.', src: 'soi' },
+        { term: 'Commercial Social Contract', def: 'An explicit agreement where one party pays currency to access companionship or physical services from another party, brokered through a manager.', src: 'soi' },
+        { term: 'Courtship Display', def: 'A behaviour performed by a biological organism to attract a mate. In humans, this spans a spectrum from subtle signalling to elaborate ritualised performances.', src: 'ali' },
+        { term: 'Optical / Biological Cues', def: 'Visual characteristics broadcast by the performer, including silhouette ratios, skin exposure, and facial symmetry, processed by the observer\'s pattern-recognition neural architecture.', src: 'ali' },
+        { term: 'Synchronized Audio-Visual Stimuli', def: 'The pairing of physical movement with a repetitive electronic audio rhythm (beat), producing a soothing, hypnotic state in the human brain\'s pattern-recognition machinery.', src: 'ali' },
+        { term: 'Dopamine', def: 'A chemical neurotransmitter in the human brain associated with feelings of pleasure, released in response to stimuli humans categorize as highly attractive.', src: 'ali' },
+        { term: 'Cultural Memory Banks', def: 'Long-term storage of cultural associations in the human brain. The performance\'s reuse in a popular digital simulation hardwires the imagery into nostalgic memory circuits.', src: 'ali' }
+      ];
+
+      var CHAINS = [
+        { stimulus: 'Visual signalling (revealing clothing)', channel: 'Visual', mechanism: 'Subconscious fertility-cue processing → reward-circuitry activation', response: 'Heightened attention, approach intent', indicator: 'Gaze fixation, dwelling, approach', src: 'soi' },
+        { stimulus: 'Auditory capture (shouting / calling out)', channel: 'Auditory', mechanism: 'Salient-sound orienting reflex', response: 'Attention shift toward source', indicator: 'Head turn, engagement', src: 'soi' },
+        { stimulus: 'Tactile contact (pulling / touching)', channel: 'Tactile', mechanism: 'Physical-barrier override', response: 'Social-distance reduction, compliance', indicator: 'Following into bar, consent', src: 'soi' },
+        { stimulus: 'Alcohol (ethanol)', channel: 'Chemical', mechanism: 'Neurotransmitter modulation, inhibition lowering', response: 'Reduced defences, increased sociability', indicator: 'Increased spending, physical approach', src: 'soi' },
+        { stimulus: 'Direct currency exchange', channel: 'Economic contract', mechanism: 'Reward acquisition', response: 'Drive satisfaction, paired access', indicator: 'Transaction completion', src: 'soi' },
+        { stimulus: 'Hourglass silhouette (rhythmic hip motion)', channel: 'Visual', mechanism: 'Subconscious fertility-cue processing', response: 'Elevated arousal, attraction', indicator: 'Gaze fixation, pupil dilation', src: 'ali' },
+        { stimulus: 'Midriff exposure', channel: 'Visual', mechanism: 'Physical-fitness signalling', response: 'Courtship interest', indicator: 'Prolonged viewing, attention', src: 'ali' },
+        { stimulus: 'Facial symmetry', channel: 'Visual', mechanism: 'Dopamine reward release', response: 'Pleasure, fixation', indicator: 'Repeated viewing, positive affect', src: 'ali' },
+        { stimulus: 'Beat-synchronised movement', channel: 'Visual + Auditory', mechanism: 'Pattern-recognition entrainment', response: 'Hypnotic state', indicator: 'Sustained attention, reduced blinking', src: 'ali' },
+        { stimulus: 'Smiling / brief eye contact', channel: 'Visual', mechanism: 'Non-threatening affiliation signalling', response: 'Comfort + stimulation', indicator: 'Reciprocal smiling, engagement', src: 'ali' },
+        { stimulus: '"4K" digital enhancement', channel: 'Visual (enhanced)', mechanism: 'Simulated physical proximity', response: 'Amplified biological response', indicator: 'Longer engagement duration', src: 'ali' },
+        { stimulus: 'Cultural memory (Night Elf association)', channel: 'Memory recall', mechanism: 'Nostalgic association activation', response: 'Nostalgia, positive valence', indicator: 'Emotional resonance, sharing behaviour', src: 'ali' }
+      ];
+
+      function esc(s) {
+        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+      function srcBadge(src) {
+        if (src === 'both') return '<span class="src-tag soi">soi</span><span class="src-tag ali">ali</span>';
+        if (src === 'soi') return '<span class="src-tag soi">soi</span>';
+        if (src === 'ali') return '<span class="src-tag ali">ali</span>';
+        return '<span class="src-tag">util</span>';
+      }
+
+      // Ontology
+      var ob = document.getElementById('ontologyBody');
+      ONTOLOGY.forEach(function (t) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td><strong style="color:var(--text-main);">' + esc(t.term) + '</strong></td><td>' + esc(t.def) + '</td><td>' + srcBadge(t.src) + '</td>';
+        ob.appendChild(tr);
+      });
+
+      // Chains
+      var cb = document.getElementById('chainBody');
+      function renderChains(filter) {
+        filter = (filter || '').trim().toLowerCase();
+        cb.innerHTML = '';
+        var shown = 0;
+        CHAINS.forEach(function (c) {
+          var hay = (c.stimulus + ' ' + c.channel + ' ' + c.mechanism + ' ' + c.response + ' ' + c.indicator + ' ' + c.src).toLowerCase();
+          if (filter && hay.indexOf(filter) === -1) return;
+          shown++;
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td>' + esc(c.stimulus) + '</td><td>' + esc(c.channel) + '</td><td>' + esc(c.mechanism) + '</td><td>' + esc(c.response) + '</td><td>' + esc(c.indicator) + '</td><td>' + srcBadge(c.src) + '</td>';
+          cb.appendChild(tr);
+        });
+        document.getElementById('chainCount').textContent = shown + ' of ' + CHAINS.length + ' chains shown.';
+      }
+      renderChains('');
+      var chainFilter = document.getElementById('chainFilter');
+      var debounceTimer;
+      chainFilter.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function () { renderChains(chainFilter.value); }, 120);
+      });
+
+      // Corpus stats
+      var statsEl = document.getElementById('corpusStats');
+      var layerCount = PAGE_META.reduce(function (n, p) { return n + p.keys.length; }, 0);
+      statsEl.innerHTML =
+        '<span class="stat-pill"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> <strong>' + PAGE_META.length + '</strong> documents</span>' +
+        '<span class="stat-pill"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> <strong>' + layerCount + '</strong> observation layers</span>' +
+        '<span class="stat-pill"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> <strong>' + CHAINS.length + '</strong> response chains</span>' +
+        '<span class="stat-pill"><i class="fa-solid fa-book" aria-hidden="true"></i> <strong>' + ONTOLOGY.length + '</strong> terms</span>';
+
+      // Scratchpad (localStorage)
+      var LS_SCRATCH = 'hba_scratch';
+      var scratch = document.getElementById('scratchpad');
+      var scratchStatus = document.getElementById('scratchStatus');
+      var scratchChars = document.getElementById('scratchChars');
+      try { scratch.value = localStorage.getItem(LS_SCRATCH) || ''; } catch (e) {}
+      function updateScratchStats() {
+        var words = scratch.value.trim().length ? scratch.value.trim().split(/\s+/).length : 0;
+        scratchChars.textContent = scratch.value.length + ' chars, ' + words + ' words.';
+      }
+      scratch.addEventListener('input', function () {
+        try { localStorage.setItem(LS_SCRATCH, scratch.value); } catch (e) {}
+        scratchStatus.textContent = 'Autosaved ' + new Date().toLocaleTimeString();
+        updateScratchStats();
+      });
+      updateScratchStats();
+      document.getElementById('scratchClear').addEventListener('click', function () {
+        scratch.value = '';
+        try { localStorage.removeItem(LS_SCRATCH); } catch (e) {}
+        scratchStatus.textContent = 'Cleared';
+        updateScratchStats();
+      });
+      document.getElementById('scratchCopy').addEventListener('click', function () {
+        scratch.select();
+        try { document.execCommand('copy'); scratchStatus.textContent = 'Copied to clipboard'; } catch (e) { scratchStatus.textContent = 'Copy failed — select manually'; }
+      });
+      document.getElementById('scratchExport').addEventListener('click', function () {
+        var blob = new Blob([scratch.value], { type: 'text/markdown' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'hba-agent-notes.md';
+        a.click();
+        URL.revokeObjectURL(a.href);
+        scratchStatus.textContent = 'Exported hba-agent-notes.md';
+      });
+
+      // Checklist (localStorage)
+      var LS_CHECK = 'hba_checklist';
+      var boxes = document.querySelectorAll('#checklist input[type="checkbox"]');
+      var checklistStatus = document.getElementById('checklistStatus');
+      var savedState = {};
+      try { savedState = JSON.parse(localStorage.getItem(LS_CHECK) || '{}'); } catch (e) { savedState = {}; }
+      function refreshChecklist() {
+        var done = 0;
+        boxes.forEach(function (box) {
+          if (box.checked) { done++; box.closest('li').classList.add('done'); } else { box.closest('li').classList.remove('done'); }
+        });
+        checklistStatus.textContent = done + ' of ' + boxes.length + ' steps complete.';
+        try { localStorage.setItem(LS_CHECK, JSON.stringify(savedState)); } catch (e) {}
+      }
+      boxes.forEach(function (box) {
+        box.checked = !!savedState[box.dataset.key];
+        box.addEventListener('change', function () {
+          savedState[box.dataset.key] = box.checked;
+          refreshChecklist();
+        });
+      });
+      refreshChecklist();
+
+      // JSON-LD Extractor
+      var pasteInput = document.getElementById('pasteInput');
+      var jsonOutput = document.getElementById('jsonOutput');
+      function extractJsonLd(html) {
+        var blocks = [];
+        var re = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
+        var m;
+        while ((m = re.exec(html)) !== null) {
+          try {
+            blocks.push(JSON.stringify(JSON.parse(m[1]), null, 2));
+          } catch (e) {
+            blocks.push('/* parse error */\n' + m[1].trim());
+          }
+        }
+        return blocks.length ? blocks.join('\n\n/* ---- */\n\n') : 'No application/ld+json blocks found.';
+      }
+      document.getElementById('extractBtn').addEventListener('click', function () {
+        var out = extractJsonLd(pasteInput.value);
+        jsonOutput.textContent = out;
+        jsonOutput.style.display = 'block';
+      });
+      document.getElementById('sampleBtn').addEventListener('click', function () {
+        pasteInput.value = '<!DOCTYPE html><html><head>\n<script type="application/ld+json">\n{\n  "@context": "https://schema.org",\n  "@type": "Article",\n  "name": "Sample document"\n}\n<\/script>\n</head><body></body></html>';
+        jsonOutput.style.display = 'none';
+      });
+    })();
+  </script>
+</body>
+</html>

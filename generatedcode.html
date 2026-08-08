@@ -8,6 +8,14 @@
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
+  <meta property="og:title" content="AI Playground – Coding Guide" />
+  <meta property="og:description" content="AI Coding Guide – practical examples and workflows for AI-assisted software development using OpenCode on Ubuntu." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="AI Playground – Coding Guide" />
+  <meta name="twitter:description" content="AI Coding Guide – practical examples and workflows for AI-assisted software development using OpenCode on Ubuntu." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
   <title>AI Playground – Coding Guide</title>
   <script type="application/ld+json">
@@ -24,7 +32,6 @@
   </script>
 
   <!-- Preconnect to CDNs -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
   <!-- Font Awesome -->
@@ -872,11 +879,24 @@ table.report-table {
     @media (prefers-contrast: more) {
       code, pre { border-width: 2px; }
     }
+    .noscript-notice {
+      margin: 1rem auto; max-width: 640px; padding: 0.9rem 1.1rem;
+      border-radius: 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
+      font-size: 0.85rem; line-height: 1.5;
+    }
   </style>
 </head>
 
 <body>
-  <div id="scroll-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+  <noscript>
+    <style>
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .guide-section { content-visibility: visible; }
+    </style>
+    <div class="noscript-notice" role="note">This page requires JavaScript for search, filters and code samples. Some content stays hidden without it.</div>
+  </noscript>
+  <div id="scroll-progress" role="progressbar" aria-label="Scroll progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
   <div id="scroll-label"></div>
   <a href="#main-content" class="skip-link">Skip to content</a>
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
@@ -1445,6 +1465,7 @@ gemma3 chat</code></pre>
       /* Keyboard shortcuts */
       document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
         if (e.key === 'f' || e.key === 'F') {
           e.preventDefault();
           var fi = document.getElementById('projectFilter');
@@ -1622,6 +1643,7 @@ gemma3 chat</code></pre>
       if (!reducedMotion) {
       const portalCanvas = document.createElement('canvas');
       portalCanvas.id = 'portal-canvas';
+      portalCanvas.setAttribute('aria-hidden', 'true');
       portalCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;';
       const pc = document.getElementById('particle-canvas');
       if (pc && pc.parentNode) pc.parentNode.insertBefore(portalCanvas, pc.nextSibling);
