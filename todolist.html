@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="description" content="A simple free and anonymous ToDo List manager. Save and load lists locally in XML or JSON." />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
@@ -51,11 +52,12 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       margin: 0;
       min-height: 100vh;
+      min-height: 100dvh;
       -webkit-tap-highlight-color: transparent;
     }
 
     .page-shell {
-      max-width: 640px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 2rem 1.25rem 3.5rem;
     }
@@ -475,6 +477,7 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
       .btn:hover { transform: none; }
+      html { scroll-behavior: auto; }
     }
 
     @media print {
@@ -520,6 +523,7 @@
     html { scroll-behavior: smooth; overscroll-behavior: none; }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
     .search-wrap {
       position: relative; margin-bottom: 0.8rem;
     }
@@ -661,8 +665,8 @@
 
     <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;align-items:center;">
       <div class="format-toggle" id="formatToggle">
-        <button class="active" data-format="xml" title="Save files in XML format">XML</button>
-        <button data-format="json" title="Save files in JSON format">JSON</button>
+        <button class="active" data-format="xml" title="Save files in XML format" type="button" aria-pressed="true">XML</button>
+        <button data-format="json" title="Save files in JSON format" type="button" aria-pressed="false">JSON</button>
       </div>
       <button class="btn btn-sm btn-ghost" id="saveXmlBtn" title="Download the current todo list to a file"><i class="fa-solid fa-download"></i> Save</button>
       <button class="btn btn-sm btn-ghost" id="loadXmlBtn" title="Import a todo list from an XML or JSON file"><i class="fa-solid fa-upload"></i> Load</button>
@@ -1377,7 +1381,10 @@
         var btn = e.target.closest('button');
         if (!btn) return;
         saveFormat = btn.dataset.format;
-        this.querySelectorAll('button').forEach(function(b) { b.classList.toggle('active', b === btn); });
+        this.querySelectorAll('button').forEach(function(b) {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+        });
       });
 
       searchTasks.addEventListener('input', function() {
@@ -1385,12 +1392,19 @@
         render();
       });
 
+      document.addEventListener('keydown', function(e) {
+        if (e.key === '/' && !(e.target instanceof HTMLInputElement) && !(e.target instanceof HTMLTextAreaElement)) {
+          e.preventDefault();
+          searchTasks.focus();
+        }
+      });
+
       if (backToTop) {
         window.addEventListener('scroll', function() {
           backToTop.classList.toggle('visible', window.scrollY > 400);
         });
         backToTop.addEventListener('click', function() {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
         });
       }
 

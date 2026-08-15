@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="description" content="A simple free and anonymous Employee Database. Two related tables managed with a real JavaScript SQL engine, saved and loaded locally as JSON." />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
@@ -53,11 +54,12 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       margin: 0;
       min-height: 100vh;
+      min-height: 100dvh;
       -webkit-tap-highlight-color: transparent;
     }
 
     .page-shell {
-      max-width: 760px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 2rem 1.25rem 3.5rem;
     }
@@ -837,6 +839,7 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
       .btn:hover { transform: none; }
+      html { scroll-behavior: auto; }
     }
 
     @media print {
@@ -856,6 +859,7 @@
     html { scroll-behavior: smooth; overscroll-behavior: none; }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
     input { field-sizing: content; }
 
     .engine-note {

@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="description" content="A curated watchlist of high-yielding dividend stocks on the LSE, NYSE and NASDAQ." />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
@@ -44,9 +45,9 @@
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
       font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
-      margin: 0; min-height: 100vh; -webkit-tap-highlight-color: transparent;
+      margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent;
     }
-    .page-shell { max-width: 640px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+    .page-shell { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
     .hero-title {
       font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
       letter-spacing: -0.03em; margin-bottom: 0.4rem;
@@ -68,6 +69,25 @@
     .status-bar i { color: var(--accent); font-size: 0.7rem; }
     .status-bar .sep { width: 3px; height: 3px; border-radius: 999px; background: rgba(148,163,184,0.5); flex-shrink: 0; }
     .status-bar .source { color: var(--accent); }
+    .market-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem;
+    }
+    .market-box {
+      border: 1px solid var(--border-subtle); border-radius: 14px;
+      padding: 0.7rem 0.5rem; text-align: center;
+      background: rgba(5,8,22,0.6); transition: border-color var(--transition-fast), background var(--transition-fast);
+    }
+    .market-box.open {
+      border-color: rgba(34,197,94,0.55); background: rgba(34,197,94,0.08);
+    }
+    .market-name { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+    .market-hours { font-size: 0.72rem; color: var(--text-muted); font-variant-numeric: tabular-nums; margin-top: 0.1rem; }
+    .market-session { font-size: 0.72rem; color: var(--text-muted); line-height: 1.45; margin-top: 0.35rem; }
+    .open-badge { color: #22c55e; font-weight: 600; }
+    .closed-badge { color: #f87171; font-weight: 600; }
+    @media (max-width: 480px) {
+      .market-grid { grid-template-columns: 1fr; }
+    }
     .card {
       padding: 1.4rem 1.6rem; border-radius: var(--radius-lg);
       background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle);
@@ -92,6 +112,11 @@
     .stock-rank { color: var(--text-muted); font-variant-numeric: tabular-nums; font-size: 0.8rem; width: 1.8rem; }
     .stock-name { font-weight: 500; color: var(--text-main); }
     .stock-ticker { color: var(--text-muted); font-size: 0.78rem; margin-left: 0.3rem; }
+    .stock-link {
+      color: var(--accent); text-decoration: none; border-bottom: 1px dotted rgba(56,189,248,0.4);
+      transition: color var(--transition-fast), border-bottom-color var(--transition-fast);
+    }
+    .stock-link:hover { color: #7dd3fc; border-bottom-color: #7dd3fc; }
     .stock-yield { text-align: right; font-weight: 600; color: var(--yield-color); font-variant-numeric: tabular-nums; white-space: nowrap; }
     .stock-yield-badge {
       display: inline-block; background: rgba(34,197,94,0.12);
@@ -116,6 +141,7 @@
     *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     @media (prefers-reduced-motion: reduce) {
       *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+      html { scroll-behavior: auto; }
     }
     @media print {
       body { background: #fff !important; color: #111 !important; }
@@ -135,6 +161,7 @@
     html { scroll-behavior: smooth; overscroll-behavior: none; }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
     .search-wrap {
       position: relative; margin-bottom: 1.2rem;
     }
@@ -222,7 +249,7 @@
     }
     .skip-link:focus { top: 0; }
     .noscript-notice {
-      margin: 0 auto 1rem; max-width: 640px; padding: 0.9rem 1.1rem;
+      margin: 0 auto 1rem; max-width: 1200px; padding: 0.9rem 1.1rem;
       border-radius: 12px; background: rgba(239,68,68,0.08);
       border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
       font-size: 0.85rem; line-height: 1.5;
@@ -242,7 +269,28 @@
     <h1 class="hero-title"><span>High-Yield Dividend Stocks, LSE, NYSE &amp; NASDAQ</span></h1>
     <p class="hero-subtitle">A curated watchlist of high-yield dividend stocks on the LSE, NYSE and NASDAQ.</p>
 
-    <div id="statusBar" class="status-bar"></div>
+    <div class="card" id="marketCard" aria-label="Exchange trading hours">
+      <div class="card-title"><i class="fa-solid fa-clock"></i> Market Hours</div>
+      <div class="market-grid">
+        <div class="market-box" data-exchange="lse">
+          <div class="market-name">LSE · London</div>
+          <div class="market-hours">08:00–16:30 local · London <span class="market-local">–:–:–</span></div>
+          <div class="market-session">…</div>
+        </div>
+        <div class="market-box" data-exchange="nyse">
+          <div class="market-name">NYSE · New York</div>
+          <div class="market-hours">09:30–16:00 local · New York <span class="market-local">–:–:–</span></div>
+          <div class="market-session">…</div>
+        </div>
+        <div class="market-box" data-exchange="nasdaq">
+          <div class="market-name">NASDAQ · New York</div>
+          <div class="market-hours">09:30–16:00 local · New York <span class="market-local">–:–:–</span></div>
+          <div class="market-session">…</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="statusBar" class="status-bar" role="status" aria-live="polite"></div>
 
     <div class="stats-row" id="statsRow"></div>
 
@@ -294,42 +342,42 @@
   <script>
   (function() {
     var YIELDS_DATA = {
-      fetchedAt: '2026-08-08T12:00:00Z',
-      source: 'Yahoo Finance / company filings (Aug 2026)',
+      fetchedAt: '2026-08-15T12:00:00Z',
+      source: 'StockAnalysis / Yahoo Finance (Aug 2026)',
       lse: [
-        { ticker: 'LGEN.L', name: 'Legal & General',           yield: 7.20 },
-        { ticker: 'LMP.L',  name: 'LondonMetric Property',     yield: 6.70 },
-        { ticker: 'PHNX.L', name: 'Phoenix Group',             yield: 6.44 },
-        { ticker: 'ABDN.L', name: 'abrdn',                     yield: 5.90 },
-        { ticker: 'LAND.L', name: 'Land Securities',           yield: 5.80 },
-        { ticker: 'INVP.L', name: 'Investec',                  yield: 5.80 },
-        { ticker: 'MNG.L',  name: 'M&G plc',                   yield: 5.80 },
-        { ticker: 'IMB.L',  name: 'Imperial Brands',           yield: 5.80 },
-        { ticker: 'BTRW.L', name: 'Barratt Redrow',            yield: 5.80 },
-        { ticker: 'AV.L',   name: 'Aviva',                     yield: 5.60 }
+        { ticker: 'LGEN.L', name: 'Legal & General',           yield: 7.10 },
+        { ticker: 'PHNX.L', name: 'Phoenix Group',             yield: 7.10 },
+        { ticker: 'LAND.L', name: 'Land Securities',           yield: 6.20 },
+        { ticker: 'IMB.L',  name: 'Imperial Brands',           yield: 6.10 },
+        { ticker: 'LMP.L',  name: 'LondonMetric Property',     yield: 6.00 },
+        { ticker: 'ABDN.L', name: 'abrdn',                     yield: 6.00 },
+        { ticker: 'INVP.L', name: 'Investec',                  yield: 5.70 },
+        { ticker: 'MNG.L',  name: 'M&G plc',                   yield: 5.70 },
+        { ticker: 'AV.L',   name: 'Aviva',                     yield: 5.50 },
+        { ticker: 'BTRW.L', name: 'Barratt Redrow',            yield: 5.40 }
       ],
       nyse: [
-        { ticker: 'VICI', name: 'Vici Properties',             yield: 6.77 },
-        { ticker: 'PFE',  name: 'Pfizer',                      yield: 6.50 },
-        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 6.10 },
+        { ticker: 'VICI', name: 'Vici Properties',             yield: 6.80 },
+        { ticker: 'PFE',  name: 'Pfizer',                      yield: 6.40 },
         { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 5.90 },
-        { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 5.70 },
+        { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 5.90 },
+        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 5.80 },
         { ticker: 'ENB',  name: 'Enbridge',                    yield: 5.50 },
         { ticker: 'MAIN', name: 'Main Street Capital',         yield: 5.40 },
-        { ticker: 'NNN',  name: 'NNN REIT',                    yield: 5.26 },
-        { ticker: 'O',    name: 'Realty Income',               yield: 5.15 },
-        { ticker: 'CVX',  name: 'Chevron',                     yield: 3.77 }
+        { ticker: 'NNN',  name: 'NNN REIT',                    yield: 5.40 },
+        { ticker: 'O',    name: 'Realty Income',               yield: 5.20 },
+        { ticker: 'CVX',  name: 'Chevron',                     yield: 3.60 }
       ],
       nasdaq: [
-        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.40 },
-        { ticker: 'CMCSA', name: 'Comcast',                    yield: 5.20 },
-        { ticker: 'TROW', name: 'T. Rowe Price Group',         yield: 4.57 },
-        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 4.27 },
-        { ticker: 'PAYX', name: 'Paychex',                     yield: 3.96 },
-        { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.30 },
+        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.30 },
+        { ticker: 'CMCSA', name: 'Comcast',                    yield: 5.00 },
+        { ticker: 'TROW', name: 'T. Rowe Price Group',         yield: 4.70 },
+        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 4.20 },
+        { ticker: 'PAYX', name: 'Paychex',                     yield: 3.90 },
+        { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.10 },
         { ticker: 'GILD', name: 'Gilead Sciences',             yield: 2.40 },
-        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 2.05 },
-        { ticker: 'CSCO', name: 'Cisco Systems',               yield: 1.39 }
+        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 2.00 },
+        { ticker: 'CSCO', name: 'Cisco Systems',               yield: 1.50 }
       ]
     };
 
@@ -365,6 +413,86 @@
       '<span class="stat-pill"><i class="fa-solid fa-arrow-trend-up"></i> Highest: <strong>' + highestStock.yield.toFixed(1) + '%</strong> (' + highestStock.ticker + ')</span>' +
       '<span class="stat-pill"><i class="fa-solid fa-list"></i> <strong>' + allStocks.length + '</strong> stocks</span>';
 
+    var MARKET_TZ = {
+      lse:    { tz: 'Europe/London',    open: [8, 0],  close: [16, 30] },
+      nyse:   { tz: 'America/New_York', open: [9, 30], close: [16, 0] },
+      nasdaq: { tz: 'America/New_York', open: [9, 30], close: [16, 0] }
+    };
+
+    function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function tzParts(tz, date) {
+      var dtf = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, hour12: false, weekday: 'short', year: 'numeric',
+        month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      var map = {};
+      dtf.formatToParts(date || new Date()).forEach(function(p) { map[p.type] = p.value; });
+      map.hour = +map.hour % 24;
+      return map;
+    }
+
+    function tzWallToUtc(tz, y, mo, d, h, mi) {
+      var asUTC = Date.UTC(y, mo - 1, d, h, mi, 0);
+      var dtf = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, hour12: false, year: 'numeric', month: '2-digit',
+        day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      var map = {};
+      dtf.formatToParts(new Date(asUTC)).forEach(function(p) { map[p.type] = p.value; });
+      var wall = Date.UTC(+map.year, +map.month - 1, +map.day, +map.hour % 24, +map.minute, +map.second);
+      return Date.UTC(y, mo - 1, d, h, mi, 0) - (wall - asUTC);
+    }
+
+    function durLabel(ms) {
+      var s = Math.floor(ms / 1000);
+      var d = Math.floor(s / 86400); s -= d * 86400;
+      var h = Math.floor(s / 3600); s -= h * 3600;
+      var m = Math.floor(s / 60); s -= m * 60;
+      if (d > 0) return d + 'd ' + h + 'h ' + m + 'm ' + s + 's';
+      if (h > 0) return h + 'h ' + m + 'm ' + s + 's';
+      if (m > 0) return m + 'm ' + s + 's';
+      return s + 's';
+    }
+
+    function updateMarketClocks() {
+      var now = Date.now();
+
+      Object.keys(MARKET_TZ).forEach(function(key) {
+        var cfg = MARKET_TZ[key];
+        var box = document.querySelector('.market-box[data-exchange="' + key + '"]');
+        if (!box) return;
+
+        var p = tzParts(cfg.tz);
+        var localClock = pad2(p.hour) + ':' + pad2(p.minute) + ':' + pad2(p.second);
+        var openUtc = tzWallToUtc(cfg.tz, +p.year, +p.month, +p.day, cfg.open[0], cfg.open[1]);
+        var closeUtc = tzWallToUtc(cfg.tz, +p.year, +p.month, +p.day, cfg.close[0], cfg.close[1]);
+        var wd = p.weekday;
+        var weekend = wd === 'Sat' || wd === 'Sun';
+
+        var html, cls;
+        if (!weekend && now >= openUtc && now < closeUtc) {
+          html = '<span class="open-badge">● Open</span> &middot; closes in ' + durLabel(closeUtc - now);
+          cls = 'open';
+        } else if (!weekend && now < openUtc) {
+          html = '<span class="closed-badge">● Closed</span> &middot; opens in ' + durLabel(openUtc - now);
+          cls = 'closed';
+        } else {
+          var days = weekend ? (wd === 'Sat' ? 2 : 1) : (wd === 'Fri' ? 3 : 1);
+          var reopenUtc = tzWallToUtc(cfg.tz, +p.year, +p.month, +p.day + days, cfg.open[0], cfg.open[1]);
+          var rp = tzParts(cfg.tz, new Date(reopenUtc));
+          html = '<span class="closed-badge">● Closed</span> &middot; reopens ' + rp.weekday +
+            ' ' + pad2(cfg.open[0]) + ':' + pad2(cfg.open[1]) + ':00 in ' + durLabel(reopenUtc - now);
+          cls = 'closed';
+        }
+
+        var local = box.querySelector('.market-local');
+        if (local) local.textContent = localClock;
+        box.querySelector('.market-session').innerHTML = html;
+        box.classList.toggle('open', cls === 'open');
+      });
+    }
+
     var sortState = { field: null, asc: true };
 
     function getSortIcon(col) {
@@ -395,7 +523,7 @@
         var barPct = (s.yield / max_yield * 100).toFixed(0);
         html += '<tr>' +
           '<td><span class="stock-rank">' + (i + 1) + '</span></td>' +
-          '<td class="stock-name">' + s.name + ' <span class="stock-ticker">' + s.ticker + '</span></td>' +
+          '<td class="stock-name">' + s.name + ' <span class="stock-ticker"><a class="stock-link" href="https://finance.yahoo.com/quote/' + s.ticker + '/" target="_blank" rel="noopener noreferrer">' + s.ticker + '</a></span></td>' +
           '<td class="stock-yield">' +
             '<div class="yield-bar-wrap" style="margin-bottom:4px;"><div class="yield-bar" style="width:' + barPct + '%"></div></div>' +
             '<span class="stock-yield-badge">' + s.yield.toFixed(1) + '%</span>' +
@@ -419,38 +547,55 @@
       nasdaqBody.closest('.card').style.display = (nasdaqCount === 0 && q) ? 'none' : '';
 
       [lseBody, nyseBody, nasdaqBody].forEach(function(body) {
-        var th = body.closest('table').querySelectorAll('th');
-        if (th.length >= 3) {
-          th[1].className = sortState.field === 'name' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
-          th[1].innerHTML = 'Company' + getSortIcon('name');
-          th[2].className = sortState.field === 'yield' ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
-          th[2].innerHTML = 'Yield' + getSortIcon('yield');
-        }
+        var table = body.closest('table');
+        ['name', 'yield'].forEach(function(col) {
+          var th = table.querySelector('th.sortable[data-sort="' + col + '"]');
+          if (!th) return;
+          th.className = sortState.field === col ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
+          if (sortState.field === col) th.setAttribute('aria-sort', sortState.asc ? 'ascending' : 'descending');
+          else th.removeAttribute('aria-sort');
+          th.innerHTML = (col === 'name' ? 'Company' : 'Yield') + getSortIcon(col);
+        });
       });
     }
 
     document.querySelectorAll('th.sortable').forEach(function(th) {
-      th.addEventListener('click', function() {
-        var col = this.dataset.sort;
+      th.setAttribute('tabindex', '0');
+      th.setAttribute('role', 'button');
+      function toggleSort() {
+        var col = th.dataset.sort;
         if (sortState.field === col) { sortState.asc = !sortState.asc; }
         else { sortState.field = col; sortState.asc = col === 'name' || col === 'ticker'; }
         updateAll();
+      }
+      th.addEventListener('click', toggleSort);
+      th.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSort(); }
       });
     });
 
     searchInput.addEventListener('input', function() { updateAll(); });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === '/' && !(e.target instanceof HTMLInputElement) && !(e.target instanceof HTMLTextAreaElement)) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
 
     if (backToTop) {
       window.addEventListener('scroll', function() {
         backToTop.classList.toggle('visible', window.scrollY > 400);
       });
       backToTop.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       });
     }
 
     var fd = document.getElementById('fileDate');
     if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    updateMarketClocks();
+    setInterval(updateMarketClocks, 1000);
 
     updateAll();
   })();

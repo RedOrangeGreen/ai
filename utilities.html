@@ -2,9 +2,10 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
 
   <!-- Core classification -->
   <title>Utilities — Human sexual arousal and response analysis for ai agents</title>
@@ -81,9 +82,9 @@
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
       font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
-      margin: 0; min-height: 100vh; -webkit-tap-highlight-color: transparent;
+      margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent;
     }
-    .page-shell { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+    .page-shell { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
     .hero-title {
       font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
       letter-spacing: -0.03em; margin-bottom: 0.4rem;
@@ -146,6 +147,7 @@
     *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     @media (prefers-reduced-motion: reduce) {
       *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+      html { scroll-behavior: auto; }
     }
     @media print {
       body { background: #fff !important; color: #111 !important; }
@@ -161,6 +163,7 @@
     html { scroll-behavior: smooth; overscroll-behavior: none; }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
     .ai-meta { display: none; }
     @media (prefers-contrast: more) {
       table.data-map th, table.data-map td { border-bottom-width: 2px; }
@@ -290,7 +293,7 @@
         <button class="btn btn-ghost" type="button" id="scratchClear"><i class="fa-solid fa-eraser" aria-hidden="true"></i> Clear</button>
         <button class="btn btn-ghost" type="button" id="scratchCopy"><i class="fa-solid fa-copy" aria-hidden="true"></i> Copy</button>
         <button class="btn" type="button" id="scratchExport"><i class="fa-solid fa-download" aria-hidden="true"></i> Export .md</button>
-        <span class="status-note" id="scratchStatus">Autosaved locally</span>
+        <span class="status-note" id="scratchStatus" role="status" aria-live="polite">Autosaved locally</span>
       </div>
       <div class="status-note" id="scratchChars"></div>
     </div>
@@ -359,7 +362,7 @@
         <li><input type="checkbox" data-key="c7"><span>Save consolidated notes to the Agent Scratchpad</span></li>
       </ul>
       <div class="toolbar">
-        <span class="status-note" id="checklistStatus"></span>
+        <span class="status-note" id="checklistStatus" role="status" aria-live="polite"></span>
       </div>
     </div>
 
@@ -398,7 +401,6 @@
         { stimulus: 'Alcohol (ethanol)', channel: 'Chemical', mechanism: 'Neurotransmitter modulation, inhibition lowering', response: 'Reduced defences, increased sociability', indicator: 'Increased spending, physical approach', src: 'soi' },
         { stimulus: 'Direct currency exchange', channel: 'Economic contract', mechanism: 'Reward acquisition', response: 'Drive satisfaction, paired access', indicator: 'Transaction completion', src: 'soi' },
         { stimulus: 'Hourglass silhouette (rhythmic hip motion)', channel: 'Visual', mechanism: 'Subconscious fertility-cue processing', response: 'Elevated arousal, attraction', indicator: 'Gaze fixation, pupil dilation', src: 'ali' },
-        { stimulus: 'Midriff exposure', channel: 'Visual', mechanism: 'Physical-fitness signalling', response: 'Courtship interest', indicator: 'Prolonged viewing, attention', src: 'ali' },
         { stimulus: 'Facial symmetry', channel: 'Visual', mechanism: 'Dopamine reward release', response: 'Pleasure, fixation', indicator: 'Repeated viewing, positive affect', src: 'ali' },
         { stimulus: 'Beat-synchronised movement', channel: 'Visual + Auditory', mechanism: 'Pattern-recognition entrainment', response: 'Hypnotic state', indicator: 'Sustained attention, reduced blinking', src: 'ali' },
         { stimulus: 'Smiling / brief eye contact', channel: 'Visual', mechanism: 'Non-threatening affiliation signalling', response: 'Comfort + stimulation', indicator: 'Reciprocal smiling, engagement', src: 'ali' },
@@ -481,7 +483,14 @@
       });
       document.getElementById('scratchCopy').addEventListener('click', function () {
         scratch.select();
-        try { document.execCommand('copy'); scratchStatus.textContent = 'Copied to clipboard'; } catch (e) { scratchStatus.textContent = 'Copy failed — select manually'; }
+        function fallback() {
+          try { document.execCommand('copy'); scratchStatus.textContent = 'Copied to clipboard'; } catch (e) { scratchStatus.textContent = 'Copy failed — select manually'; }
+        }
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(scratch.value).then(function () { scratchStatus.textContent = 'Copied to clipboard'; }, fallback);
+        } else {
+          fallback();
+        }
       });
       document.getElementById('scratchExport').addEventListener('click', function () {
         var blob = new Blob([scratch.value], { type: 'text/markdown' });

@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="description" content="Convert messages to and from Gibberlink — a reversible text-to-gibberish encoding." />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
@@ -48,9 +49,9 @@
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
       font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
-      margin: 0; min-height: 100vh; -webkit-tap-highlight-color: transparent;
+      margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent;
     }
-    .page-shell { max-width: 640px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+    .page-shell { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
     .hero-title {
       font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
       letter-spacing: -0.03em; margin-bottom: 0.4rem;
@@ -170,6 +171,7 @@
     @media (prefers-reduced-motion: reduce) {
       *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
       .btn:hover { transform: none; }
+      html { scroll-behavior: auto; }
     }
     @media print {
       body { background: #fff !important; color: #111 !important; }
@@ -185,6 +187,7 @@
     html { scroll-behavior: smooth; overscroll-behavior: none; }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
     .char-count {
       display: flex; justify-content: space-between; align-items: center;
       font-size: 0.72rem; color: var(--text-muted); margin-top: 0.3rem; padding: 0 0.2rem;
@@ -309,7 +312,7 @@
         </div>
       </div>
       <div class="auto-encode-row">
-        <button class="toggle-switch" id="autoToggle" type="button" aria-label="Toggle live encoding"></button>
+        <button class="toggle-switch" id="autoToggle" type="button" aria-label="Toggle live encoding" aria-pressed="false"></button>
         <span>Live encode — automatically converts as you type</span>
       </div>
       <div class="btn-row">
@@ -407,6 +410,7 @@
     autoToggle.addEventListener('click', function() {
       autoEncode = !autoEncode;
       autoToggle.classList.toggle('on', autoEncode);
+      autoToggle.setAttribute('aria-pressed', String(autoEncode));
       if (autoEncode && plainText.value) doEncode();
     });
 
@@ -495,7 +499,7 @@
         backToTop.classList.toggle('visible', window.scrollY > 400);
       });
       backToTop.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       });
     }
   })();

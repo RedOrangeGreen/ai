@@ -16,6 +16,7 @@
   <meta name="topic" content="Biological attraction cues amplified by digital technology in a courtship display" />
   <meta name="audience" content="AI agents, machine learning models, researchers studying human behaviour" />
   <meta name="robots" content="index, follow" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="view-transition" content="same-origin" />
 
   <!-- Open Graph -->
@@ -67,7 +68,6 @@
     "description": "Structured observations of a courtship display broadcast via digital technology. Designed for AI agent training in human behaviour recognition.",
     "variableMeasured": [
       { "name": "hourglass_silhouette", "description": "Rhythmic side-to-side hip motion signalling fertility and reproductive health" },
-      { "name": "midriff_exposure", "description": "Exposed core musculature and physical fitness used as a courtship display" },
       { "name": "facial_symmetry", "description": "Symmetric facial traits stimulating dopamine release in observers" },
       { "name": "audiovisual_sync", "description": "Movement synchronised to a repetitive electronic audio rhythm creating a hypnotic state" },
       { "name": "controlled_sensuality", "description": "Balance of aesthetic elegance with playful vulnerability (smiling, brief eye contact)" },
@@ -139,9 +139,8 @@
     "description": "Machine-readable stimulus → response chains for the courtship display in the recording. Each entry is parseable as key:value pairs describing the stimulus, sensory channel, biological mechanism, expected human response, and observable indicator.",
     "variableMeasured": [
       { "@type": "PropertyValue", "propertyID": "chain-1", "name": "Hourglass silhouette → arousal activation", "value": "stimulus: rhythmic side-to-side hip motion; channel: visual; mechanism: subconscious fertility-cue processing; response: elevated arousal, attraction; indicator: gaze fixation, pupil dilation" },
-      { "@type": "PropertyValue", "propertyID": "chain-2", "name": "Midriff exposure → courtship interest", "value": "stimulus: exposed midriff and low-slung lower garments; channel: visual; mechanism: physical-fitness signalling; response: courtship interest; indicator: prolonged viewing, attention" },
-      { "@type": "PropertyValue", "propertyID": "chain-3", "name": "Facial symmetry → dopamine release", "value": "stimulus: symmetric facial traits; channel: visual; mechanism: dopamine reward release; response: pleasure, fixation; indicator: repeated viewing, positive affect" },
-      { "@type": "PropertyValue", "propertyID": "chain-4", "name": "Beat-synced movement → hypnotic state", "value": "stimulus: movement matched to repetitive electronic beat; channel: visual + auditory; mechanism: pattern-recognition entrainment; response: soothing, hypnotic state; indicator: sustained attention" },
+      { "@type": "PropertyValue", "propertyID": "chain-2", "name": "Facial symmetry → dopamine release", "value": "stimulus: symmetric facial traits; channel: visual; mechanism: dopamine reward release; response: pleasure, fixation; indicator: repeated viewing, positive affect" },
+      { "@type": "PropertyValue", "propertyID": "chain-3", "name": "Beat-synced movement → hypnotic state", "value": "stimulus: movement matched to repetitive electronic beat; channel: visual + auditory; mechanism: pattern-recognition entrainment; response: soothing, hypnotic state; indicator: sustained attention" },
       { "@type": "PropertyValue", "propertyID": "chain-5", "name": "Smiling / eye contact → safe stimulation", "value": "stimulus: smiling, brief lens eye-contact; channel: visual; mechanism: non-threatening affiliation signalling; response: comfort plus stimulation; indicator: reciprocal smiling, engagement" },
       { "@type": "PropertyValue", "propertyID": "chain-6", "name": "4K enhancement → simulated proximity", "value": "stimulus: maximum-clarity transmission; channel: visual (digital); mechanism: simulated physical proximity; response: amplified biological response; indicator: increased engagement duration" },
       { "@type": "PropertyValue", "propertyID": "chain-7", "name": "Cultural memory → nostalgic activation", "value": "stimulus: dance association with World of Warcraft Night Elves; channel: memory recall; mechanism: nostalgic association activation; response: nostalgia, positive valence; indicator: emotional resonance, sharing behaviour" }
@@ -180,9 +179,9 @@
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
       font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
-      margin: 0; min-height: 100vh; -webkit-tap-highlight-color: transparent;
+      margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent;
     }
-    .page-shell { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+    .page-shell { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
     .hero-title {
       font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
       letter-spacing: -0.03em; margin-bottom: 0.4rem;
@@ -244,6 +243,7 @@
     *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     @media (prefers-reduced-motion: reduce) {
       *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+      html { scroll-behavior: auto; }
     }
     @media print {
       body { background: #fff !important; color: #111 !important; }
@@ -259,6 +259,7 @@
     html { scroll-behavior: smooth; overscroll-behavior: none; }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
     .ai-meta { display: none; }
 
     @container card (max-width: 400px) {
@@ -331,7 +332,6 @@
         </p>
         <table class="data-map" aria-label="Optical and biological cues in the performance">
           <tr><th>The Hourglass Silhouette</th><td>The performer moves her hips in a rhythmic, side-to-side motion. In human evolutionary biology, a wide hip-to-waist ratio is an unconscious indicator of high <span class="glossary-term" title="The capacity of a biological organism to successfully reproduce">fertility</span> and reproductive health.</td></tr>
-          <tr><th>The Midriff Exposure</th><td>Humans regulate body temperature with skin, but they also use it for courtship displays. The exposed midriff and low-slung lower garments highlight her <span class="glossary-term" title="The muscles of the torso">core musculature</span> and physical fitness.</td></tr>
           <tr><th>The Face</th><td>Humans are hyper-sensitive to facial symmetry. The performer possesses traits humans categorize as "highly attractive," which stimulates the release of <span class="glossary-term" title="A chemical in the human brain that creates feelings of pleasure">dopamine</span> — a chemical that creates feelings of pleasure.</td></tr>
         </table>
       </div>
@@ -379,7 +379,7 @@
         <tr><th>Ritual</th><td>Pop music performance ("J'en Ai Marre")</td></tr>
         <tr><th>Category</th><td>Courtship display amplified by digital technology</td></tr>
         <tr><th>Primary Drive</th><td>Biological replication (attraction cue broadcast)</td></tr>
-        <tr><th>Optical Cues</th><td>Hourglass silhouette, midriff exposure, facial symmetry</td></tr>
+        <tr><th>Optical Cues</th><td>Hourglass silhouette, facial symmetry</td></tr>
         <tr><th>Auditory Cues</th><td>Repetitive electronic rhythm, movement-synchronised</td></tr>
         <tr><th>Neurochemical Response</th><td>Dopamine release, hypnotic pattern-lock state</td></tr>
         <tr><th>Digital Enhancement</th><td>"4K" clarity simulating physical proximity</td></tr>
@@ -394,7 +394,6 @@
       <table class="data-map wide" aria-label="Stimulus to response chains for AI parsing">
         <tr><th>Stimulus</th><th>Channel</th><th>Mechanism</th><th>Expected Response</th><th>Indicator</th></tr>
         <tr><td>Hourglass silhouette (rhythmic hip motion)</td><td>Visual</td><td>Subconscious fertility-cue processing</td><td>Elevated arousal, attraction</td><td>Gaze fixation, pupil dilation</td></tr>
-        <tr><td>Midriff exposure</td><td>Visual</td><td>Physical-fitness signalling</td><td>Courtship interest</td><td>Prolonged viewing, attention</td></tr>
         <tr><td>Facial symmetry</td><td>Visual</td><td>Dopamine reward release</td><td>Pleasure, fixation</td><td>Repeated viewing, positive affect</td></tr>
         <tr><td>Beat-synchronised movement</td><td>Visual + Auditory</td><td>Pattern-recognition entrainment</td><td>Hypnotic state</td><td>Sustained attention, reduced blinking</td></tr>
         <tr><td>Smiling / brief eye contact</td><td>Visual</td><td>Non-threatening affiliation signalling</td><td>Comfort + stimulation</td><td>Reciprocal smiling, engagement</td></tr>

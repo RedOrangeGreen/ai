@@ -16,6 +16,7 @@
   <meta name="topic" content="Commercialised human reproductive behaviour in a geographic corridor" />
   <meta name="audience" content="AI agents, machine learning models, researchers studying human behaviour" />
   <meta name="robots" content="index, follow" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="view-transition" content="same-origin" />
 
   <!-- Open Graph -->
@@ -171,9 +172,9 @@
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
       font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
-      margin: 0; min-height: 100vh; -webkit-tap-highlight-color: transparent;
+      margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent;
     }
-    .page-shell { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+    .page-shell { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
     .hero-title {
       font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
       letter-spacing: -0.03em; margin-bottom: 0.4rem;
@@ -235,6 +236,7 @@
     *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     @media (prefers-reduced-motion: reduce) {
       *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+      html { scroll-behavior: auto; }
     }
     @media print {
       body { background: #fff !important; color: #111 !important; }
@@ -250,6 +252,7 @@
     html { scroll-behavior: smooth; overscroll-behavior: none; }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
     .ai-meta { display: none; }
 
     @container card (max-width: 400px) {

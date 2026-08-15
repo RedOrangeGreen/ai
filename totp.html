@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="description" content="Time-based one-time passwords (TOTP) compatible with Google Authenticator — enter a Base32 secret and get the current code." />
+  <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
+  <meta property="og:title" content="TOTP Authenticator" />
+  <meta property="og:description" content="Generate Google Authenticator–compatible 6-digit codes from a Base32 secret." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="TOTP Authenticator" />
+  <meta name="twitter:description" content="Generate Google Authenticator–compatible 6-digit codes from a Base32 secret." />
+  <title>TOTP Authenticator</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔑</text></svg>" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <style>
+    @layer reset, base, components, utilities;
+
+    @layer base {
+      :root {
+        accent-color: #38bdf8;
+        interpolate-size: allow-keywords;
+        field-sizing: content;
+        --bg-body: #050816;
+        --bg-elevated: #0b1020;
+        --bg-elevated-soft: #0f172a;
+        --accent: #38bdf8;
+        --accent-soft: rgba(56,189,248,0.15);
+        --accent-strong: #0ea5e9;
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-subtle: rgba(148,163,184,0.25);
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
+        --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
+        --transition-fast: 0.18s ease-out;
+      }
+    }
+    body {
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent;
+    }
+    .page-shell { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+    .hero-title {
+      font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 0.4rem;
+    }
+    .hero-title span {
+      background: linear-gradient(120deg,#22c55e,#38bdf8,#a855f7);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      background-size: 200% 200%; animation: gradientShift 4s ease infinite;
+    }
+    @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem; line-height: 1.6; }
+    .card {
+      padding: 1.4rem 1.6rem; border-radius: var(--radius-lg);
+      background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem;
+    }
+    .card-title {
+      font-size: 1.05rem; font-weight: 600; margin: 0 0 0.8rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .card-title i { color: var(--accent); font-size: 1rem; }
+    .field-label {
+      display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);
+      margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    textarea, input[type="text"] {
+      width: 100%; padding: 0.65rem 1rem; border-radius: 12px;
+      border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.9);
+      color: var(--text-main); font-size: 0.9rem; outline: none;
+      font-family: inherit; resize: vertical; box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    textarea:focus, input[type="text"]:focus {
+      border-color: rgba(56,189,248,0.5); box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+    }
+    textarea::placeholder, input[type="text"]::placeholder { color: var(--text-muted); }
+    input[type="text"] { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; letter-spacing: 0.05em; }
+    input[type="checkbox"] { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+    select {
+      padding: 0.45rem 0.65rem; border-radius: 10px; font-size: 0.85rem;
+      border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.9);
+      color: var(--text-main); outline: none; cursor: pointer;
+    }
+    select:focus { border-color: rgba(56,189,248,0.5); box-shadow: 0 0 0 3px rgba(56,189,248,0.1); }
+    .field-group { margin-bottom: 1rem; }
+    .field-group:last-child { margin-bottom: 0; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+      border-radius: var(--radius-pill); padding: 0.5rem 1.1rem; font-size: 0.88rem;
+      border: none; background: linear-gradient(120deg,#38bdf8,#0ea5e9);
+      color: #0b1120; font-weight: 600; cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, filter 0.25s ease;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 14px 35px rgba(8,47,73,0.9); filter: brightness(1.05); }
+    .btn:active { transform: translateY(0) scale(0.97); }
+    .btn:disabled { opacity: 0.4; pointer-events: none; }
+    .btn-sm { padding: 0.3rem 0.75rem; font-size: 0.78rem; }
+    .btn-ghost {
+      background: transparent; border: 1px solid var(--border-subtle);
+      color: var(--text-muted); box-shadow: none;
+    }
+    .btn-ghost:hover { border-color: rgba(56,189,248,0.4); color: var(--accent); box-shadow: none; transform: translateY(-1px); }
+    .btn-green { background: linear-gradient(120deg,#22c55e,#16a34a); }
+    .btn-green:hover { box-shadow: 0 14px 35px rgba(22,163,74,0.5); }
+    .btn-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .status-msg {
+      display: none; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 0.85rem; border-radius: 10px; font-size: 0.82rem;
+      margin-top: 0.8rem;
+    }
+    .status-msg.visible { display: flex; }
+    .status-msg.ok { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #bbf7d0; }
+    .status-msg.err { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+    .status-msg.info { background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.3); color: #bae6fd; }
+    .status-msg i { font-size: 0.75rem; flex-shrink: 0; }
+    .divider {
+      display: flex; align-items: center; gap: 0.8rem;
+      margin: 1.5rem 0; color: var(--text-muted); font-size: 0.78rem;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border-subtle);
+    }
+    .info-note {
+      font-size: 0.75rem; color: var(--text-muted); line-height: 1.5;
+      padding: 0.6rem 0.85rem; border-radius: 10px;
+      background: rgba(56,189,248,0.04); border: 1px solid rgba(56,189,248,0.1);
+      margin-top: 0.5rem;
+    }
+    .info-note i { color: var(--accent); margin-right: 0.3rem; }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.95rem;
+      color: var(--text-muted); text-decoration: none; padding: 0.35rem 0;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover { color: var(--accent); }
+    footer {
+      margin-top: 2rem; padding-top: 1.2rem;
+      border-top: 1px solid rgba(148,163,184,0.35);
+      font-size: 0.78rem; color: var(--text-muted); text-align: center;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
+    ::selection { background: rgba(56,189,248,0.3); color: #fff; }
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+      .btn:hover { transform: none; }
+      html { scroll-behavior: auto; }
+    }
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .btn-back,footer,.status-msg { display: none !important; }
+      .card { border: 1px solid #ddd !important; box-shadow: none !important; }
+      .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; }
+      textarea, input[type="text"] { border-color: #ccc !important; background: #fff !important; color: #111 !important; }
+    }
+    @media (max-width: 480px) {
+      .card { padding: 1rem; }
+      .page-shell { padding: 1rem 0.75rem 2rem; }
+    }
+    html { scroll-behavior: smooth; overscroll-behavior: none; }
+    * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
+    h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
+
+    .paste-btn {
+      position: absolute; top: 0.5rem; right: 0.5rem;
+      background: rgba(15,23,42,0.9); border: 1px solid var(--border-subtle);
+      color: var(--text-muted); border-radius: 8px; padding: 0.25rem 0.5rem;
+      font-size: 0.72rem; cursor: pointer; transition: all 0.15s ease;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+    }
+    .paste-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .paste-btn.pasted { border-color: #22c55e; color: #22c55e; }
+    .eye-btn {
+      position: absolute; top: 0.5rem; right: 5.25rem;
+      background: none; border: none; color: var(--text-muted); cursor: pointer;
+      font-size: 0.9rem; padding: 0.2rem 0.4rem; border-radius: 6px;
+      transition: color var(--transition-fast);
+    }
+    .eye-btn:hover { color: var(--accent); }
+    .input-wrap { position: relative; }
+    .input-wrap input { padding-right: 9rem; }
+
+    .settings-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; }
+    .setting-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .setting-item .field-label { margin-bottom: 0; }
+    .remember-row {
+      display: flex; align-items: center; gap: 0.5rem; margin-top: 0.9rem;
+      font-size: 0.8rem; color: var(--text-muted); cursor: pointer; user-select: none;
+    }
+
+    .code-area { text-align: center; padding-top: 0.25rem; }
+    .code-display {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: clamp(2.4rem, 11vw, 3.6rem); font-weight: 700;
+      letter-spacing: 0.18em; font-variant-numeric: tabular-nums;
+      color: #34d399; text-shadow: 0 0 24px rgba(52,211,153,0.35);
+      user-select: all; padding: 0.25rem 0.5rem;
+    }
+    .code-display.placeholder { color: var(--text-muted); text-shadow: none; letter-spacing: 0.12em; }
+    .ring {
+      width: 148px; height: 148px; border-radius: 50%; margin: 1.1rem auto 0.9rem;
+      display: grid; place-items: center;
+      background: conic-gradient(#22c55e var(--pct, 100%), rgba(148,163,184,0.15) 0);
+      transition: background 0.25s linear;
+    }
+    .ring.placeholder { filter: grayscale(0.8); opacity: 0.55; }
+    .ring-inner {
+      width: 120px; height: 120px; border-radius: 50%;
+      background: #0f172a; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .ring-seconds { font-size: 1.7rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text-main); }
+    .ring-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+    .code-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.4rem; }
+    .code-meta strong { color: var(--text-main); font-weight: 600; }
+    .back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px;
+      border-radius: 999px; border: none;
+      background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120;
+      font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(8,47,73,0.6);
+      opacity: 0; transform: translateY(16px) scale(0.9);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000; pointer-events: none;
+    }
+    .back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .back-to-top:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 12px 32px rgba(8,47,73,0.8); }
+
+    @container card (max-width: 380px) {
+      .btn-row { flex-direction: column; }
+      .btn-row .btn { width: 100%; }
+      .settings-row { flex-direction: column; align-items: stretch; }
+    }
+    .card { container-type: inline-size; container-name: card; }
+    @media (prefers-contrast: more) {
+      textarea, input[type="text"], select { border-width: 2px; }
+      .btn { border: 2px solid transparent; }
+    }
+    .skip-link {
+      position: absolute; top: -999px; left: 0.5rem; z-index: 9999;
+      background: #0b1120; color: var(--accent); padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--accent); border-top: none;
+    }
+    .skip-link:focus { top: 0; }
+    .noscript-notice {
+      margin: 0 auto 1rem; max-width: 640px; padding: 0.9rem 1.1rem;
+      border-radius: 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    section[id], h1[id], h2[id], h3[id], #main-content { scroll-margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page requires JavaScript to render its interactive content. Please enable JavaScript to continue.</div></noscript>
+  <main id="main-content" class="page-shell">
+    <div style="margin-bottom:0.5rem;">
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back
+      </a>
+    </div>
+    <h1 class="hero-title"><span>TOTP Authenticator</span></h1>
+    <p class="hero-subtitle">Generate time-based one-time passwords (RFC&nbsp;6238) compatible with Google Authenticator. Paste a Base32 secret and the current 6-digit code appears instantly — no servers, everything runs in your browser.</p>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-solid fa-key"></i> Secret key</div>
+      <div class="field-group">
+        <label class="field-label" for="secretInput">Base32 secret</label>
+        <div class="input-wrap">
+          <input type="password" id="secretInput" placeholder="e.g. JBSWY3DPEHPK3PXP" spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off" />
+          <button class="eye-btn" id="toggleSecret" title="Show / hide" type="button" aria-label="Show or hide secret"><i class="fa-solid fa-eye"></i></button>
+          <button class="paste-btn" id="pasteSecret" title="Paste from clipboard" type="button"><i class="fa-regular fa-clipboard"></i> Paste</button>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="settings-row">
+          <div class="setting-item">
+            <label class="field-label" for="periodSelect">Period</label>
+            <select id="periodSelect">
+              <option value="30" selected>30 s</option>
+              <option value="60">60 s</option>
+            </select>
+          </div>
+          <div class="setting-item">
+            <label class="field-label" for="digitsSelect">Digits</label>
+            <select id="digitsSelect">
+              <option value="6" selected>6 (Google)</option>
+              <option value="8">8</option>
+            </select>
+          </div>
+          <div class="setting-item">
+            <label class="field-label">Algorithm</label>
+            <select disabled><option>SHA-1 (Google)</option></select>
+          </div>
+        </div>
+        <label class="remember-row" title="Stores your secret in this browser's localStorage — only check on a device you trust.">
+          <input type="checkbox" id="rememberSecret" />
+          <span>Remember secret on this device</span>
+        </label>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" id="demoBtn" type="button">
+          <i class="fa-solid fa-flask"></i> Load demo secret
+        </button>
+        <button class="btn btn-ghost" id="clearBtn" type="button">
+          <i class="fa-solid fa-trash-can"></i> Clear
+        </button>
+      </div>
+      <div id="statusMsg" class="status-msg" role="status"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-solid fa-shield-halved"></i> Authenticator code</div>
+      <div class="code-area">
+        <div class="code-display placeholder" id="codeDisplay">------</div>
+        <div class="ring placeholder" id="countdownRing" style="--pct:100%;">
+          <div class="ring-inner">
+            <span class="ring-label">Next code in</span>
+            <span class="ring-seconds" id="ringSeconds">—</span>
+            <span class="ring-label">seconds</span>
+          </div>
+        </div>
+        <div class="code-meta" id="codeMeta">Waiting for a valid secret…</div>
+        <div class="btn-row" style="justify-content:center;">
+          <button class="btn btn-sm" id="copyBtn" type="button" disabled>
+            <i class="fa-regular fa-copy"></i> Copy code
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider">How it works</div>
+
+    <div class="card" style="padding:1rem 1.3rem;">
+      <div class="info-note" style="margin-top:0;border:none;background:none;padding:0;">
+        <p style="margin:0 0 0.5rem;"><strong style="color:var(--text-main);">Standard, not proprietary</strong> — this implements RFC&nbsp;6238 TOTP with HMAC-SHA-1, exactly what Google Authenticator, Microsoft Authenticator and most other apps use. A secret added here produces identical codes to the same secret in those apps.</p>
+        <p style="margin:0 0 0.5rem;"><strong style="color:var(--text-main);">Base32 secret</strong> — services usually show it as a QR code; "enter this key" reveals the text form (characters A–Z and 2–7).</p>
+        <p style="margin:0 0 0.5rem;"><strong style="color:var(--text-main);">30-second window</strong> — the code changes every 30 seconds (adjustable). The ring shows time left; wait for the ring to fill for a fresh code.</p>
+        <p style="margin:0 0 0.5rem;"><strong style="color:var(--text-main);">Fully offline</strong> — hashing happens in this page; nothing is sent anywhere. If you save the secret, it stays only in this browser's storage.</p>
+        <p style="margin:0;"><strong style="color:var(--text-main);">Security</strong> — a secret is the same as a password. Only use this on a trusted, private device, and keep a backup (Google Authenticator lets you export / transfer accounts).</p>
+      </div>
+    </div>
+
+    <footer>
+      For informational purposes only. Use responsibly.<br>
+      <span style="font-size:0.72rem;">AI generated Sat, Aug 15, 2026</span>
+    </footer>
+  </main>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script>
+  (function() {
+    var B32 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+
+    function rl(n, s) { return (n << s) | (n >>> (32 - s)); }
+
+    function sha1Bytes(msg) {
+      var ml = msg.length;
+      var newLen = (((ml + 8) >> 6) + 1) << 6;
+      var h = new Uint8Array(newLen);
+      h.set(msg);
+      h[ml] = 0x80;
+      var bitLenHi = Math.floor(ml / 0x20000000) >>> 0;
+      var bitLenLo = (ml << 3) >>> 0;
+      h[newLen - 8] = (bitLenHi >>> 24) & 0xff;
+      h[newLen - 7] = (bitLenHi >>> 16) & 0xff;
+      h[newLen - 6] = (bitLenHi >>> 8) & 0xff;
+      h[newLen - 5] = bitLenHi & 0xff;
+      h[newLen - 4] = (bitLenLo >>> 24) & 0xff;
+      h[newLen - 3] = (bitLenLo >>> 16) & 0xff;
+      h[newLen - 2] = (bitLenLo >>> 8) & 0xff;
+      h[newLen - 1] = bitLenLo & 0xff;
+
+      var H0 = 0x67452301, H1 = 0xEFCDAB89, H2 = 0x98BADCFE, H3 = 0x10325476, H4 = 0xC3D2E1F0;
+      var w = new Int32Array(80);
+      for (var i = 0; i < h.length; i += 64) {
+        for (var j = 0; j < 16; j++) {
+          var o = i + j * 4;
+          w[j] = (h[o] << 24) | (h[o + 1] << 16) | (h[o + 2] << 8) | h[o + 3];
+        }
+        for (j = 16; j < 80; j++) {
+          w[j] = rl(w[j - 3] ^ w[j - 8] ^ w[j - 14] ^ w[j - 16], 1);
+        }
+        var a = H0, b = H1, c = H2, d = H3, e = H4, f, k, tmp;
+        for (j = 0; j < 80; j++) {
+          if (j < 20) { f = (b & c) | (~b & d); k = 0x5A827999; }
+          else if (j < 40) { f = b ^ c ^ d; k = 0x6ED9EBA1; }
+          else if (j < 60) { f = (b & c) | (b & d) | (c & d); k = 0x8F1BBCDC; }
+          else { f = b ^ c ^ d; k = 0xCA62C1D6; }
+          tmp = (rl(a, 5) + f + e + k + w[j]) >>> 0;
+          e = d; d = c; c = rl(b, 30); b = a; a = tmp;
+        }
+        H0 = (H0 + a) >>> 0; H1 = (H1 + b) >>> 0; H2 = (H2 + c) >>> 0; H3 = (H3 + d) >>> 0; H4 = (H4 + e) >>> 0;
+      }
+      var out = new Uint8Array(20);
+      out[0] = (H0 >>> 24) & 0xff; out[1] = (H0 >>> 16) & 0xff; out[2] = (H0 >>> 8) & 0xff; out[3] = H0 & 0xff;
+      out[4] = (H1 >>> 24) & 0xff; out[5] = (H1 >>> 16) & 0xff; out[6] = (H1 >>> 8) & 0xff; out[7] = H1 & 0xff;
+      out[8] = (H2 >>> 24) & 0xff; out[9] = (H2 >>> 16) & 0xff; out[10] = (H2 >>> 8) & 0xff; out[11] = H2 & 0xff;
+      out[12] = (H3 >>> 24) & 0xff; out[13] = (H3 >>> 16) & 0xff; out[14] = (H3 >>> 8) & 0xff; out[15] = H3 & 0xff;
+      out[16] = (H4 >>> 24) & 0xff; out[17] = (H4 >>> 16) & 0xff; out[18] = (H4 >>> 8) & 0xff; out[19] = H4 & 0xff;
+      return out;
+    }
+
+    function concatBytes(a, b) {
+      var out = new Uint8Array(a.length + b.length);
+      out.set(a, 0); out.set(b, a.length);
+      return out;
+    }
+
+    function hmacSha1(keyBytes, msgBytes) {
+      var block = 64;
+      var key = keyBytes;
+      if (key.length > block) key = sha1Bytes(key);
+      var k = new Uint8Array(block);
+      k.set(key, 0);
+      var ipad = new Uint8Array(block), opad = new Uint8Array(block);
+      for (var i = 0; i < block; i++) {
+        ipad[i] = k[i] ^ 0x36;
+        opad[i] = k[i] ^ 0x5c;
+      }
+      return sha1Bytes(concatBytes(opad, sha1Bytes(concatBytes(ipad, msgBytes))));
+    }
+
+    function base32Decode(s) {
+      var clean = s.toUpperCase().replace(/[\s=-]/g, '');
+      var out = [];
+      var value = 0, bits = 0;
+      for (var i = 0; i < clean.length; i++) {
+        var idx = B32.indexOf(clean[i]);
+        if (idx === -1) return null;
+        value = (value << 5) | idx;
+        bits += 5;
+        if (bits >= 8) {
+          bits -= 8;
+          out.push((value >> bits) & 0xff);
+        }
+      }
+      return new Uint8Array(out);
+    }
+
+    function totp(secretBytes, timeStep, digits) {
+      var counter = Math.floor(Date.now() / 1000 / timeStep);
+      var msg = new Uint8Array(8);
+      var c = counter;
+      for (var i = 7; i >= 0; i--) { msg[i] = c & 0xff; c = Math.floor(c / 256); }
+      var mac = hmacSha1(secretBytes, msg);
+      var off = mac[19] & 0x0f;
+      var bin = ((mac[off] & 0x7f) << 24) | (mac[off + 1] << 16) | (mac[off + 2] << 8) | mac[off + 3];
+      var code = (bin % Math.pow(10, digits)).toString();
+      while (code.length < digits) code = '0' + code;
+      return code;
+    }
+
+    var secretInput   = document.getElementById('secretInput');
+    var toggleSecret  = document.getElementById('toggleSecret');
+    var pasteSecret   = document.getElementById('pasteSecret');
+    var periodSelect  = document.getElementById('periodSelect');
+    var digitsSelect  = document.getElementById('digitsSelect');
+    var rememberChk   = document.getElementById('rememberSecret');
+    var demoBtn       = document.getElementById('demoBtn');
+    var clearBtn      = document.getElementById('clearBtn');
+    var statusMsg     = document.getElementById('statusMsg');
+    var codeDisplay   = document.getElementById('codeDisplay');
+    var ring          = document.getElementById('countdownRing');
+    var ringSeconds   = document.getElementById('ringSeconds');
+    var codeMeta      = document.getElementById('codeMeta');
+    var copyBtn       = document.getElementById('copyBtn');
+    var backToTop     = document.getElementById('backToTop');
+
+    var STORAGE_KEY = 'totp.savedSecret';
+    var secretBytes = null;
+    var showStatusTimer = null;
+    var lastCodeWindow = -1;
+    var lastCode = '';
+    var secretHidden = true;
+
+    function showStatus(type, msg) {
+      statusMsg.className = 'status-msg visible ' + type;
+      var icon = type === 'ok' ? 'fa-circle-check' : type === 'err' ? 'fa-circle-xmark' : 'fa-circle-info';
+      statusMsg.innerHTML = '<i class="fa-solid ' + icon + '"></i><span>' + msg + '</span>';
+      if (showStatusTimer) clearTimeout(showStatusTimer);
+      showStatusTimer = setTimeout(function() { hideStatus(); }, 6000);
+    }
+    function hideStatus() {
+      statusMsg.className = 'status-msg';
+      if (showStatusTimer) { clearTimeout(showStatusTimer); showStatusTimer = null; }
+    }
+
+    function parseSecret(raw) {
+      var s = raw.trim();
+      if (!s) return { empty: true };
+      if (s.length < 8) return { error: 'Secret looks too short for a TOTP key.' };
+      for (var i = 0; i < s.length; i++) {
+        var ch = s[i].toUpperCase();
+        if (ch === ' ' || ch === '-' || ch === '=') continue;
+        if (B32.indexOf(ch) === -1) return { error: 'Invalid Base32 character "' + s[i] + '" — Base32 uses A–Z and 2–7.' };
+      }
+      var bytes = base32Decode(s);
+      if (!bytes || bytes.length === 0) return { error: 'Could not decode that secret.' };
+      return { bytes: bytes };
+    }
+
+    function applySecret(bytes) {
+      secretBytes = bytes;
+      codeDisplay.classList.remove('placeholder');
+      ring.classList.remove('placeholder');
+      copyBtn.disabled = false;
+      tick();
+      showStatus('ok', 'Secret accepted — codes are now live. Verify them with Google Authenticator.');
+    }
+
+    function clearSecret() {
+      secretBytes = null;
+      lastCodeWindow = -1;
+      codeDisplay.textContent = '-'.repeat(parseInt(digitsSelect.value, 10) || 6);
+      codeDisplay.classList.add('placeholder');
+      ring.classList.add('placeholder');
+      ring.style.setProperty('--pct', '100%');
+      ringSeconds.textContent = '—';
+      codeMeta.textContent = 'Waiting for a valid secret…';
+      copyBtn.disabled = true;
+      hideStatus();
+    }
+
+    function tick() {
+      var period = parseInt(periodSelect.value, 10) || 30;
+      var digits = parseInt(digitsSelect.value, 10) || 6;
+      var now = Math.floor(Date.now() / 1000);
+      var step = Math.floor(now / period);
+      var remaining = period - (now % period);
+
+      ringSeconds.textContent = String(remaining);
+      ring.style.setProperty('--pct', (remaining / period * 100).toFixed(1) + '%');
+
+      if (secretBytes && step !== lastCodeWindow) {
+        lastCodeWindow = step;
+        lastCode = totp(secretBytes, period, digits);
+        codeDisplay.textContent = lastCode;
+        var d = new Date();
+        var h = pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
+        codeMeta.textContent = 'SHA-1 · ' + period + 's window · ' + digits + ' digits · ' + h;
+      } else if (secretBytes && digits !== lastCode.length) {
+        lastCodeWindow = -1;
+      } else if (!secretBytes) {
+        if (codeDisplay.textContent === lastCode) { codeDisplay.textContent = '-'.repeat(digits); }
+      }
+    }
+
+    function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function onSecretInput() {
+      var res = parseSecret(secretInput.value);
+      if (res.empty) { clearSecret(); return; }
+      if (res.error) {
+        secretBytes = null;
+        clearSecret();
+        showStatus('err', res.error);
+        return;
+      }
+      applySecret(res.bytes);
+    }
+
+    function saveIfRemembered() {
+      if (rememberChk.checked) {
+        try { localStorage.setItem(STORAGE_KEY, secretInput.value); } catch (e) {}
+      } else {
+        try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      }
+    }
+
+    secretInput.addEventListener('input', function() {
+      onSecretInput();
+      saveIfRemembered();
+    });
+
+    periodSelect.addEventListener('change', function() {
+      lastCodeWindow = -1;
+      if (secretBytes) { tick(); showStatus('info', 'Period set to ' + periodSelect.value + 's.'); }
+      else tick();
+    });
+    digitsSelect.addEventListener('change', function() {
+      lastCodeWindow = -1;
+      if (secretBytes) { tick(); showStatus('info', 'Digits set to ' + digitsSelect.value + '.'); }
+      else clearSecret();
+    });
+
+    toggleSecret.addEventListener('click', function() {
+      secretHidden = !secretHidden;
+      secretInput.type = secretHidden ? 'password' : 'text';
+      toggleSecret.innerHTML = '<i class="fa-solid ' + (secretHidden ? 'fa-eye' : 'fa-eye-slash') + '"></i>';
+    });
+
+    pasteSecret.addEventListener('click', function() {
+      navigator.clipboard.readText().then(function(text) {
+        if (!text) return;
+        secretInput.value = text.trim();
+        onSecretInput();
+        saveIfRemembered();
+        pasteSecret.innerHTML = '<i class="fa-solid fa-check"></i> Pasted';
+        pasteSecret.classList.add('pasted');
+        setTimeout(function() {
+          pasteSecret.innerHTML = '<i class="fa-regular fa-clipboard"></i> Paste';
+          pasteSecret.classList.remove('pasted');
+        }, 2000);
+      }).catch(function() { secretInput.focus(); });
+    });
+
+    demoBtn.addEventListener('click', function() {
+      secretInput.value = 'JBSWY3DPEHPK3PXP';
+      onSecretInput();
+      saveIfRemembered();
+      showStatus('info', 'Demo secret loaded (RFC 6238 test key). Compare with Google Authenticator.');
+    });
+
+    clearBtn.addEventListener('click', function() {
+      secretInput.value = '';
+      rememberChk.checked = false;
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      clearSecret();
+      hideStatus();
+      secretInput.focus();
+    });
+
+    copyBtn.addEventListener('click', function() {
+      if (!lastCode) return;
+      navigator.clipboard.writeText(lastCode).then(function() {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy code';
+        }, 2000);
+      });
+    });
+
+    if (backToTop) {
+      window.addEventListener('scroll', function() {
+        backToTop.classList.toggle('visible', window.scrollY > 400);
+      });
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+    }
+
+    (function init() {
+      var saved = null;
+      try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+      if (saved) {
+        secretInput.value = saved;
+        rememberChk.checked = true;
+        onSecretInput();
+      } else {
+        clearSecret();
+      }
+      setInterval(tick, 250);
+    })();
+  })();
+  </script>
+</body>
+</html>
