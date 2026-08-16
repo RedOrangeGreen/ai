@@ -419,7 +419,7 @@
       nasdaq: { tz: 'America/New_York', open: [9, 30], close: [16, 0] }
     };
 
-    function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+    function pad2(n) { n = +n; return n < 10 ? '0' + n : '' + n; }
 
     function tzParts(tz, date) {
       var dtf = new Intl.DateTimeFormat('en-US', {
