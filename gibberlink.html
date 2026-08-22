@@ -448,13 +448,20 @@
       var text = plainText.value;
       if (!text) { showStatus('err', 'Enter a message to encode.'); return; }
       var out = '';
+      var unsupported = 0;
       for (var i = 0; i < text.length; i++) {
-        out += TABLE[text.charCodeAt(i)] + ' ';
+        var token = TABLE[text.charCodeAt(i)];
+        if (token === undefined) { unsupported++; out += '? '; }
+        else out += token + ' ';
       }
       gibberText.value = out.trim();
       copyGibber.style.display = 'block';
       updateCounters();
-      showStatus('ok', 'Encoded to gibberlink.');
+      if (unsupported) {
+        showStatus('err', unsupported + ' character(s) outside Latin-1 could not be encoded — shown as "?".');
+      } else {
+        showStatus('ok', 'Encoded to gibberlink.');
+      }
     }
 
     function doDecode() {

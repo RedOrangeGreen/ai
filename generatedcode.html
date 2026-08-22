@@ -1400,8 +1400,9 @@ gemma3 chat</code></pre>
       });
 
       function closeAllExamples() {
-        document.querySelectorAll("details.project[open]").forEach(function(d) {
-          d.removeAttribute("open");
+        document.querySelectorAll("details.project").forEach(function(d) {
+          d.open = false;
+          try { sessionStorage.setItem('open-' + d.id, '0'); } catch(e) {}
         });
       }
       document.getElementById("closeAllBtn").addEventListener("click", closeAllExamples);

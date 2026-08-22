@@ -59,6 +59,19 @@
     }
     @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
     .hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6; }
+    .chart-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.25rem; margin-bottom: 1.5rem;
+    }
+    .chart-badge {
+      margin-left: auto; font-size: 0.78rem; font-weight: 700;
+      padding: 0.15rem 0.6rem; border-radius: var(--radius-pill);
+      background: rgba(148,163,184,0.12); color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .chart-badge.up { color: #22c55e; background: rgba(34,197,94,0.12); }
+    .chart-badge.down { color: #ef4444; background: rgba(239,68,68,0.12); }
+    .line-chart { width: 100%; height: auto; display: block; }
     .status-bar {
       display: flex; align-items: center; justify-content: center; gap: 0.6rem;
       font-size: 0.8rem; color: var(--text-muted);
@@ -269,6 +282,19 @@
     <h1 class="hero-title"><span>High-Yield Dividend Stocks, LSE, NYSE &amp; NASDAQ</span></h1>
     <p class="hero-subtitle">A curated watchlist of high-yield dividend stocks on the LSE, NYSE and NASDAQ.</p>
 
+    <div class="chart-grid" aria-label="2026 index performance charts">
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-chart-line"></i> FTSE 100 Index <span class="chart-badge" id="ftseBadge"></span></div>
+        <div class="card-sub">Weekly close prices — start of 2026 to current week</div>
+        <svg id="ftseChart" class="line-chart" role="img" aria-label="FTSE 100 weekly close prices, 2026 year to date"></svg>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-chart-line"></i> S&amp;P 500 Index <span class="chart-badge" id="gspcBadge"></span></div>
+        <div class="card-sub">Weekly close prices — start of 2026 to current week</div>
+        <svg id="gspcChart" class="line-chart" role="img" aria-label="S&amp;P 500 weekly close prices, 2026 year to date"></svg>
+      </div>
+    </div>
+
     <div class="card" id="marketCard" aria-label="Exchange trading hours">
       <div class="card-title"><i class="fa-solid fa-clock"></i> Market Hours</div>
       <div class="market-grid">
@@ -342,44 +368,107 @@
   <script>
   (function() {
     var YIELDS_DATA = {
-      fetchedAt: '2026-08-15T12:00:00Z',
-      source: 'StockAnalysis / Yahoo Finance (Aug 2026)',
+      fetchedAt: '2026-08-22T08:25:00Z',
+      source: 'Yahoo Finance — price & trailing 12M dividends (Aug 2026)',
       lse: [
-        { ticker: 'LGEN.L', name: 'Legal & General',           yield: 7.10 },
-        { ticker: 'PHNX.L', name: 'Phoenix Group',             yield: 7.10 },
-        { ticker: 'LAND.L', name: 'Land Securities',           yield: 6.20 },
-        { ticker: 'IMB.L',  name: 'Imperial Brands',           yield: 6.10 },
-        { ticker: 'LMP.L',  name: 'LondonMetric Property',     yield: 6.00 },
-        { ticker: 'ABDN.L', name: 'abrdn',                     yield: 6.00 },
-        { ticker: 'INVP.L', name: 'Investec',                  yield: 5.70 },
-        { ticker: 'MNG.L',  name: 'M&G plc',                   yield: 5.70 },
-        { ticker: 'AV.L',   name: 'Aviva',                     yield: 5.50 },
-        { ticker: 'BTRW.L', name: 'Barratt Redrow',            yield: 5.40 }
+        { ticker: 'LGEN.L', name: 'Legal & General',           yield: 7.71 },
+        { ticker: 'IMB.L',  name: 'Imperial Brands',           yield: 6.53 },
+        { ticker: 'PNXGF',  name: 'Phoenix Group',             yield: 6.52 },
+        { ticker: 'LMP.L',  name: 'LondonMetric Property',     yield: 6.45 },
+        { ticker: 'INVP.L', name: 'Investec',                  yield: 6.04 },
+        { ticker: 'ABDN.L', name: 'abrdn',                     yield: 6.01 },
+        { ticker: 'LAND.L', name: 'Land Securities',           yield: 6.00 },
+        { ticker: 'MNG.L',  name: 'M&G plc',                   yield: 5.92 },
+        { ticker: 'AV.L',   name: 'Aviva',                     yield: 5.48 },
+        { ticker: 'BTRW.L', name: 'Barratt Redrow',            yield: 5.47 }
       ],
       nyse: [
-        { ticker: 'VICI', name: 'Vici Properties',             yield: 6.80 },
-        { ticker: 'PFE',  name: 'Pfizer',                      yield: 6.40 },
-        { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 5.90 },
-        { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 5.90 },
-        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 5.80 },
-        { ticker: 'ENB',  name: 'Enbridge',                    yield: 5.50 },
-        { ticker: 'MAIN', name: 'Main Street Capital',         yield: 5.40 },
-        { ticker: 'NNN',  name: 'NNN REIT',                    yield: 5.40 },
-        { ticker: 'O',    name: 'Realty Income',               yield: 5.20 },
-        { ticker: 'CVX',  name: 'Chevron',                     yield: 3.60 }
+        { ticker: 'MAIN', name: 'Main Street Capital',         yield: 7.39 },
+        { ticker: 'VICI', name: 'Vici Properties',             yield: 6.79 },
+        { ticker: 'PFE',  name: 'Pfizer',                      yield: 6.13 },
+        { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 5.80 },
+        { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 5.72 },
+        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 5.65 },
+        { ticker: 'NNN',  name: 'NNN REIT',                    yield: 5.28 },
+        { ticker: 'O',    name: 'Realty Income',               yield: 5.18 },
+        { ticker: 'ENB',  name: 'Enbridge',                    yield: 4.03 },
+        { ticker: 'CVX',  name: 'Chevron',                     yield: 3.43 }
       ],
       nasdaq: [
-        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.30 },
-        { ticker: 'CMCSA', name: 'Comcast',                    yield: 5.00 },
-        { ticker: 'TROW', name: 'T. Rowe Price Group',         yield: 4.70 },
-        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 4.20 },
-        { ticker: 'PAYX', name: 'Paychex',                     yield: 3.90 },
+        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.25 },
+        { ticker: 'CMCSA', name: 'Comcast',                    yield: 4.84 },
+        { ticker: 'TROW', name: 'T. Rowe Price Group',         yield: 4.61 },
+        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 4.01 },
+        { ticker: 'PAYX', name: 'Paychex',                     yield: 3.65 },
         { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.10 },
-        { ticker: 'GILD', name: 'Gilead Sciences',             yield: 2.40 },
-        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 2.00 },
-        { ticker: 'CSCO', name: 'Cisco Systems',               yield: 1.50 }
+        { ticker: 'GILD', name: 'Gilead Sciences',             yield: 2.20 },
+        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 2.15 },
+        { ticker: 'CSCO', name: 'Cisco Systems',               yield: 1.49 }
       ]
     };
+
+    var INDEX_DATA = {
+      ftse: [["2026-01-01",10048.2],["2026-01-08",10184.4],["2026-01-15",10138.1],["2026-01-22",10154.4],["2026-01-29",10402.3],["2026-02-05",10472.1],["2026-02-12",10686.2],["2026-02-19",10806.4],["2026-02-26",10567.7],["2026-03-05",10353.8],["2026-03-12",10305.3],["2026-03-19",10106.8],["2026-03-26",10364.8],["2026-04-01",10608.9],["2026-04-08",10559.6],["2026-04-15",10476.5],["2026-04-22",10213.1],["2026-04-29",10438.7],["2026-05-06",10325.4],["2026-05-13",10432.3],["2026-05-20",10505.0],["2026-05-27",10332.3],["2026-06-03",10254.8],["2026-06-10",10508.6],["2026-06-17",10461.6],["2026-06-24",10478.3],["2026-07-01",10489.0],["2026-07-08",10515.9],["2026-07-15",10717.0],["2026-07-22",10908.4],["2026-07-29",10888.3],["2026-08-05",10833.2],["2026-08-12",10743.4],["2026-08-19",10816.6],["2026-08-21",10816.56]],
+      gspc: [["2026-01-01",6920.93],["2026-01-08",6926.6],["2026-01-15",6875.62],["2026-01-22",6978.03],["2026-01-29",6882.72],["2026-02-05",6941.47],["2026-02-12",6881.31],["2026-02-19",6946.13],["2026-02-26",6869.5],["2026-03-05",6775.8],["2026-03-12",6624.7],["2026-03-19",6591.9],["2026-03-26",6575.32],["2026-04-02",6782.81],["2026-04-09",7022.95],["2026-04-16",7137.9],["2026-04-23",7135.95],["2026-04-30",7365.12],["2026-05-07",7444.25],["2026-05-14",7432.97],["2026-05-21",7520.36],["2026-05-28",7553.68],["2026-06-04",7266.99],["2026-06-11",7420.1],["2026-06-18",7358.22],["2026-06-25",7483.23],["2026-07-02",7482.71],["2026-07-09",7572.4],["2026-07-16",7498.96],["2026-07-23",7316.15],["2026-07-30",7723.55],["2026-08-06",7748.5],["2026-08-13",7707.98],["2026-08-20",7674.37],["2026-08-21",7674.37]]
+    };
+
+    function renderIndexChart(svgId, badgeId, data, color) {
+      var svg = document.getElementById(svgId);
+      if (!svg) return;
+      var W = 600, H = 260, padL = 58, padR = 18, padT = 14, padB = 30;
+      var closes = data.map(function(d) { return d[1]; });
+      var min = Math.min.apply(null, closes), max = Math.max.apply(null, closes);
+      var span = (max - min) || 1;
+      min -= span * 0.08; max += span * 0.08;
+      var iw = W - padL - padR, ih = H - padT - padB;
+      function X(i) { return padL + (data.length === 1 ? iw / 2 : i / (data.length - 1) * iw); }
+      function Y(v) { return padT + (1 - (v - min) / (max - min)) * ih; }
+
+      var path = '', i;
+      for (i = 0; i < data.length; i++) path += (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(data[i][1]).toFixed(1);
+      var area = path + 'L' + X(data.length - 1).toFixed(1) + ',' + (padT + ih).toFixed(1) + 'L' + X(0).toFixed(1) + ',' + (padT + ih).toFixed(1) + 'Z';
+
+      var grid = '';
+      for (var g = 0; g <= 4; g++) {
+        var v = min + (max - min) * g / 4;
+        var gy = Y(v).toFixed(1);
+        grid += '<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - padR) + '" y2="' + gy + '" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>' +
+          '<text x="' + (padL - 8) + '" y="' + (+gy + 4) + '" text-anchor="end" font-size="11" fill="#9ca3af">' + Math.round(v).toLocaleString('en-US') + '</text>';
+      }
+      var months = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var xlabels = '', lastMonth = '';
+      for (i = 0; i < data.length; i++) {
+        var mo = data[i][0].slice(5, 7);
+        if (mo !== lastMonth) {
+          lastMonth = mo;
+          xlabels += '<text x="' + X(i).toFixed(1) + '" y="' + (H - 8) + '" text-anchor="middle" font-size="11" fill="#9ca3af">' + months[+mo] + '</text>';
+        }
+      }
+
+      var lastX = X(data.length - 1), lastY = Y(closes[closes.length - 1]);
+      var marker = '<circle cx="' + lastX.toFixed(1) + '" cy="' + lastY.toFixed(1) + '" r="4" fill="' + color + '" stroke="#0b1020" stroke-width="2"/>' +
+        '<text x="' + lastX.toFixed(1) + '" y="' + (lastY - 22).toFixed(1) + '" text-anchor="end" font-size="12" font-weight="700" fill="' + color + '">' + closes[closes.length - 1].toLocaleString('en-US', { maximumFractionDigits: 2 }) + '</text>';
+
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      svg.innerHTML =
+        '<defs><linearGradient id="' + svgId + 'Grad" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0%" stop-color="' + color + '" stop-opacity="0.28"/>' +
+        '<stop offset="100%" stop-color="' + color + '" stop-opacity="0"/></linearGradient></defs>' +
+        grid + xlabels +
+        '<path d="' + area + '" fill="url(#' + svgId + 'Grad)"/>' +
+        '<path d="' + path + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' +
+        marker;
+
+      var pct = (closes[closes.length - 1] - closes[0]) / closes[0] * 100;
+      var badge = document.getElementById(badgeId);
+      if (badge) {
+        badge.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '% YTD';
+        badge.classList.add(pct >= 0 ? 'up' : 'down');
+      }
+    }
+
+    renderIndexChart('ftseChart', 'ftseBadge', INDEX_DATA.ftse, '#38bdf8');
+    renderIndexChart('gspcChart', 'gspcBadge', INDEX_DATA.gspc, '#a855f7');
 
     var statusBar = document.getElementById('statusBar');
     var lseBody = document.getElementById('lseBody');

@@ -744,7 +744,7 @@
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-brain"></i><h2>Human sexual arousal and response analysis for ai agents</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-brain"></i><h2>Human male sexual arousal and response analysis for ai agents</h2></div>
         <div class="section-heading-sub">Structured behavioural analyses designed for AI agent comprehension.</div>
       </header>
       <ul class="chatbot-list">
@@ -770,7 +770,7 @@
             <div class="tool-card-badges"><span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-play"></i> Video</span></div>
           </div>
           <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/kbX5I-MYLLE" title="Learn Italian AI Style video" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/kbX5I-MYLLE" title="Learn Italian AI Style video" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
         </article>
         <article class="tool-card tool" data-category="videos" data-tags="ai stunner models daisy dukes fashion video">
@@ -784,7 +784,7 @@
             <div class="tool-card-badges"><span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-play"></i> Video</span></div>
           </div>
           <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" title="AI Stunner Models video" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" title="AI Stunner Models video" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
           </div>
         </article>
       </div>
@@ -1575,6 +1575,111 @@
     })();
     var fd = document.getElementById('fileDate');
     if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+
+    (function() {
+      var londonDay;
+      try {
+        londonDay = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', weekday: 'long' }).format(new Date());
+      } catch(e) {
+        londonDay = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][new Date().getDay()];
+      }
+      var videoSrc = 'its' + londonDay.toLowerCase() + '.mp4';
+
+      function removeOverlay() {
+        var el = document.getElementById('dayVideoOverlay');
+        if (el && el.parentNode) el.parentNode.removeChild(el);
+      }
+
+      function showDialog() {
+        try {
+          if (sessionStorage.getItem('dayVideoDialogShown')) return;
+          sessionStorage.setItem('dayVideoDialogShown', '1');
+        } catch(e) { console.warn('sessionStorage unavailable; showing dialog', e); }
+
+        var backdrop = document.createElement('div');
+        backdrop.id = 'dayVideoDialog';
+        backdrop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2147483647;display:flex;align-items:center;justify-content:center;font-family:sans-serif;';
+
+        var box = document.createElement('div');
+        box.style.cssText = 'background:#fff;color:#111;border-radius:12px;padding:28px 32px;max-width:90vw;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.5);';
+
+        var msg = document.createElement('p');
+        msg.style.cssText = 'margin:0 0 20px;font-size:18px;';
+        msg.textContent = 'Enable Sound On AI Playground?';
+        box.appendChild(msg);
+
+        var go = document.createElement('button');
+        go.textContent = 'OK';
+        go.style.cssText = 'padding:10px 22px;margin:0 8px;font-size:16px;border:none;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;';
+        go.addEventListener('click', function() {
+          if (backdrop.parentNode) document.body.removeChild(backdrop);
+          playVideo();
+        });
+
+        var quiet = document.createElement('button');
+        quiet.textContent = 'Cancel';
+        quiet.style.cssText = 'padding:10px 22px;margin:0 8px;font-size:16px;border:1px solid #ccc;border-radius:8px;background:#f3f4f6;color:#111;cursor:pointer;';
+        quiet.addEventListener('click', function() {
+          if (backdrop.parentNode) document.body.removeChild(backdrop);
+        });
+
+        box.appendChild(go);
+        box.appendChild(quiet);
+        backdrop.appendChild(box);
+        document.body.appendChild(backdrop);
+      }
+
+      function playVideo() {
+        var overlay = document.createElement('div');
+        overlay.id = 'dayVideoOverlay';
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:2147483647;display:flex;align-items:center;justify-content:center;';
+
+        var video = document.createElement('video');
+        video.style.cssText = 'width:100%;height:100%;object-fit:contain;background:#000;';
+        video.src = videoSrc;
+        video.autoplay = true;
+        video.controls = false;
+        video.playsInline = true;
+        video.setAttribute('playsinline', '');
+        video.preload = 'auto';
+
+        var hint = document.createElement('div');
+        hint.style.cssText = 'position:absolute;bottom:24px;left:0;width:100%;text-align:center;color:#fff;font-family:sans-serif;font-size:16px;text-shadow:0 1px 2px #000;pointer-events:none;display:none;';
+        hint.textContent = 'Click / tap anywhere for sound';
+
+        function unmuteOnGesture() {
+          ['pointerdown', 'touchstart', 'keydown'].forEach(function(evt) {
+            document.removeEventListener(evt, unmuteOnGesture, true);
+          });
+          video.muted = false;
+          hint.style.display = 'none';
+        }
+
+        function listenForGesture() {
+          ['pointerdown', 'touchstart', 'keydown'].forEach(function(evt) {
+            document.addEventListener(evt, unmuteOnGesture, true);
+          });
+        }
+
+        video.addEventListener('ended', removeOverlay);
+        video.addEventListener('error', removeOverlay);
+
+        overlay.addEventListener('click', removeOverlay);
+        overlay.title = 'Click to skip';
+        overlay.appendChild(video);
+        overlay.appendChild(hint);
+        document.body.appendChild(overlay);
+
+        video.play().catch(function() {
+          video.muted = true;
+          hint.style.display = 'block';
+          listenForGesture();
+          video.play().catch(removeOverlay);
+        });
+      }
+
+      showDialog();
+    })();
   </script>
 </body>
 </html>

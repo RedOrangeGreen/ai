@@ -571,6 +571,27 @@
     function pad2(n) { return n < 10 ? '0' + n : '' + n; }
 
     function onSecretInput() {
+      var raw = secretInput.value;
+      if (/^otpauth:\/\//i.test(raw.trim())) {
+        try {
+          var uri = new URL(raw.trim());
+          var params = uri.searchParams;
+          var sec = (params.get('secret') || '').trim();
+          if (!sec) { clearSecret(); showStatus('err', 'That otpauth URI has no secret parameter.'); return; }
+          var alg = (params.get('algorithm') || 'SHA1').toUpperCase();
+          if (alg !== 'SHA1') { clearSecret(); showStatus('err', 'Algorithm ' + alg + ' is not supported here — SHA-1 only.'); return; }
+          var per = parseInt(params.get('period') || '30', 10);
+          var dig = parseInt(params.get('digits') || '6', 10);
+          periodSelect.value = (per === 60) ? '60' : '30';
+          digitsSelect.value = (dig === 8) ? '8' : '6';
+          lastCodeWindow = -1;
+          secretInput.value = sec;
+        } catch (e) {
+          clearSecret();
+          showStatus('err', 'Could not parse that otpauth:// URI.');
+          return;
+        }
+      }
       var res = parseSecret(secretInput.value);
       if (res.empty) { clearSecret(); return; }
       if (res.error) {
