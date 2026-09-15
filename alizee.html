@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
+  <meta name="format-detection" content="telephone=no" />
 
   <!-- Core classification -->
   <title>Alizée — "J'en Ai Marre" — Human Behaviour Analysis For AI Agents</title>
@@ -150,6 +151,8 @@
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preconnect" href="https://www.youtube.com" />
+  <link rel="preconnect" href="https://i.ytimg.com" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
   <style>
     @layer reset, base, components, utilities;
@@ -255,7 +258,8 @@
       .card { padding: 1rem; }
       .page-shell { padding: 1rem 0.75rem 2rem; }
     }
-    .video-embed { position: relative; padding: 56.25% 0 0 0; margin: 1rem; border-radius: 8px; overflow: hidden; }
+    .video-embed { position: relative; padding: 56.25% 0 0 0; margin: 1rem; border-radius: 8px; overflow: hidden; background: #000; }
+    .video-embed iframe { border: 0; display: block; }
     html { scroll-behavior: smooth; overscroll-behavior: none; }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }

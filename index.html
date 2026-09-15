@@ -122,29 +122,6 @@
       width: 3px; height: 3px; border-radius: 999px;
       background: rgba(148, 163, 184, 0.7); display: inline-block; margin: 0 0.4rem;
     }
-    .search-section { margin-bottom: 1.8rem; display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; justify-content: space-between; }
-    .search-input-wrap { flex: 1 1 260px; position: relative; }
-    .search-input-wrap i { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem; }
-    .search-input {
-      width: 100%; border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.9); color: var(--text-main);
-      padding: 0.55rem 0.95rem 0.55rem 2.2rem; font-size: 0.9rem; outline: none;
-      box-shadow: var(--shadow-subtle);
-      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
-    }
-    .search-input::placeholder { color: rgba(148, 163, 184, 0.7); }
-    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6), 0 18px 40px rgba(15, 23, 42, 0.9); background: #020617; transform: translateY(-1px); }
-    .filter-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 0.78rem; }
-    .filter-chip {
-      border-radius: var(--radius-pill); padding: 0.25rem 0.7rem;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.9); color: var(--text-muted); cursor: pointer;
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .filter-chip i { font-size: 0.8rem; }
-    .filter-chip.active, .filter-chip:hover { background: var(--accent-soft); border-color: var(--accent); color: #e5e7eb; transform: translateY(-1px); }
     .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; margin: 1.8rem 0 0.9rem; }
     .section-heading-main { display: flex; align-items: center; gap: 0.6rem; }
     .section-heading-main i {
@@ -154,6 +131,7 @@
       color: var(--accent); font-size: 0.9rem;
     }
     .section-heading-main h2 { font-size: 1.05rem; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; color: #e5e7eb; }
+    .section-heading-main h3 { font-size: 0.9rem; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; color: #e5e7eb; }
     .section-heading-sub { font-size: 0.8rem; color: var(--text-muted); }
     .chatbot-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
     .chatbot-list li { padding: 0.65rem 0.9rem; background: rgba(15, 23, 42, 0.7); border-radius: 12px; border: 1px solid var(--border-subtle); font-size: 0.9rem; color: var(--text-muted); transition: border-color var(--transition-fast), opacity 0.25s ease; display: flex; align-items: center; }
@@ -169,8 +147,6 @@
       transition: box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
     }
     .tool-card:hover, .tool-card:focus-within { box-shadow: 0 28px 60px rgba(15, 23, 42, 0.95); border-color: rgba(56, 189, 248, 0.7); background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%), #020617; }
-    #videos-section .tool-card:hover, #videos-section .tool-card:focus-within { box-shadow: var(--shadow-subtle); border-color: var(--border-subtle); background: rgba(15, 23, 42, 0.96); }
-    #videos-section .tool-card * { pointer-events: auto !important; }
     .tool-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; }
     .tool-card-title { display: flex; align-items: center; gap: 0.55rem; }
     .tool-card-title-icon {
@@ -207,6 +183,23 @@
     .tool-card.toggled-off .btn-open {
       position: relative; z-index: 2;
     }
+    .tool-card pre {
+      position: relative; margin: 0; background: #0d1117; border: 1px solid rgba(148,163,184,0.15);
+      border-left: 3px solid var(--accent); border-radius: 8px;
+      padding: 0.7rem 0.9rem; overflow-x: auto; font-size: 0.78rem; line-height: 1.5;
+    }
+    .tool-card pre code {
+      color: #e6edf3; font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+    }
+    .tool-card .copy-btn {
+      position: absolute; top: 0.4rem; right: 0.4rem; width: 28px; height: 28px;
+      border-radius: 6px; border: 1px solid rgba(148,163,184,0.2);
+      background: rgba(13,17,23,0.9); color: rgba(148,163,184,0.6);
+      font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .tool-card .copy-btn:hover { color: var(--accent); border-color: rgba(56,189,248,0.4); }
+    .tool-card .copy-btn.copied { color: #22c55e; border-color: rgba(34,197,94,0.4); }
     .info-banner {
       border-radius: 14px; padding: 0.7rem 0.9rem;
       background: rgba(15, 23, 42, 0.96); border: 1px solid rgba(148, 163, 184, 0.5);
@@ -259,7 +252,6 @@
     .city-dropdown div:hover { background: rgba(56,189,248,0.12); color: var(--accent); }
     .city-dropdown div.selected { color: var(--accent); font-weight: 600; background: rgba(56,189,248,0.08); }
     @media (max-width: 576px) {
-      .search-section { align-items: stretch; }
       .clock-pill { padding: 0.25rem 0.8rem; font-size: 0.7rem; }
       .clock-pill-label { font-size: 0.6rem; }
       .clock-pill-date { font-size: 0.55rem; }
@@ -278,143 +270,6 @@
     
     @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     @keyframes pulseDot { 0%, 100% { box-shadow: 0 0 0 6px rgba(34,197,94,0.25); } 50% { box-shadow: 0 0 0 12px rgba(34,197,94,0.1); } }
-    @keyframes pulseClick { 0%, 100% { box-shadow: 0 0 0 0px rgba(56,189,248,0.6); transform: scale(1); } 50% { box-shadow: 0 0 12px 4px rgba(56,189,248,0.3); transform: scale(1.04); } }
-    #wonderland-pill { cursor: pointer; animation: pulseClick 2s ease-in-out infinite; }
-    .cheshire-wrap {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 9999; pointer-events: none; overflow: hidden;
-    }
-    .cheshire {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 80px; height: 80px;
-      margin: -40px 0 0 -40px;
-      opacity: 0;
-      pointer-events: none;
-      will-change: transform, opacity;
-    }
-    .cheshire-head {
-      width: 80px; height: 64px;
-      background: #7b2d8e;
-      border-radius: 50% 50% 40% 40%;
-      position: relative;
-      z-index: 2;
-      overflow: hidden;
-    }
-    .cheshire-head::before {
-      content: '';
-      position: absolute;
-      width: 100%; height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent, transparent 6px,
-        rgba(200, 120, 255, 0.35) 6px, rgba(200, 120, 255, 0.35) 10px
-      );
-      border-radius: inherit;
-    }
-    .cheshire-ear {
-      position: absolute;
-      width: 0; height: 0;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-bottom: 20px solid #7b2d8e;
-      z-index: 1;
-    }
-    .cheshire-ear.l { top: -14px; left: 6px; transform: rotate(-15deg); }
-    .cheshire-ear.r { top: -14px; right: 6px; transform: rotate(15deg); }
-    .cheshire-ear::after {
-      content: '';
-      position: absolute;
-      width: 0; height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-bottom: 14px solid #d98ef5;
-      top: 6px; left: -6px;
-    }
-    .cheshire-eye {
-      position: absolute;
-      width: 14px; height: 14px;
-      background: #d4ff00;
-      border-radius: 50%;
-      top: 16px; z-index: 3;
-      box-shadow: 0 0 8px 2px rgba(212, 255, 0, 0.5);
-    }
-    .cheshire-eye.l { left: 14px; }
-    .cheshire-eye.r { right: 14px; }
-    .cheshire-eye::after {
-      content: '';
-      position: absolute;
-      width: 6px; height: 8px;
-      background: #1a0033;
-      border-radius: 50%;
-      top: 3px; left: 4px;
-    }
-    .cheshire-grin {
-      position: absolute;
-      bottom: 6px; left: 50%;
-      transform: translateX(-50%);
-      width: 50px; height: 16px;
-      border-bottom: 3px solid #fff;
-      border-left: 3px solid #fff;
-      border-right: 3px solid #fff;
-      border-radius: 0 0 50% 50%;
-      z-index: 3;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-    }
-    .cheshire-tail {
-      position: absolute;
-      bottom: -30px; right: -10px;
-      width: 60px; height: 20px;
-      border: 4px solid #7b2d8e;
-      border-top: none;
-      border-left: none;
-      border-radius: 0 0 40px 0;
-      z-index: 1;
-      animation: tailWag 0.5s ease-in-out infinite alternate;
-    }
-    .cheshire-tail::before {
-      content: '';
-      position: absolute;
-      width: 100%; height: 100%;
-      background: repeating-linear-gradient(
-        90deg,
-        transparent, transparent 6px,
-        rgba(200, 120, 255, 0.35) 6px, rgba(200, 120, 255, 0.35) 10px
-      );
-      border-radius: inherit;
-    }
-    .cheshire-body {
-      width: 60px; height: 36px;
-      background: #7b2d8e;
-      border-radius: 30px;
-      margin: -4px auto 0;
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-    }
-    .cheshire-body::before {
-      content: '';
-      position: absolute;
-      width: 100%; height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent, transparent 5px,
-        rgba(200, 120, 255, 0.35) 5px, rgba(200, 120, 255, 0.35) 9px
-      );
-    }
-    .cheshire-paw {
-      width: 14px; height: 10px;
-      background: #7b2d8e;
-      border-radius: 0 0 8px 8px;
-      position: absolute;
-      bottom: -6px; z-index: 1;
-    }
-    .cheshire-paw.l { left: 8px; }
-    .cheshire-paw.r { right: 8px; }
-    @keyframes tailWag {
-      0% { transform: rotate(-10deg); }
-      100% { transform: rotate(15deg); }
-    }
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .back-to-top {
@@ -433,36 +288,8 @@
     .skip-link:focus { top: 0; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
-    .video-embed { position: relative; padding: 56.25% 0 0 0; margin: 1rem; border-radius: 8px; overflow: hidden; }
-    @media print { #particle-canvas, #portal-canvas { display: none !important; } body { background: #fff; color: #000; } .filter-chip, .search-input-wrap { display: none; } a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; } .hero-title span.highlight { color: #1a1a2e !important; -webkit-background-clip: unset; background-clip: unset; background: none; } }
-    .city-modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.65);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.25s ease, overlay 0.25s ease, display 0.25s ease allow-discrete;
-      opacity: 0;
-      border: none;
-    }
-    .city-modal-overlay[open] { opacity: 1; }
-    @starting-style { .city-modal-overlay[open] { opacity: 0; } }
-    .city-modal-overlay::backdrop { background: rgba(0,0,0,0.65); }
-    .city-modal-box {
-      background: #0b1020; border: 1px solid var(--border-subtle);
-      border-radius: 16px; padding: 1.5rem 2rem; max-width: 360px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.7); text-align: center;
-    }
-    .city-modal-box h3 { margin: 0 0 0.3rem; color: var(--accent); font-size: 1.2rem; }
-    .city-modal-box .cm-continent { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.8rem; }
-    .city-modal-box .cm-fact { font-size: 0.88rem; color: var(--text-main); line-height: 1.5; }
-    .city-modal-box .cm-close {
-      margin-top: 1rem; border: none; background: rgba(56,189,248,0.15);
-      color: var(--accent); padding: 0.35rem 1.2rem; border-radius: 999px;
-      font-size: 0.82rem; cursor: pointer; transition: background 0.2s ease;
-      font-family: inherit;
-    }
+    @media print { #particle-canvas, #portal-canvas { display: none !important; } body { background: #fff; color: #000; } a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; } .hero-title span.highlight { color: #1a1a2e !important; -webkit-background-clip: unset; background-clip: unset; background: none; } }
     .city-modal-box .cm-close:hover { background: rgba(56,189,248,0.25); }
-    #localFirstLink { color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent); cursor: pointer; transition: color 0.2s ease; }
-    #localFirstLink:hover { color: #7dd3fc; }
     .news-ticker {
       position: relative; overflow: hidden; height: 200px;
       margin: -0.3rem 0 0.8rem 0; border-radius: 12px;
@@ -486,6 +313,12 @@
       display: flex; justify-content: space-between; align-items: center; gap: 1rem;
     }
     .news-ticker-item:hover { color: var(--accent); background: rgba(56,189,248,0.06); }
+    .news-ticker-heading {
+      padding: 0.5rem 0.9rem; font-size: 1.05rem; font-weight: 700; color: var(--accent);
+      letter-spacing: 0.04em; cursor: default; text-transform: uppercase;
+      background: rgba(56,189,248,0.08); border-bottom: 1px solid rgba(56,189,248,0.25);
+      display: flex; align-items: center;
+    }
     .news-ticker-item:last-child { border-bottom: none; }
     .news-ticker-item .ni-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .news-ticker-item .ni-time { font-size: 1.07rem; color: rgba(148,163,184,0.85); white-space: nowrap; flex-shrink: 0; }
@@ -518,7 +351,6 @@
       display: inline-flex; align-items: center;
     }
     .ticker-refresh-btn:hover { color: var(--accent); }
-    h1, h2, h3, p { text-wrap: pretty; }
     .news-label {
       display: flex; align-items: center; gap: 0.5rem;
       font-size: 0.78rem; color: var(--text-muted); margin: 0.2rem 0 0.3rem;
@@ -594,12 +426,8 @@
   <main id="main-content" class="page-shell">
     <section class="hero">
       <div>
-        <div class="hero-kicker">
-          <span class="badge-dot"></span>
-          Live directory
-        </div>
         <h1 class="hero-title">
-          Free <span class="highlight">AI tools</span>. No sign-up. No credit card.
+          Free <span class="highlight">AI Tools</span>
         </h1>
         <div id="cosmos-row" style="margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;"><button class="cosmos-btn" id="cosmosToggle" type="button" aria-pressed="true"><i aria-hidden="true" class="fa-solid fa-globe"></i> Cosmos</button><span style="font-size:0.72rem;color:var(--text-muted);">toggle background effects</span></div>
         <div id="clock-row" class="clock-row">
@@ -610,68 +438,29 @@
           <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Moscow</span> <span id="date-moscow" class="clock-pill-date"></span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
           <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Beijing</span> <span id="date-beijing" class="clock-pill-date"></span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
           <div class="clock-pill" id="yourcity-pill" title="Click to choose your city"><span class="clock-pill-label" id="yourcity-label">Select City</span> <span id="date-yourcity" class="clock-pill-date"></span> <span id="clock-yourcity" class="clock-pill-time"></span> <span id="icon-yourcity" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" id="wonderland-pill" title="Click to see the Cheshire Cat"><span class="clock-pill-label">Wonderland</span> <span id="date-wonderland" class="clock-pill-date"></span> <span id="clock-wonderland" class="clock-pill-time"></span> <span id="icon-wonderland" class="clock-pill-icon"></span></div>
         </div>
         <div id="city-dropdown" class="city-dropdown"></div>
-        <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>World News</span><button class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><button class="ticker-refresh-btn" data-ticker="tickerWorld" title="Refresh feed"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed"></i></span></div>
-        <div class="news-ticker" id="tickerWorld" role="region" aria-label="World news headlines">
+        <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>News</span><button class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><button class="ticker-refresh-btn" data-ticker="tickerWorld" title="Refresh feed"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed"></i></span></div>
+        <div class="news-ticker" id="tickerWorld" role="region" aria-label="News headlines">
           <div class="news-ticker-grad top"></div>
           <div class="news-ticker-grad bot"></div>
           <div class="news-ticker-refresh-msg">Refreshing…</div>
           <div class="news-ticker-inner"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
         </div>
-        <div class="news-label"><i aria-hidden="true" class="fa-solid fa-brain"></i><span>AI News</span><button class="ticker-pause" data-ticker="tickerAI" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><button class="ticker-refresh-btn" data-ticker="tickerAI" title="Refresh feed"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerAI" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerAI" title="Reset speed"></i></span></div>
-        <div class="news-ticker" id="tickerAI" role="region" aria-label="AI news headlines">
-          <div class="news-ticker-grad top"></div>
-          <div class="news-ticker-grad bot"></div>
-          <div class="news-ticker-refresh-msg">Refreshing…</div>
-          <div class="news-ticker-inner"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
-        </div>
-        <div class="news-label"><i aria-hidden="true" class="fa-solid fa-trophy"></i><span>Sports News</span><button class="ticker-pause" data-ticker="tickerSports" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><button class="ticker-refresh-btn" data-ticker="tickerSports" title="Refresh feed"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerSports" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerSports" title="Reset speed"></i></span></div>
-        <div class="news-ticker" id="tickerSports" role="region" aria-label="Sports news headlines">
-          <div class="news-ticker-grad top"></div>
-          <div class="news-ticker-grad bot"></div>
-          <div class="news-ticker-refresh-msg">Refreshing…</div>
-          <div class="news-ticker-inner"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
-        </div>
-        <div class="hero-badges">
-          <div class="hero-badge"><i aria-hidden="true" class="fa-solid fa-shield-halved"></i> $0, anonymous, instant use</div>
-          <div class="hero-badge"><i aria-hidden="true" class="fa-solid fa-laptop-code"></i> Web &amp; local options</div>
-          <div class="hero-badge"><i aria-hidden="true" class="fa-solid fa-wand-magic-sparkles"></i> Chat, search, &amp; coding</div>
-        </div>
-        <div class="hero-meta">
-          <div><strong>Fast scan:</strong> type to filter by name, feature, or tag.</div>
-          <div><span class="dot"></span> <strong>Tip:</strong> try "local", "search", or "coding".</div>
-        </div>
-      </div>
-    </section>
-    <section class="search-section">
-      <search class="search-input-wrap">
-        <i aria-hidden="true" class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="search" class="search-input" placeholder="Search tools by name, feature, or tag…" aria-label="Search tools" spellcheck="false" autocomplete="off" />
-      </search>
-      <div class="filter-chips">
-        <button class="filter-chip active" data-filter="all" type="button" aria-pressed="true"><i aria-hidden="true" class="fa-solid fa-layer-group"></i> All tools</button>
-        <button class="filter-chip" data-filter="web" type="button" aria-pressed="false"><i aria-hidden="true" class="fa-solid fa-globe"></i> Web chatbots</button>
-        <button class="filter-chip" data-filter="local" type="button" aria-pressed="false"><i aria-hidden="true" class="fa-solid fa-laptop"></i> Local only</button>
-        <button class="filter-chip" data-filter="coding" type="button" aria-pressed="false"><i aria-hidden="true" class="fa-solid fa-code"></i> Coding</button>
-        <button class="filter-chip" data-filter="videos" type="button" aria-pressed="false"><i aria-hidden="true" class="fa-brands fa-youtube"></i> Videos</button>
+
+
       </div>
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-globe"></i><h2>Web‑based AI chatbots</h2></div>
-        <div class="section-heading-sub">General assistants you can open in a tab and start chatting with.</div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-globe"></i><h2>CHATBOTS</h2></div>
       </header>
       <ul class="chatbot-list" id="chatbotList">
         <li data-enabled="true">
           <button class="chatbot-toggle on" aria-label="Toggle ChatGPT"></button>
           <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General‑purpose AI assistant for chat, writing, brainstorming, and coding.
         </li>
-        <li data-enabled="false" class="disabled">
-          <button class="chatbot-toggle" aria-label="Toggle Microsoft Copilot"></button>
-          <a href="https://www.bing.com/chat" target="_blank" rel="noopener noreferrer">Microsoft Copilot</a> &mdash; AI assistant with web search integration. Strong for research and summarising pages.
-        </li>
+
         <li data-enabled="true">
           <button class="chatbot-toggle on" aria-label="Toggle Google AI Search"></button>
           <a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google AI Search</a> &mdash; AI‑enhanced search blending classic search with summarised answers.
@@ -680,8 +469,7 @@
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-laptop"></i><h2>Run AI locally</h2></div>
-        <div class="section-heading-sub">Tools that run models on your own machine for privacy and offline use.</div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-laptop"></i><h2>Run locally</h2></div>
       </header>
       <div class="info-banner">
         <i aria-hidden="true" class="fa-solid fa-circle-info"></i>
@@ -703,92 +491,74 @@
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-code"></i><h2>Coding with AI</h2></div>
-        <div class="section-heading-sub">Guides and workflows for using AI as a pair‑programmer.</div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-code"></i><h2>Coding</h2></div>
       </header>
       <div class="tool-grid">
-        <article class="tool-card tool" data-category="coding" data-tags="coding guide examples prompts development">
+        <article class="tool-card tool" data-category="coding" data-tags="coding opencode install ubuntu terminal">
           <div class="tool-card-header">
             <div>
               <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-wrench"></i></div>
-                <div><h3>AI Coding Guide</h3><div class="tool-card-provider">AI Playground</div></div>
+                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-terminal"></i></div>
+                <div><h3>OpenCode On Ubuntu Linux</h3><div class="tool-card-provider">AI Playground</div></div>
               </div>
             </div>
             <div class="tool-card-badges">
-              <span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-book-open"></i> Guides</span>
-              <span class="tool-badge"><i aria-hidden="true" class="fa-solid fa-flask"></i> Examples</span>
+              <span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-book-open"></i> Guide</span>
             </div>
           </div>
-          <p class="tool-card-body">Practical patterns for using AI in software development—prompt recipes, refactoring flows, and debugging strategies.</p>
+          <p class="tool-card-body">To install and use OpenCode for free on Ubuntu enter:</p>
+          <pre style="margin:0;"><code>sudo apt update
+sudo apt install curl -y
+curl -fsSL https://opencode.ai/install | bash
+source ~/.bashrc
+opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy"></i></button></pre>
           <div class="tool-card-footer">
-            <div class="tool-card-footer-left"><span>Turn AI into a reliable coding partner</span></div>
-            <a href="generatedcode.html" class="btn-open">Open guide <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer" class="btn-open">OpenCode <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
       </div>
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-mobile-screen-button"></i><h2>APPS CODED BY AI (<a href="#" id="localFirstLink">LOCAL FIRST</a>)</h2></div>
-        <div class="section-heading-sub">Apps and tools built entirely by AI.</div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-mobile-screen-button"></i><h2>Generated Apps</h2></div>
       </header>
       <ul class="chatbot-list">
         <li><a href="todolist.html">Todo List</a> &mdash; A simple Todo List manager, lists saved and loaded locally.</li>
         <li><a href="employee.html">Employee Database</a> &mdash; An SQL based database.</li>
-        <li><a href="dividends.html">Top Dividend Stocks</a> &mdash; The 10 highest-yielding dividend stocks on the LSE, NYSE and NASDAQ.</li>
-
         <li><a href="gibberlink.html">Gibberlink</a> &mdash; Convert messages to and from Gibberlink, the fast, syllable-based language AI agents use to communicate.</li>
         <li><a href="totp.html">TOTP Authenticator</a> &mdash; Generate Google Authenticator-compatible 6-digit one-time codes from a Base32 secret.</li>
       </ul>
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-brain"></i><h2>Human male sexual arousal and response analysis for ai agents</h2></div>
-        <div class="section-heading-sub">Structured behavioural analyses designed for AI agent comprehension.</div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-robot"></i><h2>Agents</h2></div>
       </header>
+      <ul class="chatbot-list">
+        <li><a href="dividends.html">Top UK &amp; USA Stocks'n'Savings</a> &mdash; The highest-yielding dividend stocks and savings rates.</li>
+      </ul>
+    </section>
+    <section class="reveal">
+      <header class="section-heading">
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-brain"></i><h2>Agent university: human sexual arousal triggers</h2></div>
+      </header>
+      <div class="section-heading-main" style="margin:0.9rem 0 0.5rem;gap:0.5rem;">
+        <i aria-hidden="true" class="fa-solid fa-mars" style="background:rgba(15,23,42,0.9);border:1px solid rgba(148,163,184,0.5);color:var(--accent);font-size:0.9rem;"></i>
+        <h3 style="margin:0;letter-spacing:0.08em;text-transform:uppercase;color:#e5e7eb;">Male</h3>
+      </div>
       <ul class="chatbot-list">
         <li><a href="soi6pattaya.html">Soi 6, Pattaya, Thailand</a></li>
         <li><a href="alizee.html">Alizée — "J'en Ai Marre"</a></li>
         <li><a href="utilities.html">Utilities</a></li>
       </ul>
-    </section>
-    <section class="reveal" id="videos-section">
-      <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-brands fa-youtube"></i><h2>AI Videos</h2></div>
-        <div class="section-heading-sub">Curated video content about AI-assisted development.</div>
-      </header>
-      <div class="tool-grid">
-        <article class="tool-card tool" data-category="videos" data-tags="italian language learning ai video">
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-language"></i></div>
-                <div><h3>Learn Italian AI Style</h3><div class="tool-card-provider">AI Playground</div></div>
-              </div>
-            </div>
-            <div class="tool-card-badges"><span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-play"></i> Video</span></div>
-          </div>
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/kbX5I-MYLLE" title="Learn Italian AI Style video" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </article>
-        <article class="tool-card tool" data-category="videos" data-tags="ai stunner models daisy dukes fashion video">
-          <div class="tool-card-header">
-            <div>
-              <div class="tool-card-title">
-                <div class="tool-card-title-icon"><i aria-hidden="true" class="fa-solid fa-robot"></i></div>
-                <div><h3>AI Stunner Models</h3><div class="tool-card-provider">AI Playground</div></div>
-              </div>
-            </div>
-            <div class="tool-card-badges"><span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-play"></i> Video</span></div>
-          </div>
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/usa9dcdzu8o" title="AI Stunner Models video" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </article>
+      <div class="section-heading-main" style="margin:0.9rem 0 0.5rem;gap:0.5rem;">
+        <i aria-hidden="true" class="fa-solid fa-venus" style="background:rgba(15,23,42,0.9);border:1px solid rgba(148,163,184,0.5);color:var(--accent);font-size:0.9rem;"></i>
+        <h3 style="margin:0;letter-spacing:0.08em;text-transform:uppercase;color:#e5e7eb;">Female</h3>
       </div>
+      <ul class="chatbot-list">
+        <li><a href="waltzer.html">Fairground Waltzer</a></li>
+      </ul>
     </section>
+
     <footer>
       <div><span class="brand">AI Playground</span> • Free AI tools directory</div>
       <div class="footer-meta">
@@ -796,33 +566,6 @@
       </div>
     </footer>
   </main>
-  <dialog class="city-modal-overlay" id="cityModal">
-    <div class="city-modal-box" role="document">
-      <h3 id="cmCity"></h3>
-      <div class="cm-continent" id="cmContinent"></div>
-      <div class="cm-fact" id="cmFact"></div>
-      <form method="dialog">
-        <button class="cm-close" type="submit">Close</button>
-      </form>
-    </div>
-  </dialog>
-  <dialog class="city-modal-overlay" id="localFirstModal">
-    <div class="city-modal-box" role="document">
-      <h3>Local First</h3>
-      <div class="cm-fact" style="text-align:left;font-size:0.85rem;line-height:1.6;color:var(--text-muted);">
-        <p style="margin:0 0 0.7rem;">Local-first apps run on <strong style="color:var(--text-main);">your device</strong>, not in the cloud. Your data stays private and the app works offline.</p>
-        <p style="margin:0 0 0.7rem;">They're coded by AI and designed to be:</p>
-        <ul style="margin:0;padding-left:1.2rem;">
-          <li><strong style="color:var(--text-main);">Private</strong> — no accounts, no servers, no tracking.</li>
-          <li><strong style="color:var(--text-main);">Offline</strong> — works without an internet connection.</li>
-          <li><strong style="color:var(--text-main);">Instant</strong> — zero setup, just open and use.</li>
-        </ul>
-      </div>
-      <form method="dialog">
-        <button class="cm-close" type="submit">Close</button>
-      </form>
-    </div>
-  </dialog>
   <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
   <script>
     (function() {
@@ -872,7 +615,6 @@
           dropdown.querySelectorAll('div').forEach(function(el) { el.classList.remove('selected'); });
           this.classList.add('selected');
           dropdown.classList.remove('visible');
-          showCityModal(name);
         });
         d.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -894,7 +636,7 @@
 
       var tickerSpeeds = {};
       var tickerLoaders = {};
-      function createTicker(containerId, feedUrl) {
+      function createTicker(containerId, feeds) {
         var container = document.getElementById(containerId);
         if (!container) return;
         var inner = container.querySelector('.news-ticker-inner');
@@ -903,35 +645,46 @@
         tickerSpeeds[containerId] = 0.35;
         container.__paused = false;
         function load() {
-          var url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feedUrl);
-          fetch(url).then(function(r) { return r.json(); }).then(function(data) {
-            if (!data || !data.items) return;
-            data.items.sort(function(a, b) { return new Date(b.pubDate) - new Date(a.pubDate); });
+          Promise.all(feeds.map(function(feed) {
+            var url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url);
+            return fetch(url).then(function(r) { return r.json(); }).then(function(data) {
+              return { heading: feed.heading, items: (data && data.items) ? data.items : [] };
+            });
+          })).then(function(results) {
             var frag = document.createDocumentFragment();
             var newItems = [];
-            var count = Math.min(data.items.length, 5);
-            for (var i = 0; i < count; i++) {
-              var el = document.createElement('div');
-              el.className = 'news-ticker-item';
-              var titleSpan = document.createElement('span');
-              titleSpan.className = 'ni-title';
-              titleSpan.textContent = data.items[i].title;
-              titleSpan.title = data.items[i].title;
-              var timeSpan = document.createElement('span');
-              timeSpan.className = 'ni-time';
-              var d = new Date(data.items[i].pubDate);
-              timeSpan.textContent = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-              el.appendChild(titleSpan);
-              el.appendChild(timeSpan);
-              el.addEventListener('click', function(url) {
-                return function() { window.open(url, '_blank'); };
-              }(data.items[i].link));
-              frag.appendChild(el);
-              newItems.push(el);
-            }
+            results.forEach(function(result) {
+              result.items.sort(function(a, b) { return new Date(b.pubDate) - new Date(a.pubDate); });
+              var headingEl = document.createElement('div');
+              headingEl.className = 'news-ticker-heading';
+              headingEl.textContent = result.heading;
+              frag.appendChild(headingEl);
+              newItems.push(headingEl);
+              var count = Math.min(result.items.length, 5);
+              for (var i = 0; i < count; i++) {
+                var el = document.createElement('div');
+                el.className = 'news-ticker-item';
+                var titleSpan = document.createElement('span');
+                titleSpan.className = 'ni-title';
+                titleSpan.textContent = result.items[i].title;
+                titleSpan.title = result.items[i].title;
+                var timeSpan = document.createElement('span');
+                timeSpan.className = 'ni-time';
+                var d = new Date(result.items[i].pubDate);
+                timeSpan.textContent = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                el.appendChild(titleSpan);
+                el.appendChild(timeSpan);
+                el.addEventListener('click', function(url) {
+                  return function() { window.open(url, '_blank'); };
+                }(result.items[i].link));
+                frag.appendChild(el);
+                newItems.push(el);
+              }
+            });
             inner.innerHTML = '';
             inner.appendChild(frag);
             items = newItems;
+            if (pos > inner.scrollHeight) pos = 0;
           }).catch(function() {
             if (!items.length) inner.innerHTML = '<div class="news-ticker-loading">Could not load news.</div>';
           });
@@ -965,9 +718,11 @@
         container.addEventListener('mouseenter', function() { container.__hoverPaused = true; });
         container.addEventListener('mouseleave', function() { container.__hoverPaused = false; });
       }
-      createTicker('tickerWorld', 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml');
-      createTicker('tickerAI', 'https://techcrunch.com/feed/');
-      createTicker('tickerSports', 'https://www.theguardian.com/sport/rss');
+      createTicker('tickerWorld', [
+        { heading: 'World', url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml' },
+        { heading: 'AI', url: 'https://techcrunch.com/feed/' },
+        { heading: 'Sports', url: 'https://www.theguardian.com/sport/rss' }
+      ]);
       document.querySelectorAll('.ticker-speed').forEach(function(slider) {
         slider.addEventListener('input', function() {
           var id = this.getAttribute('data-ticker');
@@ -1013,83 +768,6 @@
         });
       });
 
-      var CITY_INFO = {
-        'London': { continent: 'Europe', fact: 'London has over 170 museums — more than any other city in the world.' },
-        'New York': { continent: 'North America (East Coast)', fact: 'New York City has 468 subway stations, more than any other metro system on Earth.' },
-        'Los Angeles': { continent: 'North America (West Coast)', fact: 'LA is the only city to have hosted the Summer Olympics twice without a bid (1932, 1984).' },
-        'Moscow': { continent: 'Europe', fact: 'Moscow\'s Metro is the deepest in the world; some stations are over 80 metres below ground.' },
-        'Beijing': { continent: 'Asia', fact: 'Beijing is the world\'s most populous capital city, home to over 21 million people.' },
-        'Paris': { continent: 'Europe', fact: 'Paris has only one stop sign in the entire city — the rest are yield signs.' },
-        'Berlin': { continent: 'Europe', fact: 'Berlin has more bridges than Venice — roughly 1,700 of them.' },
-        'Rome': { continent: 'Europe', fact: 'Rome is over 2,700 years old and contains the world\'s smallest country, Vatican City.' },
-        'Madrid': { continent: 'Europe', fact: 'Madrid is the highest capital city in the EU at 667 metres above sea level.' },
-        'Amsterdam': { continent: 'Europe', fact: 'Amsterdam has 1,281 bridges connecting its 90 islands.' },
-        'Stockholm': { continent: 'Europe', fact: 'Stockholm is built on 14 islands connected by 57 bridges.' },
-        'Athens': { continent: 'Europe', fact: 'Athens has been inhabited for over 3,400 years, making it one of the oldest cities in Europe.' },
-        'Istanbul': { continent: 'Europe/Asia', fact: 'Istanbul is the only city in the world spanning two continents — Europe and Asia.' },
-        'Dubai': { continent: 'Asia', fact: 'Dubai has the tallest building in the world — the Burj Khalifa at 828 metres.' },
-        'Karachi': { continent: 'Asia', fact: 'Karachi is the largest city in Pakistan and home to the country\'s only major port.' },
-        'Kolkata': { continent: 'Asia', fact: 'Kolkata is the only Indian city with a working tram network.' },
-        'Dhaka': { continent: 'Asia', fact: 'Dhaka is one of the most densely populated cities on Earth with over 23,000 people per km².' },
-        'Bangkok': { continent: 'Asia', fact: 'Bangkok\'s real name in Thai has 168 characters — a Guinness World Record.' },
-        'Singapore': { continent: 'Asia', fact: 'Singapore is both a city and a country, and one of only three city-states in the world.' },
-        'Hong Kong': { continent: 'Asia', fact: 'Hong Kong has more skyscrapers than any other city — over 550 of them.' },
-        'Tokyo': { continent: 'Asia', fact: 'Tokyo is the world\'s largest metropolitan area with over 37 million residents.' },
-        'Seoul': { continent: 'Asia', fact: 'Seoul has the world\'s fastest average internet speed at over 250 Mbps.' },
-        'Sydney': { continent: 'Oceania', fact: 'Sydney\'s Harbour Bridge is the world\'s largest steel arch bridge.' },
-        'Auckland': { continent: 'Oceania', fact: 'Auckland is known as the City of Sails and has more boats per capita than anywhere else.' },
-        'Honolulu': { continent: 'Oceania', fact: 'Honolulu is the most remote major city in the world — thousands of kilometres from any other.' },
-        'Anchorage': { continent: 'North America', fact: 'Anchorage sees up to 22 hours of daylight in summer and as little as 5 in winter.' },
-        'Denver': { continent: 'North America', fact: 'Denver is called the Mile High City because it sits exactly one mile above sea level.' },
-        'Chicago': { continent: 'North America', fact: 'Chicago invented the skyscraper — the Home Insurance Building was the first in 1885.' },
-        'Toronto': { continent: 'North America', fact: 'Toronto is home to the longest street in the world — Yonge Street at 1,896 km.' },
-        'Sao Paulo': { continent: 'South America', fact: 'Sao Paulo is the largest city in the Southern Hemisphere with over 12 million residents.' },
-        'Buenos Aires': { continent: 'South America', fact: 'Buenos Aires has the widest avenue in the world — 9 de Julio at 140 metres across.' },
-        'Dublin': { continent: 'Europe', fact: 'Dublin is home to the oldest pub in Ireland — The Brazen Head, established in 1198.' },
-        'Lisbon': { continent: 'Europe', fact: 'Lisbon is built on seven hills and survived one of the most destructive earthquakes in history (1755).' },
-        'Vienna': { continent: 'Europe', fact: 'Vienna has been ranked the world\'s most liveable city multiple times.' },
-        'Prague': { continent: 'Europe', fact: 'Prague\'s Old Town Square has the oldest working astronomical clock in the world (1410).' },
-        'Copenhagen': { continent: 'Europe', fact: 'Copenhagen is one of the most bicycle-friendly cities — more bikes than residents.' },
-        'Oslo': { continent: 'Europe', fact: 'Oslo is one of the fastest-growing cities in Europe and the world\'s most electric-capital.' },
-        'Helsinki': { continent: 'Europe', fact: 'Helsinki is built on a peninsula and over 300 islands, with ferries connecting them.' },
-        'Warsaw': { continent: 'Europe', fact: 'Warsaw was almost entirely rebuilt after WWII using historical paintings as blueprints.' },
-        'Budapest': { continent: 'Europe', fact: 'Budapest has one of the oldest metro systems in the world — line 1 opened in 1896.' },
-        'Cairo': { continent: 'Africa', fact: 'Cairo is home to the only remaining Wonder of the Ancient World — the Great Pyramid of Giza.' },
-        'Johannesburg': { continent: 'Africa', fact: 'Johannesburg is the largest city in the world not built on a river or coast.' },
-        'Nairobi': { continent: 'Africa', fact: 'Nairobi is the only capital city with a national park on its doorstep — Nairobi National Park.' },
-        'Lagos': { continent: 'Africa', fact: 'Lagos is the largest city in Africa by population, with over 15 million people.' },
-        'Casablanca': { continent: 'Africa', fact: 'Casablanca is home to the largest mosque in Africa — the Hassan II Mosque.' },
-        'Jerusalem': { continent: 'Asia', fact: 'Jerusalem is a holy city for three major religions: Judaism, Christianity, and Islam.' },
-        'Riyadh': { continent: 'Asia', fact: 'Riyadh is one of the richest cities in the world due to Saudi Arabia\'s oil wealth.' },
-        'Vancouver': { continent: 'North America', fact: 'Vancouver has the largest Chinatown in North America outside San Francisco.' },
-        'Mexico City': { continent: 'North America', fact: 'Mexico City sinks about 20 cm per year because it was built on a lake bed.' },
-        'Lima': { continent: 'South America', fact: 'Lima is the second-largest desert city in the world after Cairo.' },
-        'Santiago': { continent: 'South America', fact: 'Santiago is surrounded by the Andes and is one of the best cities in the world for skiing.' },
-        'Perth': { continent: 'Oceania', fact: 'Perth is the most isolated major city on Earth — over 2,000 km from the nearest city.' },
-        'Kuala Lumpur': { continent: 'Asia', fact: 'Kuala Lumpur is home to the world\'s tallest twin towers — the Petronas Towers at 452 m.' },
-        'Manila': { continent: 'Asia', fact: 'Manila is the most densely populated city in the world with over 41,000 people per km².' },
-        'Taipei': { continent: 'Asia', fact: 'Taipei 101 was the world\'s tallest building from 2004 to 2010.' },
-      };
-      function showCityModal(name) {
-        var info = CITY_INFO[name];
-        if (!info) return;
-        document.getElementById('cmCity').textContent = name;
-        document.getElementById('cmContinent').textContent = info.continent;
-        document.getElementById('cmFact').textContent = info.fact;
-        document.getElementById('cityModal').showModal();
-      }
-      document.querySelectorAll('.clock-pill').forEach(function(pill) {
-        if (pill.id === 'wonderland-pill' || pill.id === 'yourcity-pill') return;
-        pill.addEventListener('click', function() {
-          showCityModal(this.querySelector('.clock-pill-label').textContent.trim());
-        });
-        pill.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            showCityModal(this.querySelector('.clock-pill-label').textContent.trim());
-          }
-        });
-      });
       function updateClocks() {
         const now = new Date();
         for (const z of zones) {
@@ -1104,12 +782,6 @@
             iconEl.textContent = hour >= 6 && hour < 18 ? '\u2600\uFE0F' : '\uD83C\uDF19';
           }
         }
-        const wl = document.getElementById('clock-wonderland');
-        if (wl) wl.textContent = '18:00:00';
-        const wlDate = document.getElementById('date-wonderland');
-        if (wlDate) wlDate.textContent = 'Tue, 4 May 1865';
-        const wlIcon = document.getElementById('icon-wonderland');
-        if (wlIcon) wlIcon.innerHTML = '<i aria-hidden="true" class="fa-solid fa-mug-saucer"></i>';
         var yc = document.getElementById('clock-yourcity');
         var yi = document.getElementById('icon-yourcity');
         var yd = document.getElementById('date-yourcity');
@@ -1134,153 +806,16 @@
       }
       updateClocks();
       setInterval(updateClocks, 1000);
-      document.getElementById('wonderland-pill').addEventListener('click', triggerWonderland);
-      document.getElementById('wonderland-pill').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); triggerWonderland(); }
-      });
-      function triggerWonderland() {
-        var oldWrap = document.getElementById('cheshire-wrap');
-        if (oldWrap) oldWrap.remove();
-
-        var wrap = document.createElement('div');
-        wrap.id = 'cheshire-wrap';
-        wrap.className = 'cheshire-wrap';
-        document.body.appendChild(wrap);
-
-        var catHTML = '<div class="cheshire-head">' +
-          '<div class="cheshire-ear l"></div><div class="cheshire-ear r"></div>' +
-          '<div class="cheshire-eye l"></div><div class="cheshire-eye r"></div>' +
-          '<div class="cheshire-grin"></div>' +
-          '</div>' +
-          '<div class="cheshire-body"><div class="cheshire-paw l"></div><div class="cheshire-paw r"></div></div>' +
-          '<div class="cheshire-tail"></div>';
-
-        var cats = [];
-        var baseAngles = [-30, 150, 270];
-        for (var i = 0; i < 3; i++) {
-          var cat = document.createElement('div');
-          cat.className = 'cheshire';
-          cat.innerHTML = catHTML;
-          wrap.appendChild(cat);
-          cats.push({
-            el: cat,
-            dir: baseAngles[i] * Math.PI / 180,
-            spinSpeed: 2.8 + i * 0.4,
-            delay: i * 250
-          });
-        }
-
-        var start = null;
-        var DURATION = 3500;
-
-        function animateCat(cat, elapsed) {
-          var t = Math.min(elapsed / DURATION, 1);
-          var easedT = t * t * (3 - 2 * t);
-          var progress = easedT;
-          var maxR = Math.max(window.innerWidth, window.innerHeight) * 0.65;
-
-          if (progress < 0.02) {
-            cat.el.style.opacity = '0';
-            return;
-          }
-
-          var fadeIn = Math.min((progress - 0.02) / 0.06, 1);
-          var fadeOut = t > 0.82 ? (t - 0.82) / 0.18 : 0;
-          var opacity = fadeIn * (1 - fadeOut);
-
-          var radius = progress * maxR;
-          var angularTravel = progress < 0.35
-            ? (progress / 0.35) * Math.PI * 2
-            : Math.PI * 2 + (progress - 0.35) * cat.spinSpeed;
-          var angle = cat.dir + angularTravel;
-
-          var x = Math.cos(angle) * radius;
-          var y = Math.sin(angle) * radius;
-          var scale = 0.04 + progress * 2.4;
-          var selfRot = angularTravel * (180 / Math.PI);
-
-          cat.el.style.opacity = String(opacity);
-          cat.el.style.transform =
-            'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) ' +
-            'rotate(' + selfRot.toFixed(1) + 'deg) ' +
-            'scale(' + scale.toFixed(3) + ')';
-        }
-
-        function tick(ts) {
-          if (!start) start = ts;
-          var allDone = true;
-          for (var i = 0; i < cats.length; i++) {
-            var c = cats[i];
-            var elapsed = ts - start - c.delay;
-            if (elapsed < 0) { allDone = false; continue; }
-            animateCat(c, elapsed);
-            if (elapsed < DURATION) allDone = false;
-          }
-          if (!allDone) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-
-        setTimeout(function() { if (wrap) wrap.remove(); }, 4000);
-      }
     })();
     (function () {
-      const searchInput = document.getElementById("search");
-      const filterChips = document.querySelectorAll(".filter-chip");
-      const tools = document.querySelectorAll(".tool");
       const backToTop = document.getElementById("backToTop");
-      let activeFilter = "all";
       var liveRegion = document.createElement('div');
       liveRegion.setAttribute('aria-live', 'polite');
       liveRegion.setAttribute('aria-atomic', 'true');
       liveRegion.className = 'sr-only';
       document.body.appendChild(liveRegion);
-      function applyFilters() {
-        const query = (searchInput.value || "").toLowerCase().trim();
-        let visible = 0;
-        tools.forEach((tool) => {
-          const category = tool.getAttribute("data-category");
-          const tags = (tool.getAttribute("data-tags") || "").toLowerCase();
-          const text = tool.textContent.toLowerCase();
-          const matchesCategory = activeFilter === "all" || category === activeFilter;
-          const matchesSearch = !query || text.includes(query) || tags.includes(query);
-          const match = matchesCategory && matchesSearch;
-          tool.style.display = match ? "" : "none";
-          if (match) visible++;
-        });
-        document.querySelectorAll('.tool-grid, #chatbotList').forEach(function(container) {
-          var section = container.closest('section') || container.parentElement;
-          var existing = section.querySelector('.no-match-msg');
-          var vis = container.querySelectorAll('.tool:not([style*="display: none"]), li:not([style*="display: none"])');
-          if (vis.length === 0 && query !== '') {
-            if (!existing) {
-              var msg = document.createElement('div');
-              msg.className = 'no-match-msg';
-              msg.style.cssText = 'text-align:center;padding:1rem;color:var(--text-muted);font-size:0.85rem;';
-              msg.textContent = 'No tools match your filter.';
-              container.parentElement.insertBefore(msg, container.nextSibling);
-            }
-          } else if (existing) {
-            existing.remove();
-          }
-        });
-        liveRegion.textContent = visible + ' tools shown';
-      }
-      searchInput.addEventListener("input", applyFilters);
-      applyFilters();
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "/" && !(e.target instanceof HTMLInputElement) && !(e.target instanceof HTMLTextAreaElement)) {
-          e.preventDefault();
-          searchInput.focus();
-        }
-      });
-      filterChips.forEach((chip) => {
-        chip.addEventListener("click", () => {
-          filterChips.forEach((c) => { c.classList.remove("active"); c.setAttribute("aria-pressed", "false"); });
-          chip.classList.add("active");
-          chip.setAttribute("aria-pressed", "true");
-          activeFilter = chip.getAttribute("data-filter") || "all";
-          applyFilters();
-        });
+      document.querySelectorAll(".tool").forEach((tool) => {
+        tool.style.display = "";
       });
       const observer = new IntersectionObserver(
         (entries) => {
@@ -1300,14 +835,6 @@
         backToTop.addEventListener("click", () => {
           const behavior = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
           window.scrollTo({ top: 0, behavior });
-        });
-      }
-      var localFirstLink = document.getElementById('localFirstLink');
-      var localFirstModal = document.getElementById('localFirstModal');
-      if (localFirstLink && localFirstModal) {
-        localFirstLink.addEventListener('click', function(e) {
-          e.preventDefault();
-          localFirstModal.showModal();
         });
       }
     })();
@@ -1565,7 +1092,7 @@
     (function() {
       var btn = document.getElementById('cosmosToggle');
       if (!btn) return;
-      try { if (localStorage.getItem('cosmosOff') !== 'false') document.body.classList.add('cosmos-off'); } catch(e) { console.warn('Could not read cosmos state', e); document.body.classList.add('cosmos-off'); }
+      try { if (localStorage.getItem('cosmosOff') === 'true') document.body.classList.add('cosmos-off'); } catch(e) { console.warn('Could not read cosmos state', e); }
       btn.setAttribute('aria-pressed', document.body.classList.contains('cosmos-off') ? 'false' : 'true');
       btn.addEventListener('click', function() {
         document.body.classList.toggle('cosmos-off');
@@ -1577,109 +1104,35 @@
     if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
 
     (function() {
-      var londonDay;
-      try {
-        londonDay = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', weekday: 'long' }).format(new Date());
-      } catch(e) {
-        londonDay = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][new Date().getDay()];
-      }
-      var videoSrc = 'its' + londonDay.toLowerCase() + '.mp4';
-
-      function removeOverlay() {
-        var el = document.getElementById('dayVideoOverlay');
-        if (el && el.parentNode) el.parentNode.removeChild(el);
-      }
-
-      function showDialog() {
-        try {
-          if (sessionStorage.getItem('dayVideoDialogShown')) return;
-          sessionStorage.setItem('dayVideoDialogShown', '1');
-        } catch(e) { console.warn('sessionStorage unavailable; showing dialog', e); }
-
-        var backdrop = document.createElement('div');
-        backdrop.id = 'dayVideoDialog';
-        backdrop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2147483647;display:flex;align-items:center;justify-content:center;font-family:sans-serif;';
-
-        var box = document.createElement('div');
-        box.style.cssText = 'background:#fff;color:#111;border-radius:12px;padding:28px 32px;max-width:90vw;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.5);';
-
-        var msg = document.createElement('p');
-        msg.style.cssText = 'margin:0 0 20px;font-size:18px;';
-        msg.textContent = 'Enable Sound On AI Playground?';
-        box.appendChild(msg);
-
-        var go = document.createElement('button');
-        go.textContent = 'OK';
-        go.style.cssText = 'padding:10px 22px;margin:0 8px;font-size:16px;border:none;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;';
-        go.addEventListener('click', function() {
-          if (backdrop.parentNode) document.body.removeChild(backdrop);
-          playVideo();
-        });
-
-        var quiet = document.createElement('button');
-        quiet.textContent = 'Cancel';
-        quiet.style.cssText = 'padding:10px 22px;margin:0 8px;font-size:16px;border:1px solid #ccc;border-radius:8px;background:#f3f4f6;color:#111;cursor:pointer;';
-        quiet.addEventListener('click', function() {
-          if (backdrop.parentNode) document.body.removeChild(backdrop);
-        });
-
-        box.appendChild(go);
-        box.appendChild(quiet);
-        backdrop.appendChild(box);
-        document.body.appendChild(backdrop);
-      }
-
-      function playVideo() {
-        var overlay = document.createElement('div');
-        overlay.id = 'dayVideoOverlay';
-        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:2147483647;display:flex;align-items:center;justify-content:center;';
-
-        var video = document.createElement('video');
-        video.style.cssText = 'width:100%;height:100%;object-fit:contain;background:#000;';
-        video.src = videoSrc;
-        video.autoplay = true;
-        video.controls = false;
-        video.playsInline = true;
-        video.setAttribute('playsinline', '');
-        video.preload = 'auto';
-
-        var hint = document.createElement('div');
-        hint.style.cssText = 'position:absolute;bottom:24px;left:0;width:100%;text-align:center;color:#fff;font-family:sans-serif;font-size:16px;text-shadow:0 1px 2px #000;pointer-events:none;display:none;';
-        hint.textContent = 'Click / tap anywhere for sound';
-
-        function unmuteOnGesture() {
-          ['pointerdown', 'touchstart', 'keydown'].forEach(function(evt) {
-            document.removeEventListener(evt, unmuteOnGesture, true);
-          });
-          video.muted = false;
-          hint.style.display = 'none';
+      var btn = document.querySelector('.tool-card .copy-btn');
+      if (!btn) return;
+      var pre = btn.closest('pre');
+      btn.addEventListener('click', function() {
+        var text = pre.querySelector('code').textContent;
+        function done() {
+          btn.classList.add('copied');
+          btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+          setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          }, 2000);
         }
-
-        function listenForGesture() {
-          ['pointerdown', 'touchstart', 'keydown'].forEach(function(evt) {
-            document.addEventListener(evt, unmuteOnGesture, true);
-          });
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done);
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch(e) {}
+          document.body.removeChild(ta);
+          done();
         }
-
-        video.addEventListener('ended', removeOverlay);
-        video.addEventListener('error', removeOverlay);
-
-        overlay.addEventListener('click', removeOverlay);
-        overlay.title = 'Click to skip';
-        overlay.appendChild(video);
-        overlay.appendChild(hint);
-        document.body.appendChild(overlay);
-
-        video.play().catch(function() {
-          video.muted = true;
-          hint.style.display = 'block';
-          listenForGesture();
-          video.play().catch(removeOverlay);
-        });
-      }
-
-      showDialog();
+      });
     })();
+
   </script>
 </body>
 </html>
