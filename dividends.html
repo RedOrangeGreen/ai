@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -122,7 +123,7 @@
     .card {
       padding: 1.4rem 1.6rem; border-radius: var(--radius-lg);
       background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; overflow-x: auto;
       content-visibility: auto; contain-intrinsic-size: auto 280px;
     }
     .card-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; display: flex; align-items: center; gap: 0.5rem; }
@@ -213,6 +214,7 @@
       transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
     }
     .search-input::placeholder { color: var(--text-muted); }
+    .search-input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
     .search-input:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 1px rgba(56,189,248,0.6), 0 18px 40px rgba(15,23,42,0.9);
@@ -396,7 +398,7 @@
 
     <search class="search-wrap">
       <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <input type="text" id="stockSearch" class="search-input" placeholder="Search stocks, savings &amp; accounts…" aria-label="Search stocks, savings and accounts by name, ticker, or payment month" spellcheck="false" autocomplete="off" />
+      <input type="search" id="stockSearch" class="search-input" placeholder="Search stocks, savings &amp; accounts…" aria-label="Search stocks, savings and accounts by name, ticker, or payment month" spellcheck="false" autocomplete="off" enterkeyhint="search" />
       <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
       <kbd class="search-kbd">/</kbd>
     </search>
@@ -405,7 +407,7 @@
       <div class="card-title"><i class="fa-solid fa-landmark"></i> LSE</div>
       <div class="card-sub">London Stock Exchange — curated high-yield watchlist</div>
       <table class="stock-table" aria-label="High-yield LSE dividend stocks">
-        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name">Company</th><th scope="col" class="sortable" data-sort="yield" style="text-align:right">Yield</th></tr></thead>
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none">Company</th><th scope="col" class="sortable" data-sort="yield" aria-sort="none" style="text-align:right">Yield</th></tr></thead>
         <tbody id="lseBody"></tbody>
       </table>
     </div>
@@ -414,7 +416,7 @@
       <div class="card-title"><i class="fa-solid fa-building-columns"></i> NYSE</div>
       <div class="card-sub">New York Stock Exchange — curated high-yield watchlist</div>
       <table class="stock-table" aria-label="High-yield NYSE dividend stocks">
-        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name">Company</th><th scope="col" class="sortable" data-sort="yield" style="text-align:right">Yield</th></tr></thead>
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none">Company</th><th scope="col" class="sortable" data-sort="yield" aria-sort="none" style="text-align:right">Yield</th></tr></thead>
         <tbody id="nyseBody"></tbody>
       </table>
     </div>
@@ -423,7 +425,7 @@
       <div class="card-title"><i class="fa-solid fa-chart-simple"></i> NASDAQ</div>
       <div class="card-sub">NASDAQ — curated high-yield watchlist</div>
       <table class="stock-table" aria-label="High-yield NASDAQ dividend stocks">
-        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name">Company</th><th scope="col" class="sortable" data-sort="yield" style="text-align:right">Yield</th></tr></thead>
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none">Company</th><th scope="col" class="sortable" data-sort="yield" aria-sort="none" style="text-align:right">Yield</th></tr></thead>
         <tbody id="nasdaqBody"></tbody>
       </table>
     </div>
@@ -653,7 +655,7 @@
     </footer>
   </main>
 
-  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
   <script>
   (function() {

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -289,7 +290,7 @@
         <label class="field-label" for="secretInput">Base32 secret</label>
         <div class="input-wrap">
           <input type="password" id="secretInput" placeholder="e.g. JBSWY3DPEHPK3PXP" spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off" />
-          <button class="eye-btn" id="toggleSecret" title="Show / hide" type="button" aria-label="Show or hide secret"><i class="fa-solid fa-eye"></i></button>
+          <button class="eye-btn" id="toggleSecret" title="Show / hide" type="button" aria-label="Show secret" aria-pressed="false"><i class="fa-solid fa-eye"></i></button>
           <button class="paste-btn" id="pasteSecret" title="Paste from clipboard" type="button"><i class="fa-regular fa-clipboard"></i> Paste</button>
         </div>
       </div>
@@ -310,8 +311,8 @@
             </select>
           </div>
           <div class="setting-item">
-            <label class="field-label">Algorithm</label>
-            <select disabled><option>SHA-1 (Google)</option></select>
+            <label class="field-label" for="algorithmSelect">Algorithm</label>
+            <select id="algorithmSelect" disabled><option>SHA-1 (Google)</option></select>
           </div>
         </div>
         <label class="remember-row" title="Stores your secret in this browser's localStorage — only check on a device you trust.">
@@ -327,21 +328,21 @@
           <i class="fa-solid fa-trash-can"></i> Clear
         </button>
       </div>
-      <div id="statusMsg" class="status-msg" role="status"></div>
+      <div id="statusMsg" class="status-msg" role="status" aria-live="polite" aria-atomic="true"></div>
     </div>
 
     <div class="card">
       <div class="card-title"><i class="fa-solid fa-shield-halved"></i> Authenticator code</div>
       <div class="code-area">
-        <div class="code-display placeholder" id="codeDisplay">------</div>
-        <div class="ring placeholder" id="countdownRing" style="--pct:100%;">
+        <div class="code-display placeholder" id="codeDisplay" aria-live="polite" aria-atomic="true" aria-label="Current authenticator code">------</div>
+        <div class="ring placeholder" id="countdownRing" role="timer" aria-label="Time remaining in the current code period" style="--pct:100%;">
           <div class="ring-inner">
             <span class="ring-label">Next code in</span>
             <span class="ring-seconds" id="ringSeconds">—</span>
             <span class="ring-label">seconds</span>
           </div>
         </div>
-        <div class="code-meta" id="codeMeta">Waiting for a valid secret…</div>
+        <div class="code-meta" id="codeMeta" aria-live="polite">Waiting for a valid secret…</div>
         <div class="btn-row" style="justify-content:center;">
           <button class="btn btn-sm" id="copyBtn" type="button" disabled>
             <i class="fa-regular fa-copy"></i> Copy code
@@ -363,12 +364,11 @@
     </div>
 
     <footer>
-      For informational purposes only. Use responsibly.<br>
-      <span style="font-size:0.72rem;">AI generated Sat, Aug 15, 2026</span>
+      For informational purposes only. Use responsibly.
     </footer>
   </main>
 
-  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
   <script>
   (function() {
@@ -499,7 +499,13 @@
     function showStatus(type, msg) {
       statusMsg.className = 'status-msg visible ' + type;
       var icon = type === 'ok' ? 'fa-circle-check' : type === 'err' ? 'fa-circle-xmark' : 'fa-circle-info';
-      statusMsg.innerHTML = '<i class="fa-solid ' + icon + '"></i><span>' + msg + '</span>';
+      statusMsg.innerHTML = '';
+      var iconEl = document.createElement('i');
+      iconEl.className = 'fa-solid ' + icon;
+      var msgEl = document.createElement('span');
+      msgEl.textContent = msg;
+      statusMsg.appendChild(iconEl);
+      statusMsg.appendChild(msgEl);
       if (showStatusTimer) clearTimeout(showStatusTimer);
       showStatusTimer = setTimeout(function() { hideStatus(); }, 6000);
     }
@@ -630,10 +636,17 @@
     toggleSecret.addEventListener('click', function() {
       secretHidden = !secretHidden;
       secretInput.type = secretHidden ? 'password' : 'text';
+      toggleSecret.setAttribute('aria-pressed', String(!secretHidden));
+      toggleSecret.setAttribute('aria-label', secretHidden ? 'Show secret' : 'Hide secret');
       toggleSecret.innerHTML = '<i class="fa-solid ' + (secretHidden ? 'fa-eye' : 'fa-eye-slash') + '"></i>';
     });
 
     pasteSecret.addEventListener('click', function() {
+      if (!navigator.clipboard || !navigator.clipboard.readText) {
+        showStatus('err', 'Clipboard access is unavailable. Enter the secret manually.');
+        secretInput.focus();
+        return;
+      }
       navigator.clipboard.readText().then(function(text) {
         if (!text) return;
         secretInput.value = text.trim();
@@ -666,11 +679,17 @@
 
     copyBtn.addEventListener('click', function() {
       if (!lastCode) return;
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        showStatus('err', 'Clipboard access is unavailable. Select the code and copy it manually.');
+        return;
+      }
       navigator.clipboard.writeText(lastCode).then(function() {
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
         setTimeout(function() {
           copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy code';
         }, 2000);
+      }).catch(function() {
+        showStatus('err', 'Clipboard access was denied. Select the code and copy it manually.');
       });
     });
 

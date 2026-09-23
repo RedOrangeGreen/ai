@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
-  <meta name="description" content="Explore free AI chatbots and local AI tools. No sign-up required." />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="description" content="Explore free AI chatbots, local AI tools, and agent-university resources. No sign-up required." />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
   <meta property="og:title" content="AI Playground – Free AI Tools" />
-  <meta property="og:description" content="Explore free AI chatbots and local AI tools. No sign-up required." />
+  <meta property="og:description" content="Explore free AI chatbots, local AI tools, and agent-university resources. No sign-up required." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AI Playground" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="AI Playground – Free AI Tools" />
-  <meta name="twitter:description" content="Explore free AI chatbots and local AI tools. No sign-up required." />
+  <meta name="twitter:description" content="Explore free AI chatbots, local AI tools, and agent-university resources. No sign-up required." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
   <title>AI Playground – Free AI Tools</title>
   <script type="application/ld+json">
@@ -224,7 +225,7 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.1rem;
       border: 1px solid rgba(255,255,255,0.4); border-radius: var(--radius-pill);
       padding: 0.2rem 1.75rem; background: rgba(15,23,42,0.6);
-      flex: 1; min-width: 0; line-height: 1.3; cursor: pointer;
+      flex: 1; min-width: 0; line-height: 1.3; cursor: default;
     }
     .clock-pill-label { color: var(--text-main); font-weight: 500; font-size: 0.82rem; white-space: nowrap; }
     .clock-pill-date { color: var(--text-main); font-size: 0.7rem; white-space: nowrap; }
@@ -311,6 +312,7 @@
       border-bottom: 1px solid rgba(148,163,184,0.1); cursor: pointer;
       transition: color 0.15s ease, background 0.15s ease;
       display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      text-decoration: none;
     }
     .news-ticker-item:hover { color: var(--accent); background: rgba(56,189,248,0.06); }
     .news-ticker-heading {
@@ -372,7 +374,7 @@
       width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer;
     }
     .ticker-speed-label { font-size: 0.7rem; color: var(--text-muted); min-width: 2.2rem; }
-    .ticker-speed-reset { font-size: 0.7rem; color: rgba(148,163,184,0.4); cursor: pointer; transition: color 0.2s ease; }
+    .ticker-speed-reset { background: none; border: 0; padding: 0; display: inline-flex; align-items: center; font-family: inherit; font-size: 0.7rem; color: rgba(148,163,184,0.4); cursor: pointer; transition: color 0.2s ease; }
     .ticker-speed-reset:hover { color: var(--accent); }
     .ticker-pause {
       background: none; border: none; padding: 0 0.2rem;
@@ -420,6 +422,63 @@
   </style>
 </head>
 <body>
+  <script>
+    // Preserve the homepage position while navigating to and from linked tools.
+    (function () {
+      var STORAGE_KEY = 'ai-playground.index.scroll-position';
+      var restoreTimer = null;
+
+      try {
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      } catch (e) {}
+
+      function saveScrollPosition() {
+        try {
+          sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+            top: Math.max(0, Number(window.scrollY || window.pageYOffset) || 0),
+            left: Math.max(0, Number(window.scrollX || window.pageXOffset) || 0)
+          }));
+        } catch (e) {}
+      }
+
+      function restoreScrollPosition() {
+        var raw;
+        try { raw = sessionStorage.getItem(STORAGE_KEY); } catch (e) { return; }
+        if (!raw) return;
+
+        var position;
+        try { position = JSON.parse(raw); } catch (e) { return; }
+        if (!position || typeof position.top !== 'number') return;
+
+        if (restoreTimer) clearTimeout(restoreTimer);
+        restoreTimer = setTimeout(function () {
+          var top = Math.max(0, Number(position.top) || 0);
+          var left = Math.max(0, Number(position.left) || 0);
+          try {
+            window.scrollTo({ top: top, left: left, behavior: 'auto' });
+          } catch (e) {
+            window.scrollTo(left, top);
+          }
+        }, 0);
+      }
+
+      document.addEventListener('click', function (event) {
+        var target = event.target;
+        var link = target && target.closest ? target.closest('a[href]') : null;
+        if (!link) return;
+        var href = link.getAttribute('href') || '';
+        if (href.charAt(0) === '#' || /^(?:https?:|mailto:|tel:|javascript:)/i.test(href)) return;
+        saveScrollPosition();
+      });
+      window.addEventListener('pagehide', saveScrollPosition);
+      window.addEventListener('beforeunload', saveScrollPosition);
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'hidden') saveScrollPosition();
+      });
+      window.addEventListener('pageshow', restoreScrollPosition);
+      window.addEventListener('load', restoreScrollPosition);
+    })();
+  </script>
   <a href="#main-content" class="skip-link">Skip to content</a>
   <noscript><div class="noscript-notice" role="note">Some features on this page (search, live clocks, tickers) require JavaScript to work fully.</div></noscript>
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
@@ -429,18 +488,18 @@
         <h1 class="hero-title">
           Free <span class="highlight">AI Tools</span>
         </h1>
-        <div id="cosmos-row" style="margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;"><button class="cosmos-btn" id="cosmosToggle" type="button" aria-pressed="true"><i aria-hidden="true" class="fa-solid fa-globe"></i> Cosmos</button><span style="font-size:0.72rem;color:var(--text-muted);">toggle background effects</span></div>
+        <div id="cosmos-row" style="margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;"><button class="cosmos-btn" id="cosmosToggle" type="button" aria-label="Toggle cosmic background" aria-pressed="true"><i aria-hidden="true" class="fa-solid fa-globe"></i> Cosmos</button><span style="font-size:0.72rem;color:var(--text-muted);">toggle background effects</span></div>
         <div id="clock-row" class="clock-row">
           <div class="clock-label"><i aria-hidden="true" class="fa-regular fa-clock"></i><span>World Clocks</span></div>
-          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">London</span> <span id="date-london" class="clock-pill-date"></span> <span id="clock-london" class="clock-pill-time"></span> <span id="icon-london" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">New York</span> <span id="date-nyc" class="clock-pill-date"></span> <span id="clock-nyc" class="clock-pill-time"></span> <span id="icon-nyc" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Los Angeles</span> <span id="date-la" class="clock-pill-date"></span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Moscow</span> <span id="date-moscow" class="clock-pill-date"></span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" role="button" tabindex="0"><span class="clock-pill-label">Beijing</span> <span id="date-beijing" class="clock-pill-date"></span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" id="yourcity-pill" title="Click to choose your city"><span class="clock-pill-label" id="yourcity-label">Select City</span> <span id="date-yourcity" class="clock-pill-date"></span> <span id="clock-yourcity" class="clock-pill-time"></span> <span id="icon-yourcity" class="clock-pill-icon"></span></div>
+          <div class="clock-pill"><span class="clock-pill-label">London</span> <span id="date-london" class="clock-pill-date"></span> <span id="clock-london" class="clock-pill-time"></span> <span id="icon-london" class="clock-pill-icon"></span></div>
+          <div class="clock-pill"><span class="clock-pill-label">New York</span> <span id="date-nyc" class="clock-pill-date"></span> <span id="clock-nyc" class="clock-pill-time"></span> <span id="icon-nyc" class="clock-pill-icon"></span></div>
+          <div class="clock-pill"><span class="clock-pill-label">Los Angeles</span> <span id="date-la" class="clock-pill-date"></span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
+          <div class="clock-pill"><span class="clock-pill-label">Moscow</span> <span id="date-moscow" class="clock-pill-date"></span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
+          <div class="clock-pill"><span class="clock-pill-label">Beijing</span> <span id="date-beijing" class="clock-pill-date"></span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" id="yourcity-pill" role="button" tabindex="0" aria-haspopup="listbox" aria-controls="city-dropdown" aria-expanded="false" aria-label="Choose your city" title="Click to choose your city"><span class="clock-pill-label" id="yourcity-label">Select City</span> <span id="date-yourcity" class="clock-pill-date"></span> <span id="clock-yourcity" class="clock-pill-time"></span> <span id="icon-yourcity" class="clock-pill-icon"></span></div>
         </div>
-        <div id="city-dropdown" class="city-dropdown"></div>
-        <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>News</span><button class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play"><i class="fa-solid fa-pause"></i></button><button class="ticker-refresh-btn" data-ticker="tickerWorld" title="Refresh feed"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35"><span class="ticker-speed-label">speed</span><i aria-hidden="true" class="fa-solid fa-rotate-left ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed"></i></span></div>
+        <div id="city-dropdown" class="city-dropdown" role="listbox" aria-label="Choose a city"></div>
+        <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>News</span><button type="button" class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play" aria-label="Pause news ticker" aria-pressed="false"><i class="fa-solid fa-pause"></i></button><button type="button" class="ticker-refresh-btn" data-ticker="tickerWorld" title="Refresh feed" aria-label="Refresh news ticker"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35" aria-label="News ticker speed"><span class="ticker-speed-label">speed</span><button type="button" class="ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed" aria-label="Reset ticker speed"><i aria-hidden="true" class="fa-solid fa-rotate-left"></i></button></span></div>
         <div class="news-ticker" id="tickerWorld" role="region" aria-label="News headlines">
           <div class="news-ticker-grad top"></div>
           <div class="news-ticker-grad bot"></div>
@@ -457,12 +516,12 @@
       </header>
       <ul class="chatbot-list" id="chatbotList">
         <li data-enabled="true">
-          <button class="chatbot-toggle on" aria-label="Toggle ChatGPT"></button>
+          <button type="button" class="chatbot-toggle on" aria-label="Toggle ChatGPT" aria-pressed="true"></button>
           <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General‑purpose AI assistant for chat, writing, brainstorming, and coding.
         </li>
 
         <li data-enabled="true">
-          <button class="chatbot-toggle on" aria-label="Toggle Google AI Search"></button>
+          <button type="button" class="chatbot-toggle on" aria-label="Toggle Google AI Search" aria-pressed="true"></button>
           <a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google AI Search</a> &mdash; AI‑enhanced search blending classic search with summarised answers.
         </li>
       </ul>
@@ -484,7 +543,7 @@
         <li>llama.cpp — High-performance C++ engine for running LLMs locally. Very flexible, very fast.
           <span style="margin-left:auto;display:flex;gap:0.5rem;flex-shrink:0;">
             <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener noreferrer" class="btn-open">GitHub <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            <a href="baremetal/index.html" class="btn-open btn-open-ghost">Quickstart <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+            <a href="https://redorangegreen.github.io/ai/baremetal/index.html" target="_blank" rel="noopener noreferrer" class="btn-open btn-open-ghost">Quickstart <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
           </span>
         </li>
       </ul>
@@ -506,12 +565,14 @@
               <span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-book-open"></i> Guide</span>
             </div>
           </div>
-          <p class="tool-card-body">To install and use OpenCode for free on Ubuntu enter:</p>
+          <p class="tool-card-body">To install and use OpenCode v2 for free on Ubuntu enter:</p>
           <pre style="margin:0;"><code>sudo apt update
 sudo apt install curl -y
-curl -fsSL https://opencode.ai/install | bash
+curl -fsSL https://opencode.ai/v2/install | bash
 source ~/.bashrc
-opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy"></i></button></pre>
+opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy"></i></button></pre>
+          <p class="tool-card-body">To uninstall OpenCode, enter:</p>
+          <pre style="margin:0;"><code>opencode uninstall</code><button type="button" class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy"></i></button></pre>
           <div class="tool-card-footer">
             <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer" class="btn-open">OpenCode <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
@@ -539,11 +600,15 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
     </section>
     <section class="reveal">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-brain"></i><h2>Agent university: human sexual arousal triggers</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-brain"></i><h2>AGENT UNIVERSITY</h2></div>
       </header>
       <div class="section-heading-main" style="margin:0.9rem 0 0.5rem;gap:0.5rem;">
+        <i aria-hidden="true" class="fa-solid fa-heart" style="background:rgba(15,23,42,0.9);border:1px solid rgba(148,163,184,0.5);color:var(--accent);font-size:0.9rem;"></i>
+        <h3 style="margin:0;letter-spacing:0.08em;text-transform:uppercase;color:#e5e7eb;">HUMAN SEXUAL AROUSAL TRIGGERS</h3>
+      </div>
+      <div class="section-heading-main" style="margin:0.9rem 0 0.5rem;gap:0.5rem;">
         <i aria-hidden="true" class="fa-solid fa-mars" style="background:rgba(15,23,42,0.9);border:1px solid rgba(148,163,184,0.5);color:var(--accent);font-size:0.9rem;"></i>
-        <h3 style="margin:0;letter-spacing:0.08em;text-transform:uppercase;color:#e5e7eb;">Male</h3>
+        <h3 style="margin:0;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;color:#e5e7eb;">Male</h3>
       </div>
       <ul class="chatbot-list">
         <li><a href="soi6pattaya.html">Soi 6, Pattaya, Thailand</a></li>
@@ -552,21 +617,15 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
       </ul>
       <div class="section-heading-main" style="margin:0.9rem 0 0.5rem;gap:0.5rem;">
         <i aria-hidden="true" class="fa-solid fa-venus" style="background:rgba(15,23,42,0.9);border:1px solid rgba(148,163,184,0.5);color:var(--accent);font-size:0.9rem;"></i>
-        <h3 style="margin:0;letter-spacing:0.08em;text-transform:uppercase;color:#e5e7eb;">Female</h3>
+        <h3 style="margin:0;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;color:#e5e7eb;">Female</h3>
       </div>
       <ul class="chatbot-list">
         <li><a href="waltzer.html">Fairground Waltzer</a></li>
       </ul>
     </section>
 
-    <footer>
-      <div><span class="brand">AI Playground</span> • Free AI tools directory</div>
-      <div class="footer-meta">
-        <span>AI generated <span id="fileDate"></span></span>
-      </div>
-    </footer>
   </main>
-  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
   <script>
     (function() {
       const zones = [
@@ -600,6 +659,11 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
       ];
       CITIES.sort(function(a, b) { return a.split(':')[1].localeCompare(b.split(':')[1]); });
       var dropdown = document.getElementById('city-dropdown');
+      var cityPill = document.getElementById('yourcity-pill');
+      function setCityMenu(open) {
+        dropdown.classList.toggle('visible', open);
+        cityPill.setAttribute('aria-expanded', String(open));
+      }
       for (var i = 0; i < CITIES.length; i++) {
         var parts = CITIES[i].split(':');
         var d = document.createElement('div');
@@ -607,14 +671,19 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
         d.setAttribute('data-tz', parts[0]);
         d.setAttribute('tabindex', '0');
         d.setAttribute('role', 'option');
+        d.setAttribute('aria-selected', 'false');
         d.addEventListener('click', function() {
           var name = this.textContent;
           var tz = this.getAttribute('data-tz');
           yourTz = tz;
           document.getElementById('yourcity-label').textContent = name;
-          dropdown.querySelectorAll('div').forEach(function(el) { el.classList.remove('selected'); });
+          dropdown.querySelectorAll('[role="option"]').forEach(function(el) {
+            el.classList.remove('selected');
+            el.setAttribute('aria-selected', 'false');
+          });
           this.classList.add('selected');
-          dropdown.classList.remove('visible');
+          this.setAttribute('aria-selected', 'true');
+          setCityMenu(false);
         });
         d.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -624,15 +693,28 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
         });
         dropdown.appendChild(d);
       }
-      document.getElementById('yourcity-pill').addEventListener('click', function(e) {
+      cityPill.addEventListener('click', function(e) {
         e.stopPropagation();
         var rect = this.getBoundingClientRect();
         dropdown.style.position = 'fixed';
         dropdown.style.top = (rect.bottom + 4) + 'px';
         dropdown.style.left = rect.left + 'px';
-        dropdown.classList.toggle('visible');
+        setCityMenu(!dropdown.classList.contains('visible'));
       });
-      document.addEventListener('click', function() { dropdown.classList.remove('visible'); });
+      cityPill.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        } else if (e.key === 'Escape') {
+          setCityMenu(false);
+        }
+      });
+      document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target) && e.target !== cityPill) setCityMenu(false);
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') setCityMenu(false);
+      });
 
       var tickerSpeeds = {};
       var tickerLoaders = {};
@@ -647,7 +729,10 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
         function load() {
           Promise.all(feeds.map(function(feed) {
             var url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url);
-            return fetch(url).then(function(r) { return r.json(); }).then(function(data) {
+            return fetch(url).then(function(r) {
+              if (!r.ok) throw new Error('News feed request failed');
+              return r.json();
+            }).then(function(data) {
               return { heading: feed.heading, items: (data && data.items) ? data.items : [] };
             });
           })).then(function(results) {
@@ -662,8 +747,15 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
               newItems.push(headingEl);
               var count = Math.min(result.items.length, 5);
               for (var i = 0; i < count; i++) {
-                var el = document.createElement('div');
+                if (!result.items[i].link) continue;
+                var link;
+                try { link = new URL(result.items[i].link, window.location.href); } catch (e) { continue; }
+                if (link.protocol !== 'http:' && link.protocol !== 'https:') continue;
+                var el = document.createElement('a');
                 el.className = 'news-ticker-item';
+                el.href = link.href;
+                el.target = '_blank';
+                el.rel = 'noopener noreferrer';
                 var titleSpan = document.createElement('span');
                 titleSpan.className = 'ni-title';
                 titleSpan.textContent = result.items[i].title;
@@ -672,11 +764,9 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
                 timeSpan.className = 'ni-time';
                 var d = new Date(result.items[i].pubDate);
                 timeSpan.textContent = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                el.setAttribute('aria-label', 'Open news story: ' + result.items[i].title);
                 el.appendChild(titleSpan);
                 el.appendChild(timeSpan);
-                el.addEventListener('click', function(url) {
-                  return function() { window.open(url, '_blank'); };
-                }(result.items[i].link));
                 frag.appendChild(el);
                 newItems.push(el);
               }
@@ -745,6 +835,8 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
           var container = document.getElementById(id);
           if (!container) return;
           container.__paused = !container.__paused;
+          btn.setAttribute('aria-pressed', String(container.__paused));
+          btn.setAttribute('aria-label', container.__paused ? 'Resume news ticker' : 'Pause news ticker');
           var icon = this.querySelector('i');
           if (!icon) return;
           if (container.__paused) {
@@ -817,17 +909,21 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
       document.querySelectorAll(".tool").forEach((tool) => {
         tool.style.display = "";
       });
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
-      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+      } else {
+        document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
+      }
       if (backToTop) {
         window.addEventListener("scroll", () => {
           backToTop.classList.toggle("visible", window.scrollY > 400);
@@ -1068,7 +1164,8 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
         var btn = li.querySelector('.chatbot-toggle');
         if (!btn) return;
         var key = 'chatbot-' + li.querySelector('a').textContent;
-        var saved = localStorage.getItem(key);
+        var saved = null;
+        try { saved = localStorage.getItem(key); } catch(ex) { console.warn('Could not read chatbot toggle state', ex); }
         if (saved === 'false') {
           li.dataset.enabled = 'false';
           li.classList.add('disabled');
@@ -1078,12 +1175,14 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
           li.classList.remove('disabled');
           btn.classList.add('on');
         }
+        btn.setAttribute('aria-pressed', String(li.dataset.enabled === 'true'));
         btn.addEventListener('click', function(e) {
           e.stopPropagation();
           var enabled = li.dataset.enabled !== 'true';
           li.dataset.enabled = enabled;
           li.classList.toggle('disabled', !enabled);
           btn.classList.toggle('on', enabled);
+          btn.setAttribute('aria-pressed', String(enabled));
           try { localStorage.setItem(key, enabled); } catch(ex) { console.warn('Could not save chatbot toggle state', ex); }
         });
       });
@@ -1100,36 +1199,38 @@ opencode</code><button class="copy-btn" title="Copy" aria-label="Copy code"><i c
         try { localStorage.setItem('cosmosOff', document.body.classList.contains('cosmos-off')); } catch(e) { console.warn('Could not save cosmos state', e); }
       });
     })();
-    var fd = document.getElementById('fileDate');
-    if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
 
     (function() {
-      var btn = document.querySelector('.tool-card .copy-btn');
-      if (!btn) return;
-      var pre = btn.closest('pre');
-      btn.addEventListener('click', function() {
-        var text = pre.querySelector('code').textContent;
-        function done() {
-          btn.classList.add('copied');
-          btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-          setTimeout(function() {
-            btn.classList.remove('copied');
-            btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-          }, 2000);
-        }
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(done);
-        } else {
-          var ta = document.createElement('textarea');
-          ta.value = text;
-          ta.style.position = 'fixed';
-          ta.style.left = '-9999px';
-          document.body.appendChild(ta);
-          ta.select();
-          try { document.execCommand('copy'); } catch(e) {}
-          document.body.removeChild(ta);
-          done();
-        }
+      document.querySelectorAll('.tool-card .copy-btn').forEach(function(btn) {
+        var pre = btn.closest('pre');
+        if (!pre) return;
+        btn.addEventListener('click', function() {
+          var text = pre.querySelector('code').textContent;
+          function done() {
+            btn.classList.add('copied');
+            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            setTimeout(function() {
+              btn.classList.remove('copied');
+              btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+            }, 2000);
+          }
+          function fallbackCopy() {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch(e) {}
+            document.body.removeChild(ta);
+            done();
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);
+          } else {
+            fallbackCopy();
+          }
+        });
       });
     })();
 

@@ -168,6 +168,7 @@
         --transition-fast: 0.18s ease-out;
       }
     }
+    *, *::before, *::after { box-sizing: border-box; }
     body {
       background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
       color: var(--text-main);
@@ -189,7 +190,7 @@
     .card {
       padding: 1.4rem 1.6rem; border-radius: var(--radius-lg);
       background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; overflow-x: auto;
     }
     .card-title { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
     .card-title i { color: var(--accent); font-size: 1rem; flex-shrink: 0; }
@@ -407,36 +408,36 @@
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/qwg6RecN188" title="Pattaya Soi 6 bars walkthrough" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/qwg6RecN188" title="Pattaya Soi 6 bars walkthrough" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     </div>
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/hs_YzObrkUE" title="Night wish bar Soi 6 Pattaya" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/hs_YzObrkUE" title="Night wish bar Soi 6 Pattaya" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     </div>
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/2BiJSTZObxk" title="Bandits Hideout Live Stream Soi 6" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/2BiJSTZObxk" title="Bandits Hideout Live Stream Soi 6" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     </div>
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/H5ou1jyWz3M" title="Soi 6, Pattaya, Thailand" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/H5ou1jyWz3M" title="Soi 6, Pattaya, Thailand" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     </div>
 
-    <footer>
-      <span style="font-size:0.72rem;">AI generated <span id="fileDate"></span></span>
-    </footer>
+    <div class="card" style="padding:0;">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/wNSZF1M2Y2U" title="Soi 6, Pattaya, Thailand — Additional video" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </div>
+
+
   </main>
 
-  <script>
-    var fd = document.getElementById('fileDate');
-    if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-  </script>
 </body>
 </html>

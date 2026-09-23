@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -628,7 +629,7 @@
       <div class="add-row">
         <label for="todoInput" class="sr-only">New task</label>
         <input type="text" id="todoInput" placeholder="Add a new task..." spellcheck="false" autocomplete="off" />
-        <button class="btn" id="addBtn" title="Add a new task to the list"><i class="fa-solid fa-plus"></i> Add</button>
+        <button type="button" class="btn" id="addBtn" title="Add a new task to the list"><i class="fa-solid fa-plus"></i> Add</button>
       </div>
     </div>
 
@@ -641,16 +642,16 @@
           <span id="completionPct" style="color:var(--accent);font-weight:500;">0%</span>
         </div>
         <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
-          <button class="btn btn-sm btn-ghost" id="deleteAllDoneBtn" title="Remove all tasks marked as done"><i class="fa-solid fa-check-double"></i> Delete Completed</button>
-          <button class="btn btn-sm btn-ghost" id="sortBtn" title="Sort all tasks in alphabetical order"><i class="fa-solid fa-arrow-down-a-z"></i> Sort</button>
-          <button class="btn btn-sm btn-ghost" id="numbersToggle" title="Show or hide task numbers"><i class="fa-solid fa-list-ol"></i> Numbers</button>
-          <button class="btn btn-sm btn-ghost" id="deleteAllBtn" title="Permanently remove every task"><i class="fa-solid fa-trash-can"></i> Delete All</button>
+          <button type="button" class="btn btn-sm btn-ghost" id="deleteAllDoneBtn" title="Remove all tasks marked as done"><i class="fa-solid fa-check-double"></i> Delete Completed</button>
+          <button type="button" class="btn btn-sm btn-ghost" id="sortBtn" title="Sort all tasks in alphabetical order"><i class="fa-solid fa-arrow-down-a-z"></i> Sort</button>
+          <button type="button" class="btn btn-sm btn-ghost" id="numbersToggle" title="Show or hide task numbers"><i class="fa-solid fa-list-ol"></i> Numbers</button>
+          <button type="button" class="btn btn-sm btn-ghost" id="deleteAllBtn" title="Permanently remove every task"><i class="fa-solid fa-trash-can"></i> Delete All</button>
         </div>
       </div>
       <div class="completion-bar"><div class="completion-bar-fill" id="completionBar" style="width:0%"></div></div>
       <search class="search-wrap">
         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <input type="text" id="searchTasks" class="search-tasks" placeholder="Search tasks…" aria-label="Search tasks" spellcheck="false" autocomplete="off" />
+        <input type="search" id="searchTasks" class="search-tasks" placeholder="Search tasks…" aria-label="Search tasks" spellcheck="false" autocomplete="off" enterkeyhint="search" />
       </search>
       <ul class="todo-list" id="todoList" role="list"></ul>
       <div class="todo-empty" id="emptyMsg">Nothing here yet. Add a task above!</div>
@@ -666,30 +667,28 @@
     <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;align-items:center;">
       <div class="format-toggle" id="formatToggle">
         <button class="active" data-format="xml" title="Save files in XML format" type="button" aria-pressed="true">XML</button>
-        <button data-format="json" title="Save files in JSON format" type="button" aria-pressed="false">JSON</button>
+        <button type="button" data-format="json" title="Save files in JSON format" aria-pressed="false">JSON</button>
       </div>
-      <button class="btn btn-sm btn-ghost" id="saveXmlBtn" title="Download the current todo list to a file"><i class="fa-solid fa-download"></i> Save</button>
-      <button class="btn btn-sm btn-ghost" id="loadXmlBtn" title="Import a todo list from an XML or JSON file"><i class="fa-solid fa-upload"></i> Load</button>
+      <button type="button" class="btn btn-sm btn-ghost" id="saveXmlBtn" title="Download the current todo list to a file"><i class="fa-solid fa-download"></i> Save</button>
+      <button type="button" class="btn btn-sm btn-ghost" id="loadXmlBtn" title="Import a todo list from an XML or JSON file"><i class="fa-solid fa-upload"></i> Load</button>
       <div class="report-dropdown-wrap">
-        <button class="btn btn-sm btn-ghost" id="reportBtn" title="Generate a summary report of your tasks"><i class="fa-solid fa-file-lines"></i> Create report <i class="fa-solid fa-caret-up"></i></button>
+        <button type="button" class="btn btn-sm btn-ghost" id="reportBtn" title="Generate a summary report of your tasks" aria-controls="reportDropdown"><i class="fa-solid fa-file-lines"></i> Create report <i class="fa-solid fa-caret-up"></i></button>
         <div class="report-dropdown-menu" id="reportDropdown">
-          <button class="report-dropdown-item" data-format="html" title="Download report as an HTML page"><i class="fa-solid fa-file-code"></i> HTML</button>
-          <button class="report-dropdown-item" data-format="txt" title="Download report as plain text"><i class="fa-solid fa-file-lines"></i> TXT</button>
-          <button class="report-dropdown-item" data-format="pdf" title="Download report as a PDF document"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+          <button type="button" class="report-dropdown-item" data-format="html" title="Download report as an HTML page"><i class="fa-solid fa-file-code"></i> HTML</button>
+          <button type="button" class="report-dropdown-item" data-format="txt" title="Download report as plain text"><i class="fa-solid fa-file-lines"></i> TXT</button>
+          <button type="button" class="report-dropdown-item" data-format="pdf" title="Download report as a PDF document"><i class="fa-solid fa-file-pdf"></i> PDF</button>
         </div>
       </div>
-      <input type="file" id="xmlFileInput" accept=".xml,.json" style="display:none" />
+      <input type="file" id="xmlFileInput" accept=".xml,.json" aria-label="Todo XML or JSON file" style="display:none" />
 
     </div>
 
-    <footer>
-      <span>AI generated <span id="footerDate"></span>.</span>
-    </footer>
+
   </main>
 
-  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
-  <div class="modal-overlay" id="modalOverlay">
+  <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <h3 id="modalTitle"></h3>
       <p id="modalMessage"></p>
@@ -733,18 +732,25 @@
       const modalActions = document.getElementById('modalActions');
       const srLive = document.getElementById('srLive');
       function announce(msg) { srLive.textContent = ''; setTimeout(function() { srLive.textContent = msg; }, 50); }
+      function itemById(id) {
+        return Array.prototype.find.call(todoList.children, function(el) { return el.dataset.id === id; });
+      }
 
       function loadTodos() {
         try {
           const data = localStorage.getItem(STORAGE_KEY);
-          todos = data ? JSON.parse(data) : [];
-          todos.forEach(function(t) { if (typeof t.id !== 'string') t.id = String(t.id); });
+          const parsed = data ? JSON.parse(data) : [];
+          todos = Array.isArray(parsed) ? parsed.filter(function(t) {
+            return t && typeof t.text === 'string';
+          }).map(function(t) {
+            return { id: String(t.id || genId()), text: t.text, done: !!t.done };
+          }) : [];
         } catch { todos = []; }
         try { showNumbers = localStorage.getItem('showNumbers') !== 'false'; } catch {}
       }
 
       function saveTodos() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(todos)); } catch (e) { console.warn('Could not save todos locally', e); }
       }
 
       function render() {
@@ -794,6 +800,7 @@
           text.textContent = todo.text;
 
           const del = document.createElement('button');
+          del.type = 'button';
           del.className = 'todo-delete';
           del.innerHTML = '<i class="fa-solid fa-xmark"></i>';
           del.setAttribute('aria-label', 'Delete task');
@@ -822,7 +829,7 @@
               var m = todos.splice(idx, 1)[0];
               todos.splice(newIdx, 0, m);
               render();
-              var movedEl = todoList.querySelector('[data-id="' + todo.id + '"]');
+              var movedEl = itemById(todo.id);
               if (movedEl) movedEl.focus();
             }
             if (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') {
@@ -904,8 +911,8 @@
         if (side === 'after' && toIdx < todos.length) toIdx++;
         todos.splice(toIdx, 0, moved);
 
-        var draggedEl = todoList.querySelector('[data-id="' + draggedId + '"]');
-        var targetEl = todoList.querySelector('[data-id="' + targetId + '"]');
+        var draggedEl = itemById(draggedId);
+        var targetEl = itemById(targetId);
         if (draggedEl) draggedEl.style.display = '';
         if (targetEl && draggedEl) {
           if (side === 'before') {
@@ -943,25 +950,25 @@
         completionBar.style.width = pct + '%';
         emptyMsg.style.display = todos.length === 0 ? 'block' : 'none';
         var hasDone = todos.some(function(t) { return t.done; });
+        deleteAllDoneBtn.disabled = !hasDone;
         deleteAllDoneBtn.classList.toggle('disabled', !hasDone);
-        deleteAllDoneBtn.setAttribute('tabindex', !hasDone ? '-1' : '0');
         deleteAllDoneBtn.setAttribute('aria-disabled', !hasDone ? 'true' : 'false');
+        deleteAllBtn.disabled = todos.length === 0;
         deleteAllBtn.classList.toggle('disabled', todos.length === 0);
-        deleteAllBtn.setAttribute('tabindex', todos.length === 0 ? '-1' : '0');
         deleteAllBtn.setAttribute('aria-disabled', todos.length === 0 ? 'true' : 'false');
+        sortBtn.disabled = todos.length < 2;
         sortBtn.classList.toggle('disabled', todos.length < 2);
-        sortBtn.setAttribute('tabindex', todos.length < 2 ? '-1' : '0');
         sortBtn.setAttribute('aria-disabled', todos.length < 2 ? 'true' : 'false');
+        saveXmlBtn.disabled = todos.length === 0;
         saveXmlBtn.classList.toggle('disabled', todos.length === 0);
-        saveXmlBtn.setAttribute('tabindex', todos.length === 0 ? '-1' : '0');
         saveXmlBtn.setAttribute('aria-disabled', todos.length === 0 ? 'true' : 'false');
+        reportBtn.disabled = todos.length === 0;
         reportBtn.classList.toggle('disabled', todos.length === 0);
-        reportBtn.setAttribute('tabindex', todos.length === 0 ? '-1' : '0');
         reportBtn.setAttribute('aria-disabled', todos.length === 0 ? 'true' : 'false');
         var nt = document.getElementById('numbersToggle');
         if (nt) {
+          nt.disabled = todos.length === 0;
           nt.classList.toggle('disabled', todos.length === 0);
-          nt.setAttribute('tabindex', todos.length === 0 ? '-1' : '0');
           nt.setAttribute('aria-disabled', todos.length === 0 ? 'true' : 'false');
         }
       }
@@ -984,7 +991,7 @@
         const todo = todos.find(t => t.id === id);
         if (!todo) return;
         todo.done = !todo.done;
-        var el = todoList.querySelector('[data-id="' + id + '"]');
+        var el = itemById(id);
         if (el) {
           var check = el.querySelector('.todo-check');
           var text = el.querySelector('.todo-text');
@@ -1020,6 +1027,7 @@
       }
 
       function setModalState(open) {
+        modalOverlay.setAttribute('aria-hidden', String(open));
         var shell = document.querySelector('main.page-shell');
         var topBtn = document.getElementById('backToTop');
         if (shell) shell.inert = open;
@@ -1030,7 +1038,7 @@
         return new Promise(resolve => {
           modalTitle.textContent = 'Todo List';
           modalMessage.textContent = msg;
-          modalActions.innerHTML = '<button class="btn btn-sm" id="modalOkBtn">OK</button>';
+          modalActions.innerHTML = '<button type="button" class="btn btn-sm" id="modalOkBtn">OK</button>';
           modalOverlay.classList.add('open');
           setModalState(true);
           var okBtn = document.getElementById('modalOkBtn');
@@ -1050,7 +1058,7 @@
         return new Promise(resolve => {
           modalTitle.textContent = 'Todo List';
           modalMessage.textContent = msg;
-          modalActions.innerHTML = '<button class="btn btn-sm" id="modalPromptOkBtn">OK</button><button class="btn btn-sm btn-ghost" id="modalPromptCancelBtn">Cancel</button>';
+          modalActions.innerHTML = '<button type="button" class="btn btn-sm" id="modalPromptOkBtn">OK</button><button type="button" class="btn btn-sm btn-ghost" id="modalPromptCancelBtn">Cancel</button>';
           const input = document.createElement('input');
           input.type = 'text';
           input.value = defaultValue || '';
@@ -1101,7 +1109,7 @@
         return new Promise(resolve => {
           modalTitle.textContent = 'Todo List';
           modalMessage.textContent = msg;
-          modalActions.innerHTML = '<button class="btn btn-sm" id="modalConfirmBtn">OK</button><button class="btn btn-sm btn-ghost" id="modalCancelBtn">Cancel</button>';
+          modalActions.innerHTML = '<button type="button" class="btn btn-sm" id="modalConfirmBtn">OK</button><button type="button" class="btn btn-sm btn-ghost" id="modalCancelBtn">Cancel</button>';
           modalOverlay.classList.add('open');
           setModalState(true);
           var confirmBtn = document.getElementById('modalConfirmBtn');
@@ -1142,13 +1150,14 @@
         }
 
         const blob = new Blob([content], { type: mime });
+        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
+        a.href = url;
         a.download = name.endsWith('.' + ext) ? name : name + '.' + ext;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        URL.revokeObjectURL(a.href);
+        setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
       }
 
       function escXml(s) {
@@ -1171,9 +1180,9 @@
               const parsed = JSON.parse(text);
               const items = Array.isArray(parsed) ? parsed : (parsed.todos || []);
               items.forEach(item => {
-                if (item.text !== undefined) {
+                if (item && typeof item.text === 'string') {
                   loaded.push({
-                    id: item.id || genId(),
+                    id: String(item.id || genId()),
                     text: item.text,
                     done: !!item.done
                   });
@@ -1292,13 +1301,14 @@
           } catch(e) { modalAlert('PDF generation failed: ' + e.message); }
         } else {
           const blob = new Blob([content], { type: mime });
+          const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
+          a.href = url;
           a.download = name.endsWith('.' + ext) ? name : name + '.' + ext;
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
-          URL.revokeObjectURL(a.href);
+          setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
         }
       }
 
@@ -1365,7 +1375,10 @@
           createReport(this.dataset.format);
         });
       });
-      document.addEventListener('click', function() { reportDropdown.classList.remove('open'); });
+      document.addEventListener('click', function() {
+        reportDropdown.classList.remove('open');
+        reportBtn.setAttribute('aria-expanded', 'false');
+      });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && reportDropdown.classList.contains('open')) {
           reportDropdown.classList.remove('open');
@@ -1410,8 +1423,6 @@
 
       loadTodos();
       render();
-      var fd = document.getElementById('footerDate');
-      if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     })();
   </script>
 </body>

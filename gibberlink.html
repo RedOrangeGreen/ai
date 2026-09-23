@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -302,7 +303,7 @@
         <label class="field-label" for="gibberText">Gibberlink</label>
         <div style="position:relative;">
           <textarea id="gibberText" placeholder="Gibberish output appears here…" spellcheck="false" style="font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:0.82rem;"></textarea>
-          <button class="copy-btn" id="copyGibber" title="Copy to clipboard" style="display:none;">
+          <button type="button" class="copy-btn" id="copyGibber" title="Copy to clipboard" style="display:none;">
             <i class="fa-regular fa-copy"></i> Copy
           </button>
         </div>
@@ -330,7 +331,7 @@
         <span class="shortcut-hint"><kbd>Ctrl</kbd>+<kbd>Enter</kbd> Encode</span>
         <span class="shortcut-hint"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> Decode</span>
       </div>
-      <div id="statusMsg" class="status-msg" role="status"></div>
+      <div id="statusMsg" class="status-msg" role="status" aria-live="polite" aria-atomic="true"></div>
     </div>
 
     <div class="divider">How it works</div>
@@ -346,12 +347,11 @@
     </div>
 
     <footer>
-      For informational purposes only. Use responsibly.<br>
-      <span style="font-size:0.72rem;">AI generated Sat, Jul 25, 2026</span>
+      For informational purposes only. Use responsibly.
     </footer>
   </main>
 
-  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
   <script>
   (function() {
@@ -392,6 +392,11 @@
     gibberText.addEventListener('input', updateCounters);
 
     pastePlain.addEventListener('click', function() {
+      if (!navigator.clipboard || !navigator.clipboard.readText) {
+        showStatus('err', 'Clipboard access is unavailable. Enter the message manually.');
+        plainText.focus();
+        return;
+      }
       navigator.clipboard.readText().then(function(text) {
         plainText.value = text;
         updateCounters();
@@ -425,6 +430,10 @@
     });
 
     copyGibber.addEventListener('click', function() {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        showStatus('err', 'Clipboard access is unavailable. Select the text and copy it manually.');
+        return;
+      }
       navigator.clipboard.writeText(gibberText.value).then(function() {
         copyGibber.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
         copyGibber.classList.add('copied');
@@ -432,13 +441,21 @@
           copyGibber.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
           copyGibber.classList.remove('copied');
         }, 2000);
+      }).catch(function() {
+        showStatus('err', 'Clipboard access was denied. Select the text and copy it manually.');
       });
     });
 
     function showStatus(type, msg) {
       statusMsg.className = 'status-msg visible ' + type;
       var icon = type === 'ok' ? 'fa-circle-check' : 'fa-circle-xmark';
-      statusMsg.innerHTML = '<i class="fa-solid ' + icon + '"></i><span>' + msg + '</span>';
+      statusMsg.innerHTML = '';
+      var iconEl = document.createElement('i');
+      iconEl.className = 'fa-solid ' + icon;
+      var msgEl = document.createElement('span');
+      msgEl.textContent = msg;
+      statusMsg.appendChild(iconEl);
+      statusMsg.appendChild(msgEl);
     }
 
     function hideStatus() { statusMsg.className = 'status-msg'; }

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -904,18 +905,18 @@
 
     <div class="card">
       <div class="add-row">
-        <button class="btn" id="addBtn" title="Create a new employee record"><i class="fa-solid fa-user-plus"></i> Add Employee</button>
+        <button type="button" class="btn" id="addBtn" title="Create a new employee record"><i class="fa-solid fa-user-plus"></i> Add Employee</button>
       </div>
     </div>
 
     <div class="card">
       <div class="emp-stats">
         <span><span class="count" id="totalCount">0</span> employees</span>
-        <span class="cell-muted" id="dbState">SQL engine ready</span>
+        <span class="cell-muted" id="dbState" role="status" aria-live="polite">SQL engine ready</span>
       </div>
       <search class="search-wrap">
         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <input type="text" id="searchEmp" class="search-emp" placeholder="Search by name, department or position…" aria-label="Search employees" spellcheck="false" autocomplete="off" />
+        <input type="search" id="searchEmp" class="search-emp" placeholder="Search by name, department or position…" aria-label="Search employees" spellcheck="false" autocomplete="off" enterkeyhint="search" />
       </search>
       <div class="table-wrap">
         <table class="emp-table" id="empTable">
@@ -943,11 +944,11 @@
     </div>
 
     <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;align-items:center;">
-      <button class="btn btn-sm btn-ghost" id="saveBtn" title="Download the whole database as a JSON file"><i class="fa-solid fa-download"></i> Save</button>
-      <button class="btn btn-sm btn-ghost" id="loadBtn" title="Import a database from a JSON file"><i class="fa-solid fa-upload"></i> Load</button>
-      <button class="btn btn-sm btn-ghost" id="clearBtn" title="Permanently remove every employee record"><i class="fa-solid fa-trash-can"></i> Delete All</button>
-      <button class="btn btn-sm btn-ghost" id="advancedToggle" aria-expanded="false" aria-controls="advancedPanel" title="Show table schemas and run raw SQL queries"><i class="fa-solid fa-sliders"></i> SQL Interface<i class="fa-solid fa-chevron-down toggle-chev"></i></button>
-      <input type="file" id="fileInput" accept=".json,application/json" style="display:none" />
+      <button type="button" class="btn btn-sm btn-ghost" id="saveBtn" title="Download the whole database as a JSON file"><i class="fa-solid fa-download"></i> Save</button>
+      <button type="button" class="btn btn-sm btn-ghost" id="loadBtn" title="Import a database from a JSON file"><i class="fa-solid fa-upload"></i> Load</button>
+      <button type="button" class="btn btn-sm btn-ghost" id="clearBtn" title="Permanently remove every employee record"><i class="fa-solid fa-trash-can"></i> Delete All</button>
+      <button type="button" class="btn btn-sm btn-ghost" id="advancedToggle" aria-expanded="false" aria-controls="advancedPanel" title="Show table schemas and run raw SQL queries"><i class="fa-solid fa-sliders"></i> SQL Interface<i class="fa-solid fa-chevron-down toggle-chev"></i></button>
+      <input type="file" id="fileInput" accept=".json,application/json" aria-label="Employee database JSON file" style="display:none" />
     </div>
 
     <div class="card advanced-panel" id="advancedPanel">
@@ -962,10 +963,10 @@
         <div class="sql-label">
           <span>Run SQL query</span>
         </div>
-        <textarea id="sqlInput" class="sql-input" spellcheck="false" placeholder="SELECT e.id, e.name, d.position FROM employees e LEFT JOIN details d ON e.id = d.employee_id;"></textarea>
+        <textarea id="sqlInput" class="sql-input" spellcheck="false" aria-label="SQL query" placeholder="SELECT e.id, e.name, d.position FROM employees e LEFT JOIN details d ON e.id = d.employee_id;"></textarea>
         <div class="sql-toolbar">
           <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
-            <button class="btn btn-sm" id="sqlRunBtn"><i class="fa-solid fa-play"></i> Run</button>
+            <button type="button" class="btn btn-sm" id="sqlRunBtn"><i class="fa-solid fa-play"></i> Run</button>
             <label class="sql-example" for="sqlExample">
               <select id="sqlExample">
                 <option value="" selected>Choose an example query…</option>
@@ -980,23 +981,23 @@
             Queries run against the live database. <kbd style="background:rgba(15,23,42,0.9);border:1px solid rgba(148,163,184,0.25);border-radius:3px;padding:0.05rem 0.3rem;font-size:0.65rem;color:rgba(148,163,184,0.7);">Ctrl+Enter</kbd> to run. <span class="warn">Write queries alter your data.</span>
           </div>
         </div>
-        <div class="sql-output" id="sqlOutput"></div>
+        <div class="sql-output" id="sqlOutput" role="region" aria-label="SQL query results" aria-live="polite"></div>
 
         <div class="raw-actions" id="rawActions">
           <span class="raw-label">Raw tables:</span>
-          <button class="btn btn-sm btn-ghost" data-action="view" data-table="employees"><i class="fa-solid fa-eye"></i> View employees</button>
-          <button class="btn btn-sm btn-ghost" data-action="view" data-table="details"><i class="fa-solid fa-eye"></i> View details</button>
-          <button class="btn btn-sm btn-ghost" data-action="edit" data-table="employees"><i class="fa-solid fa-pen-to-square"></i> Edit employees</button>
-          <button class="btn btn-sm btn-ghost" data-action="edit" data-table="details"><i class="fa-solid fa-pen-to-square"></i> Edit details</button>
+          <button type="button" class="btn btn-sm btn-ghost" data-action="view" data-table="employees"><i class="fa-solid fa-eye"></i> View employees</button>
+          <button type="button" class="btn btn-sm btn-ghost" data-action="view" data-table="details"><i class="fa-solid fa-eye"></i> View details</button>
+          <button type="button" class="btn btn-sm btn-ghost" data-action="edit" data-table="employees"><i class="fa-solid fa-pen-to-square"></i> Edit employees</button>
+          <button type="button" class="btn btn-sm btn-ghost" data-action="edit" data-table="details"><i class="fa-solid fa-pen-to-square"></i> Edit details</button>
         </div>
 
         <div class="raw-editor" id="rawEditor">
           <div class="raw-editor-head">
             <span id="rawEditorTitle"></span>
             <div class="btns">
-              <button class="btn btn-sm" id="rawAddBtn"><i class="fa-solid fa-plus"></i> Add row</button>
-              <button class="btn btn-sm btn-ghost" id="rawSaveBtn"><i class="fa-solid fa-check"></i> Save all</button>
-              <button class="btn btn-sm btn-ghost" id="rawCloseBtn"><i class="fa-solid fa-xmark"></i> Close</button>
+              <button type="button" class="btn btn-sm" id="rawAddBtn"><i class="fa-solid fa-plus"></i> Add row</button>
+              <button type="button" class="btn btn-sm btn-ghost" id="rawSaveBtn"><i class="fa-solid fa-check"></i> Save all</button>
+              <button type="button" class="btn btn-sm btn-ghost" id="rawCloseBtn"><i class="fa-solid fa-xmark"></i> Close</button>
             </div>
           </div>
           <div class="raw-scroll">
@@ -1005,16 +1006,14 @@
               <tbody id="rawBody"></tbody>
             </table>
           </div>
-          <div class="raw-msg" id="rawMsg"></div>
+          <div class="raw-msg" id="rawMsg" role="status" aria-live="polite"></div>
         </div>
       </div>
 
       <div class="engine-note" style="margin-top:0.9rem;"><i class="fa-solid fa-circle-check"></i> Powered by AlaSQL &mdash; in-memory relational engine, persisted to localStorage and exportable as JSON.</div>
     </div>
 
-    <footer>
-      <span>AI generated <span id="footerDate"></span>.</span>
-    </footer>
+
   </main>
 
   <div class="modal-overlay" id="formModal" aria-hidden="true">
@@ -1055,7 +1054,7 @@
             <input id="fStart" name="start_date" type="date" />
           </div>
         </div>
-        <p class="form-error" id="formError">Please enter at least a name.</p>
+        <p class="form-error" id="formError" role="alert">Please enter at least a name.</p>
         <div class="modal-actions">
           <button type="button" class="btn btn-sm btn-ghost" id="formCancel">Cancel</button>
           <button type="submit" class="btn btn-sm" id="formSave"><i class="fa-solid fa-check"></i> Save</button>
@@ -1064,7 +1063,7 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="modalOverlay">
+  <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <h3 id="modalTitle"></h3>
       <p id="modalMessage"></p>
@@ -1293,6 +1292,7 @@
           actionsCell.className = 'actions-col';
 
           const editBtn = document.createElement('button');
+          editBtn.type = 'button';
           editBtn.className = 'icon-btn';
           editBtn.title = 'Edit employee';
           editBtn.setAttribute('aria-label', 'Edit ' + r.name);
@@ -1300,6 +1300,7 @@
           editBtn.addEventListener('click', function () { openForm(id); });
 
           const delBtn = document.createElement('button');
+          delBtn.type = 'button';
           delBtn.className = 'icon-btn danger';
           delBtn.title = 'Delete employee';
           delBtn.setAttribute('aria-label', 'Delete ' + r.name);
@@ -1340,11 +1341,11 @@
         if (totalEmp === 0) noMatchMsg.style.display = 'none';
 
         const hasRows = rows.length > 0;
+        saveBtn.disabled = !hasRows;
+        clearBtn.disabled = !hasRows;
         saveBtn.classList.toggle('disabled', !hasRows);
-        saveBtn.setAttribute('tabindex', hasRows ? '0' : '-1');
-        saveBtn.setAttribute('aria-disabled', String(!hasRows));
         clearBtn.classList.toggle('disabled', !hasRows);
-        clearBtn.setAttribute('tabindex', hasRows ? '0' : '-1');
+        saveBtn.setAttribute('aria-disabled', String(!hasRows));
         clearBtn.setAttribute('aria-disabled', String(!hasRows));
       }
 
@@ -1613,13 +1614,14 @@
           if (!name) return;
           const content = JSON.stringify(dumpDb(), null, 2);
           const blob = new Blob([content], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
+          a.href = url;
           a.download = name.endsWith('.json') ? name : name + '.json';
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
-          URL.revokeObjectURL(a.href);
+          setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
         });
       }
 
@@ -1661,13 +1663,19 @@
         return new Promise(function (resolve) {
           modalTitle.textContent = 'Employee Database';
           modalMessage.textContent = msg;
-          modalActions.innerHTML = '<button class="btn btn-sm" id="modalOkBtn">OK</button>';
+          modalActions.innerHTML = '<button type="button" class="btn btn-sm" id="modalOkBtn">OK</button>';
           modalOverlay.classList.add('open');
+          modalOverlay.setAttribute('aria-hidden', 'false');
           setModalInert(true);
           modalOverlay.addEventListener('keydown', trapFocus);
           var okBtn = document.getElementById('modalOkBtn');
           okBtn.focus();
-          function close() { modalOverlay.classList.remove('open'); setModalInert(false); modalOverlay.removeEventListener('keydown', trapFocus); }
+          function close() {
+            modalOverlay.classList.remove('open');
+            modalOverlay.setAttribute('aria-hidden', 'true');
+            setModalInert(false);
+            modalOverlay.removeEventListener('keydown', trapFocus);
+          }
           okBtn.addEventListener('click', function () { close(); resolve(); });
           modalOverlay.addEventListener('click', function handler(e) {
             if (e.target === modalOverlay) { close(); modalOverlay.removeEventListener('click', handler); resolve(); }
@@ -1682,14 +1690,20 @@
         return new Promise(function (resolve) {
           modalTitle.textContent = 'Employee Database';
           modalMessage.textContent = msg;
-          modalActions.innerHTML = '<button class="btn btn-sm" id="modalConfirmBtn">' + (okLabel || 'Delete') + '</button><button class="btn btn-sm btn-ghost" id="modalCancelBtn">Cancel</button>';
+          modalActions.innerHTML = '<button type="button" class="btn btn-sm" id="modalConfirmBtn">' + (okLabel || 'Delete') + '</button><button type="button" class="btn btn-sm btn-ghost" id="modalCancelBtn">Cancel</button>';
           modalOverlay.classList.add('open');
+          modalOverlay.setAttribute('aria-hidden', 'false');
           setModalInert(true);
           modalOverlay.addEventListener('keydown', trapFocus);
           var confirmBtn = document.getElementById('modalConfirmBtn');
           var cancelBtn = document.getElementById('modalCancelBtn');
           confirmBtn.focus();
-          function close() { modalOverlay.classList.remove('open'); setModalInert(false); modalOverlay.removeEventListener('keydown', trapFocus); }
+          function close() {
+            modalOverlay.classList.remove('open');
+            modalOverlay.setAttribute('aria-hidden', 'true');
+            setModalInert(false);
+            modalOverlay.removeEventListener('keydown', trapFocus);
+          }
           confirmBtn.addEventListener('click', function () { close(); resolve(true); });
           cancelBtn.addEventListener('click', function () { close(); resolve(false); });
           modalOverlay.addEventListener('click', function handler(e) {
@@ -1705,19 +1719,21 @@
         return new Promise(function (resolve) {
           modalTitle.textContent = 'Employee Database';
           modalMessage.textContent = msg;
-          modalActions.innerHTML = '<button class="btn btn-sm" id="modalPromptOkBtn">OK</button><button class="btn btn-sm btn-ghost" id="modalPromptCancelBtn">Cancel</button>';
+          modalActions.innerHTML = '<button type="button" class="btn btn-sm" id="modalPromptOkBtn">OK</button><button type="button" class="btn btn-sm btn-ghost" id="modalPromptCancelBtn">Cancel</button>';
           const input = document.createElement('input');
           input.type = 'text';
           input.value = defaultValue || '';
           input.style.cssText = 'width:100%;padding:0.5rem 0.75rem;border-radius:8px;border:1px solid var(--border-subtle);background:rgba(15,23,42,0.9);color:var(--text-main);font-size:0.9rem;outline:none;margin-bottom:1rem;box-sizing:border-box;';
           modalMessage.after(input);
           modalOverlay.classList.add('open');
+          modalOverlay.setAttribute('aria-hidden', 'false');
           setModalInert(true);
           modalOverlay.addEventListener('keydown', trapFocus);
           input.focus();
           input.select();
           function cleanup() {
             modalOverlay.classList.remove('open');
+            modalOverlay.setAttribute('aria-hidden', 'true');
             setModalInert(false);
             modalOverlay.removeEventListener('keydown', trapFocus);
             input.remove();
@@ -2168,8 +2184,6 @@
         boot();
       }
 
-      var fd = document.getElementById('footerDate');
-      if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     })();
   </script>
 </body>
