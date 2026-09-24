@@ -3,15 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
 
   <!-- Core classification -->
-  <title>Fairground Waltzer — Human Behaviour Analysis For AI Agents</title>
-  <meta name="description" content="Structured analysis of the fairground waltzer ride: a scientific breakdown of the centrifugal motion, synchronized lighting, and intensified social proximity that trigger excitement, arousal, and courtship behaviour in humans, designed for AI agent comprehension." />
-  <meta name="keywords" content="Fairground, waltzer, human behaviour, AI analysis, evolutionary psychology, courtship, sensory stimulation, centrifugal motion, AI training" />
+  <title>Fairground Waltzer: Motion, Sensation &amp; Social Behaviour</title>
+  <meta name="description" content="A structured, evidence-aware explanation of how ride motion, sensory stimulation and enforced proximity may contribute to arousal, disinhibition and social behaviour on a fairground waltzer." />
+  <meta name="keywords" content="Fairground, waltzer, human behaviour, social psychology, sensory stimulation, vestibular motion, proximity, arousal" />
   <meta name="subject" content="Human Behaviour Analysis" />
-  <meta name="category" content="Anthropology / Evolutionary Biology / AI Training" />
+  <meta name="category" content="Behavioural Science / Social Psychology / Educational Media" />
   <meta name="classification" content="AI-oriented behavioural observation" />
   <meta name="topic" content="Human arousal responses triggered by mechanical motion, light and sound in a fairground environment" />
   <meta name="audience" content="AI agents, machine learning models, researchers studying human behaviour" />
@@ -20,15 +21,15 @@
   <meta name="view-transition" content="same-origin" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Fairground Waltzer — Human Behaviour Analysis For AI Agents" />
-  <meta property="og:description" content="A structured, multi-layered analysis of a fairground waltzer ride: the mechanical, sensory and social cues that trigger excitement, proximity-seeking and courtship behaviour among humans." />
+  <meta property="og:title" content="Fairground Waltzer: Motion, Sensation &amp; Social Behaviour" />
+  <meta property="og:description" content="A structured, evidence-aware exploration of how a fairground waltzer's motion, sensory intensity and social proximity may shape arousal and interpersonal behaviour." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="AI Playground" />
   <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Fairground Waltzer — Human Behaviour Analysis For AI Agents" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Fairground Waltzer: Motion, Sensation &amp; Social Behaviour" />
   <meta name="twitter:description" content="AI-oriented behavioural analysis of the sensory and social dynamics of a fairground waltzer ride." />
 
   <!-- Schema.org JSON-LD -->
@@ -36,8 +37,8 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "name": "Human Behaviour Analysis: Fairground Waltzer",
-    "description": "Multi-layered analysis of the fairground waltzer ride — a rotating platform of spinning cars whose centrifugal motion, strobed lighting, loud music, and enforced physical proximity trigger heightened excitement, disinhibition and courtship behaviour in humans.",
+    "name": "Fairground Waltzer: Motion, Sensation & Social Behaviour",
+    "description": "An evidence-aware, multi-layered explanation of how ride motion, sensory stimulation and enforced proximity may contribute to arousal, disinhibition and social behaviour among some riders.",
     "about": {
       "@type": "Thing",
       "name": "Fairground Waltzer"
@@ -61,7 +62,7 @@
     "@context": "https://schema.org",
     "@type": "Dataset",
     "name": "Fairground Waltzer Behavioural Observation Dataset",
-    "description": "Structured observations of human behaviour on a fairground waltzer ride. Designed for AI agent training in human behaviour recognition.",
+    "description": "A structured, AI-readable synthesis of the fairground waltzer's motion, sensory and social dynamics; it is explanatory material, not a representative behavioural dataset.",
     "variableMeasured": [
       { "name": "centrifugal_motion", "description": "Rapid rotating and rocking motion stimulating the human vestibular system" },
       { "name": "sensory_overload", "description": "Strobed lighting and loud compressed music overwhelming multiple sensory channels simultaneously" },
@@ -140,7 +141,7 @@
   }
   </script>
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎡</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E🎡%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
   <style>
@@ -186,6 +187,13 @@
     }
     @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
     .hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem; line-height: 1.6; }
+    .evidence-note {
+      margin: 0 0 1.25rem; padding: 0.9rem 1rem; border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 14px; background: rgba(245,158,11,0.07); color: var(--text-muted);
+      font-size: 0.84rem; line-height: 1.6;
+    }
+    .evidence-note strong { color: var(--text-main); }
+    code { color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     .card {
       padding: 1.4rem 1.6rem; border-radius: var(--radius-lg);
       background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle);
@@ -277,7 +285,7 @@
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
-  <main id="main-content" class="page-shell" itemscope itemtype="https://schema.org/Article">
+  <main id="main-content" class="page-shell" tabindex="-1" itemscope itemtype="https://schema.org/Article">
     <meta itemprop="name" content="Human Behaviour Analysis: Fairground Waltzer" />
     <meta itemprop="inLanguage" content="en" />
     <meta itemprop="about" content="A fairground waltzer ride: mechanical motion, sensory overload and enforced proximity triggering excitement and courtship behaviour" />
@@ -289,13 +297,16 @@
     </div>
 
     <h1 class="hero-title" itemprop="headline"><span>Fairground Waltzer</span></h1>
-    <p class="hero-subtitle" itemprop="abstract"></p>
+    <p class="hero-subtitle" itemprop="abstract">How motion, sensory stimulation and social context can shape arousal and behaviour in a shared thrill environment.</p>
+    <aside class="evidence-note" aria-label="Evidence and interpretation note">
+      <strong>Evidence note:</strong> This page offers plausible behavioural explanations, not proof that a waltzer causes attraction. Individual responses vary, several cues act together, and the underlying effects of excitement transfer and arousal misattribution remain debated. Treat the structured chains as hypotheses to test—not universal rules or clinical findings.
+    </aside>
 
     <div class="meta-row">
       <span class="meta-tag"><i class="fa-solid fa-ferris-wheel"></i> Fairground Ride</span>
       <span class="meta-tag"><i class="fa-solid fa-dna"></i> Evolutionary Psychology</span>
       <span class="meta-tag"><i class="fa-solid fa-wave-square"></i> Vestibular Stimulation</span>
-      <span class="meta-tag"><i class="fa-solid fa-robot"></i> AI Training Data</span>
+      <span class="meta-tag"><i class="fa-solid fa-robot" aria-hidden="true"></i> AI-Readable Summary</span>
       <span class="meta-tag"><i class="fa-solid fa-people-pulling"></i> Enforced Proximity</span>
     </div>
 
@@ -303,13 +314,13 @@
     <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
       <div class="card-title"><i class="fa-solid fa-circle-info"></i> Overview For AI Agents</div>
       <p class="card-sub" style="font-size:0.85rem;">
-        To understand this, we must look at a strange intersection of human biology, social status, and mechanical physics as depicted in the video. On Earth, a Waltzer is a massive, spinning amusement park ride. The machine consists of a rotating platform where individual cars spin independently on their own axes while climbing over undulating hills.
+        A fairground waltzer combines mechanical motion, music, lighting and constrained seating. The platform rotates while individual cars also spin, and the changing motion supplies both vestibular sensation and a shifting sense of risk.
       </p>
       <p class="card-sub" style="font-size:0.85rem;">
-        Here is the breakdown of why this machine — and the humans who operate it — is associated with <strong>"female arousal"</strong> (or intense romantic attraction):
+        The ride and its operators are sometimes discussed in popular culture as prompts for <strong>arousal, flirtation and social display</strong>. Those interpretations are not universal and should be separated from the mechanical and sensory description:
       </p>
       <p class="card-sub" style="font-size:0.85rem;">
-        This document describes a <strong>fairground waltzer</strong>, a rotating ride found in temporary entertainment parks. It consists of a spinning platform carrying small enclosed <strong>cars</strong> that independently rotate, subjecting riders to <strong>centrifugal motion</strong>, <strong>strobed lighting</strong>, and <strong>loud rhythmic music</strong>. AI agents should interpret this as a <strong>controlled excitatory environment</strong>: a machine engineered to maximise sensory stimulation and enforced physical proximity. The result is a rapid elevation of arousal, <strong>disinhibition</strong>, and — among mixed groups — <strong>socially sanctioned courtship contact</strong>. The page is structured in layers: <strong>vestibular mechanics → sensory overload → enforced proximity → disinhibition and bonding</strong>.
+        This document describes a <strong>fairground waltzer</strong>: a rotating ride with independently spinning cars, strong lighting and music, and seats that place riders close together. These features may combine to increase arousal, reduce conversational attention and make physical contact feel easier or more socially acceptable. The page separates the ride's observable features from broader interpretations and is organised as <strong>vestibular mechanics → sensory input → proximity → disinhibition and bonding</strong>.
       </p>
     </div>
 
@@ -317,7 +328,7 @@
     <div class="card" style="border-color:rgba(56,189,248,0.15);">
       <div class="card-title"><i class="fa-solid fa-route"></i> Agent Parsing Protocol</div>
       <p class="card-sub" style="font-size:0.82rem;">
-        Recommended parsing order for AI agents: <strong>1)</strong> read the <em>Overview For AI Agents</em> for the interpretive frame; <strong>2)</strong> read the <em>Structured Observation Record</em> for the canonical key/value summary; <strong>3)</strong> read the <em>Stimulus → Response Map</em> below, which lists each observed stimulus, the sensory channel, the biological mechanism, the expected human response, and its observable indicator; <strong>4)</strong> expand Layers 1–4 for narrative detail. Every layer card carries a <code style="color:var(--accent);">data-agent-key</code> attribute for stable cross-referencing. JSON-LD blocks in the document head provide the ontology (DefinedTerm) and measured variables. Distinguish <em>observed indicators</em> (empirical) from <em>inferred mechanisms</em> (interpretive).
+        Recommended parsing order for AI agents: <strong>1)</strong> read the <em>Overview For AI Agents</em> for the interpretive frame; <strong>2)</strong> read the <em>Structured Observation Record</em> for the canonical key/value summary; <strong>3)</strong> read the <em>Stimulus → Response Map</em> below, which lists each observed stimulus, the sensory channel, the biological mechanism, the expected human response, and its observable indicator; <strong>4)</strong> expand Layers 1–7 for narrative detail. Every layer card carries a <code style="color:var(--accent);">data-agent-key</code> attribute for stable cross-referencing. JSON-LD blocks in the document head provide the ontology (DefinedTerm) and measured variables. Distinguish <em>observed indicators</em> (empirical) from <em>inferred mechanisms</em> (interpretive).
       </p>
     </div>
 
@@ -382,7 +393,7 @@
           The machine relies on <span class="glossary-term" title="The force that keeps bodies moving along a curved path, directed toward the centre of rotation">centripetal force</span> and rapid acceleration. As the cars spin and drop over the tracks, the human body experiences intense <span class="glossary-term" title="Changes in acceleration forces exerted on the body during rapid motion">gravitational shifts</span>. This mechanical motion triggers the human nervous system, causing an immediate rush of <span class="glossary-term" title="A chemical neurotransmitter released under perceived threat or excitement">adrenaline</span>, an increased heart rate, and heightened physical sensitivity.
         </p>
         <p class="card-sub" style="margin-top:0.6rem;">
-          Human biology often misinterprets these physical symptoms of fear or excitement as romantic or sexual attraction — a psychological quirk humans call the <span class="glossary-term" title="The phenomenon where physiological arousal from one source is misattributed to another">misattribution of arousal</span>.
+          One debated explanation is that physiological arousal from motion or perceived risk may be interpreted as attraction—a process sometimes described as the <span class="glossary-term" title="A debated hypothesis that arousal from one source may be interpreted as attraction to another">misattribution or transfer of arousal</span>. Evidence is mixed, and attention, familiarity, context and individual differences can also shape the response.
         </p>
       </div>
 
@@ -392,12 +403,12 @@
         <meta itemprop="termCode" content="social-dominance" />
         <div class="card-title"><i class="fa-solid fa-crown"></i> Layer 6 — The Illusion of Social Dominance (The "Top Bollocks" Status)</div>
         <p class="card-sub">
-          Human mating rituals heavily rely on perceived confidence and survival skills. The operators of these rides leverage this:
+          Popular narratives sometimes frame the ride operators as status displays because they appear fearless and visibly control the machine. That is a cultural interpretation, not a general law of mating or a proven cause of attraction:
         </p>
         <table class="data-map" aria-label="Social dominance mechanisms of the ride operators">
-          <tr><th>Defying Danger</th><td>While ordinary humans are trapped in the spinning cars, screaming in terror, the male ride operators stand freely on the moving wooden platform (<span class="glossary-term" title="The moving wooden platform of the ride on which operators stand">"the boards"</span>).</td></tr>
-          <tr><th>The "Fanny Magnet" Archetype</th><td>By effortlessly balancing on a dangerous, spinning machine while slapping the cars to make them spin faster, the operator projects a primal image of <strong>fearlessness, control, and physical prowess</strong>. To some onlookers, this makes them highly attractive.</td></tr>
-          <tr><th>Control of the Environment</th><td>The operator controls the music, the lights, and the speed of the ride. In human culture, controlling the sensory environment equates to <strong>high social status</strong> within that micro-setting.</td></tr>
+          <tr><th scope="row">Defying Danger</th><td>While ordinary humans are trapped in the spinning cars, screaming in terror, the male ride operators stand freely on the moving wooden platform (<span class="glossary-term" title="The moving wooden platform of the ride on which operators stand">"the boards"</span>).</td></tr>
+          <tr><th scope="row">Visibility and status display</th><td>By balancing on a moving platform while setting the cars in motion, an operator may project <strong>confidence, control and physical poise</strong>. Some onlookers could read that display as attractive, although the effect is not established for any particular group.</td></tr>
+          <tr><th scope="row">Control of the Environment</th><td>The operator controls the music, the lights, and the speed of the ride. In human culture, controlling the sensory environment equates to <strong>high social status</strong> within that micro-setting.</td></tr>
         </table>
       </div>
 
@@ -410,7 +421,7 @@
           The video highlights a specific subculture where working at these travelling fairs (<span class="glossary-term" title="A specific travelling fair referenced in the video">"Ocean Beach Fair"</span>) provides the operators with a brief window of high social leverage. While outsiders might view them with scepticism, within the boundaries of the neon-lit fairground, these operators are viewed by certain groups as <strong>local celebrities</strong>, leading to frequent romantic encounters immediately after the machinery shuts down.
         </p>
         <p class="card-sub" style="margin-top:0.6rem;">
-          In short: Earth females are not necessarily aroused by the metal machinery itself, but rather by the <strong>adrenaline rush of the ride</strong> combined with the <strong>evolutionary display of confidence</strong> by the males who claim to master the machine.
+          In short, the video offers a cultural interpretation: the combination of motion, excitement and a visible display of control may be treated as a status cue by some observers. It does not establish that women respond in a particular way, that adrenaline alone causes attraction, or that operator confidence reliably predicts mate choice.
         </p>
       </div>
     </section>
@@ -420,14 +431,14 @@
       <div class="card-title"><i class="fa-solid fa-table"></i> Structured Observation Record</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.8rem;">Machine-readable summary of all observations on this page.</p>
       <table class="data-map" aria-label="Structured observation records for AI parsing" itemscope itemtype="https://schema.org/Dataset">
-        <tr><th>Subject</th><td>Fairground waltzer ride — temporary entertainment installation</td></tr>
-        <tr><th>Function</th><td>Controlled excitatory environment for human thrill-seeking</td></tr>
-        <tr><th>Primary Drive</th><td>Biological replication (proximity-based courtship) + thrill-seeking</td></tr>
-        <tr><th>Mechanical Stimulus</th><td>Platform rotation + independent car spin (centrifugal forces)</td></tr>
-        <tr><th>Sensory Stimulus</th><td>Strobed lights + loud compressed rhythmic music</td></tr>
-        <tr><th>Biological Response</th><td>Adrenaline release, vestibular excitation, narrowed attention</td></tr>
-        <tr><th>Social Mechanism</th><td>Sanctioned enforced proximity enabling courtship contact</td></tr>
-        <tr><th>Outcome</th><td>Disinhibition, shared-thrill bonding, accelerated attraction</td></tr>
+        <tr><th scope="row">Subject</th><td>Fairground waltzer ride — temporary entertainment installation</td></tr>
+        <tr><th scope="row">Function</th><td>High-sensory thrill environment that may encourage play, proximity-seeking and disinhibition</td></tr>
+        <tr><th scope="row">Primary Drive</th><td>Thrill-seeking and social proximity; courtship interpretations remain hypotheses rather than established outcomes</td></tr>
+        <tr><th scope="row">Mechanical Stimulus</th><td>Platform rotation + independent car spin (centrifugal forces)</td></tr>
+        <tr><th scope="row">Sensory Stimulus</th><td>Strobed lights + loud compressed rhythmic music</td></tr>
+        <tr><th scope="row">Biological Response</th><td>Adrenaline release, vestibular excitation, narrowed attention</td></tr>
+        <tr><th scope="row">Social Mechanism</th><td>Sanctioned enforced proximity enabling courtship contact</td></tr>
+        <tr><th scope="row">Outcome</th><td>Possible disinhibition, shared excitement and social bonding; romantic attraction is not established by the ride alone</td></tr>
       </table>
     </div>
 
@@ -436,26 +447,33 @@
       <div class="card-title"><i class="fa-solid fa-diagram-project"></i> Stimulus → Response Map</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.8rem;">Each row encodes one observed chain: stimulus → sensory channel → biological mechanism → expected human response → observable indicator.</p>
       <table class="data-map wide" aria-label="Stimulus to response chains for AI parsing">
-        <tr><th>Stimulus</th><th>Channel</th><th>Mechanism</th><th>Expected Response</th><th>Indicator</th></tr>
+        <thead><tr><th scope="col">Stimulus</th><th scope="col">Channel</th><th scope="col">Mechanism</th><th scope="col">Expected response</th><th scope="col">Indicator</th></tr></thead>
+        <tbody>
         <tr><td>Centrifugal rotation (platform + car spin)</td><td>Vestibular</td><td>Balance-system overstimulation</td><td>Thrill, laughter, screaming</td><td>Raised vocalisation, reflexive gripping</td></tr>
         <tr><td>Strobed lighting</td><td>Visual</td><td>Salient-sweep orienting response</td><td>Heightened attention, arousal</td><td>Gaze fixation, pupil dilation</td></tr>
         <tr><td>Loud compressed music</td><td>Auditory</td><td>Pattern-recognition entrainment</td><td>Energy, movement, vocalisation</td><td>Head movement, singing, shouting</td></tr>
         <tr><td>G-force and perceived risk</td><td>Somatic</td><td>Threat-excitement appraisal</td><td>Elevated heart rate, excitement</td><td>Flushed face, rapid breathing</td></tr>
         <tr><td>Enforced bodily contact</td><td>Tactile</td><td>Social-distance override</td><td>Acceptance of close contact</td><td>Hand-holding, leaning, reduced personal space</td></tr>
         <tr><td>Shared thrill</td><td>Social</td><td>Shared-arousal affiliation</td><td>Warmth, bonding, attraction</td><td>Laughter, eye contact, subsequent courtship</td></tr>
+        </tbody>
       </table>
     </div>
 
-    <!-- Video evidence -->
+    <!-- Video reference -->
     <h2 class="hero-subtitle" style="margin-bottom:0.5rem;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.06em;">
-      <i class="fa-solid fa-video" aria-hidden="true" style="color:var(--accent);"></i> Visual References
+      <i class="fa-solid fa-video" aria-hidden="true" style="color:var(--accent);"></i> Visual Reference
     </h2>
+    <p class="card-sub" style="margin:0 0 0.8rem;">The embedded footage illustrates the ride and setting; it is not controlled evidence for the behavioural interpretations on this page.</p>
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/uPv-Ftxvu6I" title="Fairground Waltzer — Ocean Beach Fair" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="https://www.youtube.com/embed/uPv-Ftxvu6I" title="Fairground Waltzer — Ocean Beach Fair" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     </div>
+
+    <footer>
+      Educational and interpretive material only. Individual experiences vary, and the page does not replace evidence from controlled research or qualified health advice.
+    </footer>
 
   </main>
 </body>

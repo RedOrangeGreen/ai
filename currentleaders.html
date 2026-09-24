@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="description" content="Current national leaders, four plausible future leaders each for the UK, USA, China, Russia and frontier AI, with capability-ranked language models." />
+  <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
+  <meta property="og:title" content="Current &amp; Future World Leaders — UK, USA, China, Russia &amp; AI" />
+  <meta property="og:description" content="A sourced snapshot of current national leaders, plausible successors and the frontier LLM race." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Current &amp; Future World Leaders" />
+  <meta name="twitter:description" content="Current political leaders, four plausible successors per field and capability-ranked frontier AI models, updated September 2026." />
+  <title>Current &amp; Future World Leaders — UK, USA, China, Russia &amp; AI</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E👑%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <style>
+    @layer reset, base, components, utilities;
+
+    @layer base {
+      :root {
+        accent-color: #38bdf8;
+        --bg-body: #050816;
+        --bg-elevated: #0b1020;
+        --accent: #38bdf8;
+        --accent-soft: rgba(56,189,248,0.12);
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --text-dim: rgba(148,163,184,0.62);
+        --border-subtle: rgba(148,163,184,0.25);
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
+        --transition-fast: 0.18s ease-out;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --purple: #a855f7;
+        --red: #ef4444;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      margin: 0; min-height: 100vh; min-height: 100dvh;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .page-shell { max-width: 1240px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+    .hero-title {
+      font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 0.4rem;
+    }
+    .hero-title span {
+      background: linear-gradient(120deg,#38bdf8,#a855f7,#f97316);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      background-size: 200% 200%; animation: gradientShift 4s ease infinite;
+    }
+    @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6; }
+    .leadership-statement {
+      margin: 0 0 1.25rem; padding: 1rem 1.2rem; border-left: 3px solid var(--accent);
+      border-radius: 0 14px 14px 0; background: rgba(56,189,248,0.055);
+      color: var(--text-muted); font-size: 0.88rem; line-height: 1.65;
+    }
+    .leadership-statement strong { display: block; margin-bottom: 0.25rem; color: var(--text-main); }
+    .nav-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.9rem 0 1.35rem; }
+    .nav-chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.76rem; color: var(--text-muted); text-decoration: none;
+      padding: 0.3rem 0.7rem; border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill); background: rgba(15,23,42,0.6);
+      transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+    .nav-chip:hover { color: var(--accent); border-color: rgba(56,189,248,0.5); background: rgba(56,189,248,0.06); }
+    .status-bar {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      font-size: 0.8rem; color: var(--text-muted);
+      background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15);
+      border-radius: var(--radius-pill); padding: 0.45rem 1rem; margin-bottom: 1.2rem;
+      text-align: center; flex-wrap: wrap;
+    }
+    .status-bar i { color: var(--accent); font-size: 0.7rem; }
+    .status-bar .sep { width: 3px; height: 3px; border-radius: 999px; background: rgba(148,163,184,0.5); flex-shrink: 0; }
+    .status-bar .source { color: var(--accent); }
+    .stats-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .stat-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border-radius: var(--radius-pill); padding: 0.3rem 0.75rem;
+      font-size: 0.78rem; background: rgba(15,23,42,0.9);
+      border: 1px solid var(--border-subtle); color: var(--text-muted);
+    }
+    .stat-pill i { color: var(--accent); font-size: 0.7rem; }
+    .stat-pill strong { color: var(--text-main); font-weight: 600; }
+    .search-wrap { position: relative; margin-bottom: 1.2rem; }
+    .search-wrap > i {
+      position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 0.85rem; pointer-events: none;
+    }
+    .search-input {
+      width: 100%; border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.5); background: rgba(15,23,42,0.9);
+      color: var(--text-main); padding: 0.55rem 0.95rem 0.55rem 2.2rem;
+      font-size: 0.88rem; outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(56,189,248,0.6), 0 18px 40px rgba(15,23,42,0.9); }
+    .search-clear {
+      position: absolute; right: 2.7rem; top: 50%; transform: translateY(-50%);
+      border: none; background: transparent; color: var(--text-muted);
+      cursor: pointer; font-size: 0.85rem; padding: 0.2rem 0.4rem;
+    }
+    .search-clear:hover { color: var(--accent); }
+    .search-kbd {
+      position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%);
+      border: 1px solid rgba(148,163,184,0.4); border-radius: 5px;
+      padding: 0.05rem 0.4rem; font-family: inherit; font-size: 0.72rem;
+      color: var(--text-muted); pointer-events: none; background: rgba(15,23,42,0.6);
+    }
+
+    .overview-card, .card {
+      padding: 1.4rem 1.6rem; border-radius: var(--radius-lg);
+      background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; overflow-x: auto;
+      content-visibility: auto; contain-intrinsic-size: auto 280px;
+    }
+    .overview-card { border-color: rgba(56,189,248,0.2); background: rgba(56,189,248,0.04); }
+    .card-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card-title i { color: var(--accent); font-size: 1rem; }
+    .card-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0 0 1rem; line-height: 1.55; }
+    .overview-list { margin: 0; padding-left: 1.2rem; color: var(--text-muted); font-size: 0.84rem; line-height: 1.7; }
+
+    .leader-section { scroll-margin-top: 1.5rem; }
+    .section-heading {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      margin: 1.7rem 0 0.8rem;
+    }
+    .section-heading-main { display: flex; align-items: center; gap: 0.65rem; min-width: 0; }
+    .section-icon {
+      width: 2.2rem; height: 2.2rem; border-radius: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25); color: var(--accent);
+    }
+    .section-heading h2 { margin: 0; font-size: 1.25rem; letter-spacing: -0.02em; }
+    .section-heading p { margin: 0.15rem 0 0; color: var(--text-muted); font-size: 0.78rem; }
+    .section-count {
+      flex-shrink: 0; border-radius: var(--radius-pill); padding: 0.2rem 0.6rem;
+      font-size: 0.72rem; color: var(--text-muted); background: rgba(148,163,184,0.12);
+    }
+    .leader-grid { display: grid; grid-template-columns: minmax(0,0.9fr) minmax(0,1.1fr); gap: 1.25rem; align-items: start; }
+    .leader-grid .card { margin-bottom: 1.5rem; }
+    .future-card { border-color: rgba(245,158,11,0.2); }
+    .future-card .card-title i { color: var(--amber); }
+
+    .data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.84rem; }
+    .data-table thead th {
+      text-align: left; font-weight: 600; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted);
+      padding: 0.5rem 0.55rem; border-bottom: 1px solid var(--border-subtle); white-space: nowrap;
+    }
+    .data-table th.number-cell, .data-table td.number-cell { text-align: right; }
+    .rank-badge {
+      display: inline-flex; min-width: 2.15rem; min-height: 1.75rem; align-items: center; justify-content: center;
+      border-radius: 999px; border: 1px solid rgba(56,189,248,0.22); background: rgba(56,189,248,0.07);
+      color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums;
+    }
+    .rank-badge.rank-1 { color: #fef08a; background: rgba(250,204,21,0.1); border-color: rgba(250,204,21,0.32); }
+    .rank-badge.rank-2 { color: #e2e8f0; background: rgba(226,232,240,0.08); border-color: rgba(226,232,240,0.28); }
+    .rank-badge.rank-3 { color: #fdba74; background: rgba(251,146,60,0.1); border-color: rgba(251,146,60,0.3); }
+    .capability-score { color: var(--text-main); font-size: 1rem; font-weight: 750; font-variant-numeric: tabular-nums; }
+    .data-table tbody tr { transition: background 0.15s ease; }
+    .data-table tbody tr:hover { background: rgba(56,189,248,0.06); }
+    .data-table tbody td { padding: 0.62rem 0.55rem; border-bottom: 1px solid rgba(148,163,184,0.08); vertical-align: top; }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .primary-cell { color: var(--text-main); font-weight: 600; min-width: 8rem; }
+    .secondary { display: block; color: var(--text-muted); font-size: 0.73rem; font-weight: 400; margin-top: 0.2rem; line-height: 1.45; }
+    .muted { color: var(--text-muted); }
+    .source-link {
+      color: var(--accent); text-decoration: none; border-bottom: 1px dotted rgba(56,189,248,0.4);
+      white-space: nowrap;
+    }
+    .source-link:hover { color: #7dd3fc; border-bottom-color: #7dd3fc; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      border-radius: var(--radius-pill); padding: 0.18rem 0.5rem;
+      font-size: 0.67rem; font-weight: 700; letter-spacing: 0.025em;
+      border: 1px solid transparent; white-space: nowrap;
+    }
+    .badge-current { color: var(--green); background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.25); }
+    .badge-confirmed { color: var(--accent); background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.25); }
+    .badge-likely { color: var(--amber); background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.25); }
+    .badge-speculative { color: var(--purple); background: rgba(168,85,247,0.1); border-color: rgba(168,85,247,0.25); }
+    .badge-open { color: var(--green); background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.25); }
+    .badge-closed { color: #fbbf24; background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.25); }
+    .badge-hybrid { color: #c4b5fd; background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.25); }
+
+    .ai-summary { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0.7rem; margin-bottom: 1.2rem; }
+    .summary-box { border: 1px solid var(--border-subtle); border-radius: 14px; padding: 0.8rem; background: rgba(5,8,22,0.58); }
+    .summary-box strong { display: block; color: var(--text-main); font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .summary-box span { color: var(--text-muted); font-size: 0.73rem; line-height: 1.45; }
+
+    .no-results {
+      display: none; text-align: center; padding: 2rem 1rem;
+      color: var(--text-muted); font-size: 0.88rem;
+    }
+    .no-results.visible { display: block; }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.95rem;
+      color: var(--text-muted); text-decoration: none; padding: 0.35rem 0;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover { color: var(--accent); }
+    footer {
+      margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid rgba(148,163,184,0.35);
+      font-size: 0.78rem; color: var(--text-muted); text-align: center; line-height: 1.6;
+    }
+    .noscript-notice {
+      margin: 0 auto 1rem; max-width: 1200px; padding: 0.9rem 1.1rem;
+      border-radius: 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    .back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px;
+      border-radius: 999px; border: none; background: linear-gradient(120deg,#38bdf8,#0ea5e9);
+      color: #0b1120; font-size: 1.1rem; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(8,47,73,0.6);
+      opacity: 0; transform: translateY(16px) scale(0.9);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000; pointer-events: none;
+    }
+    .back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .back-to-top:hover { transform: translateY(-2px) scale(1.05); }
+    .skip-link {
+      position: absolute; top: -999px; left: 0.5rem; z-index: 9999;
+      background: #0b1120; color: var(--accent); padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--accent); border-top: none;
+    }
+    .skip-link:focus { top: 0; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
+    ::selection { background: rgba(56,189,248,0.3); color: #fff; }
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (max-width: 900px) {
+      .leader-grid { grid-template-columns: 1fr; }
+      .ai-summary { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .page-shell { padding: 1rem 0.75rem 2rem; }
+      .overview-card, .card { padding: 1rem; }
+      .data-table { font-size: 0.8rem; }
+      .data-table thead th { font-size: 0.66rem; }
+      .data-table tbody td { padding: 0.52rem 0.4rem; }
+      .section-heading { align-items: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+      html { scroll-behavior: auto; }
+    }
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .btn-back, footer, .status-bar, .nav-chips, .search-wrap, .back-to-top { display: none !important; }
+      .overview-card, .card { border: 1px solid #ddd !important; box-shadow: none !important; content-visibility: visible !important; }
+      .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; }
+      .muted, .card-sub, .secondary, footer, .leadership-statement { color: #333 !important; }
+      .leadership-statement { background: #f4f4f5 !important; border-left-color: #555 !important; }
+      .leadership-statement strong { color: #111 !important; }
+    }
+    html { scroll-behavior: smooth; overscroll-behavior: none; }
+    * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
+    h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page uses JavaScript to render and search the leader datasets. Please enable JavaScript to continue.</div></noscript>
+
+  <main id="main-content" class="page-shell" tabindex="-1">
+    <div style="margin-bottom:0.5rem;">
+      <a href="index.html" class="btn-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back</a>
+    </div>
+
+    <h1 class="hero-title"><span>Current &amp; Future World Leaders</span></h1>
+    <p class="hero-subtitle">A sourced snapshot of national officeholders, plausible political successors and the frontier large-language-model race.</p>
+
+    <aside class="leadership-statement" aria-labelledby="leadership-statement-title">
+      <strong id="leadership-statement-title">Why leadership exists</strong>
+      While all humans possess equal inherent moral worth and rights, they are not born identical in individual talents, traits, and social advantages. Consequently, societies naturally develop functional hierarchies and leadership roles to efficiently coordinate group survival, make decisions, and achieve collective goals.
+    </aside>
+
+    <nav class="nav-chips" aria-label="Jump to a section">
+      <a class="nav-chip" href="#overview"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Overview</a>
+      <a class="nav-chip" href="#uk"><i class="fa-solid fa-flag" aria-hidden="true"></i> UK</a>
+      <a class="nav-chip" href="#usa"><i class="fa-solid fa-star" aria-hidden="true"></i> USA</a>
+      <a class="nav-chip" href="#china"><i class="fa-solid fa-dragon" aria-hidden="true"></i> China</a>
+      <a class="nav-chip" href="#russia"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> Russia</a>
+      <a class="nav-chip" href="#ai"><i class="fa-solid fa-robot" aria-hidden="true"></i> AI Models</a>
+      <a class="nav-chip" href="#methodology"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i> Methodology</a>
+    </nav>
+
+    <div class="status-bar" id="statusBar" role="status" aria-live="polite"></div>
+    <div class="stats-row" id="statsRow"></div>
+
+    <search class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input type="search" id="leaderSearch" class="search-input" placeholder="Search leaders, countries, parties or models…" aria-label="Search leaders and AI models" spellcheck="false" autocomplete="off" enterkeyhint="search" />
+      <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      <kbd class="search-kbd">/</kbd>
+    </search>
+
+    <div class="overview-card" id="overview">
+      <h2 class="card-title"><i class="fa-solid fa-compass" aria-hidden="true"></i> How to read this page</h2>
+      <ul class="overview-list">
+        <li><strong>Current political leaders</strong> are verified officeholders on the stated date; each country list is selective, not exhaustive.</li>
+        <li>Each field includes <strong>exactly four potential future leaders</strong>, selected for a credible route to the top job; inclusion is not a prediction.</li>
+        <li><strong>AI leaders are language models, not people.</strong> The current list is ranked by the Artificial Analysis Intelligence Index v4.3.2 using each listed model’s highest evaluated reasoning configuration.</li>
+        <li>AI scores are capability-index results, not percentages. Model families are deduplicated, access and cost can change the practical ranking, and upcoming models cannot yet be capability-scored reliably.</li>
+        <li>Every row links to supporting evidence. Political posts and model versions can change without notice.</li>
+      </ul>
+    </div>
+
+    <div id="leaderContent"></div>
+
+    <div class="no-results" id="noResults">
+      <i class="fa-solid fa-magnifying-glass" style="font-size:1.5rem;color:rgba(148,163,184,0.3);display:block;margin-bottom:0.5rem;"></i>
+      No matches found. Try a person, office, country, party, developer or model.
+    </div>
+
+    <section class="card" id="methodology">
+      <h2 class="card-title"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i> Methodology &amp; Limitations</h2>
+      <p class="card-sub">Political entries prioritise official government and parliament sources. Potential leaders are selected for institutional position, electoral or party standing, public office and a credible route to the top job; inclusion is not an endorsement. AI entries prioritise official release announcements, with capability rank drawn from the Artificial Analysis Intelligence Index v4.3.2 snapshot accessed 24 September 2026. That composite covers agentic knowledge work, professional work, SaaS workflows, terminal and scientific coding, hard reasoning, document reasoning, factuality and long-context reasoning. The displayed family rank uses the highest evaluated configuration once per listed model family; it is not a percentage, a quality guarantee or a price-performance ranking. Benchmarks can be contaminated or task-limited, model fallbacks can affect results, and availability changes quickly. Upcoming AI entries are ordered qualitatively by strategic scope and confirmation, because no comparable independent score exists yet.</p>
+      <p class="card-sub" style="margin-bottom:0;">This page is an informational snapshot, not a forecast, investment recommendation or endorsement of any political person or model.</p>
+    </section>
+
+    <footer>
+      Updated <span id="updatedDate"></span> · For informational purposes only.<br>
+      <span style="font-size:0.72rem;">Page generated <span id="fileDate"></span></span>
+    </footer>
+  </main>
+
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script>
+  (function() {
+    'use strict';
+
+    var LEADERS_DATA = {
+      updatedAt: '2026-09-24T15:00:00Z',
+      source: 'Official government sources, company announcements and Artificial Analysis',
+      countries: [
+        {
+          id: 'uk', name: 'United Kingdom', flag: '🇬🇧', icon: '<i class="fa-solid fa-landmark"></i>', subtitle: 'Constitutional monarchy · Westminster government',
+          current: [
+            { name: 'Andy Burnham', office: 'Prime Minister · Labour leader', since: '20 Jul 2026', note: 'Replaced Keir Starmer after the Labour leadership contest.', sourceUrl: 'https://www.gov.uk/government/people/andy-burnham', sourceLabel: 'GOV.UK' },
+            { name: 'King Charles III', office: 'Head of state · Sovereign', since: '8 Sep 2022', note: 'Crowned 6 May 2023; the monarch is constitutionally non-political.', sourceUrl: 'https://www.royal.uk/the-king', sourceLabel: 'Royal Family' },
+            { name: 'Louise Haigh', office: 'First Secretary of State · Cabinet Office minister', since: '20 Jul 2026', note: 'A Cabinet Office minister supporting the PM; the UK has no formal Deputy Prime Minister or fixed Cabinet order of seniority.', sourceUrl: 'https://www.gov.uk/government/news/ministerial-appointments-july-2026', sourceLabel: 'GOV.UK' },
+            { name: 'Lucy Powell', office: 'Education Secretary · Deputy Labour leader', since: 'Education: 20 Jul 2026; deputy: 25 Oct 2025', note: 'Elected party office with no automatic right to become PM.', sourceUrl: 'https://labour.org.uk/people/lucy-powell/', sourceLabel: 'Labour' }
+          ],
+          future: [
+            { name: 'Lucy Powell', currentRole: 'Education Secretary; Labour deputy leader', status: 'Strong party pathway', path: 'A future Labour leadership contest', case: 'The strongest formal route inside the governing party and an experienced Cabinet minister.', watch: 'No automatic succession and no announced leadership campaign.', sourceUrl: 'https://commonslibrary.parliament.uk/research-briefings/cbp-10840/', sourceLabel: 'Commons Library' },
+            { name: 'Wes Streeting', currentRole: 'Defence Secretary', status: 'Plausible contender', path: 'Governing-party leadership challenge', case: 'A senior Cabinet figure who was a prospective Starmer challenger before backing Burnham.', watch: 'A future vacancy or Labour leadership contest.', sourceUrl: 'https://www.reuters.com/world/uk/uks-likely-next-leader-burnham-unveil-plan-shift-power-london-2026-06-28/', sourceLabel: 'Reuters' },
+            { name: 'Nigel Farage', currentRole: 'Reform UK leader', status: 'Plausible contender', path: 'Election victory or coalition negotiations', case: 'Reform is polling at a level that makes a Commons majority or kingmaker position credible.', watch: 'Seat gains, party growth and the shape of a hung parliament.', sourceUrl: 'https://www.bbc.com/news/articles/clyeq5jvd2po', sourceLabel: 'BBC' },
+            { name: 'Kemi Badenoch', currentRole: 'Conservative leader; Leader of the Opposition', status: 'Plausible contender', path: 'Conservative leadership or election victory', case: 'The elected leader of a party tied near the top of current polling.', watch: 'Whether Conservatives regain enough seats to form a government.', sourceUrl: 'https://yougov.com/en-gb/articles/55596-voting-intention-20-21-september-2026-lab-23-con-21-ref-21-grn-14-ld-12', sourceLabel: 'YouGov' }
+          ]
+        },
+        {
+          id: 'usa', name: 'United States', flag: '🇺🇸', icon: '<i class="fa-solid fa-star"></i>', subtitle: 'Federal presidential republic · separation of powers',
+          current: [
+            { name: 'Donald J. Trump', office: 'President · head of state and government', since: '20 Jan 2025', note: 'The 45th and 47th president; current term is scheduled to end 20 Jan 2029.', sourceUrl: 'https://www.whitehouse.gov/administration/donald-j-trump/', sourceLabel: 'White House' },
+            { name: 'JD Vance', office: 'Vice President', since: '20 Jan 2025', note: 'Constitutional successor if the presidency becomes vacant.', sourceUrl: 'https://www.whitehouse.gov/administration/jd-vance/', sourceLabel: 'White House' },
+            { name: 'Mike Johnson', office: 'Speaker of the House', since: '25 Oct 2024', note: 'Next in the statutory acting-presidential line after the vice president.', sourceUrl: 'https://house.gov/leadership', sourceLabel: 'U.S. House' },
+            { name: 'John Thune', office: 'Senate president pro tempore', since: '3 Jan 2025', note: 'Third in the current statutory acting-presidential line.', sourceUrl: 'https://www.senate.gov/senators/leadership.htm', sourceLabel: 'U.S. Senate' }
+          ],
+          future: [
+            { name: 'JD Vance', currentRole: 'Vice President', status: 'Constitutional contingency', path: 'Vice-presidential accession under the 25th Amendment', case: 'A confirmed vacancy route and an early leader in the Republican 2028 field.', watch: 'A vacancy event or the 2028 election; no campaign has been formally launched.', sourceUrl: 'https://constitution.congress.gov/browse/essay/amdt25-1/ALDE_00013871/', sourceLabel: 'Congress' },
+            { name: 'Marco Rubio', currentRole: 'Secretary of State', status: 'Plausible contender', path: 'Republican nomination and election', case: 'A senior Republican officeholder identified by the president as a possible successor.', watch: 'An official 2028 candidacy and the intervening election cycle.', sourceUrl: 'https://www.reuters.com/world/us/vance-rubios-2028-audition-2026-05-07/', sourceLabel: 'Reuters' },
+            { name: 'Gavin Newsom', currentRole: 'Governor of California', status: 'Plausible contender', path: 'Democratic nomination', case: 'A nationally funded, high-profile candidate who has openly discussed 2028.', watch: 'His decision after the 2026 midterms and the emerging Democratic field.', sourceUrl: 'https://www.reuters.com/world/us/here-are-democrats-taking-early-steps-potential-2028-white-house-bids-2026-07-09/', sourceLabel: 'Reuters' },
+            { name: 'Josh Shapiro', currentRole: 'Governor of Pennsylvania', status: 'Plausible contender', path: 'Democratic nomination', case: 'Electoral strength and a stated willingness to join the post-midterm presidential conversation.', watch: 'His November 2026 reelection and the party’s nomination contest.', sourceUrl: 'https://www.reuters.com/world/us/here-are-democrats-taking-early-steps-potential-2028-white-house-bids-2026-07-09/', sourceLabel: 'Reuters' }
+          ]
+        },
+        {
+          id: 'china', name: 'China', flag: '🇨🇳', icon: '<i class="fa-solid fa-dragon"></i>', subtitle: 'Communist Party leadership · formal and effective power can differ',
+          current: [
+            { name: 'Xi Jinping', office: 'President · CPC General Secretary · CMC chair', since: 'President: Mar 2013; CPC GS: Nov 2012', note: 'Third presidential term began in 2023; the party general secretary is the paramount political office.', sourceUrl: 'https://english.news.cn/20260819/67b4206c60bd44239c3c405082f96fe7/c.html', sourceLabel: 'Xinhua' },
+            { name: 'Li Qiang', office: 'Premier · State Council head', since: '11 Mar 2023', note: 'No. 2 in the Politburo Standing Committee and the senior executive official.', sourceUrl: 'https://english.www.gov.cn/news/topnews/202303/11/content_WS640bf060c6d0a757729e1cd4.html', sourceLabel: 'State Council' },
+            { name: 'Han Zheng', office: 'Vice President', since: '10 Mar 2023', note: 'Constitutional presidential successor during a vacancy, without an automatic route to party leadership.', sourceUrl: 'https://english.www.gov.cn/news/topnews/202303/10/content_WS640b51c4c6d0a757729e1cd4.html', sourceLabel: 'Xinhua' }
+          ],
+          future: [
+            { name: 'Ding Xuexiang', currentRole: 'First-ranked Vice Premier; PSC member', status: 'Plausible party contender', path: 'Promotion into the PSC leadership group', case: 'The current PSC member most comfortably below the informal retirement age in 2027, making him the strongest near-term continuity option discussed by analysts.', watch: 'No provincial leadership base or successor designation.', sourceUrl: 'https://thediplomat.com/2026/02/who-will-succeed-xi-jinping/', sourceLabel: 'The Diplomat' },
+            { name: 'Li Qiang', currentRole: 'Premier; No. 2 PSC member', status: 'Continuity contender', path: 'Existing executive authority and possible party succession', case: 'The highest-ranking current executive and second-ranking PSC member, with the clearest existing machinery for governing continuity.', watch: 'No public designation, age and the premier’s two-term limit.', sourceUrl: 'https://thediplomat.com/2026/02/who-will-succeed-xi-jinping/', sourceLabel: 'The Diplomat' },
+            { name: 'Cai Qi', currentRole: 'Politburo member; Central Party School head', status: 'Inner-circle contender', path: 'Promotion to the PSC or selection as paramount leader', case: 'Xi’s fifth-ranked Politburo member and a close aide whose appointments have repeatedly strengthened his standing inside the party’s core.', watch: 'Still outside the PSC, with no announced succession path.', sourceUrl: 'https://www.reuters.com/world/china/senior-chinese-official-cai-qi-tapped-head-central-party-school-2026-06-05/', sourceLabel: 'Reuters' },
+            { name: 'Chen Jining', currentRole: 'Shanghai Party Secretary; Politburo member', status: 'Next-generation contender', path: 'Promotion to the Politburo Standing Committee', case: 'A younger senior regional leader frequently identified as a candidate for the 2027 promotions that could establish the next generation.', watch: 'Not yet on the PSC, with no military role or announced heir status.', sourceUrl: 'https://english.shanghai.gov.cn/en-Latest-WhatsNew/20260922/addf6742535740cca81476ce41137f68.html', sourceLabel: 'Shanghai Govt.' }
+          ]
+        },
+        {
+          id: 'russia', name: 'Russia', flag: '🇷🇺', icon: '<i class="fa-solid fa-building-columns"></i>', subtitle: 'Presidential system · succession is managed within the governing establishment',
+          current: [
+            { name: 'Vladimir Putin', office: 'President · Supreme Commander-in-Chief', since: 'Current term: 7 May 2024; continuous tenure since 2012', note: 'Previously served as president from 2000–2008 and prime minister in 1999–2000 and 2008–2012.', sourceUrl: 'http://en.kremlin.ru/catalog/persons/54/biography', sourceLabel: 'Kremlin' },
+            { name: 'Mikhail Mishustin', office: 'Prime Minister · government chair', since: '16 Jan 2020; reappointed 10 May 2024', note: 'Constitutionally performs presidential powers during a vacancy, without a guaranteed permanent succession.', sourceUrl: 'http://government.ru/en/gov/persons/151', sourceLabel: 'Russian Government' }
+          ],
+          future: [
+            { name: 'Mikhail Mishustin', currentRole: 'Prime Minister', status: 'Constitutional acting route', path: 'Article 92 acting-presidential powers during a vacancy', case: 'The only clear formal interim route because Russia has no vice president, plus substantial familiarity with the presidential system.', watch: 'Acting authority does not guarantee election as permanent successor.', sourceUrl: 'http://en.kremlin.ru/events/president/news/37383', sourceLabel: 'Kremlin' },
+            { name: 'Aleksei Dyumin', currentRole: 'State Council Secretary; presidential aide', status: 'Security-elite possibility', path: 'Elite selection rather than a formal succession right', case: 'A younger former defence minister and intelligence insider with direct access to Putin and a record of wartime administration.', watch: 'No independent national political organization and no public designation.', sourceUrl: 'https://www.washingtonpost.com/world/2026/09/18/seven-men-who-could-lead-russia-after-putin/', sourceLabel: 'Washington Post' },
+            { name: 'Sergei Sobyanin', currentRole: 'Moscow mayor', status: 'Party-administrative possibility', path: 'Regional-party network converted into national power', case: 'Large administrative resources, regional patronage and extensive governing experience make him a recurring name in transition scenarios.', watch: 'No designation and no demonstrated path beyond Moscow-based standing.', sourceUrl: 'https://www.washingtonpost.com/world/2026/09/18/seven-men-who-could-lead-russia-after-putin/', sourceLabel: 'Washington Post' },
+            { name: 'Sergei Kiriyenko', currentRole: 'First Deputy Chief of Staff, Presidential Executive Office', status: 'Elite selectorate', path: 'Power-broker transition within the existing system', case: 'Important domestic-policy and electoral-administration networks inside the system most able to manage a succession.', watch: 'Influence depends on Putin and offers no formal route to the presidency.', sourceUrl: 'https://www.washingtonpost.com/world/2026/09/18/seven-men-who-could-lead-russia-after-putin/', sourceLabel: 'Washington Post' }
+          ]
+        }
+      ],
+      ai: {
+        contextNote: 'Capability snapshot: Artificial Analysis Intelligence Index v4.3.2, accessed 24 Sep 2026. The composite covers agentic knowledge work, professional work, SaaS automation, terminal and scientific coding, hard reasoning, document reasoning, factuality and long-context reasoning. Each listed family appears once, using its highest evaluated reasoning configuration.',
+        current: [
+          { rank: 1, capabilityScore: 58, model: 'Claude Opus 5.5', version: 'Adaptive reasoning · max effort', developer: 'Anthropic', released: '22 Sep 2026', access: 'Closed', context: '1,000,000', signal: 'Leads six of ten component evaluations; AA-Briefcase 1822 Elo and GDPval-AA 1846 Elo.', sourceUrl: 'https://artificialanalysis.ai/models/claude-opus-5-5', sourceLabel: 'AA' },
+          { rank: 2, capabilityScore: 53, model: 'Claude Fable 5.1', version: 'Max effort · default fallback', developer: 'Anthropic', released: '1 Sep 2026', access: 'Closed', context: '1,000,000', signal: 'Shares the leading Coding Agent Index score of 62 and remains at the frontier for long-horizon knowledge work.', sourceUrl: 'https://artificialanalysis.ai/models/claude-fable-5-1', sourceLabel: 'AA' },
+          { rank: 3, capabilityScore: 53, model: 'GPT-6 Astra', version: 'Max effort', developer: 'OpenAI', released: '3 Sep 2026', access: 'Closed', context: '1,000,000', signal: 'Shares the leading Coding Agent Index score of 62; uses about one third as many output tokens per index task as Fable 5.1.', sourceUrl: 'https://artificialanalysis.ai/models/gpt-6-astra', sourceLabel: 'AA' },
+          { rank: 4, capabilityScore: 48, model: 'Muse Spark 1.3', version: 'Max reasoning', developer: 'Meta', released: '2 Sep 2026', access: 'Closed', context: '1,000,000', signal: 'Multimodal reasoning with about 207 output tokens per second in independent testing.', sourceUrl: 'https://artificialanalysis.ai/models/muse-spark-1-3', sourceLabel: 'AA' },
+          { rank: 5, capabilityScore: 48, model: 'GPT-6 Sol', version: 'Max effort', developer: 'OpenAI', released: '22 Sep 2026', access: 'Closed', context: '872,000', signal: 'Coding Agent Index 57 at about $1.06 per Intelligence Index task, a strong capability-cost combination.', sourceUrl: 'https://artificialanalysis.ai/models/gpt-6-sol', sourceLabel: 'AA' },
+          { rank: 6, capabilityScore: 46, model: 'Grok 4.7', version: 'xhigh reasoning', developer: 'SpaceXAI (xAI)', released: '21 Sep 2026', access: 'Closed', context: '500,000', signal: 'Coding Agent Index 56 and AA-Briefcase 1657 Elo in independent testing.', sourceUrl: 'https://artificialanalysis.ai/models/grok-4-7', sourceLabel: 'AA' },
+          { rank: 7, capabilityScore: 46, model: 'MiMo-V2.6-Pro', version: 'V2.6-Pro-RL checkpoint', developer: 'Xiaomi MiMo', released: '21 Sep 2026', access: 'Open weights · MIT', context: '1,000,000', signal: 'About $0.13 per Intelligence Index task, giving the listed open-weight models exceptional current price-performance.', sourceUrl: 'https://artificialanalysis.ai/models/mimo-v2-6-pro', sourceLabel: 'AA' },
+          { rank: 8, capabilityScore: 45, model: 'Qwen3.8 Max', version: '0902 service snapshot', developer: 'Alibaba Qwen', released: '2 Sep 2026', access: 'Hosted', context: '984,000', signal: 'Multimodal frontier model with a near-million-token context and top-tier general capability.', sourceUrl: 'https://artificialanalysis.ai/models/qwen3-8-max', sourceLabel: 'AA' },
+          { rank: 9, capabilityScore: 45, model: 'GLM-5.3', version: 'Max effort', developer: 'Z.ai', released: '18 Aug 2026', access: 'Open weights', context: '1,000,000', signal: 'Near-frontier open-weight capability in a 1M-context model, with a lower-cost Flash sibling.', sourceUrl: 'https://artificialanalysis.ai/models/glm-5-3', sourceLabel: 'AA' },
+          { rank: 10, capabilityScore: 44, model: 'Step 5 Preview', version: 'Preview', developer: 'StepFun', released: '20 Sep 2026', access: 'Closed preview', context: '1,000,000', signal: 'About $0.72 per Intelligence Index task and roughly 84 output tokens per second.', sourceUrl: 'https://artificialanalysis.ai/models/step-5', sourceLabel: 'AA' },
+          { rank: 11, capabilityScore: 44, model: 'Kimi K3', version: 'Max effort · 3T-class', developer: 'Moonshot AI', released: '16 Jul 2026', access: 'Open weights', context: '1,048,576', signal: 'A very large open-weight model pairing near-frontier capability with a context window above one million tokens.', sourceUrl: 'https://artificialanalysis.ai/models/kimi-k3', sourceLabel: 'AA' },
+          { rank: 12, capabilityScore: 41, model: 'Gemini 3.8 Flash', version: 'High reasoning', developer: 'Google DeepMind', released: '2 Sep 2026', access: 'Closed', context: '1,000,000', signal: 'Multimodal and approximately 292 output tokens per second—the fastest model in its AA comparison class.', sourceUrl: 'https://artificialanalysis.ai/models/gemini-3-8-flash', sourceLabel: 'AA' },
+          { rank: 13, capabilityScore: 39, model: 'DeepSeek-V4.1-Flash', version: 'Max effort', developer: 'DeepSeek', released: '10 Sep 2026', access: 'Open weights · MIT', context: '1,000,000', signal: 'Multimodal, about 232 output tokens per second and second in the AA open-weight speed class.', sourceUrl: 'https://artificialanalysis.ai/models/deepseek-v4-1-flash', sourceLabel: 'AA' }
+        ],
+        future: [
+          { potentialRank: 1, model: 'Claude Sonnet 5.5', developer: 'Anthropic', status: 'Confirmed named model', window: 'Coming weeks; no date', case: 'The most immediate credible challenger: Anthropic says it will carry many Opus 5.5 improvements into a faster, lower-cost frontier companion.', watch: 'No independent score yet; final capability, context and safeguards remain unknown.', sourceUrl: 'https://www.anthropic.com/claude-opus-5-5', sourceLabel: 'Official' },
+          { potentialRank: 2, model: 'Gemini 4', developer: 'Google DeepMind', status: 'Confirmed generation', window: 'Pretraining begun; no date', case: 'Google calls it its most ambitious pre-training run to date, making it a plausible new full-generation frontier leader.', watch: 'No release commitment, benchmark evidence, context window or access plan.', sourceUrl: 'https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/', sourceLabel: 'Official' },
+          { potentialRank: 3, model: 'Grok 5', developer: 'SpaceXAI (xAI)', status: 'Confirmed in training', window: 'No launch date', case: 'The next named Grok generation could reset the frontier while extending xAI’s unusually fast inference and large consumer distribution.', watch: 'Training status does not establish quality or an imminent release; safeguards and access are undisclosed.', sourceUrl: 'https://x.ai/news/series-e', sourceLabel: 'Official' },
+          { potentialRank: 4, model: 'Nemotron 4 family', developer: 'NVIDIA + AI coalition', status: 'Confirmed upcoming', window: 'No date', case: 'A coalition-backed open model family intended to compete at the open frontier and broaden access to high-end foundation models.', watch: 'The first base model, license terms and independent benchmark evidence are still pending.', sourceUrl: 'https://nvidianews.nvidia.com/news/nvidia-launches-nemotron-coalition-of-leading-global-ai-labs-to-advance-open-frontier-models', sourceLabel: 'Official' }
+        ]
+      }
+    };
+
+    function escapeHTML(value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function safeUrl(value) {
+      var url = String(value || '');
+      return /^https?:\/\//i.test(url) ? url : '#';
+    }
+
+    function sourceLink(item) {
+      if (!item.sourceUrl) return '<span class="muted">—</span>';
+      return '<a class="source-link" href="' + escapeHTML(safeUrl(item.sourceUrl)) + '" target="_blank" rel="noopener noreferrer">' + escapeHTML(item.sourceLabel || 'Source') + '</a>';
+    }
+
+    function statusClass(status) {
+      var normalized = String(status || '').toLowerCase();
+      if (normalized.indexOf('current') !== -1 || normalized.indexOf('released') !== -1 || normalized.indexOf('deployed') !== -1) return 'badge-current';
+      if (normalized.indexOf('constitutional') !== -1 || normalized.indexOf('confirmed') !== -1 || normalized.indexOf('announced') !== -1) return 'badge-confirmed';
+      if (normalized.indexOf('likely') !== -1 || normalized.indexOf('front-runner') !== -1) return 'badge-likely';
+      if (normalized.indexOf('open') !== -1) return 'badge-open';
+      if (normalized.indexOf('hybrid') !== -1 || normalized.indexOf('limited') !== -1) return 'badge-hybrid';
+      if (normalized.indexOf('closed') !== -1 || normalized.indexOf('proprietary') !== -1 || normalized.indexOf('api') !== -1) return 'badge-closed';
+      return 'badge-speculative';
+    }
+
+    function renderCurrentOffice(item) {
+      return '<tr>' +
+        '<td><span class="badge badge-current">In office</span></td>' +
+        '<td class="primary-cell">' + escapeHTML(item.name) + '</td>' +
+        '<td>' + escapeHTML(item.office) + '</td>' +
+        '<td>' + escapeHTML(item.since) + '</td>' +
+        '<td class="muted">' + escapeHTML(item.note || '') + (item.note ? ' · ' : '') + sourceLink(item) + '</td>' +
+      '</tr>';
+    }
+
+    function renderFutureCandidate(item) {
+      return '<tr>' +
+        '<td class="primary-cell">' + escapeHTML(item.name) + '<span class="secondary">' + escapeHTML(item.currentRole || '') + '</span></td>' +
+        '<td><span class="badge ' + statusClass(item.status) + '">' + escapeHTML(item.status || 'Potential') + '</span></td>' +
+        '<td>' + escapeHTML(item.path || '') + '</td>' +
+        '<td class="muted">' + escapeHTML(item.case || '') + '</td>' +
+        '<td class="muted">' + escapeHTML(item.watch || '') + (item.watch ? ' · ' : '') + sourceLink(item) + '</td>' +
+      '</tr>';
+    }
+
+    function renderCurrentModel(item) {
+      var rank = Number(item.rank) || 0;
+      var score = Number(item.capabilityScore) || 0;
+      return '<tr>' +
+        '<td class="number-cell"><span class="rank-badge rank-' + rank + '">#' + rank + '</span></td>' +
+        '<td class="primary-cell">' + escapeHTML(item.model) + '<span class="secondary">' + escapeHTML(item.version || '') + '</span></td>' +
+        '<td>' + escapeHTML(item.developer) + '</td>' +
+        '<td>' + escapeHTML(item.released) + '</td>' +
+        '<td><span class="badge ' + statusClass(item.access) + '">' + escapeHTML(item.access) + '</span></td>' +
+        '<td class="number-cell">' + escapeHTML(item.context || '—') + '</td>' +
+        '<td class="number-cell"><span class="capability-score">' + score + '</span><span class="secondary">AA capability</span></td>' +
+        '<td class="muted">' + escapeHTML(item.signal || '') + (item.signal ? ' · ' : '') + sourceLink(item) + '</td>' +
+      '</tr>';
+    }
+
+    function renderFutureModel(item) {
+      var rank = Number(item.potentialRank) || 0;
+      return '<tr>' +
+        '<td class="number-cell"><span class="rank-badge rank-' + rank + '">#' + rank + '</span></td>' +
+        '<td class="primary-cell">' + escapeHTML(item.model) + '<span class="secondary">' + escapeHTML(item.developer) + '</span></td>' +
+        '<td><span class="badge ' + statusClass(item.status) + '">' + escapeHTML(item.status) + '</span></td>' +
+        '<td>' + escapeHTML(item.window || 'Unspecified') + '</td>' +
+        '<td class="muted">' + escapeHTML(item.case || '') + '</td>' +
+        '<td class="muted">' + escapeHTML(item.watch || '') + (item.watch ? ' · ' : '') + sourceLink(item) + '</td>' +
+      '</tr>';
+    }
+
+    function renderCountry(country) {
+      var currentRows = (country.current || []).map(renderCurrentOffice).join('');
+      var futureRows = (country.future || []).map(renderFutureCandidate).join('');
+
+      return '<section class="leader-section" id="' + escapeHTML(country.id) + '" data-search-section>' +
+        '<header class="section-heading">' +
+          '<div class="section-heading-main">' +
+            '<span class="section-icon">' + (country.icon || '<i class="fa-solid fa-flag"></i>') + '</span>' +
+            '<div><h2>' + escapeHTML(country.flag || '') + ' ' + escapeHTML(country.name) + '</h2><p>' + escapeHTML(country.subtitle || '') + '</p></div>' +
+          '</div>' +
+          '<span class="section-count">' + (country.current || []).length + ' current · ' + (country.future || []).length + ' potential</span>' +
+        '</header>' +
+        '<div class="leader-grid">' +
+          '<article class="card search-card" data-search-card>' +
+            '<h3 class="card-title"><i class="fa-solid fa-user-check" aria-hidden="true"></i> Current Leaders</h3>' +
+            '<div class="card-sub">Verified national officeholders and their present constitutional or political roles.</div>' +
+            '<table class="data-table searchable" aria-label="Current leaders of ' + escapeHTML(country.name) + '">' +
+              '<thead><tr><th scope="col">Status</th><th scope="col">Leader</th><th scope="col">Office</th><th scope="col">Since</th><th scope="col">Context</th></tr></thead>' +
+              '<tbody>' + currentRows + '</tbody>' +
+            '</table>' +
+          '</article>' +
+          '<article class="card future-card search-card" data-search-card>' +
+            '<h3 class="card-title"><i class="fa-solid fa-route" aria-hidden="true"></i> Four Potential Future Leaders</h3>' +
+            '<div class="card-sub">Contenders and succession routes with a plausible path to the highest national office.</div>' +
+            '<table class="data-table searchable" aria-label="Potential future leaders of ' + escapeHTML(country.name) + '">' +
+              '<thead><tr><th scope="col">Candidate</th><th scope="col">Standing</th><th scope="col">Route</th><th scope="col">Case</th><th scope="col">Key trigger</th></tr></thead>' +
+              '<tbody>' + futureRows + '</tbody>' +
+            '</table>' +
+          '</article>' +
+        '</div>' +
+      '</section>';
+    }
+
+    function renderAISection(ai) {
+      var currentRows = (ai.current || []).map(renderCurrentModel).join('');
+      var futureRows = (ai.future || []).map(renderFutureModel).join('');
+
+      return '<section class="leader-section" id="ai" data-search-section>' +
+        '<header class="section-heading">' +
+          '<div class="section-heading-main">' +
+            '<span class="section-icon"><i class="fa-solid fa-brain"></i></span>' +
+            '<div><h2>AI Model Leaders</h2><p>Capability-ranked frontier language models — models, not people</p></div>' +
+          '</div>' +
+          '<span class="section-count">' + (ai.current || []).length + ' current · ' + (ai.future || []).length + ' upcoming</span>' +
+        '</header>' +
+        '<p class="card-sub" style="margin:-0.2rem 0 0.9rem;">' + escapeHTML(ai.contextNote || '') + '</p>' +
+        '<div class="ai-summary">' +
+          '<div class="summary-box"><strong>Capability-ranked</strong><span>Order comes from the AA Intelligence Index v4.3.2 and the highest evaluated configuration for each listed model family.</span></div>' +
+          '<div class="summary-box"><strong>Scores are not percentages</strong><span>The composite rewards reasoning, coding, agents, factuality and long-context work, but cannot capture every real-world capability.</span></div>' +
+          '<div class="summary-box"><strong>Access changes the winner</strong><span>A model with a lower capability score can still lead through lower cost, higher speed, open weights or broader multimodal support.</span></div>' +
+        '</div>' +
+        '<article class="card search-card" data-search-card>' +
+          '<h3 class="card-title"><i class="fa-solid fa-ranking-star" aria-hidden="true"></i> Current Frontier Models — Capability Ranked</h3>' +
+          '<div class="card-sub">One entry per listed model family, using its highest independently evaluated reasoning configuration. The family rank is within this curated list—not the full Artificial Analysis rank—and equal scores are not treated as meaningful tie-breaks; the score is authoritative.</div>' +
+          '<table class="data-table searchable" aria-label="Capability-ranked current AI language models">' +
+            '<thead><tr><th scope="col" class="number-cell">Rank</th><th scope="col">Model</th><th scope="col">Developer</th><th scope="col">Released</th><th scope="col">Access</th><th scope="col" class="number-cell">Context</th><th scope="col" class="number-cell">AA capability</th><th scope="col">Capability signal</th></tr></thead>' +
+            '<tbody>' + currentRows + '</tbody>' +
+          '</table>' +
+        '</article>' +
+        '<article class="card future-card search-card" data-search-card>' +
+          '<h3 class="card-title"><i class="fa-solid fa-satellite-dish" aria-hidden="true"></i> Four Potential Future Model Leaders</h3>' +
+          '<div class="card-sub">Potential rank is qualitative—based on strategic scope and confirmation—not a benchmark score. Dates can slip and announced models can remain unreleased.</div>' +
+          '<table class="data-table searchable" aria-label="Four potential future AI language model leaders">' +
+            '<thead><tr><th scope="col" class="number-cell">Potential rank</th><th scope="col">Model / project</th><th scope="col">Standing</th><th scope="col">Expected window</th><th scope="col">Potential significance</th><th scope="col">Key uncertainty</th></tr></thead>' +
+            '<tbody>' + futureRows + '</tbody>' +
+          '</table>' +
+        '</article>' +
+      '</section>';
+    }
+
+    function renderAll() {
+      var content = document.getElementById('leaderContent');
+      var html = (LEADERS_DATA.countries || []).map(renderCountry).join('');
+      html += renderAISection(LEADERS_DATA.ai || { current: [], future: [] });
+      content.innerHTML = html;
+    }
+
+    function formatUpdated(iso) {
+      var date = new Date(iso);
+      return date.toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' local';
+    }
+
+    function renderStatus() {
+      var status = document.getElementById('statusBar');
+      status.innerHTML = '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>' +
+        '<span>Updated ' + escapeHTML(formatUpdated(LEADERS_DATA.updatedAt)) + '</span>' +
+        '<span class="sep"></span><span class="source">Sources: ' + escapeHTML(LEADERS_DATA.source) + '</span>';
+
+      var currentOffices = (LEADERS_DATA.countries || []).reduce(function(total, country) { return total + (country.current || []).length; }, 0);
+      var futurePeople = (LEADERS_DATA.countries || []).reduce(function(total, country) { return total + (country.future || []).length; }, 0);
+      var currentModels = (LEADERS_DATA.ai && LEADERS_DATA.ai.current || []).length;
+      var futureModels = (LEADERS_DATA.ai && LEADERS_DATA.ai.future || []).length;
+      document.getElementById('statsRow').innerHTML =
+        '<span class="stat-pill"><i class="fa-solid fa-globe"></i> Countries: <strong>' + (LEADERS_DATA.countries || []).length + '</strong></span>' +
+        '<span class="stat-pill"><i class="fa-solid fa-user-check"></i> Current offices: <strong>' + currentOffices + '</strong></span>' +
+        '<span class="stat-pill"><i class="fa-solid fa-route"></i> Potential people: <strong>' + futurePeople + '</strong></span>' +
+        '<span class="stat-pill"><i class="fa-solid fa-brain"></i> Current LLMs: <strong>' + currentModels + '</strong></span>' +
+        '<span class="stat-pill"><i class="fa-solid fa-satellite-dish"></i> Upcoming LLMs: <strong>' + futureModels + '</strong></span>';
+    }
+
+    function updateSearch() {
+      var input = document.getElementById('leaderSearch');
+      var clear = document.getElementById('searchClear');
+      var kbd = document.querySelector('.search-kbd');
+      var query = input.value.trim().toLowerCase();
+      var total = 0;
+
+      document.querySelectorAll('[data-search-section]').forEach(function(section) {
+        var sectionTotal = 0;
+        section.querySelectorAll('table.searchable tbody tr').forEach(function(row) {
+          var match = !query || row.textContent.toLowerCase().indexOf(query) !== -1;
+          row.style.display = match ? '' : 'none';
+          if (match) { sectionTotal++; total++; }
+        });
+        section.querySelectorAll('[data-search-card]').forEach(function(card) {
+          var shown = Array.prototype.some.call(card.querySelectorAll('tbody tr'), function(row) { return row.style.display !== 'none'; });
+          card.style.display = shown ? '' : 'none';
+        });
+        section.style.display = sectionTotal ? '' : 'none';
+      });
+
+      document.getElementById('noResults').classList.toggle('visible', total === 0 && query.length > 0);
+      clear.hidden = !query;
+      kbd.hidden = !!query;
+    }
+
+    function wireInteractions() {
+      var input = document.getElementById('leaderSearch');
+      var clear = document.getElementById('searchClear');
+      var backToTop = document.getElementById('backToTop');
+
+      input.addEventListener('input', updateSearch);
+      clear.addEventListener('click', function() { input.value = ''; input.focus(); updateSearch(); });
+      document.addEventListener('keydown', function(event) {
+        if (event.key === '/' && !(event.target instanceof HTMLInputElement) && !(event.target instanceof HTMLTextAreaElement)) {
+          event.preventDefault(); input.focus();
+        }
+      });
+      window.addEventListener('scroll', function() { backToTop.classList.toggle('visible', window.scrollY > 400); });
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+    }
+
+    renderAll();
+    renderStatus();
+    wireInteractions();
+    updateSearch();
+
+    document.getElementById('updatedDate').textContent = new Date(LEADERS_DATA.updatedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('fileDate').textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+  })();
+  </script>
+</body>
+</html>

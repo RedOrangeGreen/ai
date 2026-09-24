@@ -7,19 +7,19 @@
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="description" content="High-yielding dividend stocks and savings accounts on the LSE, NYSE and NASDAQ." />
+  <meta name="description" content="High-yielding dividend stocks, savings accounts, and a Jan–Dec dividend-payment calendar for the LSE, NYSE and NASDAQ." />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
   <meta property="og:title" content="Best UK &amp; USA Dividends and Savings" />
-  <meta property="og:description" content="A curated watchlist of high-yielding dividend stocks and high-yield savings accounts on the LSE, NYSE and NASDAQ." />
+  <meta property="og:description" content="A curated watchlist of high-yielding dividend stocks, savings accounts, and typical dividend-payment months across the LSE, NYSE and NASDAQ." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AI Playground" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Best UK &amp; USA Dividends and Savings" />
-  <meta name="twitter:description" content="A curated watchlist of high-yielding dividend stocks and high-yield savings accounts on the LSE, NYSE and NASDAQ." />
+  <meta name="twitter:description" content="A curated watchlist of high-yielding dividend stocks, savings accounts, and typical dividend-payment months across the LSE, NYSE and NASDAQ." />
   <title>Best UK &amp; USA Dividends and Savings</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E💰%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
   <style>
@@ -71,6 +71,13 @@
       transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
     }
     .nav-chip:hover { color: var(--accent); border-color: rgba(56,189,248,0.5); background: rgba(56,189,248,0.06); }
+    .risk-notice {
+      display: flex; align-items: flex-start; gap: 0.65rem; margin: 0 0 1.2rem;
+      padding: 0.85rem 1rem; border: 1px solid rgba(245,158,11,0.3); border-radius: 14px;
+      background: rgba(245,158,11,0.07); color: var(--text-muted); font-size: 0.82rem; line-height: 1.55;
+    }
+    .risk-notice i { color: var(--amber, #f59e0b); margin-top: 0.12rem; }
+    .risk-notice strong { color: var(--text-main); }
     .chart-latest { color: var(--accent); font-weight: 600; }
     .chart-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -159,6 +166,21 @@
       display: inline-block; background: rgba(34,197,94,0.12);
       border: 1px solid rgba(34,197,94,0.25); border-radius: var(--radius-pill);
       padding: 0.15rem 0.6rem; font-size: 0.82rem;
+    }
+    .month-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem; margin-bottom: 1.5rem; align-items: start;
+    }
+    .month-card { margin-bottom: 0; }
+    .month-card .stock-table { min-width: 430px; }
+    .market-tag {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 3.6rem; padding: 0.2rem 0.45rem; border-radius: var(--radius-pill);
+      border: 1px solid rgba(56,189,248,0.25); background: rgba(56,189,248,0.08);
+      color: var(--accent); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em;
+    }
+    @media (max-width: 860px) {
+      .month-grid { grid-template-columns: 1fr; }
     }
     .btn-back {
       display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.95rem;
@@ -252,10 +274,15 @@
       background: linear-gradient(90deg, #22c55e, #16a34a);
       transition: width 0.4s ease;
     }
-    .stock-table thead th.sortable {
-      cursor: pointer; user-select: none; transition: color 0.15s ease;
+    .stock-table thead th.sortable { padding: 0; }
+    .stock-table thead th.sortable button {
+      appearance: none; border: 0; background: transparent; color: inherit; font: inherit;
+      letter-spacing: inherit; text-transform: inherit; cursor: pointer; user-select: none;
+      display: flex; align-items: center; gap: 0.3rem; width: 100%; padding: 0.5rem 0.6rem;
+      transition: color 0.15s ease;
     }
-    .stock-table thead th.sortable:hover { color: var(--accent); }
+    .stock-table thead th.sortable.numeric button { justify-content: flex-end; }
+    .stock-table thead th.sortable button:hover { color: var(--accent); }
     .stock-table thead th.sortable .sort-icon {
       font-size: 0.65rem; margin-left: 0.3rem; opacity: 0.4; transition: opacity 0.15s ease;
     }
@@ -311,19 +338,25 @@
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <noscript><div class="noscript-notice" role="note">This page requires JavaScript to render its interactive content. Please enable JavaScript to continue.</div></noscript>
-  <main id="main-content" class="page-shell">
+  <main id="main-content" class="page-shell" tabindex="-1">
     <div style="margin-bottom:0.5rem;">
       <a href="index.html" class="btn-back">
         <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back
       </a>
     </div>
     <h1 class="hero-title"><span>Best UK &amp; USA Dividends and Savings</span></h1>
+    <p class="hero-subtitle">A curated snapshot of selected dividend yields, savings rates and payment-month patterns across UK and US markets.</p>
+    <aside class="risk-notice" id="risk-disclaimer" aria-label="Financial information notice">
+      <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+      <div><strong>Verify before acting.</strong> Yields, bonuses, account limits, fees, tax treatment and market prices change frequently. Payment months are indicative, not guarantees. This page is educational and is not financial advice or a recommendation to buy or hold any product.</div>
+    </aside>
     <nav class="nav-chips" aria-label="Jump to a section">
       <a class="nav-chip" href="#charts"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Charts</a>
       <a class="nav-chip" href="#marketCard"><i class="fa-solid fa-clock" aria-hidden="true"></i> Market Hours</a>
       <a class="nav-chip" href="#lse-card"><i class="fa-solid fa-landmark" aria-hidden="true"></i> LSE Stocks</a>
       <a class="nav-chip" href="#nyse-card">NYSE</a>
       <a class="nav-chip" href="#nasdaq-card">NASDAQ</a>
+      <a class="nav-chip" href="#dividend-months"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Payment Months</a>
       <a class="nav-chip" href="#uk-savings">UK Savings</a>
       <a class="nav-chip" href="#uk-current-accounts">UK Current Accounts</a>
       <a class="nav-chip" href="#uk-isa">UK Cash ISA</a>
@@ -347,6 +380,10 @@
             <td>Annual dividend per share ÷ share price, shown as a % — the figure in the stock tables</td>
           </tr>
           <tr>
+            <td><span class="stock-name">Pay month<span class="stock-ticker">Typical payment month</span></span></td>
+            <td>The month cash is normally paid to eligible shareholders; it may differ from the ex-dividend date and can change</td>
+          </tr>
+          <tr>
             <td><span class="stock-name">AER<span class="stock-ticker">Annual Equivalent Rate</span></span></td>
             <td>UK-style interest rate that includes the effect of compounding — used on UK savings, cash ISA &amp; current account tables</td>
           </tr>
@@ -361,18 +398,19 @@
     <div class="chart-grid" id="charts" aria-label="2026 index performance charts">
       <div class="card">
         <div class="card-title"><i class="fa-solid fa-chart-line"></i> FTSE 100 Index <span class="chart-price" id="ftsePrice"></span><span class="chart-badge" id="ftseBadge"></span></div>
-        <div class="card-sub">Weekly close prices — start of 2026 to current week <span class="chart-latest" id="ftseLatest"></span></div>
-        <svg id="ftseChart" class="line-chart" role="img" aria-label="FTSE 100 weekly close prices, 2026 year to date"></svg>
+        <div class="card-sub">Weekly closes with the latest available market price — start of 2026 to current week <span class="chart-latest" id="ftseLatest"></span></div>
+        <svg id="ftseChart" class="line-chart" role="img" aria-label="FTSE 100 weekly close prices and latest 2026 market price"></svg>
       </div>
       <div class="card">
         <div class="card-title"><i class="fa-solid fa-chart-line"></i> S&amp;P 500 Index <span class="chart-price" id="gspcPrice"></span><span class="chart-badge" id="gspcBadge"></span></div>
-        <div class="card-sub">Weekly close prices — start of 2026 to current week <span class="chart-latest" id="gspcLatest"></span></div>
-        <svg id="gspcChart" class="line-chart" role="img" aria-label="S&amp;P 500 weekly close prices, 2026 year to date"></svg>
+        <div class="card-sub">Weekly closes with the latest available market price — start of 2026 to current week <span class="chart-latest" id="gspcLatest"></span></div>
+        <svg id="gspcChart" class="line-chart" role="img" aria-label="S&amp;P 500 weekly close prices and latest 2026 market price"></svg>
       </div>
     </div>
 
-    <div class="card" id="marketCard" aria-label="Exchange trading hours">
-      <div class="card-title"><i class="fa-solid fa-clock"></i> Market Hours</div>
+    <div class="card" id="marketCard" aria-label="Exchange trading hours" aria-live="off">
+      <div class="card-title"><i class="fa-solid fa-clock" aria-hidden="true"></i> Market Hours</div>
+      <p class="card-sub">Regular weekday sessions only. Public holidays and exchange-specific early closes are not reflected.</p>
       <div class="market-grid">
         <div class="market-box" data-exchange="lse">
           <div class="market-name">LSE · London</div>
@@ -405,30 +443,39 @@
 
     <div class="card" id="lse-card">
       <div class="card-title"><i class="fa-solid fa-landmark"></i> LSE</div>
-      <div class="card-sub">London Stock Exchange — curated high-yield watchlist</div>
+      <div class="card-sub">London Stock Exchange — curated watchlist · gross cash yields as of 24 Sep 2026 · property distributions may be taxable</div>
       <table class="stock-table" aria-label="High-yield LSE dividend stocks">
-        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none">Company</th><th scope="col" class="sortable" data-sort="yield" aria-sort="none" style="text-align:right">Yield</th></tr></thead>
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
         <tbody id="lseBody"></tbody>
       </table>
     </div>
 
     <div class="card" id="nyse-card">
       <div class="card-title"><i class="fa-solid fa-building-columns"></i> NYSE</div>
-      <div class="card-sub">New York Stock Exchange — curated high-yield watchlist</div>
+      <div class="card-sub">New York Stock Exchange — curated watchlist · indicated yields as of 24 Sep 2026</div>
       <table class="stock-table" aria-label="High-yield NYSE dividend stocks">
-        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none">Company</th><th scope="col" class="sortable" data-sort="yield" aria-sort="none" style="text-align:right">Yield</th></tr></thead>
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
         <tbody id="nyseBody"></tbody>
       </table>
     </div>
 
     <div class="card" id="nasdaq-card">
       <div class="card-title"><i class="fa-solid fa-chart-simple"></i> NASDAQ</div>
-      <div class="card-sub">NASDAQ — curated high-yield watchlist</div>
+      <div class="card-sub">NASDAQ — curated watchlist · indicated yields as of 24 Sep 2026</div>
       <table class="stock-table" aria-label="High-yield NASDAQ dividend stocks">
-        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none">Company</th><th scope="col" class="sortable" data-sort="yield" aria-sort="none" style="text-align:right">Yield</th></tr></thead>
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
         <tbody id="nasdaqBody"></tbody>
       </table>
     </div>
+
+    <section id="dividend-months" aria-labelledby="dividend-months-title">
+      <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
+        <div class="card-title" id="dividend-months-title"><i class="fa-solid fa-calendar-days"></i> Dividend Payment Months — Jan to Dec</div>
+        <div class="card-sub">Companies in the watchlist that typically make cash dividend payments in each month of the year. US months use announced payment dates; LSE months use the latest published recurring schedules. Payment months can shift, and a payment date is not the same as the ex-dividend date.</div>
+        <p class="card-sub" style="margin-bottom:0;">Data checked 24 Sep 2026 from <a class="stock-link" href="https://stockanalysis.com/" target="_blank" rel="noopener noreferrer">StockAnalysis / S&amp;P Global</a> for US stocks and company or <a class="stock-link" href="https://www.londonstockexchange.com/" target="_blank" rel="noopener noreferrer">London Stock Exchange</a> announcements for UK stocks. The calendar reflects Standard Life's current SDLF ticker and Barratt Redrow's reduced 1p forward run-rate. Verify future dates before relying on them.</p>
+      </div>
+      <div class="month-grid" id="dividendMonthTables"></div>
+    </section>
 
     <div class="card" id="uk-savings">
       <div class="card-title"><i class="fa-solid fa-piggy-bank"></i> Best UK Savings Accounts</div>
@@ -651,7 +698,7 @@
 
     <footer>
       For informational purposes only — not financial advice. Always verify before investing.<br>
-      <span style="font-size:0.72rem;">AI Agent generated <span id="fileDate"></span></span>
+      <span style="font-size:0.72rem;">Page generated <span id="fileDate"></span></span>
     </footer>
   </main>
 
@@ -660,48 +707,48 @@
   <script>
   (function() {
     var YIELDS_DATA = {
-      fetchedAt: '2026-09-18T15:00:00Z',
-      source: 'stockanalysis.com — price & trailing 12M dividends (Sep 2026, updated 18 Sep 2026)',
+      fetchedAt: '2026-09-24T14:45:00Z',
+      source: 'StockAnalysis / S&P Global (US) & company/LSE data (UK) — latest prices and cash-dividend yields (24 Sep 2026)',
       lse: [
         { ticker: 'LGEN.L', name: 'Legal & General',           yield: 7.4,  pays: 'Jun & Sep' },
-        { ticker: 'PNXGF',  name: 'Phoenix Group (Standard Life)', yield: 7.4, pays: 'May & Oct' },
-        { ticker: 'LAND.L', name: 'Land Securities',           yield: 6.7,  pays: 'Jan & Jul' },
-        { ticker: 'LMP.L',  name: 'LondonMetric Property',     yield: 6.5,  pays: 'Jan, Apr, Jul & Oct' },
-        { ticker: 'IMB.L',  name: 'Imperial Brands',           yield: 6.4,  pays: 'Mar, Jun, Sep & Dec' },
-        { ticker: 'MNG.L',  name: 'M&G plc',                   yield: 6.2,  pays: 'Apr & Oct' },
+        { ticker: 'SDLF.L', name: 'Standard Life',              yield: 6.3,  pays: 'May & Oct', note: 'formerly Phoenix Group' },
+        { ticker: 'LAND.L', name: 'Land Securities',           yield: 6.6,  pays: 'Jan & Jul' },
+        { ticker: 'LMP.L',  name: 'LondonMetric Property',     yield: 7.0,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'IMB.L',  name: 'Imperial Brands',           yield: 6.7,  pays: 'Mar, Jun, Sep & Dec' },
+        { ticker: 'MNG.L',  name: 'M&G plc',                   yield: 6.3,  pays: 'Apr & Oct' },
         { ticker: 'ABDN.L', name: 'abrdn',                     yield: 6.0,  pays: 'May & Sep' },
-        { ticker: 'INVP.L', name: 'Investec',                  yield: 5.8,  pays: 'Sep & Dec' },
-        { ticker: 'AV.L',   name: 'Aviva',                     yield: 5.6,  pays: 'May & Oct' },
-        { ticker: 'BTRW.L', name: 'Barratt Redrow',            yield: 0.3,  pays: 'Nov only (1p) · dividends replaced by buybacks' }
+        { ticker: 'INVP.L', name: 'Investec',                  yield: 6.2,  pays: 'Sep & Dec' },
+        { ticker: 'AV.L',   name: 'Aviva',                     yield: 5.8,  pays: 'May & Oct' },
+        { ticker: 'BTRW.L', name: 'Barratt Redrow',            yield: 0.3,  pays: 'Nov only', note: '1p forward run-rate; FY2026 distribution was 6.0p' }
       ],
       nyse: [
-        { ticker: 'MAIN', name: 'Main Street Capital',         yield: 7.8,  pays: 'Monthly' },
-        { ticker: 'VICI', name: 'Vici Properties',             yield: 7.7,  pays: 'Jan, Apr, Jul & Oct' },
-        { ticker: 'PFE',  name: 'Pfizer',                      yield: 6.2,  pays: 'Mar, Jun, Sep & Dec' },
+        { ticker: 'MAIN', name: 'Main Street Capital',         yield: 7.9,  pays: 'Monthly' },
+        { ticker: 'VICI', name: 'VICI Properties',             yield: 7.8,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'PFE',  name: 'Pfizer',                      yield: 6.0,  pays: 'Mar, Jun, Sep & Dec' },
         { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 6.0,  pays: 'Monthly' },
         { ticker: 'NNN',  name: 'NNN REIT',                    yield: 6.0,  pays: 'Feb, May, Aug & Nov' },
-        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 5.9,  pays: 'Feb, May, Aug & Nov' },
-        { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 5.8, pays: 'Feb, May, Aug & Nov' },
-        { ticker: 'O',    name: 'Realty Income',               yield: 5.7,  pays: 'Monthly' },
-        { ticker: 'ENB',  name: 'Enbridge',                    yield: 5.7,  pays: 'Mar, Jun, Sep & Dec' },
+        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 6.0,  pays: 'Feb, May, Aug & Nov' },
+        { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 6.0, pays: 'Feb, May, Aug & Nov' },
+        { ticker: 'O',    name: 'Realty Income',               yield: 5.8,  pays: 'Monthly' },
+        { ticker: 'ENB',  name: 'Enbridge',                    yield: 5.8,  pays: 'Mar, Jun, Sep & Dec' },
         { ticker: 'CVX',  name: 'Chevron',                     yield: 3.4,  pays: 'Mar, Jun, Sep & Dec' }
       ],
       nasdaq: [
-        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.5,  pays: 'Mar, Jun, Sep & Dec' },
-        { ticker: 'CMCSA', name: 'Comcast',                    yield: 5.8,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.7,  pays: 'Mar, Jun, Sep & Dec' },
+        { ticker: 'CMCSA', name: 'Comcast',                    yield: 5.9,  pays: 'Feb, Apr, Jul & Oct' },
         { ticker: 'TROW', name: 'T. Rowe Price Group',         yield: 5.0,  pays: 'Mar, Jun, Sep & Dec' },
-        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 4.6,  pays: 'Mar, Jun, Sep & Dec' },
-        { ticker: 'PAYX', name: 'Paychex',                     yield: 4.1,  pays: 'Feb, May, Aug & Nov' },
-        { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.3,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 4.5,  pays: 'Jan, Mar, Jun & Sep' },
+        { ticker: 'PAYX', name: 'Paychex',                     yield: 4.5,  pays: 'Feb, May, Aug & Nov' },
+        { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.4,  pays: 'Jan, Apr, Jul & Oct' },
         { ticker: 'GILD', name: 'Gilead Sciences',             yield: 2.2,  pays: 'Mar, Jun, Sep & Dec' },
-        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 2.0,  pays: 'Feb, May, Aug & Nov' },
-        { ticker: 'CSCO', name: 'Cisco Systems',               yield: 1.5,  pays: 'Jan, Apr, Jul & Oct' }
+        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 2.3,  pays: 'Feb, May, Aug & Nov' },
+        { ticker: 'CSCO', name: 'Cisco Systems',               yield: 1.6,  pays: 'Jan, Apr, Jul & Oct' }
       ]
     };
 
     var INDEX_DATA = {
-      ftse: [["2026-01-01",10048.2],["2026-01-08",10184.4],["2026-01-15",10138.1],["2026-01-22",10154.4],["2026-01-29",10402.3],["2026-02-05",10472.1],["2026-02-12",10686.2],["2026-02-19",10806.4],["2026-02-26",10567.7],["2026-03-05",10353.8],["2026-03-12",10305.3],["2026-03-19",10106.8],["2026-03-26",10364.8],["2026-04-01",10608.9],["2026-04-08",10559.6],["2026-04-15",10476.5],["2026-04-22",10213.1],["2026-04-29",10438.7],["2026-05-06",10325.4],["2026-05-13",10432.3],["2026-05-20",10505.0],["2026-05-27",10332.3],["2026-06-03",10254.8],["2026-06-10",10508.6],["2026-06-17",10461.6],["2026-06-24",10478.3],["2026-07-01",10489.0],["2026-07-08",10515.9],["2026-07-15",10717.0],["2026-07-22",10908.4],["2026-07-29",10888.3],["2026-08-05",10833.2],["2026-08-12",10743.4],["2026-08-19",10816.6],["2026-08-21",10816.56],["2026-08-28",10824.26],["2026-09-04",10831.09],["2026-09-11",10650.44],["2026-09-18",10654.81]],
-      gspc: [["2026-01-01",6920.93],["2026-01-08",6926.6],["2026-01-15",6875.62],["2026-01-22",6978.03],["2026-01-29",6882.72],["2026-02-05",6941.47],["2026-02-12",6881.31],["2026-02-19",6946.13],["2026-02-26",6869.5],["2026-03-05",6775.8],["2026-03-12",6624.7],["2026-03-19",6591.9],["2026-03-26",6575.32],["2026-04-02",6782.81],["2026-04-09",7022.95],["2026-04-16",7137.9],["2026-04-23",7135.95],["2026-04-30",7365.12],["2026-05-07",7444.25],["2026-05-14",7432.97],["2026-05-21",7520.36],["2026-05-28",7553.68],["2026-06-04",7266.99],["2026-06-11",7420.1],["2026-06-18",7358.22],["2026-06-25",7483.23],["2026-07-02",7482.71],["2026-07-09",7572.4],["2026-07-16",7498.96],["2026-07-23",7316.15],["2026-07-30",7723.55],["2026-08-06",7748.5],["2026-08-13",7707.98],["2026-08-20",7674.37],["2026-08-21",7674.37],["2026-08-28",7711.76],["2026-09-04",7718.6],["2026-09-11",7656.98],["2026-09-18",7650.0]]
+      ftse: [["2026-01-01",10048.2],["2026-01-08",10184.4],["2026-01-15",10138.1],["2026-01-22",10154.4],["2026-01-29",10402.3],["2026-02-05",10472.1],["2026-02-12",10686.2],["2026-02-19",10806.4],["2026-02-26",10567.7],["2026-03-05",10353.8],["2026-03-12",10305.3],["2026-03-19",10106.8],["2026-03-26",10364.8],["2026-04-01",10608.9],["2026-04-08",10559.6],["2026-04-15",10476.5],["2026-04-22",10213.1],["2026-04-29",10438.7],["2026-05-06",10325.4],["2026-05-13",10432.3],["2026-05-20",10505.0],["2026-05-27",10332.3],["2026-06-03",10254.8],["2026-06-10",10508.6],["2026-06-17",10461.6],["2026-06-24",10478.3],["2026-07-01",10489.0],["2026-07-08",10515.9],["2026-07-15",10717.0],["2026-07-22",10908.4],["2026-07-29",10888.3],["2026-08-05",10833.2],["2026-08-12",10743.4],["2026-08-19",10878.1],["2026-08-26",10756.5],["2026-09-02",10670.1],["2026-09-09",10688.5],["2026-09-16",10739.0],["2026-09-24",10722.83]],
+      gspc: [["2026-01-01",6920.93],["2026-01-08",6926.6],["2026-01-15",6875.62],["2026-01-22",6978.03],["2026-01-29",6882.72],["2026-02-05",6941.47],["2026-02-12",6881.31],["2026-02-19",6946.13],["2026-02-26",6869.5],["2026-03-05",6775.8],["2026-03-12",6624.7],["2026-03-19",6591.9],["2026-03-26",6575.32],["2026-04-02",6782.81],["2026-04-09",7022.95],["2026-04-16",7137.9],["2026-04-23",7135.95],["2026-04-30",7365.12],["2026-05-07",7444.25],["2026-05-14",7432.97],["2026-05-21",7520.36],["2026-05-28",7553.68],["2026-06-04",7266.99],["2026-06-11",7420.1],["2026-06-18",7358.22],["2026-06-25",7483.23],["2026-07-02",7482.71],["2026-07-09",7572.4],["2026-07-16",7498.96],["2026-07-23",7316.15],["2026-07-30",7723.55],["2026-08-06",7748.5],["2026-08-13",7707.98],["2026-08-20",7675.7],["2026-08-27",7666.6],["2026-09-03",7636.36],["2026-09-10",7551.81],["2026-09-17",7650.5],["2026-09-24",7676.17]]
     };
 
     function renderIndexChart(svgId, badgeId, data, color) {
@@ -786,8 +833,11 @@
     var searchInput = document.getElementById('stockSearch');
     var searchClear = document.getElementById('searchClear');
     var searchKbd = document.querySelector('.search-kbd');
-    var staticTables = Array.prototype.slice.call(document.querySelectorAll('table.table-searchable > tbody'));
     var backToTop = document.getElementById('backToTop');
+
+    YIELDS_DATA.lse.forEach(function(s) { s.market = 'LSE'; });
+    YIELDS_DATA.nyse.forEach(function(s) { s.market = 'NYSE'; });
+    YIELDS_DATA.nasdaq.forEach(function(s) { s.market = 'NASDAQ'; });
 
     var allStocks = YIELDS_DATA.lse.concat(YIELDS_DATA.nyse).concat(YIELDS_DATA.nasdaq);
     var max_yield = Math.max.apply(null, allStocks.map(function(s) { return s.yield; }));
@@ -800,12 +850,12 @@
     var dt = new Date(YIELDS_DATA.fetchedAt);
     var timeStr = dt.toLocaleString('en-GB', {
       day: '2-digit', month: 'short', year: 'numeric',
-      hour: '2-digit', minute: '2-digit'
+      hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
     });
 
     statusBar.innerHTML =
       '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>' +
-      '<span>Fetched ' + timeStr + '</span>' +
+      '<span>Data checked ' + timeStr + '</span>' +
       '<span class="sep"></span>' +
       '<span class="source">Source: ' + YIELDS_DATA.source + '</span>';
 
@@ -899,6 +949,7 @@
     var sortState = { field: null, asc: true };
 
     var MONTH_FULL = { Jan:'January', Feb:'February', Mar:'March', Apr:'April', May:'May', Jun:'June', Jul:'July', Aug:'August', Sep:'September', Oct:'October', Nov:'November', Dec:'December' };
+    var MONTH_KEYS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     function getPaysSearch(s) {
       if (s._paysSearch === undefined) {
@@ -907,11 +958,48 @@
       return s._paysSearch;
     }
 
+    function getPaysMonths(s) {
+      if (/\bMonthly\b/i.test(s.pays || '')) return MONTH_KEYS.slice();
+      var matches = (s.pays || '').match(/\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b/g) || [];
+      return matches.filter(function(month, index) { return matches.indexOf(month) === index; });
+    }
+
+    function renderDividendMonthTables() {
+      var container = document.getElementById('dividendMonthTables');
+      if (!container) return;
+      var marketOrder = { LSE: 0, NYSE: 1, NASDAQ: 2 };
+
+      container.innerHTML = MONTH_KEYS.map(function(month) {
+        var stocks = allStocks.filter(function(s) {
+          return getPaysMonths(s).indexOf(month) !== -1;
+        }).sort(function(a, b) {
+          return (marketOrder[a.market] - marketOrder[b.market]) || (b.yield - a.yield);
+        });
+
+        var rows = stocks.map(function(s) {
+          return '<tr data-month="' + MONTH_FULL[month] + '">' +
+            '<td><span class="market-tag">' + s.market + '</span></td>' +
+            '<td class="stock-name">' + s.name + ' <span class="stock-ticker"><a class="stock-link" href="https://finance.yahoo.com/quote/' + encodeURIComponent(s.ticker) + '/" target="_blank" rel="noopener noreferrer">' + s.ticker + '</a></span></td>' +
+            '<td class="stock-yield"><span class="stock-yield-badge">' + s.yield.toFixed(1) + '%</span></td>' +
+            '</tr>';
+        }).join('');
+
+        return '<article class="card month-card" data-month-card="' + month + '">' +
+          '<div class="card-title"><i class="fa-solid fa-calendar-day"></i> ' + MONTH_FULL[month] + '<span class="chart-badge">' + stocks.length + ' companies</span></div>' +
+          '<div class="card-sub">Typical cash dividend payment month</div>' +
+          '<table class="stock-table table-searchable" aria-label="Companies paying dividends in ' + MONTH_FULL[month] + '">' +
+            '<thead><tr><th scope="col">Market</th><th scope="col">Company</th><th scope="col" style="text-align:right">Yield</th></tr></thead>' +
+            '<tbody>' + rows + '</tbody>' +
+          '</table>' +
+        '</article>';
+      }).join('');
+    }
+
     function getSortIcon(col) {
-      if (sortState.field !== col) return '<i class="fa-solid fa-sort sort-icon"></i>';
+      if (sortState.field !== col) return 'fa-solid fa-sort sort-icon';
       return sortState.asc
-        ? '<i class="fa-solid fa-sort-up sort-icon"></i>'
-        : '<i class="fa-solid fa-sort-down sort-icon"></i>';
+        ? 'fa-solid fa-sort-up sort-icon'
+        : 'fa-solid fa-sort-down sort-icon';
     }
 
     function renderTable(tbody, stocks, query) {
@@ -930,6 +1018,7 @@
           if (s.ticker.toLowerCase().indexOf(q) !== -1) return true;
           var pays = (s.pays || '').toLowerCase();
           if (pays.indexOf(q) !== -1) return true;
+          if ((s.note || '').toLowerCase().indexOf(q) !== -1) return true;
           return getPaysSearch(s).indexOf(q) !== -1;
         });
       }
@@ -939,8 +1028,8 @@
         var barPct = (s.yield / max_yield * 100).toFixed(0);
         html += '<tr>' +
           '<td><span class="stock-rank">' + (i + 1) + '</span></td>' +
-          '<td class="stock-name">' + s.name + ' <span class="stock-ticker"><a class="stock-link" href="https://finance.yahoo.com/quote/' + s.ticker + '/" target="_blank" rel="noopener noreferrer">' + s.ticker + '</a></span>' +
-            '<span class="stock-pays">Paid: ' + s.pays + '</span></td>' +
+          '<td class="stock-name">' + s.name + ' <span class="stock-ticker"><a class="stock-link" href="https://finance.yahoo.com/quote/' + encodeURIComponent(s.ticker) + '/" target="_blank" rel="noopener noreferrer">' + s.ticker + '</a></span>' +
+            '<span class="stock-pays">Typical pay: ' + s.pays + (s.note ? ' · ' + s.note : '') + '</span></td>' +
           '<td class="stock-yield">' +
             '<div class="yield-bar-wrap" style="margin-bottom:4px;"><div class="yield-bar" style="width:' + barPct + '%"></div></div>' +
             '<span class="stock-yield-badge">' + s.yield.toFixed(1) + '%</span>' +
@@ -958,10 +1047,12 @@
       var nasdaqCount = renderTable(nasdaqBody, YIELDS_DATA.nasdaq, q);
 
       var staticTotal = 0;
+      var staticTables = Array.prototype.slice.call(document.querySelectorAll('table.table-searchable > tbody'));
       staticTables.forEach(function(tbody) {
         var rows = tbody.rows, shown = 0, r;
         for (r = 0; r < rows.length; r++) {
-          var match = !q || rows[r].textContent.toLowerCase().indexOf(q) !== -1;
+          var searchText = (rows[r].textContent + ' ' + (rows[r].dataset.month || '')).toLowerCase();
+          var match = !q || searchText.indexOf(q) !== -1;
           rows[r].style.display = match ? '' : 'none';
           if (match) shown++;
         }
@@ -982,10 +1073,14 @@
         ['name', 'yield'].forEach(function(col) {
           var th = table.querySelector('th.sortable[data-sort="' + col + '"]');
           if (!th) return;
-          th.className = sortState.field === col ? (sortState.asc ? 'sortable asc' : 'sortable desc') : 'sortable';
+          var alignmentClass = col === 'yield' ? ' numeric' : '';
+          th.className = sortState.field === col ? ('sortable' + alignmentClass + (sortState.asc ? ' asc' : ' desc')) : ('sortable' + alignmentClass);
           if (sortState.field === col) th.setAttribute('aria-sort', sortState.asc ? 'ascending' : 'descending');
-          else th.removeAttribute('aria-sort');
-          th.innerHTML = (col === 'name' ? 'Company' : 'Yield') + getSortIcon(col);
+          else th.setAttribute('aria-sort', 'none');
+          var label = th.querySelector('.sort-label');
+          var icon = th.querySelector('.sort-icon');
+          if (label) label.textContent = col === 'name' ? 'Company' : 'Yield';
+          if (icon) icon.className = getSortIcon(col);
         });
       });
 
@@ -994,18 +1089,15 @@
     }
 
     document.querySelectorAll('th.sortable').forEach(function(th) {
-      th.setAttribute('tabindex', '0');
-      th.setAttribute('role', 'button');
+      var control = th.querySelector('button');
+      if (!control) return;
       function toggleSort() {
         var col = th.dataset.sort;
         if (sortState.field === col) { sortState.asc = !sortState.asc; }
         else { sortState.field = col; sortState.asc = col === 'name' || col === 'ticker'; }
         updateAll();
       }
-      th.addEventListener('click', toggleSort);
-      th.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSort(); }
-      });
+      control.addEventListener('click', toggleSort);
     });
 
     searchInput.addEventListener('input', function() { updateAll(); });
@@ -1039,6 +1131,7 @@
     updateMarketClocks();
     setInterval(updateMarketClocks, 1000);
 
+    renderDividendMonthTables();
     updateAll();
   })();
   </script>
