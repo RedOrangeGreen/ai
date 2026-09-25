@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="description" content="Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS." />
+  <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
+  <meta property="og:title" content="llama.cpp Quickstart" />
+  <meta property="og:description" content="Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="llama.cpp Quickstart" />
+  <meta name="twitter:description" content="Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS." />
+  <title>llama.cpp Quickstart</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Build and run llama.cpp locally",
+    "description": "Compile llama.cpp from source, download a GGUF model and run a local text generation chat from the command line.",
+    "totalTime": "PT30M",
+    "tool": [
+      { "@type": "HowToTool", "name": "git" },
+      { "@type": "HowToTool", "name": "cmake" },
+      { "@type": "HowToTool", "name": "C++ build toolchain (build-essential)" }
+    ],
+    "step": [
+      { "@type": "HowToStep", "name": "Install dependencies and clone the source", "text": "Install git, build-essential, cmake, libcurl4-openssl-dev and libssl-dev, then clone https://github.com/ggml-org/llama.cpp." },
+      { "@type": "HowToStep", "name": "Configure and compile", "text": "Run cmake -B build followed by cmake --build build --config Release." },
+      { "@type": "HowToStep", "name": "First run", "text": "Run ./build/bin/llama-cli -hf ggml-org/Qwen3.5-0.8B-GGUF and stop the program with Ctrl+C." },
+      { "@type": "HowToStep", "name": "Edit the prompt and rebuild", "text": "Edit the prompt string in tools/cli/cli-ui.h with sed, rebuild, then run llama-cli again." }
+    ]
+  }
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%A6%99%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <style>
+@layer reset, base, components, utilities; @layer base { :root { accent-color: #38bdf8; interpolate-size: allow-keywords; --bg-body: #050816; --bg-elevated: #0b1020; --accent: #38bdf8; --text-main: #e5e7eb; --text-muted: #9ca3af; --border-subtle: rgba(148,163,184,0.25); --radius-lg: 18px; --radius-pill: 999px; --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7); --transition-fast: 0.18s ease-out; --yield-color: #22c55e; } }
+body { background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%); color: var(--text-main); font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif; margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent; }
+.page-shell { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+.hero-title { font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.4rem; }
+.hero-title span { background: linear-gradient(120deg,#38bdf8,#a855f7,#f97316); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200% 200%; animation: gradientShift 4s ease infinite; }
+@keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+.hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6; }
+.card { padding: 1.4rem 1.6rem; border-radius: var(--radius-lg); background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; overflow-x: auto; content-visibility: auto; contain-intrinsic-size: auto 280px; }
+.card-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title i { color: var(--accent); font-size: 1rem; }
+.card-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0 0 1rem; }
+.btn-back { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.95rem; color: var(--text-muted); text-decoration: none; padding: 0.35rem 0; transition: color var(--transition-fast); }
+.btn-back:hover { color: var(--accent); }
+footer { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid rgba(148,163,184,0.35); font-size: 0.78rem; color: var(--text-muted); text-align: center; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-body); }
+::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
+::selection { background: rgba(56,189,248,0.3); color: #fff; }
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+@media print {
+  body { background: #fff !important; color: #111 !important; }
+  .btn-back,footer,.status-bar { display: none !important; }
+  .card { border: 1px solid #ddd !important; box-shadow: none !important; content-visibility: visible !important; }
+  .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; }
+}
+@media (max-width: 480px) {
+  .card { padding: 1rem; }
+  .page-shell { padding: 1rem 0.75rem 2rem; }
+}
+html { scroll-behavior: smooth; overscroll-behavior: none; }
+* { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
+h1, h2, h3, p { text-wrap: pretty; }
+h1, h2, h3 { text-wrap: balance; }
+.no-results.visible { display: block; }
+.back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 999px; border: none; background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(8,47,73,0.6); opacity: 0; transform: translateY(16px) scale(0.9); transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; z-index: 1000; pointer-events: none; }
+.back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.back-to-top:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 12px 32px rgba(8,47,73,0.8); }
+.card { container-type: inline-size; container-name: card; }
+.skip-link { position: absolute; top: -999px; left: 0.5rem; z-index: 9999; background: #0b1120; color: var(--accent); padding: 0.5rem 1rem; border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; border: 1px solid var(--accent); border-top: none; }
+.skip-link:focus { top: 0; }
+.noscript-notice { margin: 0 auto 1rem; max-width: 1200px; padding: 0.9rem 1.1rem; border-radius: 12px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.35); color: var(--text-main); font-size: 0.85rem; line-height: 1.5; }
+section[id], h1[id], h2[id], h3[id], div[id], #main-content { scroll-margin-top: 1.5rem; }
+/* ---- quickstart: commands, terminal transcripts, steps ---- */ pre.cmd, pre.terminal, code { font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+code { background: #0d1117; border: 1px solid rgba(148,163,184,0.15); border-radius: 5px; padding: 0.1em 0.4em; font-size: 0.85em; color: #7dd3fc; overflow-wrap: anywhere; }
+/* never let the inline-code chip styling bleed into a code block */ pre code { background: none; border: 0; border-radius: 0; padding: 0; font-size: inherit; color: inherit; overflow-wrap: normal; }
+pre.cmd, pre.terminal { margin: 0.55rem 0 0; padding: 0.7rem 0.9rem; overflow-x: auto; background: #0d1117; border: 1px solid rgba(148,163,184,0.15); border-left: 3px solid var(--accent); border-radius: 8px; font-size: 0.8rem; line-height: 1.6; color: #e6edf3; white-space: pre; tab-size: 4; }
+pre.cmd .c { color: #6e7681; font-style: italic; }
+.copy-all { margin-left: auto; flex-shrink: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 0.25rem; background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120; border: none; border-radius: var(--radius-pill); /* right padding absorbs the icon + gap so the label sits optically centred */ padding: 0.3rem 1.05rem 0.3rem 0.8rem; font: inherit; font-size: 0.76rem; font-weight: 600; box-shadow: 0 6px 16px rgba(8, 47, 73, 0.6); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.2s ease; }
+.copy-all:hover { filter: brightness(1.08); box-shadow: 0 9px 22px rgba(8, 47, 73, 0.75); }
+.copy-all:active { transform: scale(0.96); }
+.copy-all.copied { background: linear-gradient(120deg, #22c55e, #16a34a); color: #052e16; }
+.copy-all .fa-copy { display: inline-block; }
+.copy-all .fa-check { display: none; }
+.copy-all.copied .fa-copy { display: none; }
+.copy-all.copied .fa-check { display: inline-block; }
+/* the inherited .card-title i rule paints icons with the accent blue and forces 1rem; the button's own icons must follow the button's dark text colour and font size instead, or they vanish into the blue gradient */ .copy-all .fa-copy, .copy-all .fa-check { color: inherit; font-size: inherit; }
+pre.terminal { border-left-color: rgba(148,163,184,0.5); color: #c9d1d9; }
+pre.terminal .sh { color: #7ee787; }
+pre.terminal .q { color: #e5e7eb; font-weight: 600; }
+pre.terminal .a { color: #9ca3af; }
+pre.terminal .x { color: #f59e0b; font-weight: 600; }
+pre.terminal .dim{ color: #6e7681; }
+.note-list { margin: 0.5rem 0 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.note-list li { font-size: 0.83rem; color: var(--text-muted); }
+.note-list li strong, .note-list li b { color: var(--text-main); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page requires JavaScript to render its interactive content. Please enable JavaScript to continue.</div></noscript>
+  <main id="main-content" class="page-shell" tabindex="-1">
+    <div style="margin-bottom:0.5rem;">
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back
+      </a>
+    </div>
+    <h1 class="hero-title"><span>llama.cpp Quickstart</span></h1>
+    <p class="hero-subtitle">Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS.</p>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> What you need</div>
+      <div class="card-sub">A recorded terminal session, start to finish</div>
+      <ul class="note-list">
+        <li><strong>Ubuntu (or Debian) Linux</strong> (last tested on Ubuntu 26.04 LTS) with <code>sudo</code> access. Every command below is plain Linux shell — no GUI required.</li>
+        <li><strong>Network access on the first run only.</strong> <code>llama-cli</code> downloads the model for you.</li>
+        <li><strong>A few GB of free disk</strong> for the source tree, the build output and the model weights.</li>
+        <li><strong>No GPU required.</strong> The 0.8B model below runs on CPU, so this works on any machine with a modern processor.</li>
+      </ul>
+    </div>
+
+    <div class="card" id="setup">
+      <div class="card-title"><i class="fa-solid fa-terminal" aria-hidden="true"></i> Setup and first run
+        <button type="button" class="copy-all" data-copy-target="setupCmds" title="Copy all commands to the clipboard"><i class="fa-solid fa-copy" aria-hidden="true"></i><i class="fa-solid fa-check" aria-hidden="true"></i><span class="copy-all-label" aria-live="polite">Copy all commands</span></button>
+      </div>
+      <div class="card-sub">Copy and paste in order</div>
+<pre class="cmd" tabindex="0" role="region" aria-label="Commands" id="setupCmds">
+<span class="sh">$</span> cd /home/ubuntu/Public
+<span class="sh">$</span> sudo apt install -y git build-essential cmake libcurl4-openssl-dev libssl-dev
+<span class="sh">$</span> git clone https://github.com/ggml-org/llama.cpp
+<span class="sh">$</span> cd llama.cpp
+<span class="sh">$</span> cmake -B build
+<span class="sh">$</span> cmake --build build --config Release
+<span class="sh">$</span> ./build/bin/llama-cli -hf ggml-org/Qwen3.5-0.8B-GGUF --chat-template-kwargs '{"enable_thinking":false}'</pre>
+<pre class="terminal" tabindex="0" role="region" aria-label="Terminal output">
+<span class="dim">loading model / downloading ggml-org/Qwen3.5-0.8B-GGUF ...</span>
+<span class="dim">llama_context: n_ctx = 4096</span>
+<span class="q">&gt; In one sentence, what is a cat?</span>
+<span class="a">A cat is a small, carnivorous mammal kept as a pet, known for its
+independence, agility and ability to purr.</span>
+<span class="x">[CNTRL+C]</span></pre>
+    </div>
+
+    <div class="card" id="editrun">
+      <div class="card-title"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Edit and second run
+        <button type="button" class="copy-all" data-copy-target="editrunCmds" title="Copy all commands to the clipboard"><i class="fa-solid fa-copy" aria-hidden="true"></i><i class="fa-solid fa-check" aria-hidden="true"></i><span class="copy-all-label" aria-live="polite">Copy all commands</span></button>
+      </div>
+      <div class="card-sub">Change <code>&gt;</code> to <code>Enter question&gt;</code>, rebuild, run again</div>
+<pre class="cmd" tabindex="0" role="region" aria-label="Commands" id="editrunCmds">
+<span class="sh">$</span> sed -i 's/\\n&gt; /\\nEnter question&gt; /g' ./tools/cli/cli-ui.h
+<span class="sh">$</span> cmake --build build --config Release
+<span class="sh">$</span> ./build/bin/llama-cli -hf ggml-org/Qwen3.5-0.8B-GGUF --chat-template-kwargs '{"enable_thinking":false}'</pre>
+<pre class="terminal" tabindex="0" role="region" aria-label="Terminal output">
+<span class="q">Enter question&gt; In one sentence, why is the sky blue?</span>
+<span class="a">The sky looks blue because air scatters short blue wavelengths of
+sunlight more strongly than long red ones, so blue light reaches your
+eyes from all directions.</span>
+<span class="x">[CNTRL+C]</span></pre>
+    </div>
+
+    <footer>
+      <span style="font-size:0.72rem;">Page generated <span id="fileDate"></span></span>
+    </footer>
+  </main>
+
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script>
+  (function() {
+    var backToTop = document.getElementById('backToTop');
+
+    if (backToTop) {
+      window.addEventListener('scroll', function() {
+        backToTop.classList.toggle('visible', window.scrollY > 400);
+      });
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+    }
+
+    var fd = document.getElementById('fileDate');
+    if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+
+    document.querySelectorAll('.copy-all').forEach(function(copyBtn) {
+      var copySrc = document.getElementById(copyBtn.getAttribute('data-copy-target'));
+      if (!copySrc) return;
+      var copyLabel = copyBtn.querySelector('.copy-all-label');
+      var copyTimer = null;
+
+      copyBtn.addEventListener('click', function() {
+        // drop the "$ " prompt markers and the leading blank line so the
+        // clipboard holds runnable commands, not a transcript
+        var text = copySrc.textContent
+          .split('\n')
+          .map(function(line) { return line.replace(/^\$\s?/, ''); })
+          .join('\n')
+          .replace(/^\n+/, '')
+          .replace(/\s+$/, '');
+
+        function done() {
+          copyBtn.classList.add('copied');
+          if (copyLabel) copyLabel.textContent = 'Copied';
+          copyBtn.setAttribute('aria-label', 'Commands copied to clipboard');
+          if (copyTimer) clearTimeout(copyTimer);
+          copyTimer = setTimeout(function() {
+            copyBtn.classList.remove('copied');
+            if (copyLabel) copyLabel.textContent = 'Copy all commands';
+            copyBtn.removeAttribute('aria-label');
+          }, 2000);
+        }
+
+        function fallbackCopy() {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta);
+          done();
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
