@@ -10,6 +10,7 @@
   <meta name="description" content="Current national leaders, four plausible future leaders each for the UK, USA, China, Russia and frontier AI, with capability-ranked language models." />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
+  <meta name="author" content="AI Playground" />
   <meta property="og:title" content="Current &amp; Future World Leaders — UK, USA, China, Russia &amp; AI" />
   <meta property="og:description" content="A sourced snapshot of current national leaders, plausible successors and the frontier LLM race." />
   <meta property="og:type" content="website" />
@@ -279,6 +280,9 @@
       .leadership-statement strong { color: #111 !important; }
     }
     html { scroll-behavior: smooth; overscroll-behavior: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
     h1, h2, h3 { text-wrap: balance; }
@@ -301,7 +305,7 @@
       While all humans possess equal inherent moral worth and rights, they are not born identical in individual talents, traits, and social advantages. Consequently, societies naturally develop functional hierarchies and leadership roles to efficiently coordinate group survival, make decisions, and achieve collective goals.
     </aside>
 
-    <nav class="nav-chips" aria-label="Jump to a section">
+    <nav class="nav-chips" aria-label="Jump to a section" role="navigation">
       <a class="nav-chip" href="#overview"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Overview</a>
       <a class="nav-chip" href="#uk"><i class="fa-solid fa-flag" aria-hidden="true"></i> UK</a>
       <a class="nav-chip" href="#usa"><i class="fa-solid fa-star" aria-hidden="true"></i> USA</a>
@@ -311,17 +315,17 @@
       <a class="nav-chip" href="#methodology"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i> Methodology</a>
     </nav>
 
-    <div class="status-bar" id="statusBar" role="status" aria-live="polite"></div>
-    <div class="stats-row" id="statsRow"></div>
+    <div class="status-bar" id="statusBar" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="stats-row" id="statsRow" role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <search class="search-wrap">
+    <search class="search-wrap" role="search">
       <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
       <input type="search" id="leaderSearch" class="search-input" placeholder="Search leaders, countries, parties or models…" aria-label="Search leaders and AI models" spellcheck="false" autocomplete="off" enterkeyhint="search" />
       <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
       <kbd class="search-kbd">/</kbd>
     </search>
 
-    <div class="overview-card" id="overview">
+    <div class="overview-card" id="overview" role="region" aria-label="Overview" tabindex="-1">
       <h2 class="card-title"><i class="fa-solid fa-compass" aria-hidden="true"></i> How to read this page</h2>
       <ul class="overview-list">
         <li><strong>Current political leaders</strong> are verified officeholders on the stated date; each country list is selective, not exhaustive.</li>
@@ -334,12 +338,12 @@
 
     <div id="leaderContent"></div>
 
-    <div class="no-results" id="noResults">
-      <i class="fa-solid fa-magnifying-glass" style="font-size:1.5rem;color:rgba(148,163,184,0.3);display:block;margin-bottom:0.5rem;"></i>
+    <div class="no-results" id="noResults" role="status" aria-live="polite" aria-atomic="true">
+      <i class="fa-solid fa-magnifying-glass" style="font-size:1.5rem;color:rgba(148,163,184,0.3);display:block;margin-bottom:0.5rem;" aria-hidden="true"></i>
       No matches found. Try a person, office, country, party, developer or model.
     </div>
 
-    <section class="card" id="methodology">
+    <section class="card" id="methodology" role="region" aria-label="Methodology and limitations" tabindex="-1">
       <h2 class="card-title"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i> Methodology &amp; Limitations</h2>
       <p class="card-sub">Political entries prioritise official government and parliament sources. Potential leaders are selected for institutional position, electoral or party standing, public office and a credible route to the top job; inclusion is not an endorsement. AI entries prioritise official release announcements, with capability rank drawn from the Artificial Analysis Intelligence Index v4.3.2 snapshot accessed 24 September 2026. That composite covers agentic knowledge work, professional work, SaaS workflows, terminal and scientific coding, hard reasoning, document reasoning, factuality and long-context reasoning. The displayed family rank uses the highest evaluated configuration once per listed model family; it is not a percentage, a quality guarantee or a price-performance ranking. Benchmarks can be contaminated or task-limited, model fallbacks can affect results, and availability changes quickly. Upcoming AI entries are ordered qualitatively by strategic scope and confirmation, because no comparable independent score exists yet.</p>
       <p class="card-sub" style="margin-bottom:0;">This page is an informational snapshot, not a forecast, investment recommendation or endorsement of any political person or model.</p>
@@ -351,7 +355,7 @@
     </footer>
   </main>
 
-  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
 
   <script>
   (function() {

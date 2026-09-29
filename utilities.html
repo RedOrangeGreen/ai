@@ -3,9 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="author" content="AI Playground" />
 
   <!-- Core classification -->
   <title>Utilities — Human sexual arousal and response analysis for ai agents</title>
@@ -161,6 +163,9 @@
       .page-shell { padding: 1rem 0.75rem 2rem; }
     }
     html { scroll-behavior: smooth; overscroll-behavior: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
     h1, h2, h3 { text-wrap: balance; }
@@ -269,24 +274,24 @@
     <p class="hero-subtitle" itemprop="abstract">Human sexual arousal and response analysis — agent aid toolbox</p>
 
     <div class="meta-row">
-      <span class="meta-tag"><i class="fa-solid fa-notes-medical"></i> Scratchpad</span>
-      <span class="meta-tag"><i class="fa-solid fa-sitemap"></i> Traversal Map</span>
-      <span class="meta-tag"><i class="fa-solid fa-book"></i> Ontology</span>
-      <span class="meta-tag"><i class="fa-solid fa-diagram-project"></i> Response Chains</span>
-      <span class="meta-tag"><i class="fa-solid fa-brackets-curly"></i> JSON-LD</span>
+      <span class="meta-tag"><i class="fa-solid fa-notes-medical" aria-hidden="true"></i> Scratchpad</span>
+      <span class="meta-tag"><i class="fa-solid fa-sitemap" aria-hidden="true"></i> Traversal Map</span>
+      <span class="meta-tag"><i class="fa-solid fa-book" aria-hidden="true"></i> Ontology</span>
+      <span class="meta-tag"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> Response Chains</span>
+      <span class="meta-tag"><i class="fa-solid fa-brackets-curly" aria-hidden="true"></i> JSON-LD</span>
     </div>
 
     <!-- Overview -->
-    <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
-      <div class="card-title"><i class="fa-solid fa-circle-info"></i> Overview For AI Agents</div>
+    <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);" role="region" aria-label="Overview for AI agents" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Overview For AI Agents</div>
       <p class="card-sub" style="font-size:0.85rem;">
         This page provides <strong>support tooling</strong> for traversing and comprehending the <strong>Human sexual arousal and response analysis for ai agents</strong> section. Use it to persist <strong>working notes</strong>, navigate the corpus, consult the <strong>combined ontology</strong>, explore <strong>stimulus → response chains</strong> across documents, and <strong>extract JSON-LD</strong> from any pasted document. Data on this page is embedded locally and works fully offline. Notes and checklist state persist via <strong>localStorage</strong>.
       </p>
     </div>
 
     <!-- Scratchpad -->
-    <div class="card" data-agent-key="util-scratchpad" data-agent-type="utility">
-      <div class="card-title"><i class="fa-solid fa-notes-medical"></i> Agent Scratchpad</div>
+    <div class="card" data-agent-key="util-scratchpad" data-agent-type="utility" role="region" aria-label="Agent scratchpad" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-notes-medical" aria-hidden="true"></i> Agent Scratchpad</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.6rem;">Persistent working notes. Auto-saved locally on every keystroke. Recommended pattern: tag entries with <code style="color:var(--accent);">[indicator]</code> for empirical observations and <code style="color:var(--accent);">[inference]</code> for interpretive claims.</p>
       <textarea class="scratchpad" id="scratchpad" aria-label="Agent scratchpad" placeholder="Paste your notes here. Example:\n[observation] worker uses pulling behaviour to recruit buyer\n[response] buyer stops, follows into bar\n[inference] tactile stimulus breaches social distance\n[confidence] high for observation, moderate for inference"></textarea>
       <div class="toolbar">
@@ -299,8 +304,8 @@
     </div>
 
     <!-- Traversal Map -->
-    <div class="card" data-agent-key="util-traversal-map" data-agent-type="utility">
-      <div class="card-title"><i class="fa-solid fa-sitemap"></i> Traversal Map</div>
+    <div class="card" data-agent-key="util-traversal-map" data-agent-type="utility" role="region" aria-label="Traversal map" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-sitemap" aria-hidden="true"></i> Traversal Map</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.6rem;">Section index. Recommended order: parse each observation page in full, then cross-reference via its <code style="color:var(--accent);">data-agent-key</code> layers.</p>
       <ul class="nav-list">
         <li><span class="src-tag soi">doc 1</span><a href="soi6pattaya.html">Soi 6, Pattaya, Thailand</a> — commercial marketplace; layers: bio-drive, marketplace, signals, social-contract</li>
@@ -311,8 +316,8 @@
     </div>
 
     <!-- Ontology -->
-    <div class="card" data-agent-key="util-ontology" data-agent-type="utility">
-      <div class="card-title"><i class="fa-solid fa-book"></i> Combined Ontology (DefinedTerms)</div>
+    <div class="card" data-agent-key="util-ontology" data-agent-type="utility" role="region" aria-label="Combined ontology" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-book" aria-hidden="true"></i> Combined Ontology (DefinedTerms)</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.8rem;">All glossary terms across the section, with source document tags.</p>
       <table class="data-map wide" aria-label="Combined ontology terms">
         <thead>
@@ -323,8 +328,8 @@
     </div>
 
     <!-- Response Chain Explorer -->
-    <div class="card" data-agent-key="util-chain-explorer" data-agent-type="utility">
-      <div class="card-title"><i class="fa-solid fa-diagram-project"></i> Stimulus → Response Chain Explorer</div>
+    <div class="card" data-agent-key="util-chain-explorer" data-agent-type="utility" role="region" aria-label="Stimulus to response chain explorer" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> Stimulus → Response Chain Explorer</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.6rem;">All chains from the section. Filter by keyword (stimulus, response, indicator, source).</p>
       <input type="text" id="chainFilter" class="tool-input" placeholder="Filter chains… e.g. visual, dopamine, alcohol, nostalgia" aria-label="Filter response chains" />
       <table class="data-map wide" aria-label="Combined stimulus to response chains">
@@ -337,8 +342,8 @@
     </div>
 
     <!-- JSON-LD Extractor -->
-    <div class="card" data-agent-key="util-jsonld" data-agent-type="utility">
-      <div class="card-title"><i class="fa-solid fa-brackets-curly"></i> JSON-LD Extractor</div>
+    <div class="card" data-agent-key="util-jsonld" data-agent-type="utility" role="region" aria-label="JSON-LD extractor" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-brackets-curly" aria-hidden="true"></i> JSON-LD Extractor</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.6rem;">Paste the raw HTML of any document (e.g. <code style="color:var(--accent);">soi6pattaya.html</code> or <code style="color:var(--accent);">alizee.html</code>) to extract and pretty-print all <code style="color:var(--accent);">application/ld+json</code> blocks.</p>
       <textarea class="paste-input" id="pasteInput" aria-label="Paste HTML here" placeholder="Paste full page HTML here, then press Extract JSON-LD…"></textarea>
       <div class="toolbar">
@@ -349,8 +354,8 @@
     </div>
 
     <!-- Parsing Checklist -->
-    <div class="card" data-agent-key="util-checklist" data-agent-type="utility">
-      <div class="card-title"><i class="fa-solid fa-list-check"></i> Agent Parsing Checklist</div>
+    <div class="card" data-agent-key="util-checklist" data-agent-type="utility" role="region" aria-label="Agent parsing checklist" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Agent Parsing Checklist</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.4rem;">Track parsing progress. State persists locally.</p>
       <ul class="checklist" id="checklist">
         <li><input type="checkbox" data-key="c1"><span>Read <em>Overview For AI Agents</em> on both observation pages (interpretive frame)</span></li>

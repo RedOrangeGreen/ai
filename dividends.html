@@ -10,6 +10,7 @@
   <meta name="description" content="High-yielding dividend stocks, savings accounts, and a Jan–Dec dividend-payment calendar for the LSE, NYSE and NASDAQ." />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
+  <meta name="author" content="AI Playground" />
   <meta property="og:title" content="Best UK &amp; USA Dividends and Savings" />
   <meta property="og:description" content="A curated watchlist of high-yielding dividend stocks, savings accounts, and typical dividend-payment months across the LSE, NYSE and NASDAQ." />
   <meta property="og:type" content="website" />
@@ -218,6 +219,9 @@
       .stock-table tbody td { padding: 0.5rem 0.4rem; }
     }
     html { scroll-behavior: smooth; overscroll-behavior: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
     h1, h2, h3 { text-wrap: balance; }
@@ -350,7 +354,7 @@
       <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
       <div><strong>Verify before acting.</strong> Yields, bonuses, account limits, fees, tax treatment and market prices change frequently. Payment months are indicative, not guarantees. This page is educational and is not financial advice or a recommendation to buy or hold any product.</div>
     </aside>
-    <nav class="nav-chips" aria-label="Jump to a section">
+    <nav class="nav-chips" aria-label="Jump to a section" role="navigation">
       <a class="nav-chip" href="#charts"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Charts</a>
       <a class="nav-chip" href="#marketCard"><i class="fa-solid fa-clock" aria-hidden="true"></i> Market Hours</a>
       <a class="nav-chip" href="#lse-card"><i class="fa-solid fa-landmark" aria-hidden="true"></i> LSE Stocks</a>
@@ -365,8 +369,8 @@
       <a class="nav-chip" href="#us-money-market">US Money Market</a>
     </nav>
 
-    <div class="card" aria-label="Key to terms used on this page">
-      <div class="card-title"><i class="fa-solid fa-book-open"></i> Key: Understanding the Terms</div>
+    <div class="card" aria-label="Key to terms used on this page" role="region" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Key: Understanding the Terms</div>
       <div class="card-sub">What the figures in the charts and tables below mean</div>
       <table class="stock-table" aria-label="Key to abbreviations used on this page">
         <thead><tr><th scope="col" style="text-align:left">Term</th><th scope="col" style="text-align:left">Meaning</th></tr></thead>
@@ -397,18 +401,18 @@
 
     <div class="chart-grid" id="charts" aria-label="2026 index performance charts">
       <div class="card">
-        <div class="card-title"><i class="fa-solid fa-chart-line"></i> FTSE 100 Index <span class="chart-price" id="ftsePrice"></span><span class="chart-badge" id="ftseBadge"></span></div>
+        <div class="card-title"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> FTSE 100 Index <span class="chart-price" id="ftsePrice"></span><span class="chart-badge" id="ftseBadge"></span></div>
         <div class="card-sub">Weekly closes with the latest available market price — start of 2026 to current week <span class="chart-latest" id="ftseLatest"></span></div>
         <svg id="ftseChart" class="line-chart" role="img" aria-label="FTSE 100 weekly close prices and latest 2026 market price"></svg>
       </div>
       <div class="card">
-        <div class="card-title"><i class="fa-solid fa-chart-line"></i> S&amp;P 500 Index <span class="chart-price" id="gspcPrice"></span><span class="chart-badge" id="gspcBadge"></span></div>
+        <div class="card-title"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> S&amp;P 500 Index <span class="chart-price" id="gspcPrice"></span><span class="chart-badge" id="gspcBadge"></span></div>
         <div class="card-sub">Weekly closes with the latest available market price — start of 2026 to current week <span class="chart-latest" id="gspcLatest"></span></div>
         <svg id="gspcChart" class="line-chart" role="img" aria-label="S&amp;P 500 weekly close prices and latest 2026 market price"></svg>
       </div>
     </div>
 
-    <div class="card" id="marketCard" aria-label="Exchange trading hours" aria-live="off">
+    <div class="card" id="marketCard" aria-label="Exchange trading hours" aria-live="off" role="region" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-clock" aria-hidden="true"></i> Market Hours</div>
       <p class="card-sub">Regular weekday sessions only. Public holidays and exchange-specific early closes are not reflected.</p>
       <div class="market-grid">
@@ -430,19 +434,19 @@
       </div>
     </div>
 
-    <div id="statusBar" class="status-bar" role="status" aria-live="polite"></div>
+    <div id="statusBar" class="status-bar" role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <div class="stats-row" id="statsRow"></div>
+    <div class="stats-row" id="statsRow" role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <search class="search-wrap">
+    <search class="search-wrap" role="search">
       <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
       <input type="search" id="stockSearch" class="search-input" placeholder="Search stocks, savings &amp; accounts…" aria-label="Search stocks, savings and accounts by name, ticker, or payment month" spellcheck="false" autocomplete="off" enterkeyhint="search" />
       <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
       <kbd class="search-kbd">/</kbd>
     </search>
 
-    <div class="card" id="lse-card">
-      <div class="card-title"><i class="fa-solid fa-landmark"></i> LSE</div>
+    <div class="card" id="lse-card" role="region" aria-label="LSE stocks" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-landmark" aria-hidden="true"></i> LSE</div>
       <div class="card-sub">London Stock Exchange — curated watchlist · gross cash yields as of 24 Sep 2026 · property distributions may be taxable</div>
       <table class="stock-table" aria-label="High-yield LSE dividend stocks">
         <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
@@ -450,8 +454,8 @@
       </table>
     </div>
 
-    <div class="card" id="nyse-card">
-      <div class="card-title"><i class="fa-solid fa-building-columns"></i> NYSE</div>
+    <div class="card" id="nyse-card" role="region" aria-label="NYSE stocks" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> NYSE</div>
       <div class="card-sub">New York Stock Exchange — curated watchlist · indicated yields as of 24 Sep 2026</div>
       <table class="stock-table" aria-label="High-yield NYSE dividend stocks">
         <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
@@ -459,8 +463,8 @@
       </table>
     </div>
 
-    <div class="card" id="nasdaq-card">
-      <div class="card-title"><i class="fa-solid fa-chart-simple"></i> NASDAQ</div>
+    <div class="card" id="nasdaq-card" role="region" aria-label="NASDAQ stocks" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> NASDAQ</div>
       <div class="card-sub">NASDAQ — curated watchlist · indicated yields as of 24 Sep 2026</div>
       <table class="stock-table" aria-label="High-yield NASDAQ dividend stocks">
         <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
@@ -470,15 +474,15 @@
 
     <section id="dividend-months" aria-labelledby="dividend-months-title">
       <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
-        <div class="card-title" id="dividend-months-title"><i class="fa-solid fa-calendar-days"></i> Dividend Payment Months — Jan to Dec</div>
+        <div class="card-title" id="dividend-months-title"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Dividend Payment Months — Jan to Dec</div>
         <div class="card-sub">Companies in the watchlist that typically make cash dividend payments in each month of the year. US months use announced payment dates; LSE months use the latest published recurring schedules. Payment months can shift, and a payment date is not the same as the ex-dividend date.</div>
         <p class="card-sub" style="margin-bottom:0;">Data checked 24 Sep 2026 from <a class="stock-link" href="https://stockanalysis.com/" target="_blank" rel="noopener noreferrer">StockAnalysis / S&amp;P Global</a> for US stocks and company or <a class="stock-link" href="https://www.londonstockexchange.com/" target="_blank" rel="noopener noreferrer">London Stock Exchange</a> announcements for UK stocks. The calendar reflects Standard Life's current SDLF ticker and Barratt Redrow's reduced 1p forward run-rate. Verify future dates before relying on them.</p>
       </div>
       <div class="month-grid" id="dividendMonthTables"></div>
     </section>
 
-    <div class="card" id="uk-savings">
-      <div class="card-title"><i class="fa-solid fa-piggy-bank"></i> Best UK Savings Accounts</div>
+    <div class="card" id="uk-savings" role="region" aria-label="UK savings accounts" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i> Best UK Savings Accounts</div>
       <div class="card-sub">Top 5 highest-yield UK savings accounts — rates as of 17 Sep 2026, variable</div>
       <table class="stock-table table-searchable" aria-label="Top 5 UK high-yield savings accounts">
         <thead><tr><th scope="col">#</th><th scope="col">Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
@@ -512,8 +516,8 @@
       </table>
     </div>
 
-<div class="card" id="uk-current-accounts">
-      <div class="card-title"><i class="fa-solid fa-building-columns"></i> Best UK High-Street Current Accounts</div>
+<div class="card" id="uk-current-accounts" role="region" aria-label="UK current accounts">
+      <div class="card-title"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> Best UK High-Street Current Accounts</div>
       <div class="card-sub">In-credit interest on current account balances from the main branch-based UK banks — rates as of Sep 2026, variable · eligibility, pay-in and fee conditions apply</div>
       <table class="stock-table table-searchable" aria-label="Top 5 UK high-street bank current account interest">
         <thead><tr><th scope="col">#</th><th scope="col">Bank / Account</th><th scope="col" style="text-align:right">Interest</th></tr></thead>
@@ -548,8 +552,8 @@
       <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">Standard accounts at Barclays, HSBC, NatWest, TSB and Lloyds pay 0% in-credit interest — keep day-to-day cash here only, and your savings in the accounts above.</p>
     </div>
 
-<div class="card" id="uk-isa">
-      <div class="card-title"><i class="fa-solid fa-box-open"></i> Best UK Cash ISA Accounts (Tax Free)</div>
+<div class="card" id="uk-isa" role="region" aria-label="UK cash ISA accounts">
+      <div class="card-title"><i class="fa-solid fa-box-open" aria-hidden="true"></i> Best UK Cash ISA Accounts (Tax Free)</div>
       <div class="card-sub">Top easy-access Cash ISAs — interest is tax-free up to your £20,000/yr allowance · rates as of Sep 2026, variable · most include a time-limited bonus</div>
       <table class="stock-table table-searchable" aria-label="Top 5 UK easy-access cash ISAs">
         <thead><tr><th scope="col">#</th><th scope="col">Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
@@ -584,8 +588,8 @@
       <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">Rates drop when bonuses expire — set a reminder to review before they do. NEW MONEY rule: these are next year&rsquo;s £12,000 cash ISA (under-65s); £20,000/yr allowance ends April 2027.</p>
     </div>
 
-    <div class="card" id="us-savings">
-      <div class="card-title"><i class="fa-solid fa-piggy-bank"></i> Best USA Savings Accounts</div>
+    <div class="card" id="us-savings" role="region" aria-label="US savings accounts" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i> Best USA Savings Accounts</div>
       <div class="card-sub">Top 5 highest-yield US savings accounts — rates as of 16 Sep 2026, variable</div>
       <table class="stock-table table-searchable" aria-label="Top 5 US high-yield savings accounts">
         <thead><tr><th scope="col">#</th><th scope="col">Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
@@ -619,8 +623,8 @@
       </table>
     </div>
 
-    <div class="card" id="us-current-accounts">
-      <div class="card-title"><i class="fa-solid fa-credit-card"></i> Best US High-Street Bank Current Accounts</div>
+    <div class="card" id="us-current-accounts" role="region" aria-label="US checking accounts" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-credit-card" aria-hidden="true"></i> Best US High-Street Bank Current Accounts</div>
       <div class="card-sub">Big US banks pay almost nothing on checking balances — collect the interest in a high-yield savings account instead (4–6% APY, see above)</div>
       <table class="stock-table table-searchable" aria-label="Top 5 US high-street bank checking account interest">
         <thead><tr><th scope="col">#</th><th scope="col">Bank / Account</th><th scope="col" style="text-align:right">Interest</th></tr></thead>
@@ -655,8 +659,8 @@
       <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">Every major US bank pays 0.01% APY (or 0%) on checking — ~400× less than the top savings accounts on this page.</p>
     </div>
 
-    <div class="card" id="us-money-market">
-      <div class="card-title"><i class="fa-solid fa-money-bill-trend-up"></i> Best US Money Market Accounts</div>
+    <div class="card" id="us-money-market" role="region" aria-label="US money market accounts" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-money-bill-trend-up" aria-hidden="true"></i> Best US Money Market Accounts</div>
       <div class="card-sub">Money market accounts pay savings-style yields with check &amp; debit access — FDIC-insured up to $250,000 · interest is federally taxable · rates as of Sep 2026, variable</div>
       <table class="stock-table table-searchable" aria-label="Top 5 US money market accounts">
         <thead><tr><th scope="col">#</th><th scope="col">Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
@@ -691,8 +695,8 @@
       <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">The national average MMA rate is just 0.45% APY — the accounts above pay ~8× more. Expect variable APYs; earlier Bankrate monthly rates pivoted ~3.5–4%.</p>
     </div>
 
-    <div class="no-results" id="noResults">
-      <i class="fa-solid fa-magnifying-glass" style="font-size:1.5rem;color:rgba(148,163,184,0.3);display:block;margin-bottom:0.5rem;"></i>
+    <div class="no-results" id="noResults" role="status" aria-live="polite" aria-atomic="true">
+      <i class="fa-solid fa-magnifying-glass" style="font-size:1.5rem;color:rgba(148,163,184,0.3);display:block;margin-bottom:0.5rem;" aria-hidden="true"></i>
       No matches found for your search. Try a company, ticker, month, or account name.
     </div>
 
@@ -702,7 +706,7 @@
     </footer>
   </main>
 
-  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
 
   <script>
   (function() {

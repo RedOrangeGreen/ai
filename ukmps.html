@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="description" content="UK MPs — Members of the House of Parliament" />
+  <meta name="robots" content="index, follow" />
+  <meta name="view-transition" content="same-origin" />
+  <meta name="author" content="AI Playground" />
+  <meta property="og:title" content="UK MPs" />
+  <meta property="og:description" content="UK MPs" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="UK MPs" />
+  <meta name="twitter:description" content="UK MPs" />
+  <title>UK MPs</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E🏛️%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <style>
+    @layer reset, base, components, utilities;
+
+    @layer base {
+      :root {
+        accent-color: #38bdf8;
+        --bg-body: #050816;
+        --bg-elevated: #0b1020;
+        --accent: #38bdf8;
+        --accent-soft: rgba(56,189,248,0.12);
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --text-dim: rgba(148,163,184,0.62);
+        --border-subtle: rgba(148,163,184,0.25);
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
+        --transition-fast: 0.18s ease-out;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --purple: #a855f7;
+        --red: #ef4444;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      margin: 0; min-height: 100vh; min-height: 100dvh;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .page-shell { max-width: 1240px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+    .hero-title {
+      font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 0.4rem;
+    }
+    .hero-title span {
+      background: linear-gradient(120deg,#38bdf8,#a855f7,#f97316);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      background-size: 200% 200%; animation: gradientShift 4s ease infinite;
+    }
+    @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6; }
+    .leadership-statement {
+      margin: 0 0 1.25rem; padding: 1rem 1.2rem; border-left: 3px solid var(--accent);
+      border-radius: 0 14px 14px 0; background: rgba(56,189,248,0.055);
+      color: var(--text-muted); font-size: 0.88rem; line-height: 1.65;
+    }
+    .leadership-statement strong { display: block; margin-bottom: 0.25rem; color: var(--text-main); }
+    .nav-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.9rem 0 1.35rem; }
+    .nav-chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.76rem; color: var(--text-muted); text-decoration: none;
+      padding: 0.3rem 0.7rem; border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill); background: rgba(15,23,42,0.6);
+      transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+    .nav-chip:hover { color: var(--accent); border-color: rgba(56,189,248,0.5); background: rgba(56,189,248,0.06); }
+    .status-bar {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      font-size: 0.8rem; color: var(--text-muted);
+      background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15);
+      border-radius: var(--radius-pill); padding: 0.45rem 1rem; margin-bottom: 1.2rem;
+      text-align: center; flex-wrap: wrap;
+    }
+    .status-bar i { color: var(--accent); font-size: 0.7rem; }
+    .status-bar .sep { width: 3px; height: 3px; border-radius: 999px; background: rgba(148,163,184,0.5); flex-shrink: 0; }
+    .status-bar .source { color: var(--accent); }
+    .stats-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .stat-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border-radius: var(--radius-pill); padding: 0.3rem 0.75rem;
+      font-size: 0.78rem; background: rgba(15,23,42,0.9);
+      border: 1px solid var(--border-subtle); color: var(--text-muted);
+    }
+    .stat-pill i { color: var(--accent); font-size: 0.7rem; }
+    .stat-pill strong { color: var(--text-main); font-weight: 600; }
+    .search-wrap { position: relative; margin-bottom: 1.2rem; }
+    .search-wrap > i {
+      position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 0.85rem; pointer-events: none;
+    }
+    .search-input {
+      width: 100%; border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.5); background: rgba(15,23,42,0.9);
+      color: var(--text-main); padding: 0.55rem 0.95rem 0.55rem 2.2rem;
+      font-size: 0.88rem; outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(56,189,248,0.6), 0 18px 40px rgba(15,23,42,0.9); }
+    .search-clear {
+      position: absolute; right: 2.7rem; top: 50%; transform: translateY(-50%);
+      border: none; background: transparent; color: var(--text-muted);
+      cursor: pointer; font-size: 0.85rem; padding: 0.2rem 0.4rem;
+    }
+    .search-clear:hover { color: var(--accent); }
+    .search-kbd {
+      position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%);
+      border: 1px solid rgba(148,163,184,0.4); border-radius: 5px;
+      padding: 0.05rem 0.4rem; font-family: inherit; font-size: 0.72rem;
+      color: var(--text-muted); pointer-events: none; background: rgba(15,23,42,0.6);
+    }
+    .search-stats {
+      display: none; font-size: 0.82rem; color: var(--text-muted);
+      margin-bottom: 0.8rem; padding: 0.4rem 0.8rem;
+      background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15);
+      border-radius: var(--radius-pill);
+    }
+    .search-stats.visible { display: block; }
+
+    .overview-card, .card {
+      padding: 1.4rem 1.6rem; border-radius: var(--radius-lg);
+      background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; overflow-x: auto;
+      content-visibility: auto; contain-intrinsic-size: auto 280px;
+    }
+    .overview-card { border-color: rgba(56,189,248,0.2); background: rgba(56,189,248,0.04); }
+    .card-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card-title i { color: var(--accent); font-size: 1rem; }
+    .card-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0 0 1rem; line-height: 1.55; }
+    .overview-list { margin: 0; padding-left: 1.2rem; color: var(--text-muted); font-size: 0.84rem; line-height: 1.7; }
+
+    .leader-section { scroll-margin-top: 1.5rem; }
+    .section-heading {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      margin: 1.7rem 0 0.8rem;
+    }
+    .section-heading-main { display: flex; align-items: center; gap: 0.65rem; min-width: 0; }
+    .section-icon {
+      width: 2.2rem; height: 2.2rem; border-radius: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25); color: var(--accent);
+    }
+    .section-heading h2 { margin: 0; font-size: 1.25rem; letter-spacing: -0.02em; }
+    .section-heading p { margin: 0.15rem 0 0; color: var(--text-muted); font-size: 0.78rem; }
+    .section-count {
+      flex-shrink: 0; border-radius: var(--radius-pill); padding: 0.2rem 0.6rem;
+      font-size: 0.72rem; color: var(--text-muted); background: rgba(148,163,184,0.12);
+    }
+    .leader-grid { display: grid; grid-template-columns: minmax(0,0.9fr) minmax(0,1.1fr); gap: 1.25rem; align-items: start; }
+    .leader-grid .card { margin-bottom: 1.5rem; }
+    .future-card { border-color: rgba(245,158,11,0.2); }
+    .future-card .card-title i { color: var(--amber); }
+
+    .data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.84rem; }
+    .data-table thead th {
+      text-align: left; font-weight: 600; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted);
+      padding: 0.5rem 0.55rem; border-bottom: 1px solid var(--border-subtle); white-space: nowrap;
+    }
+    .data-table th.number-cell, .data-table td.number-cell { text-align: right; }
+    .data-table td.salary-cell { color: #22c55e; font-weight: 600; }
+    .data-table th.sortable:hover { color: var(--accent); }
+    .data-table th.sortable::after {
+      content: ' (click to sort)';
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .data-table th.sortable:hover::after {
+      opacity: 1;
+    }
+    .rank-badge {
+      display: inline-flex; min-width: 2.15rem; min-height: 1.75rem; align-items: center; justify-content: center;
+      border-radius: 999px; border: 1px solid rgba(56,189,248,0.22); background: rgba(56,189,248,0.07);
+      color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums;
+    }
+    .rank-badge.rank-1 { color: #fef08a; background: rgba(250,204,21,0.1); border-color: rgba(250,204,21,0.32); }
+    .rank-badge.rank-2 { color: #e2e8f0; background: rgba(226,232,240,0.08); border-color: rgba(226,232,240,0.28); }
+    .rank-badge.rank-3 { color: #fdba74; background: rgba(251,146,60,0.1); border-color: rgba(251,146,60,0.3); }
+    .capability-score { color: var(--text-main); font-size: 1rem; font-weight: 750; font-variant-numeric: tabular-nums; }
+    .data-table tbody tr { transition: background 0.15s ease; }
+    .data-table tbody tr:hover { background: rgba(56,189,248,0.06); }
+    .data-table tbody td { padding: 0.62rem 0.55rem; border-bottom: 1px solid rgba(148,163,184,0.08); vertical-align: top; }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .primary-cell { color: var(--text-main); font-weight: 600; min-width: 8rem; }
+    .secondary { display: block; color: var(--text-muted); font-size: 0.73rem; font-weight: 400; margin-top: 0.2rem; line-height: 1.45; }
+    .muted { color: var(--text-muted); }
+    .source-link {
+      color: var(--accent); text-decoration: none; border-bottom: 1px dotted rgba(56,189,248,0.4);
+      white-space: nowrap;
+    }
+    .source-link:hover { color: #7dd3fc; border-bottom-color: #7dd3fc; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      border-radius: var(--radius-pill); padding: 0.18rem 0.5rem;
+      font-size: 0.67rem; font-weight: 700; letter-spacing: 0.025em;
+      border: 1px solid transparent; white-space: nowrap;
+    }
+    .badge-current { color: var(--green); background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.25); }
+    .badge-confirmed { color: var(--accent); background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.25); }
+    .badge-likely { color: var(--amber); background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.25); }
+    .badge-speculative { color: var(--purple); background: rgba(168,85,247,0.1); border-color: rgba(168,85,247,0.25); }
+    .badge-open { color: var(--green); background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.25); }
+    .badge-closed { color: #fbbf24; background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.25); }
+    .badge-hybrid { color: #c4b5fd; background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.25); }
+
+    .ai-summary { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0.7rem; margin-bottom: 1.2rem; }
+    .summary-box { border: 1px solid var(--border-subtle); border-radius: 14px; padding: 0.8rem; background: rgba(5,8,22,0.58); }
+    .summary-box strong { display: block; color: var(--text-main); font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .summary-box span { color: var(--text-muted); font-size: 0.73rem; line-height: 1.45; }
+
+    .no-results {
+      display: none; text-align: center; padding: 2rem 1rem;
+      color: var(--text-muted); font-size: 0.88rem;
+    }
+    .no-results.visible { display: block; }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.95rem;
+      color: var(--text-muted); text-decoration: none; padding: 0.35rem 0;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover { color: var(--accent); }
+    footer {
+      margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid rgba(148,163,184,0.35);
+      font-size: 0.78rem; color: var(--text-muted); text-align: center; line-height: 1.6;
+    }
+    .noscript-notice {
+      margin: 0 auto 1rem; max-width: 1200px; padding: 0.9rem 1.1rem;
+      border-radius: 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    .back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px;
+      border-radius: 999px; border: none; background: linear-gradient(120deg,#38bdf8,#0ea5e9);
+      color: #0b1120; font-size: 1.1rem; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(8,47,73,0.6);
+      opacity: 0; transform: translateY(16px) scale(0.9);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000; pointer-events: none;
+    }
+    .back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .back-to-top:hover { transform: translateY(-2px) scale(1.05); }
+    .skip-link {
+      position: absolute; top: -999px; left: 0.5rem; z-index: 9999;
+      background: #0b1120; color: var(--accent); padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--accent); border-top: none;
+    }
+    .skip-link:focus { top: 0; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
+    ::selection { background: rgba(56,189,248,0.3); color: #fff; }
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (max-width: 900px) {
+      .leader-grid { grid-template-columns: 1fr; }
+      .ai-summary { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .page-shell { padding: 1rem 0.75rem 2rem; }
+      .overview-card, .card { padding: 1rem; }
+      .data-table { font-size: 0.8rem; }
+      .data-table thead th { font-size: 0.66rem; }
+      .data-table tbody td { padding: 0.52rem 0.4rem; }
+      .section-heading { align-items: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+      html { scroll-behavior: auto; }
+    }
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .btn-back, footer, .status-bar, .nav-chips, .search-wrap, .back-to-top { display: none !important; }
+      .overview-card, .card { border: 1px solid #ddd !important; box-shadow: none !important; content-visibility: visible !important; }
+      .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; }
+      .muted, .card-sub, .secondary, footer, .leadership-statement { color: #333 !important; }
+      .leadership-statement { background: #f4f4f5 !important; border-left-color: #555 !important; }
+      .leadership-statement strong { color: #111 !important; }
+    }
+    html { scroll-behavior: smooth; overscroll-behavior: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+    * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
+    h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page uses JavaScript to render content. Please enable JavaScript to continue.</div></noscript>
+
+  <main id="main-content" class="page-shell" tabindex="-1">
+    <div style="margin-bottom:0.5rem;">
+      <a href="index.html" class="btn-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back</a>
+    </div>
+
+    <h1 class="hero-title"><span>UK MPs</span></h1>
+    <p class="hero-subtitle">Members of Parliament</p>
+
+                        <section class="card" id="mp-list" role="region" aria-label="UK Members of Parliament list" tabindex="-1">
+      <h2 class="card-title"><i class="fa-solid fa-users" aria-hidden="true"></i> UK Members of Parliament</h2>
+      <p class="card-sub">All 639 current Members of the House of Commons, sorted by surname. Data sourced from TheyWorkForYou, UK Parliament, and Wikidata.</p>
+      <div class="search-wrap" role="search">
+        <i class="fa-solid fa-search" aria-hidden="true"></i>
+        <input type="search" class="search-input" id="mpSearch" placeholder="Search by name, constituency, party, or role..." aria-label="Search MPs" spellcheck="false" autocomplete="off" enterkeyhint="search" />
+        <button class="search-clear" id="searchClear" aria-label="Clear search"><i class="fa-solid fa-times" aria-hidden="true"></i></button>
+        <span class="search-kbd">/</span>
+      </div>
+      <div class="search-stats" id="searchStats" role="status" aria-live="polite" aria-atomic="true"></div>
+      <table class="data-table" aria-label="UK Members of Parliament">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Constituency</th>
+            <th scope="col">Party</th>
+            <th scope="col">Role</th>
+            <th scope="col" class="sortable" id="salarySort" style="cursor:pointer; user-select:none;" title="Click to sort by salary">Salary <span id="sortIcon">↕</span></th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr><td class="primary-cell">Diane Abbott</td><td>Hackney North and Stoke Newington</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jack Abbott</td><td>Ipswich</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Debbie Abrahams</td><td>Oldham East and Saddleworth</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Shockat Adam</td><td>Leicester South</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Zubir Ahmed</td><td>Glasgow South West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Luke Akehurst</td><td>North Durham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sadik Al-Hassan</td><td>North Somerset</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Bayo Alaba</td><td>Southend East and Rochford</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Dan Aldridge</td><td>Weston-super-Mare</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Douglas Alexander</td><td>Lothian East</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Secretary of State for Scotland</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Heidi Alexander</td><td>Swindon South</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for Transport</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Rushanara Ali</td><td>Bethnal Green and Stepney</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tahir Ali</td><td>Birmingham Hall Green and Moseley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rosena Allin-Khan</td><td>Tooting</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jim Allister</td><td>North Antrim</td><td><span class="badge badge-current">Traditional Unionist Voice</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gideon Amos</td><td>Taunton and Wellington</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Callum Anderson</td><td>Buckingham and Bletchley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Fleur Anderson</td><td>Putney</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lee Anderson</td><td>Ashfield</td><td><span class="badge badge-current">Reform UK</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Stuart Anderson</td><td>South Shropshire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Stuart Andrew</td><td>Daventry</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tonia Antoniazzi</td><td>Gower</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Steffan Aquarone</td><td>North Norfolk</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Edward Argar</td><td>Melton and Syston</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Scott Arthur</td><td>Edinburgh South West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jessica Asato</td><td>Lowestoft</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">James Asser</td><td>West Ham and Beckton</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jas Athwal</td><td>Ilford South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Victoria Atkins</td><td>Louth and Horncastle</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Environment, Food and Rural Affairs</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Catherine Atkinson</td><td>Derby North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lewis Atkinson</td><td>Sunderland Central</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Josh Babarinde</td><td>Eastbourne</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gareth Bacon</td><td>Orpington</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kemi Badenoch</td><td>North West Essex</td><td><span class="badge badge-current">Conservative</span></td><td>Leader of the Official Opposition</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Calvin Bailey</td><td>Leyton and Wanstead</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Olivia Bailey</td><td>Reading West and Mid Berkshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Baines</td><td>St Helens North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex Baker</td><td>Aldershot</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Richard Baker</td><td>Glenrothes and Mid Fife</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Harriett Baldwin</td><td>West Worcestershire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex Ballinger</td><td>Halesowen</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Antonia Bance</td><td>Tipton and Wednesbury</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Steve Barclay</td><td>North East Cambridgeshire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Paula Barker</td><td>Liverpool Wavertree</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lee Barron</td><td>Corby and East Northamptonshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex Barros-Curtis</td><td>Cardiff West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Johanna Baxter</td><td>Paisley and Renfrewshire South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Danny Beales</td><td>Uxbridge and South Ruislip</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lorraine Beavers</td><td>Blackpool North and Fleetwood</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Peter Bedford</td><td>Mid Leicestershire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Órfhlaith Begley</td><td>West Tyrone</td><td><span class="badge badge-current">Sinn Féin</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Apsana Begum</td><td>Poplar and Limehouse</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Torsten Bell</td><td>Swansea West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Hilary Benn</td><td>Leeds South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alison Bennett</td><td>Mid Sussex</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Clive Betts</td><td>Sheffield South East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Saqib Bhatti</td><td>Meriden and Solihull East</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Polly Billington</td><td>East Thanet</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lara Bird</td><td>Arbroath and Broughty Ferry</td><td><span class="badge badge-current">Scottish National Party</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Matt Bishop</td><td>Forest of Dean</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Bob Blackman</td><td>Harrow East</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kirsty Blackman</td><td>Aberdeen North</td><td><span class="badge badge-current">Scottish National Party</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Olivia Blake</td><td>Sheffield Hallam</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rachel Blake</td><td>Cities of London and Westminster</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Christopher Bloore</td><td>Redditch</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Elsie Blundell</td><td>Heywood and Middleton North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kevin Bonavia</td><td>Stevenage</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Bool</td><td>South Northamptonshire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jade Botterill</td><td>Ossett and Denby Dale</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Bowie</td><td>West Aberdeenshire and Kincardine</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Energy Security</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sureena Brackenridge</td><td>Wolverhampton North East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Karen Bradley</td><td>Staffordshire Moorlands</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Aphra Brandreth</td><td>Chester South and Eddisbury</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jonathan Brash</td><td>Hartlepool</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Suella Braverman</td><td>Fareham and Waterlooville</td><td><span class="badge badge-current">Reform UK</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex Brewer</td><td>North East Hampshire</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Phil Brickell</td><td>Bolton West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jessica Brown-Fuller</td><td>Chichester</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Bryant</td><td>Rhondda and Ogmore</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for Northern Ireland</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Julia Buckley</td><td>Shrewsbury</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex Burghart</td><td>Brentwood and Ongar</td><td><span class="badge badge-current">Conservative</span></td><td>Deputy Leader of the Opposition</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Richard Burgon</td><td>Leeds East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Maureen Burke</td><td>Glasgow North East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andy Burnham</td><td>Makerfield</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Prime Minister and Party Leader</td><td class="number-cell salary-cell">£172,204</td></tr>
+        <tr><td class="primary-cell">David Burton-Sampson</td><td>Southend West and Leigh</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Dawn Butler</td><td>Brent East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ian Byrne</td><td>Liverpool West Derby</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Liam Byrne</td><td>Birmingham Hodge Hill and Solihull North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ruth Cadbury</td><td>Brentford and Isleworth</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Nesil Caliskan</td><td>Barking</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alan Campbell</td><td>Tynemouth</td><td><span class="badge badge-current">Labour</span></td><td>Lord President of the Council, Leader of the House of Commons</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Irene Campbell</td><td>North Ayrshire and Arran</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Juliet Campbell</td><td>Broxtowe</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Markus Campbell-Savours</td><td>Penrith and Solway</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Charlotte Cane</td><td>Ely and East Cambridgeshire</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Dan Carden</td><td>Liverpool Walton</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sam Carling</td><td>North West Cambridgeshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alistair Carmichael</td><td>Orkney and Shetland</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alistair Carns</td><td>Birmingham Selly Oak</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">James Cartlidge</td><td>South Suffolk</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Defence</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Chadwick</td><td>Brecon, Radnor and Cwm Tawe</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Wendy Chamberlain</td><td>North East Fife</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Danny Chambers</td><td>Winchester</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Champion</td><td>Rotherham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Bambos Charalambous</td><td>Southgate and Wood Green</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Luke Charters</td><td>York Outer</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Christopher Chope</td><td>Christchurch</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ellie Chowns</td><td>North Herefordshire</td><td><span class="badge badge-current">Green</span></td><td>Westminster Leader of the Green Party</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Feryal Clark</td><td>Enfield North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">James Cleverly</td><td>Braintree</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Geoffrey Clifton-Brown</td><td>North Cotswolds</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lewis Cocking</td><td>Broxbourne</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Coghlan</td><td>Dorking and Horley</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ben Coleman</td><td>Chelsea and Fulham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jacob Collier</td><td>Burton and Uttoxeter</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lizzi Collinge</td><td>Morecambe and Lunesdale</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tom Collins</td><td>Worcester</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Victoria Collins</td><td>Harpenden and Berkhamsted</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Liam Conlon</td><td>Beckenham and Penge</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Coombes</td><td>West Bromwich</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Cooper</td><td>Mid Cheshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Beccy Cooper</td><td>Worthing West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Daisy Cooper</td><td>St Albans</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Cooper</td><td>Dumfries and Galloway</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Yvette Cooper</td><td>Pontefract, Castleford and Knottingley</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for Health and Social Care</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Jeremy Corbyn</td><td>Islington North</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alberto Costa</td><td>South Leicestershire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Deirdre Costigan</td><td>Ealing Southall</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Claire Coutinho</td><td>East Surrey</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Business, Innovation, Science and Trade</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Geoffrey Cox</td><td>Torridge and Tavistock</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Pam Cox</td><td>Colchester</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Neil Coyle</td><td>Bermondsey and Old Southwark</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jennifer Craft</td><td>Thurrock</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mary Creagh</td><td>Coventry East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Stella Creasy</td><td>Walthamstow</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Torcuil Crichton</td><td>Na h-Eileanan an Iar</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Harriet Cross</td><td>Gordon and Buchan</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Scotland</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Pat Cullen</td><td>Fermanagh and South Tyrone</td><td><span class="badge badge-current">Sinn Féin</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Judith Cummins</td><td>Bradford South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Curtis</td><td>Milton Keynes North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Janet Daby</td><td>Lewisham East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Nicholas Dakin</td><td>Scunthorpe</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ashley Dalton</td><td>West Lancashire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Adam Dance</td><td>Yeovil</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Steve Darling</td><td>Torbay</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Emily Darlington</td><td>Milton Keynes Central</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Edward Davey</td><td>Kingston and Surbiton</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Leader of the Liberal Democrats</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ann Davies</td><td>Caerfyrddin</td><td><span class="badge badge-current">Plaid Cymru</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gareth Davies</td><td>Grantham and Bourne</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jonathan Davies</td><td>Mid Derbyshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mims Davies</td><td>East Grinstead and Uckfield</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Wales</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Paul Davies</td><td>Colne Valley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Shaun Davies</td><td>Telford</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex Davies-Jones</td><td>Pontypridd</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Davis</td><td>Goole and Pocklington</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Marsha de Cordova</td><td>Battersea</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Bobby Dean</td><td>Carshalton and Wallington</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Josh Dean</td><td>Hertford and Stortford</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kate Dearden</td><td>Halifax</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Carla Denyer</td><td>Bristol Central</td><td><span class="badge badge-current">Green</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Charlie Dewhirst</td><td>Bridlington and The Wolds</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tan Dhesi</td><td>Slough</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jim Dickson</td><td>Dartford</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lee Dillon</td><td>Newbury</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Caroline Dinenage</td><td>Gosport</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Anna Dixon</td><td>Shipley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Samantha Dixon</td><td>Chester North and Neston</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Anneliese Dodds</td><td>Oxford East</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Helena Dollimore</td><td>Hastings and Rye</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Dave Doogan</td><td>Angus and Perthshire Glens</td><td><span class="badge badge-current">Scottish National Party</span></td><td>Westminster Leader of the Scottish National Party</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Stephen Doughty</td><td>Cardiff South and Penarth</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Peter Dowd</td><td>Bootle</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Oliver Dowden</td><td>Hertsmere</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Graeme Downie</td><td>Dunfermline and Dollar</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rosie Duffield</td><td>Canterbury</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Iain Duncan Smith</td><td>Chingford and Woodford Green</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Neil Duncan-Jordan</td><td>Poole</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Dyke</td><td>Glastonbury and Somerton</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Angela Eagle</td><td>Wallasey</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for Environment, Food and Rural Affairs</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Maria Eagle</td><td>Liverpool Garston</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex Easton</td><td>North Down</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sorcha Eastwood</td><td>Lagan Valley</td><td><span class="badge badge-current">Alliance</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Cat Eccles</td><td>Stourbridge</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lauren Edwards</td><td>Rochester and Strood</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Edwards</td><td>Tamworth</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Clive Efford</td><td>Eltham and Chislehurst</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Damien Egan</td><td>Bristol North East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Maya Ellis</td><td>Ribble Valley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Elmore</td><td>Bridgend</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kirith Entwistle</td><td>Bolton North East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Florence Eshalomi</td><td>Vauxhall and Camberwell Green</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Bill Esterson</td><td>Sefton Central</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Evans</td><td>Caerphilly</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Luke Evans</td><td>Hinckley and Bosworth</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Miatta Fahnbulleh</td><td>Peckham</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Secretary of State for Energy Security and Net Zero</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Hamish Falconer</td><td>Lincoln</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Nigel Farage</td><td>Clacton</td><td><span class="badge badge-current">Reform UK</span></td><td>Leader of Reform UK</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Linsey Farnsworth</td><td>Amber Valley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tim Farron</td><td>Westmorland and Lonsdale</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Josh Fenton-Glynn</td><td>Calder Valley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mark Ferguson</td><td>Gateshead Central and Whickham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Patricia Ferguson</td><td>Glasgow West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Finucane</td><td>Belfast North</td><td><span class="badge badge-current">Sinn Féin</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Natalie Fleet</td><td>Bolsover</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Emma Foody</td><td>Cramlington and Killingworth</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Catherine Fookes</td><td>Monmouthshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Richard Foord</td><td>Honiton and Sidmouth</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Will Forster</td><td>Woking</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Peter Fortune</td><td>Bromley and Biggin Hill</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Paul Foster</td><td>South Ribble</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ashley Fox</td><td>Bridgwater</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Vicky Foxcroft</td><td>Lewisham North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mary Foy</td><td>City of Durham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Daniel Francis</td><td>Bexleyheath and Crayford</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mark Francois</td><td>Rayleigh and Wickford</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">George Freeman</td><td>Mid Norfolk</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Louie French</td><td>Old Bexley and Sidcup</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">James Frith</td><td>Bury North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Richard Fuller</td><td>North Bedfordshire</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Chief Secretary to the Treasury</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gill Furniss</td><td>Sheffield Brightside and Hillsborough</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Roger Gale</td><td>Herne Bay and Sandwich</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Barry Gardiner</td><td>Brent West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Allison Gardner</td><td>Stoke-on-Trent South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mark Garnier</td><td>Wyre Forest</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Anna Gelderd</td><td>South East Cornwall</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alan Gemmell</td><td>Central Ayrshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew George</td><td>St Ives</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gill German</td><td>Clwyd North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Nusrat Ghani</td><td>Sussex Weald</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Gibson</td><td>Chippenham</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tracy Gilbert</td><td>Edinburgh North and Leith</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Preet Kaur Gill</td><td>Birmingham Edgbaston</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rachel Gilmour</td><td>Tiverton and Minehead</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Becky Gittins</td><td>Clwyd East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Glen</td><td>Salisbury</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mary Glindon</td><td>Newcastle upon Tyne East and Wallsend</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Olly Glover</td><td>Didcot and Wantage</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Marie Goldman</td><td>Chelmsford</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ben Goldsborough</td><td>South Norfolk</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tom Gordon</td><td>Harrogate and Knaresborough</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jodie Gosling</td><td>Nuneaton</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Georgia Gould</td><td>Queen's Park and Maida Vale</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Grady</td><td>Glasgow East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Helen Grant</td><td>Maidstone and Malling</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Green</td><td>Chesham and Amersham</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lilian Greenwood</td><td>Nottingham South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Griffith</td><td>Arundel and South Downs</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Chancellor of the Exchequer</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Nia Griffith</td><td>Llanelli</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alison Griffiths</td><td>Bognor Regis and Littlehampton</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Amanda Hack</td><td>North West Leicestershire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Louise Haigh</td><td>Sheffield Heeley</td><td><span class="badge badge-current">Labour</span></td><td>First Secretary of State</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Sarah Hall</td><td>Warrington South</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Fabian Hamilton</td><td>Leeds North East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Paulette Hamilton</td><td>Birmingham Erdington</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Monica Harding</td><td>Esher and Walton</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Emma Hardy</td><td>Kingston upon Hull West and Haltemprice</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Carolyn Harris</td><td>Neath and Swansea East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rebecca Harris</td><td>Castle Point</td><td><span class="badge badge-current">Conservative</span></td><td>Opposition Chief Whip</td><td class="number-cell salary-cell">£110,000</td></tr>
+        <tr><td class="primary-cell">Lloyd Hatton</td><td>South Dorset</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Helen Hayes</td><td>Dulwich and West Norwood</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Hayes</td><td>South Holland and The Deepings</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tom Hayes</td><td>Bournemouth East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Claire Hazelgrove</td><td>Filton and Bradley Stoke</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Christopher Hazzard</td><td>South Down</td><td><span class="badge badge-current">Sinn Féin</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Healey</td><td>Rawmarsh and Conisbrough</td><td><span class="badge badge-current">Labour</span></td><td>Chancellor of the Exchequer</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Mark Hendrick</td><td>Preston</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Pippa Heylings</td><td>South Cambridgeshire</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Meg Hillier</td><td>Hackney South and Shoreditch</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Hinchliff</td><td>North East Hertfordshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jonathan Hinder</td><td>Pendle and Clitheroe</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Damian Hinds</td><td>East Hampshire</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Health and Social Care</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Simon Hoare</td><td>North Dorset</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Wera Hobhouse</td><td>Bath</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sharon Hodgson</td><td>Washington and Gateshead South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Richard Holden</td><td>Basildon and Billericay</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Transport</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kevin Hollinrake</td><td>Thirsk and Malton</td><td><span class="badge badge-current">Conservative</span></td><td>Chairman of the Conservative Party</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Paul Holmes</td><td>Hamble Valley</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rachel Hopkins</td><td>Luton South and South Bedfordshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lindsay Hoyle</td><td>Chorley</td><td><span class="badge badge-current">Speaker</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Nigel Huddleston</td><td>Droitwich and Evesham</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Neil Hudson</td><td>Epping Forest</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Claire Hughes</td><td>Bangor Aberconwy</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Dáire Hughes</td><td>Newry and Armagh</td><td><span class="badge badge-current">Sinn Féin</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alison Hume</td><td>Scarborough and Whitby</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jeremy Hunt</td><td>Godalming and Ash</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rupa Huq</td><td>Ealing Central and Acton</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Patrick Hurley</td><td>Southport</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Adnan Hussain</td><td>Blackburn</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Imran Hussain</td><td>Bradford East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Leigh Ingham</td><td>Stafford</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Natasha Irons</td><td>Croydon East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sally Jameson</td><td>Doncaster Central</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Christine Jardine</td><td>Edinburgh West</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Dan Jarvis</td><td>Barnsley North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Liz Jarvis</td><td>Eastleigh</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Bernard Jenkin</td><td>Harwich and North Essex</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Robert Jenrick</td><td>Newark</td><td><span class="badge badge-current">Reform UK</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Terry Jermy</td><td>South West Norfolk</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Adam Jogee</td><td>Newcastle-under-Lyme</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Caroline Johnson</td><td>Sleaford and North Hykeham</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Diana R. Johnson</td><td>Kingston upon Hull North and Cottingham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kim Johnson</td><td>Liverpool Riverside</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Clive Jones</td><td>Wokingham</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Darren Jones</td><td>Bristol North West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gerald Jones</td><td>Merthyr Tydfil and Aberdare</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lillian Jones</td><td>Kilmarnock and Loudoun</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Louise Jones</td><td>North East Derbyshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ruth Jones</td><td>Newport West and Islwyn</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Jones</td><td>Croydon West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lincoln Jopp</td><td>Spelthorne</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gurinder Josan</td><td>Smethwick</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sojan Joseph</td><td>Ashford</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Warinder Juss</td><td>Wolverhampton West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Kane</td><td>Stirling and Strathallan</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mike Kane</td><td>Wythenshawe and Sale East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Satvir Kaur</td><td>Southampton Test</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alicia Kearns</td><td>Rutland and Stamford</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Liz Kendall</td><td>Leicester West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Afzal Khan</td><td>Manchester Rusholme</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ayoub Khan</td><td>Birmingham Perry Barr</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Naushabah Khan</td><td>Gillingham and Rainham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Stephen Kinnock</td><td>Aberafan Maesteg</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for Wales</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Jayne Kirkham</td><td>Truro and Falmouth</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gen Kitchen</td><td>Wellingborough and Rushden</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Paul Kohler</td><td>Wimbledon</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Danny Kruger</td><td>East Wiltshire</td><td><span class="badge badge-current">Reform UK</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sonia Kumar</td><td>Dudley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Uma Kumaran</td><td>Stratford and Bow</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Peter Kyle</td><td>Hove and Portslade</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Laura Kyrke-Smith</td><td>Aylesbury</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ben Lake</td><td>Ceredigion Preseli</td><td><span class="badge badge-current">Plaid Cymru</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Katie Lam</td><td>Weald of Kent</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Housing, Communities and Local Government</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Peter Lamb</td><td>Crawley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Lammy</td><td>Tottenham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Lamont</td><td>Berwickshire, Roxburgh and Selkirk</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ian Lavery</td><td>Blyth and Ashington</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Law</td><td>Dundee Central</td><td><span class="badge badge-current">Scottish National Party</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Noah Law</td><td>St Austell and Newquay</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kim Leadbeater</td><td>Spen Valley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Graham Leadbitter</td><td>Moray West, Nairn and Strathspey</td><td><span class="badge badge-current">Scottish National Party</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Edward Leigh</td><td>Gainsborough</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Brian Leishman</td><td>Alloa and Grangemouth</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Emma Lewell</td><td>South Shields</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Lewin</td><td>Welwyn Hatfield</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Clive Lewis</td><td>Norwich South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Julian Lewis</td><td>New Forest East</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Simon Lightwood</td><td>Wakefield and Rothwell</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Seamus Logan</td><td>Aberdeenshire North and Moray East</td><td><span class="badge badge-current">Scottish National Party</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rebecca Long-Bailey</td><td>Salford</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Julia Lopez</td><td>Hornchurch and Upminster</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rupert Lowe</td><td>Great Yarmouth</td><td><span class="badge badge-current">Restore Britain</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Douglas Lumsden</td><td>Aberdeen South</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Josh MacAlister</td><td>Whitehaven and Workington</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">James MacCleary</td><td>Lewes</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alice Macdonald</td><td>Norwich North</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Angus MacDonald</td><td>Inverness, Skye and West Ross-shire</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andy MacNae</td><td>Rossendale and Darwen</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Justin Madders</td><td>Ellesmere Port and Bromborough</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ben Maguire</td><td>North Cornwall</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Helen Maguire</td><td>Epsom and Ewell</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Shabana Mahmood</td><td>Birmingham Ladywood</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for the Home Department</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Alan Mak</td><td>Havant</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Seema Malhotra</td><td>Feltham and Heston</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Cathal Mallaghan</td><td>Mid Ulster</td><td><span class="badge badge-current">Sinn Féin</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kit Malthouse</td><td>North West Hampshire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Amanda Martin</td><td>Portsmouth North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mike Martin</td><td>Tunbridge Wells</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rachael Maskell</td><td>York Central</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Paul Maskey</td><td>Belfast West</td><td><span class="badge badge-current">Sinn Féin</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Keir Mather</td><td>Selby</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Brian Mathew</td><td>Melksham and Devizes</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex Mayer</td><td>Dunstable and Leighton Buzzard</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jerome Mayhew</td><td>Broadland and Fakenham</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Charlie Maynard</td><td>Witney</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Douglas McAllister</td><td>West Dunbartonshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kerry McCarthy</td><td>Bristol East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Martin McCluskey</td><td>Inverclyde and Renfrewshire West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Siobhain McDonagh</td><td>Mitcham and Morden</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andy McDonald</td><td>Middlesbrough and Thornaby East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris McDonald</td><td>Stockton North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Martin McDonnell</td><td>Hayes and Harlington</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Blair McDougall</td><td>East Renfrewshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lola McEvoy</td><td>Darlington</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Pat McFadden</td><td>Wolverhampton South East</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for Work and Pensions</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Alison McGovern</td><td>Birkenhead</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex McIntyre</td><td>Gloucester</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gordon McKee</td><td>Glasgow South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kevin McKenna</td><td>Sittingbourne and Sheppey</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Catherine McKinnell</td><td>Newcastle upon Tyne North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jim McMahon</td><td>Oldham West, Chadderton and Royton</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Anna McMorrin</td><td>Cardiff North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">James McMurdock</td><td>South Basildon and East Thurrock</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Frank McNally</td><td>Coatbridge and Bellshill</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kirsty McNeill</td><td>Midlothian</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Esther McVey</td><td>Tatton</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Llinos Medi</td><td>Ynys Môn</td><td><span class="badge badge-current">Plaid Cymru</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Anneliese Midgley</td><td>Knowsley</td><td><span class="badge badge-current">Labour</span></td><td>Parliamentary Secretary to the Treasury (Chief Whip)</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Ed Miliband</td><td>Doncaster North</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for Foreign, Commonwealth and Development Affairs</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Calum Miller</td><td>Bicester and Woodstock</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Milne</td><td>Horsham</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Julie Minns</td><td>Carlisle</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Navendu Mishra</td><td>Stockport</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Mitchell</td><td>Sutton Coldfield</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Abtisam Mohamed</td><td>Sheffield Central</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Iqbal Mohamed</td><td>Dewsbury and Batley</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gagan Mohindra</td><td>South West Hertfordshire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Perran Moon</td><td>Camborne and Redruth</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Robbie Moore</td><td>Keighley and Ilkley</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Layla Moran</td><td>Oxford West and Abingdon</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jessica Morden</td><td>Newport East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Edward Morello</td><td>West Dorset</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Helen Morgan</td><td>North Shropshire</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Stephen Morgan</td><td>Portsmouth South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Grahame Morris</td><td>Easington</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Joe Morris</td><td>Hexham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tom Morrison</td><td>Cheadle</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Joy Morrissey</td><td>Beaconsfield</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Women and Equalities</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Wendy Morton</td><td>Aldridge-Brownhills</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kieran Mullan</td><td>Bexhill and Battle</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Margaret Mullane</td><td>Dagenham and Rainham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Mundell</td><td>Dumfriesshire, Clydesdale and Tweeddale</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tessa Munt</td><td>Wells and Mendip Hills</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Luke Murphy</td><td>Basingstoke</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Murray</td><td>Edinburgh East and Musselburgh</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ian Murray</td><td>Edinburgh South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">James Murray</td><td>Ealing North</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Katrina Murray</td><td>Cumbernauld and Kirkintilloch</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Susan Murray</td><td>Mid Dunbartonshire</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Murrison</td><td>South West Wiltshire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Luke Myer</td><td>Middlesbrough South and East Cleveland</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">James Naish</td><td>Rushcliffe</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Connor Naismith</td><td>Crewe and Nantwich</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lisa Nandy</td><td>Wigan</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for Culture, Media and Sport</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Kanishka Narayan</td><td>Vale of Glamorgan</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Pamela Nash</td><td>Motherwell, Wishaw and Carluke</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Josh Newbury</td><td>Cannock Chase</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Samantha Niblett</td><td>South Derbyshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Charlotte Nichols</td><td>Warrington North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Caroline Nokes</td><td>Romsey and Southampton North</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jesse Norman</td><td>Hereford and South Herefordshire</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Leader of the House of Commons</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex Norris</td><td>Nottingham North and Kimberley</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Lord Chancellor, Secretary of State for Justice</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Dan Norris</td><td>North East Somerset and Hanham</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Neil O'Brien</td><td>Harborough, Oadby and Wigston</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Minister for Policy Renewal</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Brendan O'Hara</td><td>Argyll, Bute and South Lochaber</td><td><span class="badge badge-current">Scottish National Party</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ben Obese-Jecty</td><td>Huntingdon</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Olney</td><td>Richmond Park</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Melanie Onn</td><td>Great Grimsby and Cleethorpes</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chi Onwurah</td><td>Newcastle upon Tyne Central and West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Simon Opher</td><td>Stroud</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Abena Oppong-Asare</td><td>Erith and Thamesmead</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kate Osamor</td><td>Edmonton and Winchmore Hill</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kate Osborne</td><td>Jarrow and Gateshead East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tristan Osborne</td><td>Chatham and Aylesford</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Taiwo Owatemi</td><td>Coventry North West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Owen</td><td>Luton North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Darren Paffey</td><td>Southampton Itchen</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Pakes</td><td>Peterborough</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Priti Patel</td><td>Witham</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Matthew Patrick</td><td>Wirral West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rebecca Paul</td><td>Reigate</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Digital, Culture, Media and Sport</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Michael Payne</td><td>Gedling</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Stephanie Peacock</td><td>Barnsley South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jonathan Pearce</td><td>High Peak</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Matthew Pennycook</td><td>Greenwich and Woolwich</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Toby Perkins</td><td>Chesterfield</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Manuela Perteghella</td><td>Stratford-on-Avon</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jess Phillips</td><td>Birmingham Yardley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Bridget Phillipson</td><td>Houghton and Sunderland South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Philp</td><td>Croydon South</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for the Home Department</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Al Pinkerton</td><td>Surrey Heath</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Pinto-Duschinsky</td><td>Hendon</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lee Pitcher</td><td>Doncaster East and the Isle of Axholme</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jo Platt</td><td>Leigh and Atherton</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Pochin</td><td>Runcorn and Helsby</td><td><span class="badge badge-current">Reform UK</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Luke Pollard</td><td>Plymouth Sutton and Devonport</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Joe Powell</td><td>Kensington and Bayswater</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lucy Powell</td><td>Manchester Central</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Secretary of State for Education</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Gregor Poynton</td><td>Livingston</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Peter Prinsley</td><td>Bury St Edmunds and Stowmarket</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mark Pritchard</td><td>The Wrekin</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Richard Quigley</td><td>Isle of Wight West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Yasmin Qureshi</td><td>Bolton South and Walkden</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Steve Race</td><td>Exeter</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Shivani Raja</td><td>Leicester East</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Adrian Ramsay</td><td>Waveney Valley</td><td><span class="badge badge-current">Green</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Connor Rand</td><td>Altrincham and Sale West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Ranger</td><td>Wrexham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jack Rankin</td><td>Windsor</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Angela Rayner</td><td>Ashton-under-Lyne</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for Housing, Communities and Local Government</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Mike Reader</td><td>Northampton South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Reed</td><td>Exmouth and Exeter East</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Steve Reed</td><td>Streatham and Croydon North</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ellie Reeves</td><td>Lewisham West and East Dulwich</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rachel Reeves</td><td>Leeds West and Pudsey</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Joani Reid</td><td>East Kilbride and Strathaven</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Emma Reynolds</td><td>Wycombe</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jonathan Reynolds</td><td>Stalybridge and Hyde</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Secretary of State for Business, Innovation, Science and Trade</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Joshua Reynolds</td><td>Maidenhead</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Martin Rhodes</td><td>Glasgow North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Bell Ribeiro-Addy</td><td>Clapham and Brixton Hill</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jake Richards</td><td>Rother Valley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jenny Riddell-Carpenter</td><td>Suffolk Coastal</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lucy Rigby</td><td>Northampton North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Marie Rimmer</td><td>St Helens South and Whiston</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Dave Robertson</td><td>Lichfield</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Joe Robertson</td><td>Isle of Wight East</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tim Roca</td><td>Macclesfield</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Matt Rodda</td><td>Reading Central</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ian Roome</td><td>North Devon</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Rosindell</td><td>Romford</td><td><span class="badge badge-current">Reform UK</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sam Rushworth</td><td>Bishop Auckland</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Russell</td><td>Congleton</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tom Rutland</td><td>East Worthing and Shoreham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Oliver Ryan</td><td>Burnley</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Anna Sabine</td><td>Frome and East Somerset</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Sackman</td><td>Finchley and Golders Green</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jeevun Sandher</td><td>Loughborough</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Roz Savage</td><td>South Cotswolds</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Liz Saville-Roberts</td><td>Dwyfor Meirionnydd</td><td><span class="badge badge-current">Plaid Cymru</span></td><td>Westminster Leader of Plaid Cymru</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Michelle Scrogham</td><td>Barrow and Furness</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mark Sewards</td><td>Leeds South West and Morley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Naseem Shah</td><td>Bradford West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Baggy Shanker</td><td>Derby South</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Michael Shanks</td><td>Rutherglen</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Neil Shastri-Hurst</td><td>Solihull West and Shirley</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alec Shelbrooke</td><td>Wetherby and Easingwold</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tulip Siddiq</td><td>Hampstead and Highgate</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Simmonds</td><td>Ruislip, Northwood and Pinner</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Vikki Slade</td><td>Mid Dorset and North Poole</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Slaughter</td><td>Hammersmith and Chiswick</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Slinger</td><td>Rugby</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lisa Smart</td><td>Hazel Grove</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Cat Smith</td><td>Lancaster and Wyre</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Smith</td><td>North Northumberland</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Greg Smith</td><td>Mid Buckinghamshire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jeff Smith</td><td>Manchester Withington</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Julian Smith</td><td>Skipton and Ripon</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Nick Smith</td><td>Blaenau Gwent and Rhymney</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rebecca Smith</td><td>South West Devon</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sarah Smith</td><td>Hyndburn</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Karin Smyth</td><td>Bristol South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gareth Snell</td><td>Stoke-on-Trent Central</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Snowden</td><td>Fylde</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alex Sobel</td><td>Leeds Central and Headingley</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ian Sollom</td><td>St Neots and Mid Cambridgeshire</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Ben Spencer</td><td>Runnymede and Weybridge</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Hannah Spencer</td><td>Gorton and Denton</td><td><span class="badge badge-current">Green</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Patrick Spencer</td><td>Central Suffolk and North Ipswich</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gregory Stafford</td><td>Farnham and Bordon</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Euan Stainbank</td><td>Falkirk</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Blake Stephenson</td><td>Mid Bedfordshire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jo Stevens</td><td>Cardiff East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kenneth Stevenson</td><td>Airdrie and Shotts</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Elaine Stewart</td><td>Ayr, Carrick and Cumnock</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jamie Stone</td><td>Caithness, Sutherland and Easter Ross</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Will Stone</td><td>Swindon North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alistair Strathern</td><td>Hitchin</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Wes Streeting</td><td>Ilford North</td><td><span class="badge badge-current">Labour</span></td><td>Secretary of State for Defence</td><td class="number-cell salary-cell">£166,104</td></tr>
+        <tr><td class="primary-cell">Alan Strickland</td><td>Newton Aycliffe and Spennymoor</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mel Stride</td><td>Central Devon</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Graham Stringer</td><td>Blackley and Middleton South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Graham Stuart</td><td>Beverley and Holderness</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Kirsteen Sullivan</td><td>Bathgate and Linlithgow</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Lauren Sullivan</td><td>Gravesham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Zarah Sultana</td><td>Coventry South</td><td><span class="badge badge-current">Your Party</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rishi Sunak</td><td>Richmond and Northallerton</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Peter Swallow</td><td>Bracknell</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Desmond Swayne</td><td>New Forest West</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mark Tami</td><td>Alyn and Deeside</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mike Tapp</td><td>Dover and Deal</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Alison Taylor</td><td>Paisley and Renfrewshire North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Taylor</td><td>Hemel Hempstead</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Luke Taylor</td><td>Sutton and Cheam</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rachel Taylor</td><td>North Warwickshire and Bedworth</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Bradley Thomas</td><td>Bromsgrove</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Cameron Thomas</td><td>Tewkesbury</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Fred Thomas</td><td>Plymouth Moor View</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gareth Thomas</td><td>Harrow West</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Nick Thomas-Symonds</td><td>Torfaen</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Adam Thompson</td><td>Erewash</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Emily Thornberry</td><td>Islington South and Finsbury</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Richard Tice</td><td>Boston and Skegness</td><td><span class="badge badge-current">Reform UK</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Marie Tidball</td><td>Penistone and Stocksbridge</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Stephen Timms</td><td>East Ham</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Nick Timothy</td><td>West Suffolk</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Lord Chancellor, Shadow Secretary of State for Justice</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jessica Toale</td><td>Bournemouth West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Dan Tomlinson</td><td>Chipping Barnet</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jon Trickett</td><td>Normanton and Hemsworth</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Laura Trott</td><td>Sevenoaks</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Education</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Henry Tufnell</td><td>Mid and South Pembrokeshire</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Thomas Tugendhat</td><td>Tonbridge</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Anna Turley</td><td>Redcar</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Matt Turmaine</td><td>Watford</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Karl Turner</td><td>Kingston upon Hull East</td><td><span class="badge badge-current">Independent</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Laurence Turner</td><td>Birmingham Northfield</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Derek Twigg</td><td>Widnes and Halewood</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Liz Twist</td><td>Blaydon and Consett</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Harpreet Uppal</td><td>Huddersfield</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Freddie Van Mierlo</td><td>Henley and Thame</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Tony Vaughan</td><td>Folkestone and Hythe</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Valerie Vaz</td><td>Walsall and Bloxwich</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Martin Vickers</td><td>Brigg and Immingham</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Matt Vickers</td><td>Stockton West</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Christopher Vince</td><td>Harlow</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Caroline Voaden</td><td>South Devon</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Christian Wakeford</td><td>Bury South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Imogen Walker</td><td>Hamilton and Clyde Valley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Ward</td><td>Brighton Kemptown and Peacehaven</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Melanie Ward</td><td>Cowdenbeath and Kirkcaldy</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Paul Waugh</td><td>Rochdale</td><td><span class="badge badge-current">Labour Co-op</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Chris Webb</td><td>Blackpool South</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Michelle Welsh</td><td>Sherwood Forest</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Catherine West</td><td>Hornsey and Friern Barnet</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Andrew Western</td><td>Stretford and Urmston</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Matt Western</td><td>Warwick and Leamington</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Helen Whately</td><td>Faversham and Mid Kent</td><td><span class="badge badge-current">Conservative</span></td><td>Shadow Secretary of State for Work and Pensions</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Michael Wheeler</td><td>Worsley and Eccles</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Whitby</td><td>Derbyshire Dales</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jo White</td><td>Bassetlaw</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Katie White</td><td>Leeds North West</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">John Whittingdale</td><td>Maldon</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Nadia Whittome</td><td>Nottingham East</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">James Wild</td><td>North West Norfolk</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Max Wilkinson</td><td>Cheltenham</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">David Williams</td><td>Stoke-on-Trent North</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Gavin Williamson</td><td>Stone, Great Wyrley and Penkridge</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Munira Wilson</td><td>Twickenham</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Pete Wishart</td><td>Perth and Kinross-shire</td><td><span class="badge badge-current">Scottish National Party</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Steve Witherden</td><td>Montgomeryshire and Glyndŵr</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mike Wood</td><td>Kingswinford and South Staffordshire</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Sean Woodcock</td><td>Banbury</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Jeremy Wright</td><td>Kenilworth and Southam</td><td><span class="badge badge-current">Conservative</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Rosie Wrighting</td><td>Kettering</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Martin Wrigley</td><td>Newton Abbot</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Yuan Yang</td><td>Earley and Woodley</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Mohammad Yasin</td><td>Bedford</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Steve Yemm</td><td>Mansfield</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Claire Young</td><td>Thornbury and Yate</td><td><span class="badge badge-current">Liberal Democrat</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        <tr><td class="primary-cell">Daniel Zeichner</td><td>Cambridge</td><td><span class="badge badge-current">Labour</span></td><td>Backbencher</td><td class="number-cell salary-cell">£98,599</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      Updated September 2026 · For informational purposes only.
+    </footer>
+  </main>
+
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
+
+  <script>
+  (function() {
+    'use strict';
+
+    var backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 400) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      }, { passive: true });
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Search functionality
+    var searchInput = document.getElementById('mpSearch');
+    var searchClear = document.getElementById('searchClear');
+    var searchStats = document.getElementById('searchStats');
+    var tbody = document.querySelector('.data-table tbody');
+    var rows = tbody ? Array.from(tbody.querySelectorAll('tr')) : [];
+
+    function parseSalary(text) {
+      return parseInt(text.replace(/[£,]/g, ''), 10) || 0;
+    }
+
+    function formatSalary(amount) {
+      return '£' + amount.toLocaleString('en-GB');
+    }
+
+    function filterRows(query) {
+      var q = query.toLowerCase().trim();
+      var totalSalary = 0;
+      var visibleCount = 0;
+
+      rows.forEach(function(row) {
+        var cells = row.querySelectorAll('td');
+        if (cells.length < 5) return;
+
+        var name = cells[0].textContent.toLowerCase();
+        var constituency = cells[1].textContent.toLowerCase();
+        var party = cells[2].textContent.toLowerCase();
+        var role = cells[3].textContent.toLowerCase();
+        var salaryText = cells[4].textContent;
+
+        var matches = !q || name.includes(q) || constituency.includes(q) || party.includes(q) || role.includes(q);
+
+        row.style.display = matches ? '' : 'none';
+
+        if (matches) {
+          totalSalary += parseSalary(salaryText);
+          visibleCount++;
+        }
+      });
+
+      if (q) {
+        searchStats.textContent = visibleCount + ' MP' + (visibleCount !== 1 ? 's' : '') + ' found · Total salary: ' + formatSalary(totalSalary);
+        searchStats.classList.add('visible');
+      } else {
+        searchStats.textContent = '';
+        searchStats.classList.remove('visible');
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        filterRows(this.value);
+      });
+
+      // Keyboard shortcut: "/" to focus search
+      document.addEventListener('keydown', function(e) {
+        if (e.key === '/' && document.activeElement !== searchInput) {
+          e.preventDefault();
+          searchInput.focus();
+        }
+      });
+    }
+
+    if (searchClear) {
+      searchClear.addEventListener('click', function() {
+        searchInput.value = '';
+        filterRows('');
+        searchInput.focus();
+      });
+    }
+
+    // Sort by salary toggle
+    var salarySort = document.getElementById('salarySort');
+    var sortIcon = document.getElementById('sortIcon');
+    var sortDirection = 0; // 0 = unsorted, 1 = ascending, -1 = descending
+
+    if (salarySort) {
+      salarySort.addEventListener('click', function() {
+        if (sortDirection === 0) {
+          sortDirection = 1; // ascending
+          sortIcon.textContent = '↑';
+        } else if (sortDirection === 1) {
+          sortDirection = -1; // descending
+          sortIcon.textContent = '↓';
+        } else {
+          sortDirection = 0; // back to original
+          sortIcon.textContent = '↕';
+        }
+
+        var sortedRows = rows.slice().sort(function(a, b) {
+          var aSalary = parseSalary(a.querySelectorAll('td')[4].textContent);
+          var bSalary = parseSalary(b.querySelectorAll('td')[4].textContent);
+          return sortDirection === 1 ? aSalary - bSalary : bSalary - aSalary;
+        });
+
+        // Re-append rows in sorted order
+        sortedRows.forEach(function(row) {
+          tbody.appendChild(row);
+        });
+
+        // Re-apply search filter
+        filterRows(searchInput.value);
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

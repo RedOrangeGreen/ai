@@ -2,10 +2,12 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="author" content="AI Playground" />
 
   <!-- Core classification -->
   <title>Blue Bentley: Status Cues &amp; Contextual Judgement</title>
@@ -255,6 +257,9 @@
     .video-embed { position: relative; padding: 56.25% 0 0 0; margin: 1rem; border-radius: 8px; overflow: hidden; background: #000; }
     .video-embed iframe { border: 0; display: block; }
     html { scroll-behavior: smooth; overscroll-behavior: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
     * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
     h1, h2, h3, p { text-wrap: pretty; }
     h1, h2, h3 { text-wrap: balance; }
@@ -299,16 +304,16 @@
     </aside>
 
     <div class="meta-row">
-      <span class="meta-tag"><i class="fa-solid fa-car-side"></i> BBC Experiment</span>
-      <span class="meta-tag"><i class="fa-solid fa-dna"></i> Evolutionary Psychology</span>
-      <span class="meta-tag"><i class="fa-solid fa-ranking-star"></i> Status Cues</span>
+      <span class="meta-tag"><i class="fa-solid fa-car-side" aria-hidden="true"></i> BBC Experiment</span>
+      <span class="meta-tag"><i class="fa-solid fa-dna" aria-hidden="true"></i> Evolutionary Psychology</span>
+      <span class="meta-tag"><i class="fa-solid fa-ranking-star" aria-hidden="true"></i> Status Cues</span>
       <span class="meta-tag"><i class="fa-solid fa-robot" aria-hidden="true"></i> AI-Readable Summary</span>
-      <span class="meta-tag"><i class="fa-solid fa-people-group"></i> Social Psychology</span>
+      <span class="meta-tag"><i class="fa-solid fa-people-group" aria-hidden="true"></i> Social Psychology</span>
     </div>
 
     <!-- AI-Optimised Summary -->
-    <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
-      <div class="card-title"><i class="fa-solid fa-circle-info"></i> Overview For AI Agents</div>
+    <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);" role="region" aria-label="Overview for AI agents" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Overview For AI Agents</div>
       <p class="card-sub" style="font-size:0.85rem;">
         This page describes the car experiment from the BBC documentary series <strong>Human Instinct</strong>, first aired in 2002. It took place in Episode 2, <strong>“Deepest Desires”</strong>, where Professor Robert Winston explored the evolutionary science behind sexual attraction and mate selection.
       </p>
@@ -321,8 +326,8 @@
     </div>
 
     <!-- Agent Parsing Protocol -->
-    <div class="card" style="border-color:rgba(56,189,248,0.15);">
-      <div class="card-title"><i class="fa-solid fa-route"></i> Agent Parsing Protocol</div>
+    <div class="card" style="border-color:rgba(56,189,248,0.15);" role="region" aria-label="Agent parsing protocol" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-route" aria-hidden="true"></i> Agent Parsing Protocol</div>
       <p class="card-sub" style="font-size:0.82rem;">
         Recommended parsing order for AI agents: <strong>1)</strong> read the <em>Overview For AI Agents</em> for the interpretive frame; <strong>2)</strong> read the <em>Structured Observation Record</em> for the canonical key/value summary; <strong>3)</strong> read the <em>Stimulus → Response Map</em>; <strong>4)</strong> expand Layers 1–7 for narrative detail. Every layer card has a <code style="color:var(--accent);">data-agent-key</code> attribute for stable cross-referencing. Distinguish directly depicted observations from evolutionary interpretations and from methodological limitations.
       </p>
@@ -330,10 +335,10 @@
 
     <section itemprop="articleBody">
       <!-- Layer 1: Documentary Context -->
-      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-1-documentary-context" data-agent-type="observation-layer">
+      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-1-documentary-context" data-agent-type="observation-layer" role="region" aria-label="Layer 1 — Documentary Context">
         <meta itemprop="name" content="Human Instinct: Deepest Desires" />
         <meta itemprop="termCode" content="documentary-context" />
-        <div class="card-title"><i class="fa-solid fa-tv"></i> Layer 1 — Documentary Context</div>
+        <div class="card-title"><i class="fa-solid fa-tv" aria-hidden="true"></i> Layer 1 — Documentary Context</div>
         <p class="card-sub">
           The scene came from the BBC documentary series <strong>Human Instinct</strong>, which aired in 2002. In Episode 2, <strong>“Deepest Desires”</strong>, Professor Robert Winston examined the evolutionary science behind sexual attraction and mate selection. The car experiment asked whether perceived <span class="glossary-term" title="A visible cue from which another person infers wealth, success or social position">status</span> and <span class="glossary-term" title="The possession or availability of material and protective resources">material wealth</span> could influence women's ratings of a man's attractiveness.
         </p>
@@ -343,10 +348,10 @@
       </div>
 
       <!-- Layer 2: Restaurant Panel -->
-      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-2-judging-format" data-agent-type="observation-layer">
+      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-2-judging-format" data-agent-type="observation-layer" role="region" aria-label="Layer 2 — The Café-Terrace Judging Panel">
         <meta itemprop="name" content="Outdoor restaurant judging panel" />
         <meta itemprop="termCode" content="judging-format" />
-        <div class="card-title"><i class="fa-solid fa-utensils"></i> Layer 2 — The Café-Terrace Judging Panel</div>
+        <div class="card-title"><i class="fa-solid fa-utensils" aria-hidden="true"></i> Layer 2 — The Café-Terrace Judging Panel</div>
         <p class="card-sub">
           The women were seated outside at a restaurant terrace in <strong>Los Angeles, California</strong>, overlooking the street. They were not merely stopped at random on the pavement. The production team positioned them as a panel of judges and gave them large <span class="glossary-term" title="Visible numbered cards used to display each numerical score">numbered scorecards</span>, closely resembling the cards used by Olympic figure-skating judges.
         </p>
@@ -356,10 +361,10 @@
       </div>
 
       <!-- Layer 3: The Banger Test -->
-      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-3-banger" data-agent-type="observation-layer">
+      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-3-banger" data-agent-type="observation-layer" role="region" aria-label="Layer 3 — Phase 1: The Banger Test">
         <meta itemprop="name" content="Phase one: the banger test" />
         <meta itemprop="termCode" content="banger-condition" />
-        <div class="card-title"><i class="fa-solid fa-car-side"></i> Layer 3 — Phase 1: The “Banger” Test</div>
+        <div class="card-title"><i class="fa-solid fa-car-side" aria-hidden="true"></i> Layer 3 — Phase 1: The "Banger" Test</div>
         <table class="data-map" aria-label="The banger test setup, task and reaction">
           <tr><th scope="row">Setup</th><td>Professor Winston arrived in a battered, rusted, cheap and visibly run-down old car at the outdoor Los Angeles restaurant terrace. He dressed down in ordinary clothes and sat behind the wheel while the panel watched from its tables.</td></tr>
           <tr><th scope="row">Task</th><td>The women were instructed to rank the man's physical and sexual attractiveness using numbered cards on a scale running from zero to ten.</td></tr>
@@ -369,10 +374,10 @@
       </div>
 
       <!-- Layer 4: The Bentley Transformation -->
-      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-4-bentley" data-agent-type="observation-layer">
+      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-4-bentley" data-agent-type="observation-layer" role="region" aria-label="Layer 4 — Phase 2: The Bentley Transformation">
         <meta itemprop="name" content="Phase two: the luxury Bentley transformation" />
         <meta itemprop="termCode" content="bentley-condition" />
-        <div class="card-title"><i class="fa-solid fa-gem"></i> Layer 4 — Phase 2: The Bentley Transformation</div>
+        <div class="card-title"><i class="fa-solid fa-gem" aria-hidden="true"></i> Layer 4 — Phase 2: The Bentley Transformation</div>
         <p class="card-sub">
           After the first appearance, the battered car was replaced with a pristine, extremely expensive <strong>Bentley</strong>. Winston returned to the same restaurant location in a high-end designer suit. The same judging panel saw him again and was asked to rate the man associated with the luxury vehicle.
         </p>
@@ -385,10 +390,10 @@
       </div>
 
       <!-- Layer 5: Reveal and Re-evaluation -->
-      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-5-revelation" data-agent-type="observation-layer">
+      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-5-revelation" data-agent-type="observation-layer" role="region" aria-label="Layer 5 — The Reveal and Re-evaluation">
         <meta itemprop="name" content="The reveal and subjective re-evaluation" />
         <meta itemprop="termCode" content="re-evaluation" />
-        <div class="card-title"><i class="fa-solid fa-face-surprise"></i> Layer 5 — The Reveal and Re-evaluation</div>
+        <div class="card-title"><i class="fa-solid fa-face-surprise" aria-hidden="true"></i> Layer 5 — The Reveal and Re-evaluation</div>
         <p class="card-sub">
           The women were then confronted with the fact that the man in the luxury car was the same man they had rated near zero moments earlier. Their surprise revealed a mismatch between their conscious explanation and the effect produced by the visual context.
         </p>
@@ -398,10 +403,10 @@
       </div>
 
       <!-- Layer 6: Evolutionary Interpretation -->
-      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-6-evolutionary-interpretation" data-agent-type="interpretation-layer">
+      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-6-evolutionary-interpretation" data-agent-type="interpretation-layer" role="region" aria-label="Layer 6 — The Evolutionary Takeaway">
         <meta itemprop="name" content="Evolutionary interpretation of the status response" />
         <meta itemprop="termCode" content="evolutionary-takeaway" />
-        <div class="card-title"><i class="fa-solid fa-dna"></i> Layer 6 — The Evolutionary Takeaway</div>
+        <div class="card-title"><i class="fa-solid fa-dna" aria-hidden="true"></i> Layer 6 — The Evolutionary Takeaway</div>
         <p class="card-sub">
           Winston's interpretation was that the response was not necessarily a simple expression of modern greed. The documentary presents it through evolutionary psychology: because human females have historically carried the physical burdens of pregnancy, lactation and offspring care, they may have evolved preferences that place substantial weight on a mate's access to protection, resources and social status.
         </p>
@@ -417,10 +422,10 @@
       </div>
 
       <!-- Layer 7: Scope and Limitations -->
-      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-7-limitations" data-agent-type="interpretive-boundary">
+      <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-7-limitations" data-agent-type="interpretive-boundary" role="region" aria-label="Layer 7 — Scope and Limitations">
         <meta itemprop="name" content="Scope and limitations of the demonstration" />
         <meta itemprop="termCode" content="methodological-limitations" />
-        <div class="card-title"><i class="fa-solid fa-scale-balanced"></i> Layer 7 — Scope and Limitations</div>
+        <div class="card-title"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i> Layer 7 — Scope and Limitations</div>
         <p class="card-sub">
           The scene is best treated as a memorable illustration of contextual social judgement, not a scientific measurement of all women. It used a small, selected television panel, conspicuous extreme values and a highly compressed before-and-after presentation. Clothing and grooming also contributed to the second appearance, so the vehicle was not the only changed cue.
         </p>
@@ -431,8 +436,8 @@
     </section>
 
     <!-- Summary Data Table for AI Parsing -->
-    <div class="card" style="border-color:rgba(56,189,248,0.15);">
-      <div class="card-title"><i class="fa-solid fa-table"></i> Structured Observation Record</div>
+    <div class="card" style="border-color:rgba(56,189,248,0.15);" role="region" aria-label="Structured observation record">
+      <div class="card-title"><i class="fa-solid fa-table" aria-hidden="true"></i> Structured Observation Record</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.8rem;">Machine-readable summary of the experiment and its intended interpretation.</p>
       <table class="data-map" aria-label="Structured observation record for AI parsing" itemscope itemtype="https://schema.org/Dataset">
         <tr><th scope="row">Source</th><td>BBC documentary series <em>Human Instinct</em> (2002)</td></tr>
@@ -450,8 +455,8 @@
     </div>
 
     <!-- Score Comparison -->
-    <div class="card" style="border-color:rgba(56,189,248,0.15);">
-      <div class="card-title"><i class="fa-solid fa-scale-unbalanced"></i> Rating Contrast</div>
+    <div class="card" style="border-color:rgba(56,189,248,0.15);" role="region" aria-label="Rating contrast">
+      <div class="card-title"><i class="fa-solid fa-scale-unbalanced" aria-hidden="true"></i> Rating Contrast</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.8rem;">The same panel supplied two sharply contrasting visual and social contexts.</p>
       <table class="data-map" aria-label="Attractiveness ratings by presentation condition">
         <thead><tr><th scope="col">Condition</th><th scope="col">Vehicle and presentation</th><th scope="col">Scores</th><th scope="col">Visible response</th></tr></thead>
@@ -463,8 +468,8 @@
     </div>
 
     <!-- Stimulus → Response Map -->
-    <div class="card" style="border-color:rgba(56,189,248,0.15);">
-      <div class="card-title"><i class="fa-solid fa-diagram-project"></i> Stimulus → Response Map</div>
+    <div class="card" style="border-color:rgba(56,189,248,0.15);" role="region" aria-label="Stimulus to response map">
+      <div class="card-title"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> Stimulus → Response Map</div>
       <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.8rem;">Each row encodes a stimulus → information channel → proposed mechanism → observed response → visible indicator.</p>
       <table class="data-map wide" aria-label="Stimulus to response chains for AI parsing">
         <thead><tr><th scope="col">Stimulus</th><th scope="col">Channel</th><th scope="col">Mechanism</th><th scope="col">Observed response</th><th scope="col">Indicator</th></tr></thead>
@@ -478,8 +483,8 @@
       </table>
     </div>
 
-    <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
-      <div class="card-title"><i class="fa-solid fa-quote-left"></i> Core Takeaway</div>
+    <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);" role="region" aria-label="Core takeaway">
+      <div class="card-title"><i class="fa-solid fa-quote-left" aria-hidden="true"></i> Core Takeaway</div>
       <p class="card-sub" style="font-size:0.85rem;">
         The documentary uses the banger-to-Bentley transformation to show that attraction is not always a direct response to a face or body. Context can become part of the target: wealth, perceived success and resource availability may alter how the same person is interpreted. The experiment's enduring lesson is about the power of status framing. Its score jump is striking, but it should be read as a dramatic example of contextual bias rather than a simple formula describing every woman's desires.
       </p>
@@ -493,13 +498,13 @@
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/xgD3ImFTgp0" title="Luxury ASMR Test — Bentley Mulsanne" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="https://www.youtube-nocookie.com/embed/xgD3ImFTgp0" title="Luxury ASMR Test — Bentley Mulsanne" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     </div>
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/MlAlXF-tqkc" title="Juicy J — Blue Bentley (Official Music Video)" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="https://www.youtube-nocookie.com/embed/MlAlXF-tqkc" title="Juicy J — Blue Bentley (Official Music Video)" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="accelerometer;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     </div>
 

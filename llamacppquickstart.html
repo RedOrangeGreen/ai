@@ -10,6 +10,7 @@
   <meta name="description" content="Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS." />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
+  <meta name="author" content="AI Playground" />
   <meta property="og:title" content="llama.cpp Quickstart" />
   <meta property="og:description" content="Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS." />
   <meta property="og:type" content="website" />
@@ -77,6 +78,9 @@ footer { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid rgba(148,1
   .page-shell { padding: 1rem 0.75rem 2rem; }
 }
 html { scroll-behavior: smooth; overscroll-behavior: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
 * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
 h1, h2, h3, p { text-wrap: pretty; }
 h1, h2, h3 { text-wrap: balance; }
@@ -126,7 +130,7 @@ pre.terminal .dim{ color: #6e7681; }
     <h1 class="hero-title"><span>llama.cpp Quickstart</span></h1>
     <p class="hero-subtitle">Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS.</p>
 
-    <div class="card">
+    <div class="card" role="region" aria-label="What you need" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> What you need</div>
       <div class="card-sub">A recorded terminal session, start to finish</div>
       <ul class="note-list">
@@ -137,7 +141,7 @@ pre.terminal .dim{ color: #6e7681; }
       </ul>
     </div>
 
-    <div class="card" id="setup">
+    <div class="card" id="setup" role="region" aria-label="Setup and first run" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-terminal" aria-hidden="true"></i> Setup and first run
         <button type="button" class="copy-all" data-copy-target="setupCmds" title="Copy all commands to the clipboard"><i class="fa-solid fa-copy" aria-hidden="true"></i><i class="fa-solid fa-check" aria-hidden="true"></i><span class="copy-all-label" aria-live="polite">Copy all commands</span></button>
       </div>
@@ -159,7 +163,7 @@ independence, agility and ability to purr.</span>
 <span class="x">[CNTRL+C]</span></pre>
     </div>
 
-    <div class="card" id="editrun">
+    <div class="card" id="editrun" role="region" aria-label="Edit and second run" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Edit and second run
         <button type="button" class="copy-all" data-copy-target="editrunCmds" title="Copy all commands to the clipboard"><i class="fa-solid fa-copy" aria-hidden="true"></i><i class="fa-solid fa-check" aria-hidden="true"></i><span class="copy-all-label" aria-live="polite">Copy all commands</span></button>
       </div>
@@ -181,7 +185,7 @@ eyes from all directions.</span>
     </footer>
   </main>
 
-  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
 
   <script>
   (function() {

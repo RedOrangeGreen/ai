@@ -10,6 +10,7 @@
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="robots" content="index, follow" />
   <meta name="view-transition" content="same-origin" />
+  <meta name="author" content="AI Playground" />
   <meta property="og:title" content="AI Playground – Free AI Tools" />
   <meta property="og:description" content="Explore free AI chatbots, local AI tools, and agent-university resources. No sign-up required." />
   <meta property="og:type" content="website" />
@@ -124,6 +125,9 @@ body.cosmos-off #particle-canvas, body.cosmos-off #portal-canvas { display: none
   .clock-row { flex-wrap: wrap; }
 }
 html { scroll-behavior: smooth; overflow-y: scroll; scrollbar-gutter: stable; overscroll-behavior: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-body); }
 ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
@@ -301,7 +305,7 @@ input { field-sizing: content; }
         </div>
         <div id="city-dropdown" class="city-dropdown" role="listbox" aria-label="Choose a city"></div>
         <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>News</span><button type="button" class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play" aria-label="Pause news ticker" aria-pressed="false"><i class="fa-solid fa-pause"></i></button><button type="button" class="ticker-refresh-btn" data-ticker="tickerWorld" title="Refresh feed" aria-label="Refresh news ticker"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35" aria-label="News ticker speed"><span class="ticker-speed-label">speed</span><button type="button" class="ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed" aria-label="Reset ticker speed"><i aria-hidden="true" class="fa-solid fa-rotate-left"></i></button></span></div>
-        <div class="news-ticker" id="tickerWorld" role="region" aria-label="News headlines">
+        <div class="news-ticker" id="tickerWorld" role="region" aria-label="News headlines" aria-live="off">
           <div class="news-ticker-grad top"></div>
           <div class="news-ticker-grad bot"></div>
           <div class="news-ticker-refresh-msg">Refreshing…</div>
@@ -311,11 +315,11 @@ input { field-sizing: content; }
 
       </div>
     </section>
-    <section class="reveal">
+    <section class="reveal" role="region" aria-label="Chatbots">
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-globe"></i><h2>CHATBOTS</h2></div>
       </header>
-      <ul class="chatbot-list" id="chatbotList">
+      <ul class="chatbot-list" id="chatbotList" aria-label="Chatbot list">
         <li data-enabled="true">
           <button type="button" class="chatbot-toggle on" aria-label="Toggle ChatGPT" aria-pressed="true"></button>
           <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General‑purpose AI assistant for chat, writing, brainstorming, and coding.
@@ -327,7 +331,7 @@ input { field-sizing: content; }
         </li>
       </ul>
     </section>
-    <section class="reveal">
+    <section class="reveal" role="region" aria-label="Run locally">
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-laptop"></i><h2>Run locally</h2></div>
       </header>
@@ -335,7 +339,7 @@ input { field-sizing: content; }
         <i aria-hidden="true" class="fa-solid fa-circle-info"></i>
         <div>Local tools keep computation on your device. They can be more private, but may require a capable GPU or CPU and a bit more setup.</div>
       </div>
-      <ul class="chatbot-list">
+      <ul class="chatbot-list" aria-label="Local AI tools">
         <li>Ollama — Simple way to run popular models locally with a clean CLI and one-line installs. Great first step into local AI.
           <span style="margin-left:auto;display:flex;gap:0.5rem;flex-shrink:0;">
             <a href="https://ollama.com" target="_blank" rel="noopener noreferrer" class="btn-open">Homepage <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
@@ -349,7 +353,7 @@ input { field-sizing: content; }
         </li>
       </ul>
     </section>
-    <section class="reveal">
+    <section class="reveal" role="region" aria-label="Coding">
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-code"></i><h2>Coding</h2></div>
       </header>
@@ -380,16 +384,17 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
         </article>
       </div>
     </section>
-    <section class="reveal" aria-labelledby="agents-heading">
+    <section class="reveal" aria-labelledby="agents-heading" role="region">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-robot"></i><h2 id="agents-heading">Agents</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-robot"></i><h2 id="agents-heading">Agent Artifacts (Agent Generated Reports)</h2></div>
       </header>
-      <ul class="chatbot-list">
-        <li><a href="dividends.html">Top UK &amp; USA Stocks'n'Savings</a> &mdash; The highest-yielding dividend stocks and savings rates.</li>
+      <ul class="chatbot-list" aria-label="Agent artifacts">
+        <li><a href="dividends.html">Best UK &amp; USA Dividends and Savings</a> &mdash; The highest-yielding dividend stocks and savings rates.</li>
         <li><a href="currentleaders.html">Current &amp; Future World Leaders</a> &mdash; Current national officeholders, four plausible future leaders each for the UK, USA, China and Russia, plus capability-ranked AI models.</li>
+        <li><a href="ukmps.html">UK MPs, Tale Of The Tape</a> &mdash; The current Westminster dudes and dudettes.</li>
       </ul>
     </section>
-    <section class="reveal" aria-labelledby="behaviour-studies-heading">
+    <section class="reveal" aria-labelledby="behaviour-studies-heading" role="region">
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-people-group"></i><h2 id="behaviour-studies-heading">Human Behaviour Studies</h2></div>
       </header>
@@ -404,7 +409,7 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
             <i aria-hidden="true" class="fa-solid fa-mars"></i>
             <h4 id="behaviour-studies-male" style="margin:0;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">Male</h4>
           </div>
-          <ul class="chatbot-list" aria-labelledby="behaviour-studies-male">
+          <ul class="chatbot-list" aria-labelledby="behaviour-studies-male" aria-label="Male behaviour studies">
             <li><a href="soi6pattaya.html">Soi 6, Pattaya, Thailand</a></li>
             <li><a href="alizee.html">Alizée — "J'en Ai Marre"</a></li>
             <li><a href="utilities.html">Utilities</a></li>
@@ -416,7 +421,7 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
             <i aria-hidden="true" class="fa-solid fa-venus"></i>
             <h4 id="behaviour-studies-female" style="margin:0;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">Female</h4>
           </div>
-          <ul class="chatbot-list" aria-labelledby="behaviour-studies-female">
+          <ul class="chatbot-list" aria-labelledby="behaviour-studies-female" aria-label="Female behaviour studies">
             <li><a href="waltzer.html">Fairground Waltzer</a></li>
             <li><a href="blue-bently.html">Blue Bentley</a></li>
           </ul>
@@ -428,7 +433,7 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
     </footer>
 
   </main>
-  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
   <script>
     (function() {
       const zones = [
