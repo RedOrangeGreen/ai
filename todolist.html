@@ -19,9 +19,9 @@
   <meta name="twitter:title" content="Todo List" />
   <meta name="twitter:description" content="A simple free and anonymous ToDo List manager. Save and load lists locally in XML or JSON." />
   <title>Todo List</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E✅%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" />
 
   <style>
     @layer reset, base, components, utilities;
@@ -456,7 +456,7 @@
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    .modal-box h3 {
+    .modal-box h2 {
       margin: 0 0 0.6rem;
       font-size: 1.05rem;
       font-weight: 600;
@@ -690,7 +690,7 @@
 
   <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <h3 id="modalTitle"></h3>
+      <h2 id="modalTitle">Todo List</h2>
       <p id="modalMessage"></p>
       <div class="modal-actions" id="modalActions"></div>
     </div>

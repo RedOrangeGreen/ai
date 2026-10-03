@@ -42,7 +42,7 @@
   </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%A6%99%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" />
   <style>
 @layer reset, base, components, utilities; @layer base { :root { accent-color: #38bdf8; interpolate-size: allow-keywords; --bg-body: #050816; --bg-elevated: #0b1020; --accent: #38bdf8; --text-main: #e5e7eb; --text-muted: #9ca3af; --border-subtle: rgba(148,163,184,0.25); --radius-lg: 18px; --radius-pill: 999px; --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7); --transition-fast: 0.18s ease-out; --yield-color: #22c55e; } }
 body { background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%); color: var(--text-main); font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif; margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent; }
@@ -132,7 +132,7 @@ pre.terminal .dim{ color: #6e7681; }
 
     <div class="card" role="region" aria-label="What you need" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> What you need</div>
-      <div class="card-sub">A recorded terminal session, start to finish</div>
+      <div class="card-sub">Overview</div>
       <ul class="note-list">
         <li><strong>Ubuntu (or Debian) Linux</strong> (last tested on Ubuntu 26.04 LTS) with <code>sudo</code> access. Every command below is plain Linux shell — no GUI required.</li>
         <li><strong>Network access on the first run only.</strong> <code>llama-cli</code> downloads the model for you.</li>
@@ -147,7 +147,6 @@ pre.terminal .dim{ color: #6e7681; }
       </div>
       <div class="card-sub">Copy and paste in order</div>
 <pre class="cmd" tabindex="0" role="region" aria-label="Commands" id="setupCmds">
-<span class="sh">$</span> cd /home/ubuntu/Public
 <span class="sh">$</span> sudo apt install -y git build-essential cmake libcurl4-openssl-dev libssl-dev
 <span class="sh">$</span> git clone https://github.com/ggml-org/llama.cpp
 <span class="sh">$</span> cd llama.cpp
@@ -180,6 +179,69 @@ eyes from all directions.</span>
 <span class="x">[CNTRL+C]</span></pre>
     </div>
 
+    <div class="card" id="agent" role="region" aria-label="Simple Agent" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-robot" aria-hidden="true"></i> Simple Agent
+        <button type="button" class="copy-all" data-copy-target="agentSrc" style="margin-left:1rem;" title="Copy C++ source to the clipboard"><i class="fa-solid fa-copy" aria-hidden="true"></i><i class="fa-solid fa-check" aria-hidden="true"></i><span class="copy-all-label" aria-live="polite">Copy C++ source</span></button>
+        <button type="button" class="copy-all" data-copy-target="agentCmds" style="margin-left:0.75rem;" title="Copy commands to the clipboard"><i class="fa-solid fa-copy" aria-hidden="true"></i><i class="fa-solid fa-check" aria-hidden="true"></i><span class="copy-all-label" aria-live="polite">Copy compilation/run commands</span></button>
+      </div>
+      <div class="card-sub">An ultra-simple, self-contained C++ agent — little more than a while loop that prompts the model via llama.cpp</div>
+<pre class="cmd" tabindex="0" role="region" aria-label="Agent source" id="agentSrc"><code class="language-cpp">// agent.cpp — self-contained llama.cpp agent loop
+#include "llama.h"
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+int main(int argc, char** argv) {
+    if (argc &lt; 2) { std::cerr &lt;&lt; "usage: " &lt;&lt; argv[0] &lt;&lt; " model.gguf\n"; return 1; }
+    llama_backend_init();
+    auto mparams = llama_model_default_params();
+    auto* model = llama_model_load_from_file(argv[1], mparams);
+    if (!model) { std::cerr &lt;&lt; "failed to load model\n"; return 1; }
+    auto cparams = llama_context_default_params();
+    cparams.n_ctx = 2048;
+    auto* ctx = llama_init_from_model(model, cparams);
+    const llama_vocab* vocab = llama_model_get_vocab(model);
+
+    std::string history;
+    while (true) {
+        std::cout &lt;&lt; "\n&gt; ";
+        std::string input;
+        if (!std::getline(std::cin, input) || input == "exit") break;
+        history += "&lt;|im_start|&gt;user\n" + input + "&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant\n";
+
+        std::vector&lt;llama_token&gt; tokens(history.size() + 16);
+        int n = llama_tokenize(vocab, history.c_str(), history.size(),
+                               tokens.data(), tokens.size(), true, true);
+        tokens.resize(n);
+        llama_batch batch = llama_batch_get_one(tokens.data(), tokens.size());
+        llama_decode(ctx, batch);
+
+        std::cout &lt;&lt; "&lt; ";
+        std::string reply;
+        while (true) {
+            auto logits = llama_get_logits_ith(ctx, tokens.size() - 1);
+            llama_token id = 0;
+            float best = -1e30f;
+            for (int i = 0; i &lt; llama_vocab_n_tokens(vocab); i++)
+                if (logits[i] &gt; best) { best = logits[i]; id = i; }
+            if (llama_vocab_is_eog(vocab, id)) break;
+            char buf[256];
+            int len = llama_token_to_piece(vocab, id, buf, sizeof(buf), 0, true);
+            std::cout.write(buf, len); std::cout.flush();
+            reply.append(buf, len);
+            llama_batch one = llama_batch_get_one(&amp;id, 1);
+            llama_decode(ctx, one);
+        }
+        history += reply + "&lt;|im_end|&gt;\n";
+    }
+    llama_free(ctx); llama_model_free(model); llama_backend_free();
+}</code></pre>
+      <div class="card-sub" style="margin:1rem 0 0.3rem;">Compile (from the llama.cpp directory):</div>
+<pre class="cmd" tabindex="0" role="region" aria-label="Compile commands" id="agentCmds">
+<span class="sh">$</span> g++ -O2 agent.cpp -I./include -I./ggml/include -L./build/bin -lllama -lggml -o agent
+<span class="sh">$</span> ./agent ./build/bin/ggml-org_Qwen3.5-0.8B-GGUF_*.gguf</pre>
+    </div>
+
     <footer>
       <span style="font-size:0.72rem;">Page generated <span id="fileDate"></span></span>
     </footer>
@@ -207,6 +269,7 @@ eyes from all directions.</span>
       var copySrc = document.getElementById(copyBtn.getAttribute('data-copy-target'));
       if (!copySrc) return;
       var copyLabel = copyBtn.querySelector('.copy-all-label');
+      var copyLabelOriginal = copyLabel ? copyLabel.textContent : '';
       var copyTimer = null;
 
       copyBtn.addEventListener('click', function() {
@@ -226,7 +289,7 @@ eyes from all directions.</span>
           if (copyTimer) clearTimeout(copyTimer);
           copyTimer = setTimeout(function() {
             copyBtn.classList.remove('copied');
-            if (copyLabel) copyLabel.textContent = 'Copy all commands';
+            if (copyLabel) copyLabel.textContent = copyLabelOriginal;
             copyBtn.removeAttribute('aria-label');
           }, 2000);
         }

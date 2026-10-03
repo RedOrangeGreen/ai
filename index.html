@@ -38,6 +38,7 @@
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     rel="stylesheet" crossorigin="anonymous"
+    integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g"
   />
   <style>
 @layer reset, base, components, utilities; @layer base {
@@ -315,23 +316,21 @@ input { field-sizing: content; }
 
       </div>
     </section>
-    <section class="reveal" role="region" aria-label="Chatbots">
+    <section class="reveal" aria-label="Chatbots">
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-globe"></i><h2>CHATBOTS</h2></div>
       </header>
       <ul class="chatbot-list" id="chatbotList" aria-label="Chatbot list">
         <li data-enabled="true">
-          <button type="button" class="chatbot-toggle on" aria-label="Toggle ChatGPT" aria-pressed="true"></button>
           <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General‑purpose AI assistant for chat, writing, brainstorming, and coding.
         </li>
 
         <li data-enabled="true">
-          <button type="button" class="chatbot-toggle on" aria-label="Toggle Google AI Search" aria-pressed="true"></button>
           <a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google AI Search</a> &mdash; AI‑enhanced search blending classic search with summarised answers.
         </li>
       </ul>
     </section>
-    <section class="reveal" role="region" aria-label="Run locally">
+    <section class="reveal" aria-label="Run locally">
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-laptop"></i><h2>Run locally</h2></div>
       </header>
@@ -353,7 +352,7 @@ input { field-sizing: content; }
         </li>
       </ul>
     </section>
-    <section class="reveal" role="region" aria-label="Coding">
+    <section class="reveal" aria-label="Coding">
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-code"></i><h2>Coding</h2></div>
       </header>
@@ -384,17 +383,26 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
         </article>
       </div>
     </section>
-    <section class="reveal" aria-labelledby="agents-heading" role="region">
+    <section class="reveal" aria-labelledby="agents-heading">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-robot"></i><h2 id="agents-heading">Agent Artifacts (Agent Generated Reports)</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-robot"></i><h2 id="agents-heading">Agent Generated Reports</h2></div>
       </header>
       <ul class="chatbot-list" aria-label="Agent artifacts">
-        <li><a href="dividends.html">Best UK &amp; USA Dividends and Savings</a> &mdash; The highest-yielding dividend stocks and savings rates.</li>
-        <li><a href="currentleaders.html">Current &amp; Future World Leaders</a> &mdash; Current national officeholders, four plausible future leaders each for the UK, USA, China and Russia, plus capability-ranked AI models.</li>
-        <li><a href="ukmps.html">UK MPs, Tale Of The Tape</a> &mdash; The current Westminster dudes and dudettes.</li>
+        <li><a href="dividends.html">Best UK &amp; USA Dividends and Savings</a> &mdash; The highest-yielding dividend stocks and savings rates. (Updated 3 Oct 2026)</li>
+        <li><a href="currentleaders.html">Current &amp; Future World Leaders</a> &mdash; Current national officeholders, four plausible future leaders each for the UK, USA, China and Russia, plus capability-ranked AI models. (Updated 3 Oct 2026)</li>
+        <li><a href="ukmps.html">UK MPs, Tale Of The Tape</a> &mdash; The current Westminster dudes and dudettes. (Updated 3 Oct 2026)</li>
       </ul>
     </section>
-    <section class="reveal" aria-labelledby="behaviour-studies-heading" role="region">
+    <section class="reveal" aria-labelledby="agent-created-apps-heading">
+      <header class="section-heading">
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-mobile-screen-button"></i><h2 id="agent-created-apps-heading">Agent Created Apps</h2></div>
+      </header>
+      <ul class="chatbot-list" aria-label="Agent created apps">
+        <li><a href="todolist.html">To-Do List</a> &mdash; A simple free and anonymous to-do list manager. Save and load lists locally in XML or JSON.</li>
+        <li><a href="totp.html">TOTP</a> &mdash; Time-based one-time passwords (TOTP) compatible with Google Authenticator — enter a Base32 secret and get the current code.</li>
+      </ul>
+    </section>
+    <section class="reveal" aria-labelledby="behaviour-studies-heading">
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-people-group"></i><h2 id="behaviour-studies-heading">Human Behaviour Studies</h2></div>
       </header>
