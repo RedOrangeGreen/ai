@@ -214,12 +214,15 @@ int main(int argc, char** argv) {
                                tokens.data(), tokens.size(), true, true);
         tokens.resize(n);
         llama_batch batch = llama_batch_get_one(tokens.data(), tokens.size());
+        std::vector&lt;int8_t&gt; logits_flags(tokens.size(), 0);
+        logits_flags.back() = 1;
+        batch.logits = logits_flags.data();
         llama_decode(ctx, batch);
 
         std::cout &lt;&lt; "&lt; ";
         std::string reply;
         while (true) {
-            auto logits = llama_get_logits_ith(ctx, tokens.size() - 1);
+            auto logits = llama_get_logits_ith(ctx, -1);
             llama_token id = 0;
             float best = -1e30f;
             for (int i = 0; i &lt; llama_vocab_n_tokens(vocab); i++)
@@ -230,6 +233,8 @@ int main(int argc, char** argv) {
             std::cout.write(buf, len); std::cout.flush();
             reply.append(buf, len);
             llama_batch one = llama_batch_get_one(&amp;id, 1);
+            int8_t one_flag = 1;
+            one.logits = &amp;one_flag;
             llama_decode(ctx, one);
         }
         history += reply + "&lt;|im_end|&gt;\n";
@@ -238,8 +243,12 @@ int main(int argc, char** argv) {
 }</code></pre>
       <div class="card-sub" style="margin:1rem 0 0.3rem;">Compile (from the llama.cpp directory):</div>
 <pre class="cmd" tabindex="0" role="region" aria-label="Compile commands" id="agentCmds">
-<span class="sh">$</span> g++ -O2 agent.cpp -I./include -I./ggml/include -L./build/bin -lllama -lggml -o agent
-<span class="sh">$</span> ./agent ./build/bin/ggml-org_Qwen3.5-0.8B-GGUF_*.gguf</pre>
+<span class="sh">$</span> g++ -O2 agent.cpp -I./include -I./ggml/include -L./build/bin -lllama -lggml -Wl,-rpath,'$ORIGIN/build/bin' -o agent
+<span class="sh">$</span> ./agent "$(find ~/.cache/huggingface/hub -path '*Qwen3.5-0.8B*' -name '*.gguf' | head -1)"</pre>
+      <ul class="note-list">
+        <li>The <code>-Wl,-rpath,'$ORIGIN/build/bin'</code> flag embeds the library path into the binary — without it you get <code>error while loading shared libraries: libllama.so.0</code>. The alternative is <code>LD_LIBRARY_PATH=./build/bin ./agent ...</code> at run time.</li>
+        <li>The first <code>llama-cli</code> run cached the model under <code>~/.cache/huggingface/hub</code> — the <code>find</code> command locates the <code>.gguf</code> file regardless of its exact snapshot path.</li>
+      </ul>
     </div>
 
     <footer>
