@@ -16,10 +16,12 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AI Playground" />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://redorangegreen.github.io/ai/index.html" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="AI Playground – Free AI Tools" />
   <meta name="twitter:description" content="Explore free AI chatbots, local AI tools, and agent-university resources. No sign-up required." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E⚡%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://redorangegreen.github.io/ai/index.html" />
   <title>AI Playground – Free AI Tools</title>
   <script type="application/ld+json">
   {
@@ -83,6 +85,12 @@ a { text-decoration: none; }
 .tool-badge.advanced { border-color: rgba(248, 113, 113, 0.7); color: #fee2e2; background: rgba(185, 28, 28, 0.2); }
 .tool-badge.guide { border-color: rgba(129, 140, 248, 0.7); color: #e0e7ff; background: rgba(79, 70, 229, 0.18); }
 .tool-card-body { font-size: 0.83rem; color: var(--text-muted); flex: 1; }
+.tool-card-subsection { border: 1px solid rgba(248, 113, 113, 0.35); background: rgba(127, 29, 29, 0.14); border-radius: 10px; padding: 0.7rem 0.85rem; }
+.tool-card-subsection > .tool-card-subsection-title { display: flex; align-items: center; gap: 0.45rem; margin: 0 0 0.5rem; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: #fecaca; }
+.tool-card-subsection > .tool-card-subsection-title i { color: var(--accent); }
+.tool-card-subsection > ol { margin: 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.8rem; color: var(--text-muted); }
+.tool-card-subsection > ol li::marker { color: var(--accent); font-weight: 600; }
+.tool-card-subsection code { background: #0d1117; border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 5px; padding: 0.05rem 0.35rem; font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace; color: #e6edf3; font-size: 0.95em; }
 .tool-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); position: relative; z-index: 1; }
 .tool-card-footer a.btn-open { border-radius: var(--radius-pill); padding: 0.3rem 0.85rem; font-size: 0.78rem; border: none; background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120; font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem; box-shadow: 0 10px 25px rgba(8, 47, 73, 0.7); transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, filter 0.25s ease; }
 .tool-card-footer a.btn-open:hover { box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9); }
@@ -302,7 +310,7 @@ input { field-sizing: content; }
           <div class="clock-pill"><span class="clock-pill-label">Los Angeles</span> <span id="date-la" class="clock-pill-date"></span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
           <div class="clock-pill"><span class="clock-pill-label">Moscow</span> <span id="date-moscow" class="clock-pill-date"></span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
           <div class="clock-pill"><span class="clock-pill-label">Beijing</span> <span id="date-beijing" class="clock-pill-date"></span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" id="yourcity-pill" role="button" tabindex="0" aria-haspopup="listbox" aria-controls="city-dropdown" aria-expanded="false" aria-label="Choose your city" title="Click to choose your city"><span class="clock-pill-label" id="yourcity-label">Select City</span> <span id="date-yourcity" class="clock-pill-date"></span> <span id="clock-yourcity" class="clock-pill-time"></span> <span id="icon-yourcity" class="clock-pill-icon"></span></div>
+          <div class="clock-pill" id="yourcity-pill" role="button" tabindex="0" aria-haspopup="listbox" aria-controls="city-dropdown" aria-expanded="false" aria-label="Choose your city" title="Choose your city"><span class="clock-pill-label" id="yourcity-label">Select City</span> <span id="date-yourcity" class="clock-pill-date"></span> <span id="clock-yourcity" class="clock-pill-time"></span> <span id="icon-yourcity" class="clock-pill-icon"></span></div>
         </div>
         <div id="city-dropdown" class="city-dropdown" role="listbox" aria-label="Choose a city"></div>
         <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>News</span><button type="button" class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play" aria-label="Pause news ticker" aria-pressed="false"><i class="fa-solid fa-pause"></i></button><button type="button" class="ticker-refresh-btn" data-ticker="tickerWorld" title="Refresh feed" aria-label="Refresh news ticker"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35" aria-label="News ticker speed"><span class="ticker-speed-label">speed</span><button type="button" class="ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed" aria-label="Reset ticker speed"><i aria-hidden="true" class="fa-solid fa-rotate-left"></i></button></span></div>
@@ -316,35 +324,35 @@ input { field-sizing: content; }
 
       </div>
     </section>
-    <section class="reveal" aria-label="Chatbots">
+    <section class="reveal" aria-labelledby="chatbots-heading">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-globe"></i><h2>CHATBOTS</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-globe"></i><h2 id="chatbots-heading">Chatbots</h2></div>
       </header>
       <ul class="chatbot-list" id="chatbotList" aria-label="Chatbot list">
         <li data-enabled="true">
-          <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General‑purpose AI assistant for chat, writing, brainstorming, and coding.
+          <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General-purpose AI assistant for chat, writing, brainstorming and coding.
         </li>
 
         <li data-enabled="true">
-          <a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google AI Search</a> &mdash; AI‑enhanced search blending classic search with summarised answers.
+          <a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google AI Search</a> &mdash; AI-enhanced search blending classic search with summarised answers.
         </li>
       </ul>
     </section>
-    <section class="reveal" aria-label="Run locally">
+    <section class="reveal" aria-labelledby="run-locally-heading">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-laptop"></i><h2>Run locally</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-laptop"></i><h2 id="run-locally-heading">Run locally</h2></div>
       </header>
       <div class="info-banner">
         <i aria-hidden="true" class="fa-solid fa-circle-info"></i>
-        <div>Local tools keep computation on your device. They can be more private, but may require a capable GPU or CPU and a bit more setup.</div>
+        <div>Local tools keep computation on your own device, so your data never leaves it. They can be more private, but they usually need a capable GPU or CPU and a little more setup.</div>
       </div>
       <ul class="chatbot-list" aria-label="Local AI tools">
-        <li>Ollama — Simple way to run popular models locally with a clean CLI and one-line installs. Great first step into local AI.
+        <li>Ollama — A simple way to run popular models locally, with a clean CLI and one-line installs. A good first step into local AI.
           <span style="margin-left:auto;display:flex;gap:0.5rem;flex-shrink:0;">
             <a href="https://ollama.com" target="_blank" rel="noopener noreferrer" class="btn-open">Homepage <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </span>
         </li>
-        <li>llama.cpp — High-performance C++ engine for running LLMs locally. Very flexible, very fast.
+        <li>llama.cpp — A high-performance C++ engine for running LLMs locally. Very flexible and very fast.
           <span style="margin-left:auto;display:flex;gap:0.5rem;flex-shrink:0;">
             <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener noreferrer" class="btn-open">GitHub <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
             <a href="llamacppquickstart.html" class="btn-open btn-open-ghost">Quickstart <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
@@ -352,9 +360,9 @@ input { field-sizing: content; }
         </li>
       </ul>
     </section>
-    <section class="reveal" aria-label="Coding">
+    <section class="reveal" aria-labelledby="coding-heading">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-code"></i><h2>Coding</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-code"></i><h2 id="coding-heading">Coding</h2></div>
       </header>
       <div class="tool-grid">
         <article class="tool-card tool" data-category="coding" data-tags="coding opencode install ubuntu terminal">
@@ -369,72 +377,55 @@ input { field-sizing: content; }
               <span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-book-open"></i> Guide</span>
             </div>
           </div>
-          <p class="tool-card-body">To install and use OpenCode v2 for free on Ubuntu enter:</p>
+          <p class="tool-card-body">To install OpenCode v2 for free on Ubuntu, enter:</p>
           <pre style="margin:0;" tabindex="0" role="region" aria-label="Command"><code>sudo apt update
 sudo apt install curl -y
 curl -fsSL https://opencode.ai/v2/install | bash
 source ~/.bashrc
-opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy"></i></button></pre>
+opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy" aria-hidden="true"></i></button></pre>
+          <div class="tool-card-subsection">
+            <p class="tool-card-subsection-title"><i aria-hidden="true" class="fa-solid fa-triangle-exclamation"></i> Workaround for: Upstream request failed: Endpoint is unavailable.</p>
+            <ol>
+              <li>If you see this error, the model you are using is temporarily unavailable. Switch to another one without restarting.</li>
+              <li>Launch your terminal as usual and run <code>opencode</code>.</li>
+              <li>Once the prompt is active, type <code>/models</code> and press Enter.</li>
+              <li>A visual list of the free models available opens. Use your arrow keys to select a stable lane (such as <code>kimi-k3</code> or <code>qwen3.6</code>) and press Enter to hot-swap to it. Your session continues in the new model.</li>
+            </ol>
+          </div>
           <p class="tool-card-body">To uninstall OpenCode, enter:</p>
-          <pre style="margin:0;" tabindex="0" role="region" aria-label="Command"><code>opencode uninstall</code><button type="button" class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy"></i></button></pre>
+          <pre style="margin:0;" tabindex="0" role="region" aria-label="Command"><code>opencode uninstall</code><button type="button" class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy" aria-hidden="true"></i></button></pre>
           <div class="tool-card-footer">
             <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer" class="btn-open">OpenCode <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </article>
       </div>
     </section>
-    <section class="reveal" aria-labelledby="agents-heading">
+    <section class="reveal" aria-labelledby="generated-reports-heading">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-robot"></i><h2 id="agents-heading">Agent Generated Reports</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-robot"></i><h2 id="generated-reports-heading">Generated Reports</h2></div>
       </header>
-      <ul class="chatbot-list" aria-label="Agent artifacts">
+      <ul class="chatbot-list" aria-label="Generated reports">
         <li><a href="dividends.html">Best UK &amp; USA Dividends and Savings</a> &mdash; The highest-yielding dividend stocks and savings rates. (Updated 3 Oct 2026)</li>
-        <li><a href="currentleaders.html">Current &amp; Future World Leaders</a> &mdash; Current national officeholders, four plausible future leaders each for the UK, USA, China and Russia, plus capability-ranked AI models. (Updated 3 Oct 2026)</li>
-        <li><a href="ukmps.html">UK MPs, Tale Of The Tape</a> &mdash; The current Westminster dudes and dudettes. (Updated 3 Oct 2026)</li>
+        <li><a href="currentleaders.html">Current &amp; Future World Leaders</a> &mdash; Current national officeholders, plus four plausible future leaders each for the UK, USA, China and Russia, and capability-ranked AI models. (Updated 3 Oct 2026)</li>
+        <li><a href="ukmps.html">UK MPs, Tale Of The Tape</a> &mdash; The current Westminster dudes and dudettes, with voting records. (Updated 3 Oct 2026)</li>
       </ul>
     </section>
-    <section class="reveal" aria-labelledby="agent-created-apps-heading">
+    <section class="reveal" aria-labelledby="generated-apps-heading">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-mobile-screen-button"></i><h2 id="agent-created-apps-heading">Agent Created Apps</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-mobile-screen-button"></i><h2 id="generated-apps-heading">Generated Apps</h2></div>
       </header>
-      <ul class="chatbot-list" aria-label="Agent created apps">
-        <li><a href="todolist.html">To-Do List</a> &mdash; A simple free and anonymous to-do list manager. Save and load lists locally in XML or JSON.</li>
-        <li><a href="totp.html">TOTP</a> &mdash; Time-based one-time passwords (TOTP) compatible with Google Authenticator — enter a Base32 secret and get the current code.</li>
+      <ul class="chatbot-list" aria-label="Generated apps">
+        <li><a href="todolist.html">To-Do List</a> &mdash; A simple, free, anonymous to-do list manager. Save and load lists locally in XML or JSON.</li>
+        <li><a href="totp.html">TOTP</a> &mdash; Time-based one-time passwords (TOTP), compatible with Google Authenticator. Enter a Base32 secret and get the current code.</li>
       </ul>
     </section>
-    <section class="reveal" aria-labelledby="behaviour-studies-heading">
+    <section class="reveal" aria-labelledby="agent-human-studies-heading">
       <header class="section-heading">
-        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-people-group"></i><h2 id="behaviour-studies-heading">Human Behaviour Studies</h2></div>
+        <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-people-group"></i><h2 id="agent-human-studies-heading">Agent Human Studies</h2></div>
       </header>
-      <section class="behaviour-subsection" aria-labelledby="sexual-arousal-triggers">
-        <div class="section-heading-main" style="margin:0.9rem 0 0.6rem;gap:0.5rem;">
-          <i aria-hidden="true" class="fa-solid fa-heart"></i>
-          <h3 id="sexual-arousal-triggers" style="margin:0;font-size:0.9rem;letter-spacing:0.08em;text-transform:uppercase;color:#e5e7eb;">Sexual Arousal Triggers</h3>
-        </div>
-
-        <section aria-labelledby="behaviour-studies-male">
-          <div class="section-heading-main" style="margin:0.75rem 0 0.5rem;gap:0.5rem;">
-            <i aria-hidden="true" class="fa-solid fa-mars"></i>
-            <h4 id="behaviour-studies-male" style="margin:0;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">Male</h4>
-          </div>
-          <ul class="chatbot-list" aria-labelledby="behaviour-studies-male" aria-label="Male behaviour studies">
-            <li><a href="soi6pattaya.html">Soi 6, Pattaya, Thailand</a></li>
-            <li><a href="alizee.html">Alizée — "J'en Ai Marre"</a></li>
-            <li><a href="utilities.html">Utilities</a></li>
-          </ul>
-        </section>
-
-        <section aria-labelledby="behaviour-studies-female">
-          <div class="section-heading-main" style="margin:0.9rem 0 0.5rem;gap:0.5rem;">
-            <i aria-hidden="true" class="fa-solid fa-venus"></i>
-            <h4 id="behaviour-studies-female" style="margin:0;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">Female</h4>
-          </div>
-          <ul class="chatbot-list" aria-labelledby="behaviour-studies-female" aria-label="Female behaviour studies">
-            <li><a href="waltzer.html">Fairground Waltzer</a></li>
-            <li><a href="blue-bently.html">Blue Bentley</a></li>
-          </ul>
-        </section>
-      </section>
+      <ul class="chatbot-list" aria-label="Agent human studies">
+        <li><a href="soi6pattaya.html">Soi 6, Pattaya, Thailand</a> &mdash; A structured field study of the street as a commercial nightlife corridor, written as a layered analysis for AI agents.</li>
+      </ul>
     </section>
     <footer>
       <span class="brand">AI Playground 2026</span>
@@ -559,7 +550,7 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
         }
       });
       document.addEventListener('click', function(e) {
-        if (!dropdown.contains(e.target) && e.target !== cityPill) setCityMenu(false);
+        if (!dropdown.contains(e.target) && !cityPill.contains(e.target)) setCityMenu(false);
       });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') setCityMenu(false);
@@ -777,7 +768,7 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
       if (backToTop) {
         window.addEventListener("scroll", () => {
           backToTop.classList.toggle("visible", window.scrollY > 400);
-        });
+        }, { passive: true });
         backToTop.addEventListener("click", () => {
           const behavior = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
           window.scrollTo({ top: 0, behavior });
@@ -1058,10 +1049,12 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
           var text = pre.querySelector('code').textContent;
           function done() {
             btn.classList.add('copied');
-            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            btn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i>';
+            btn.setAttribute('aria-label', 'Copied');
             setTimeout(function() {
               btn.classList.remove('copied');
-              btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+              btn.innerHTML = '<i class="fa-regular fa-copy" aria-hidden="true"></i>';
+              btn.setAttribute('aria-label', 'Copy code');
             }, 2000);
           }
           function fallbackCopy() {
