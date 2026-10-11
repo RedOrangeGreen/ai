@@ -38,10 +38,14 @@
   <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link
+    rel="preload"
+    as="style"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    rel="stylesheet" crossorigin="anonymous"
+    crossorigin="anonymous"
     integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g"
+    onload="this.onload=null;this.rel='stylesheet'"
   />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" /></noscript>
   <style>
 @layer reset, base, components, utilities; @layer base {
   :root { accent-color: #38bdf8; interpolate-size: allow-keywords; --bg-body: #050816; --bg-elevated: #0b1020; --bg-elevated-soft: #0f172a; --accent: #38bdf8; --accent-soft: rgba(56,189,248,0.15); --accent-strong: #0ea5e9; --text-main: #e5e7eb; --text-muted: #9ca3af; --border-subtle: rgba(148,163,184,0.25); --radius-lg: 18px; --radius-pill: 999px; --shadow-soft: 0 18px 45px rgba(15,23,42,0.85); --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7); --transition-fast: 0.18s ease-out; --transition-med: 0.25s ease-out; }
@@ -65,6 +69,13 @@ a { text-decoration: none; }
 .section-heading-main i { width: 26px; height: 26px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.5); color: var(--accent); font-size: 0.9rem; }
 .section-heading-main h2 { font-size: 1.05rem; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; color: #e5e7eb; }
 .section-heading-main h3 { font-size: 0.9rem; margin: 0; letter-spacing: 0.08em; text-transform: uppercase; color: #e5e7eb; }
+.card-sub { margin: 0 0 0.85rem; color: var(--text-muted); font-size: 0.82rem; line-height: 1.55; }
+.section-intro { margin: 0 0 1rem; padding: 0.85rem 1rem; border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent-strong); border-radius: 12px; background: rgba(15, 23, 42, 0.7); }
+.section-intro > h3 { display: flex; align-items: center; gap: 0.45rem; margin: 0 0 0.5rem; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-main); }
+.section-intro > h3 i { color: var(--accent); }
+.section-intro > p { margin: 0; font-size: 0.9rem; line-height: 1.55; color: var(--text-muted); }
+.section-intro > p + p { margin-top: 0.6rem; }
+.section-intro a { color: var(--accent); font-weight: 600; }
 .chatbot-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
 .chatbot-list li { padding: 0.65rem 0.9rem; background: rgba(15, 23, 42, 0.7); border-radius: 12px; border: 1px solid var(--border-subtle); font-size: 0.9rem; color: var(--text-muted); transition: border-color var(--transition-fast), opacity 0.25s ease; display: flex; align-items: center; }
 .chatbot-list li:hover { border-color: rgba(56, 189, 248, 0.6); }
@@ -88,6 +99,7 @@ a { text-decoration: none; }
 .tool-card-subsection { border: 1px solid rgba(248, 113, 113, 0.35); background: rgba(127, 29, 29, 0.14); border-radius: 10px; padding: 0.7rem 0.85rem; }
 .tool-card-subsection > .tool-card-subsection-title { display: flex; align-items: center; gap: 0.45rem; margin: 0 0 0.5rem; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: #fecaca; }
 .tool-card-subsection > .tool-card-subsection-title i { color: var(--accent); }
+.tool-card-subsection > .tool-card-subsection-title .subsection-label { color: #fff1f2; }
 .tool-card-subsection > ol { margin: 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.8rem; color: var(--text-muted); }
 .tool-card-subsection > ol li::marker { color: var(--accent); font-weight: 600; }
 .tool-card-subsection code { background: #0d1117; border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 5px; padding: 0.05rem 0.35rem; font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace; color: #e6edf3; font-size: 0.95em; }
@@ -95,7 +107,6 @@ a { text-decoration: none; }
 .tool-card-footer a.btn-open { border-radius: var(--radius-pill); padding: 0.3rem 0.85rem; font-size: 0.78rem; border: none; background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120; font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem; box-shadow: 0 10px 25px rgba(8, 47, 73, 0.7); transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, filter 0.25s ease; }
 .tool-card-footer a.btn-open:hover { box-shadow: 0 14px 35px rgba(8, 47, 73, 0.9); }
 .btn-open-ghost { background: transparent !important; color: var(--accent) !important; border: 1px solid rgba(56, 189, 248, 0.7) !important; box-shadow: none !important; }
-.tool-card.toggled-off .btn-open { position: relative; z-index: 2; }
 .tool-card pre { position: relative; margin: 0; background: #0d1117; border: 1px solid rgba(148,163,184,0.15); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-x: auto; font-size: 0.78rem; line-height: 1.5; }
 .tool-card pre code { color: #e6edf3; font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace; }
 .tool-card .copy-btn { position: absolute; top: 0.4rem; right: 0.4rem; width: 28px; height: 28px; border-radius: 6px; border: 1px solid rgba(148,163,184,0.2); background: rgba(13,17,23,0.9); color: rgba(148,163,184,0.6); font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.2s ease, border-color 0.2s ease; }
@@ -212,12 +223,12 @@ h1, h2, h3 { text-wrap: balance; }
 .ticker-speed-reset:hover { color: var(--accent); }
 .ticker-pause { background: none; border: none; padding: 0 0.2rem; font-size: 0.8rem; color: rgba(148,163,184,0.5); cursor: pointer; transition: color 0.2s ease; margin-left: 0.3rem; display: inline-flex; align-items: center; }
 .ticker-pause:hover { color: var(--accent); }
-.chatbot-list li.disabled { opacity: 0.4; }
-.chatbot-list li.disabled a { pointer-events: none; }
+.chatbot-list li.disabled { opacity: 0.45; }
+.chatbot-list li.disabled a { pointer-events: none; text-decoration: line-through; }
 .chatbot-toggle { flex-shrink: 0; width: 32px; height: 18px; border-radius: 999px; background: rgba(148,163,184,0.3); border: none; cursor: pointer; position: relative; margin-right: 0.65rem; padding: 0; transition: background 0.2s ease; }
-.chatbot-toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #e5e7eb; transition: transform 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+.chatbot-toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #e5e7eb; transition: translate 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
 .chatbot-toggle.on { background: var(--accent); }
-.chatbot-toggle.on::after { transform: translateX(14px); }
+.chatbot-toggle.on::after { translate: 14px 0; }
 .tool-grid { container-type: inline-size; container-name: tools; }
 @container tools (max-width: 380px) {
   .tool-card { padding: 0.75rem; }
@@ -231,6 +242,10 @@ h1, h2, h3 { text-wrap: balance; }
 input { field-sizing: content; }
 @media (prefers-contrast: more) {
   .tool-card { border-width: 2px; }
+}
+@media (forced-colors: active) {
+  .tool-card, .tool-badge, .section-intro, .info-banner, .chatbot-list li, .news-ticker, .clock-pill, .city-dropdown { border: 1px solid CanvasText; }
+  .tool-badge.free, .tool-badge.local, .tool-badge.advanced, .tool-badge.guide { background: Canvas; color: CanvasText; }
 }
 .noscript-notice { margin: 1rem auto; max-width: 640px; padding: 0.9rem 1.1rem; border-radius: 12px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.35); color: var(--text-main); font-size: 0.85rem; line-height: 1.5; }
   </style>
@@ -305,19 +320,19 @@ input { field-sizing: content; }
         <div id="cosmos-row" style="margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;"><button class="cosmos-btn" id="cosmosToggle" type="button" aria-label="Toggle cosmic background" aria-pressed="true"><i aria-hidden="true" class="fa-solid fa-globe"></i> Cosmos</button><span style="font-size:0.72rem;color:var(--text-muted);">toggle background effects</span></div>
         <div id="clock-row" class="clock-row">
           <div class="clock-label"><i aria-hidden="true" class="fa-regular fa-clock"></i><span>World Clocks</span></div>
-          <div class="clock-pill"><span class="clock-pill-label">London</span> <span id="date-london" class="clock-pill-date"></span> <span id="clock-london" class="clock-pill-time"></span> <span id="icon-london" class="clock-pill-icon"></span></div>
-          <div class="clock-pill"><span class="clock-pill-label">New York</span> <span id="date-nyc" class="clock-pill-date"></span> <span id="clock-nyc" class="clock-pill-time"></span> <span id="icon-nyc" class="clock-pill-icon"></span></div>
-          <div class="clock-pill"><span class="clock-pill-label">Los Angeles</span> <span id="date-la" class="clock-pill-date"></span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon"></span></div>
-          <div class="clock-pill"><span class="clock-pill-label">Moscow</span> <span id="date-moscow" class="clock-pill-date"></span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon"></span></div>
-          <div class="clock-pill"><span class="clock-pill-label">Beijing</span> <span id="date-beijing" class="clock-pill-date"></span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon"></span></div>
-          <div class="clock-pill" id="yourcity-pill" role="button" tabindex="0" aria-haspopup="listbox" aria-controls="city-dropdown" aria-expanded="false" aria-label="Choose your city" title="Choose your city"><span class="clock-pill-label" id="yourcity-label">Select City</span> <span id="date-yourcity" class="clock-pill-date"></span> <span id="clock-yourcity" class="clock-pill-time"></span> <span id="icon-yourcity" class="clock-pill-icon"></span></div>
+          <div class="clock-pill"><span class="clock-pill-label">London</span> <span id="date-london" class="clock-pill-date"></span> <span id="clock-london" class="clock-pill-time"></span> <span id="icon-london" class="clock-pill-icon" aria-hidden="true"></span></div>
+          <div class="clock-pill"><span class="clock-pill-label">New York</span> <span id="date-nyc" class="clock-pill-date"></span> <span id="clock-nyc" class="clock-pill-time"></span> <span id="icon-nyc" class="clock-pill-icon" aria-hidden="true"></span></div>
+          <div class="clock-pill"><span class="clock-pill-label">Los Angeles</span> <span id="date-la" class="clock-pill-date"></span> <span id="clock-la" class="clock-pill-time"></span> <span id="icon-la" class="clock-pill-icon" aria-hidden="true"></span></div>
+          <div class="clock-pill"><span class="clock-pill-label">Moscow</span> <span id="date-moscow" class="clock-pill-date"></span> <span id="clock-moscow" class="clock-pill-time"></span> <span id="icon-moscow" class="clock-pill-icon" aria-hidden="true"></span></div>
+          <div class="clock-pill"><span class="clock-pill-label">Beijing</span> <span id="date-beijing" class="clock-pill-date"></span> <span id="clock-beijing" class="clock-pill-time"></span> <span id="icon-beijing" class="clock-pill-icon" aria-hidden="true"></span></div>
+          <div class="clock-pill" id="yourcity-pill" role="button" tabindex="0" aria-haspopup="listbox" aria-controls="city-dropdown" aria-expanded="false" aria-label="Choose your city" title="Choose your city"><span class="clock-pill-label" id="yourcity-label">Select City</span> <span id="date-yourcity" class="clock-pill-date" aria-hidden="true"></span> <span id="clock-yourcity" class="clock-pill-time" aria-hidden="true"></span> <span id="icon-yourcity" class="clock-pill-icon" aria-hidden="true"></span></div>
         </div>
         <div id="city-dropdown" class="city-dropdown" role="listbox" aria-label="Choose a city"></div>
-        <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>News</span><button type="button" class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play" aria-label="Pause news ticker" aria-pressed="false"><i class="fa-solid fa-pause"></i></button><button type="button" class="ticker-refresh-btn" data-ticker="tickerWorld" title="Refresh feed" aria-label="Refresh news ticker"><i class="fa-solid fa-rotate"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35" aria-label="News ticker speed"><span class="ticker-speed-label">speed</span><button type="button" class="ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed" aria-label="Reset ticker speed"><i aria-hidden="true" class="fa-solid fa-rotate-left"></i></button></span></div>
-        <div class="news-ticker" id="tickerWorld" role="region" aria-label="News headlines" aria-live="off">
-          <div class="news-ticker-grad top"></div>
-          <div class="news-ticker-grad bot"></div>
-          <div class="news-ticker-refresh-msg">Refreshing…</div>
+        <div class="news-label"><i aria-hidden="true" class="fa-regular fa-newspaper"></i><span>News</span><button type="button" class="ticker-pause" data-ticker="tickerWorld" title="Pause/Play" aria-label="Pause news ticker" aria-pressed="false"><i class="fa-solid fa-pause" aria-hidden="true"></i></button><button type="button" class="ticker-refresh-btn" data-ticker="tickerWorld" title="Refresh feed" aria-label="Refresh news ticker"><i class="fa-solid fa-rotate" aria-hidden="true"></i></button><span class="ticker-speed-wrap"><input type="range" class="ticker-speed" data-ticker="tickerWorld" min="0.05" max="1.2" step="0.05" value="0.35" aria-label="News ticker speed"><span class="ticker-speed-label" aria-hidden="true">speed</span><button type="button" class="ticker-speed-reset" data-ticker="tickerWorld" title="Reset speed" aria-label="Reset ticker speed"><i aria-hidden="true" class="fa-solid fa-rotate-left"></i></button></span></div>
+        <div class="news-ticker" id="tickerWorld" role="region" aria-label="News headlines" aria-live="off" aria-busy="true">
+          <div class="news-ticker-grad top" aria-hidden="true"></div>
+          <div class="news-ticker-grad bot" aria-hidden="true"></div>
+          <div class="news-ticker-refresh-msg" aria-hidden="true">Refreshing…</div>
           <div class="news-ticker-inner"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
         </div>
 
@@ -328,13 +343,14 @@ input { field-sizing: content; }
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-globe"></i><h2 id="chatbots-heading">Chatbots</h2></div>
       </header>
+      <p class="card-sub">Switch an entry off to take it out of your way &mdash; the choice is remembered on this device only.</p>
       <ul class="chatbot-list" id="chatbotList" aria-label="Chatbot list">
         <li data-enabled="true">
-          <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General-purpose AI assistant for chat, writing, brainstorming and coding.
+          <button type="button" class="chatbot-toggle on" aria-pressed="true" aria-label="Toggle ChatGPT link"></button><a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> &mdash; General-purpose AI assistant for chat, writing, brainstorming and coding.
         </li>
 
         <li data-enabled="true">
-          <a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google AI Search</a> &mdash; AI-enhanced search blending classic search with summarised answers.
+          <button type="button" class="chatbot-toggle on" aria-pressed="true" aria-label="Toggle Google AI Search link"></button><a href="https://www.google.com/aimode" target="_blank" rel="noopener noreferrer">Google AI Search</a> &mdash; AI-enhanced search blending classic search with summarised answers.
         </li>
       </ul>
     </section>
@@ -364,6 +380,10 @@ input { field-sizing: content; }
       <header class="section-heading">
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-code"></i><h2 id="coding-heading">Coding</h2></div>
       </header>
+      <div class="section-intro">
+        <h3><i aria-hidden="true" class="fa-solid fa-microphone-lines"></i> The &ldquo;Pencils Down&rdquo; Speech</h3>
+        <p>The &ldquo;pencils down&rdquo; speech was the opening keynote delivered by David Heinemeier Hansson (DHH) &mdash; creator of Ruby on Rails and co-founder of 37signals &mdash; at the Rails World 2026 conference in Austin, Texas, on 23 September 2026. He announced that 37signals has gone &ldquo;pencils down&rdquo;: hand-writing code there &ldquo;is now an exceptional state.&rdquo;, with AI agents now the company&rsquo;s default code generator; people intervening only to check the output if necessary. He backed the claim with his own figures, having written around 30,000 lines of Ruby a year for two decades before a single month in which he wrote 150,000. <a href="https://www.youtube.com/watch?v=vDjW_dRyKXY" target="_blank" rel="noopener noreferrer">Watch the keynote <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a> &middot; <a href="https://rubyonrails.org/world/2026/" target="_blank" rel="noopener noreferrer">Rails World 2026 <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
+      </div>
       <div class="tool-grid">
         <article class="tool-card tool" data-category="coding" data-tags="coding opencode install ubuntu terminal">
           <div class="tool-card-header">
@@ -384,12 +404,12 @@ curl -fsSL https://opencode.ai/v2/install | bash
 source ~/.bashrc
 opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy" aria-hidden="true"></i></button></pre>
           <div class="tool-card-subsection">
-            <p class="tool-card-subsection-title"><i aria-hidden="true" class="fa-solid fa-triangle-exclamation"></i> Workaround for: Upstream request failed: Endpoint is unavailable.</p>
+            <p class="tool-card-subsection-title"><i aria-hidden="true" class="fa-solid fa-triangle-exclamation"></i> <span><span class="subsection-label">Error Workarounds</span><br>Upstream request failed: Endpoint is unavailable.<br>Error: Model exo-free has been deprecated.</span></p>
             <ol>
-              <li>If you see this error, the model you are using is temporarily unavailable. Switch to another one without restarting.</li>
+              <li>If you see either error, your current model is unusable and you should switch away from it. The first means it is temporarily unavailable; the second means it has been retired by its provider and will not come back, so retrying will not help in either case. Switch to another one without restarting.</li>
               <li>Launch your terminal as usual and run <code>opencode</code>.</li>
               <li>Once the prompt is active, type <code>/models</code> and press Enter.</li>
-              <li>A visual list of the free models available opens. Use your arrow keys to select a stable lane (such as <code>kimi-k3</code> or <code>qwen3.6</code>) and press Enter to hot-swap to it. Your session continues in the new model.</li>
+              <li>A visual list of the free models available opens. Use your arrow keys to select a stable lane (such as <code>Space Bunny Free</code>) and press Enter to hot-swap to it. Your session continues in the new model.</li>
             </ol>
           </div>
           <p class="tool-card-body">To uninstall OpenCode, enter:</p>
@@ -407,7 +427,8 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
       <ul class="chatbot-list" aria-label="Generated reports">
         <li><a href="dividends.html">Best UK &amp; USA Dividends and Savings</a> &mdash; The highest-yielding dividend stocks and savings rates. (Updated 3 Oct 2026)</li>
         <li><a href="currentleaders.html">Current &amp; Future World Leaders</a> &mdash; Current national officeholders, plus four plausible future leaders each for the UK, USA, China and Russia, and capability-ranked AI models. (Updated 3 Oct 2026)</li>
-        <li><a href="ukmps.html">UK MPs, Tale Of The Tape</a> &mdash; The current Westminster dudes and dudettes, with voting records. (Updated 3 Oct 2026)</li>
+        <li><a href="ukmps.html">UK MPs, Tale Of The Tape</a> &mdash; The current Westminster dudes and dudettes, with voting records. (Updated 11 Oct 2026)</li>
+        <li><a href="budget2026.html">UK Oct 2026 Budget Predictions</a> &mdash; Predictions for the Autumn Budget on 28 October, rating 24 measures from settled to unlikely. (Updated 11 Oct 2026)</li>
       </ul>
     </section>
     <section class="reveal" aria-labelledby="generated-apps-heading">
@@ -499,6 +520,7 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
           try { localStorage.setItem('ai-playground.city', tz); } catch (e) {}
           setCityMenu(false);
           cityPill.focus();
+          updateClocks(); /* show the new city straight away */
         });
         d.addEventListener('keydown', function(e) {
           var options = Array.prototype.slice.call(dropdown.querySelectorAll('[role="option"]'));
@@ -533,12 +555,25 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
         }
       } catch (e) {}
 
+      function placeDropdown() {
+        var rect = cityPill.getBoundingClientRect();
+        var width = dropdown.offsetWidth || 160;
+        var left = Math.min(Math.max(8, rect.left), window.innerWidth - width - 8);
+        var spaceBelow = window.innerHeight - rect.bottom;
+        dropdown.style.position = 'fixed';
+        dropdown.style.left = left + 'px';
+        if (spaceBelow < 240 && rect.top > spaceBelow) {
+          dropdown.style.top = 'auto';
+          dropdown.style.bottom = (window.innerHeight - rect.top + 4) + 'px';
+        } else {
+          dropdown.style.bottom = 'auto';
+          dropdown.style.top = (rect.bottom + 4) + 'px';
+        }
+      }
+
       cityPill.addEventListener('click', function(e) {
         e.stopPropagation();
-        var rect = this.getBoundingClientRect();
-        dropdown.style.position = 'fixed';
-        dropdown.style.top = (rect.bottom + 4) + 'px';
-        dropdown.style.left = rect.left + 'px';
+        if (!dropdown.classList.contains('visible')) placeDropdown();
         setCityMenu(!dropdown.classList.contains('visible'));
       });
       cityPill.addEventListener('keydown', function(e) {
@@ -555,99 +590,172 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') setCityMenu(false);
       });
+      /* Keep the menu anchored to the pill while the page moves. */
+      window.addEventListener('scroll', function() {
+        if (dropdown.classList.contains('visible')) placeDropdown();
+      }, { passive: true });
+      window.addEventListener('resize', function() {
+        if (dropdown.classList.contains('visible')) placeDropdown();
+      });
 
       var tickerSpeeds = {};
       var tickerLoaders = {};
       var reducedMotionQuery = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+      var REFRESH_INTERVAL = 10 * 60 * 1000; /* refetch at most every 10 minutes */
+
+      function fetchFeed(url, timeout) {
+        if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
+          return fetch(url, { signal: AbortSignal.timeout(timeout) });
+        }
+        return fetch(url);
+      }
+
       function createTicker(containerId, feeds) {
         var container = document.getElementById(containerId);
         if (!container) return;
         var inner = container.querySelector('.news-ticker-inner');
-        var items = [];
         var pos = 0;
+        var lastLoaded = 0;
+        var onScreen = true;
         tickerSpeeds[containerId] = 0.35;
+        tickerLoaders[containerId] = load;
         container.__paused = false;
-        function load() {
-          Promise.all(feeds.map(function(feed) {
+        container.__hoverPaused = false;
+
+        function load(force) {
+          var now = Date.now();
+          if (!force && now - lastLoaded < REFRESH_INTERVAL) return;
+          lastLoaded = now;
+          container.setAttribute('aria-busy', 'true');
+
+          Promise.all(feeds.map(function (feed) {
             var url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url);
-            return fetch(url).then(function(r) {
-              if (!r.ok) throw new Error('News feed request failed');
-              return r.json();
-            }).then(function(data) {
-              return { heading: feed.heading, items: (data && data.items) ? data.items : [] };
-            });
-          })).then(function(results) {
+            return fetchFeed(url, 12000)
+              .then(function (r) {
+                if (!r.ok) throw new Error('News feed request failed');
+                return r.json();
+              })
+              .then(function (data) {
+                return { heading: feed.heading, items: (data && Array.isArray(data.items)) ? data.items : [] };
+              });
+          })).then(function (results) {
             var frag = document.createDocumentFragment();
-            var newItems = [];
-            results.forEach(function(result) {
-              result.items.sort(function(a, b) { return new Date(b.pubDate) - new Date(a.pubDate); });
+            results.forEach(function (result) {
               var headingEl = document.createElement('div');
               headingEl.className = 'news-ticker-heading';
               headingEl.textContent = result.heading;
               frag.appendChild(headingEl);
-              newItems.push(headingEl);
+
+              result.items.sort(function (a, b) { return new Date(b.pubDate) - new Date(a.pubDate); });
               var count = Math.min(result.items.length, 5);
               for (var i = 0; i < count; i++) {
-                if (!result.items[i].link) continue;
+                var item = result.items[i];
+                if (!item || !item.link) continue;
                 var link;
-                try { link = new URL(result.items[i].link, window.location.href); } catch (e) { continue; }
+                try { link = new URL(item.link, window.location.href); } catch (e) { continue; }
                 if (link.protocol !== 'http:' && link.protocol !== 'https:') continue;
+
                 var el = document.createElement('a');
                 el.className = 'news-ticker-item';
                 el.href = link.href;
                 el.target = '_blank';
                 el.rel = 'noopener noreferrer';
+                el.setAttribute('aria-label', 'Open news story: ' + item.title);
+
                 var titleSpan = document.createElement('span');
                 titleSpan.className = 'ni-title';
-                titleSpan.textContent = result.items[i].title;
-                titleSpan.title = result.items[i].title;
+                titleSpan.textContent = item.title;
+                titleSpan.title = item.title;
+
                 var timeSpan = document.createElement('span');
                 timeSpan.className = 'ni-time';
-                var d = new Date(result.items[i].pubDate);
-                timeSpan.textContent = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-                el.setAttribute('aria-label', 'Open news story: ' + result.items[i].title);
+                var d = new Date(item.pubDate);
+                timeSpan.textContent = isNaN(d.getTime()) ? '' :
+                  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ' ' +
+                  d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
                 el.appendChild(titleSpan);
                 el.appendChild(timeSpan);
                 frag.appendChild(el);
-                newItems.push(el);
               }
             });
-            inner.innerHTML = '';
-            inner.appendChild(frag);
-            items = newItems;
-            if (pos > inner.scrollHeight) pos = 0;
-          }).catch(function() {
-            if (!items.length) inner.innerHTML = '<div class="news-ticker-loading">Could not load news.</div>';
+
+            var fresh = frag.childNodes.length > 0;
+            if (fresh) {
+              var wasAtTop = pos === 0;
+              inner.replaceChildren(frag);
+              pos = 0;
+              inner.style.transform = 'translateY(0px)';
+              if (!wasAtTop) holdFrames = 90;
+            }
+            container.removeAttribute('aria-busy');
+          }).catch(function () {
+            lastLoaded = 0; /* allow an immediate retry */
+            container.removeAttribute('aria-busy');
+            if (!inner.querySelector('.news-ticker-item')) {
+              inner.innerHTML = '<div class="news-ticker-loading">Could not load news. Check your connection, then press refresh.</div>';
+            }
           });
         }
-        load();
+
+        var frame = 0;
+        var holdFrames = 90;
         var resetting = false;
+
         function tick() {
-          if (container.__paused || container.__hoverPaused || resetting) { requestAnimationFrame(tick); return; }
-          if (holdFrames > 0) { holdFrames--; requestAnimationFrame(tick); return; }
+          frame = 0;
+          if (container.__paused || container.__hoverPaused || !onScreen ||
+              document.hidden || resetting || (reducedMotionQuery && reducedMotionQuery.matches)) return;
+          if (holdFrames > 0) { holdFrames--; schedule(); return; }
+
           pos += tickerSpeeds[containerId];
-          var h = inner.scrollHeight;
-          var ch = inner.parentElement.clientHeight;
-          if (pos > h) {
-              resetting = true;
+          var height = inner.scrollHeight;
+          if (pos > height) {
+            resetting = true;
+            pos = 0;
             container.classList.add('news-ticker-reset');
-        tickerLoaders[containerId] = load;
-        load();
-            setTimeout(function() {
-              pos = 0;
+            load(); /* throttled: only refetches when the cache has expired */
+            setTimeout(function () {
               inner.style.transform = 'translateY(0px)';
               container.classList.remove('news-ticker-reset');
               resetting = false;
               holdFrames = 90;
+              schedule();
             }, 380);
+            return;
           }
           inner.style.transform = 'translateY(' + (-pos) + 'px)';
-          requestAnimationFrame(tick);
+          schedule();
         }
-        var holdFrames = 90;
-        if (!reducedMotionQuery || !reducedMotionQuery.matches) tick();
-        container.addEventListener('mouseenter', function() { container.__hoverPaused = true; });
-        container.addEventListener('mouseleave', function() { container.__hoverPaused = false; });
+
+        function schedule() {
+          if (!frame && !container.__paused && onScreen && !document.hidden) frame = requestAnimationFrame(tick);
+        }
+
+        load();
+        schedule();
+        container.__restart = schedule;
+        container.__stop = function () { if (frame) { cancelAnimationFrame(frame); frame = 0; } };
+
+        container.addEventListener('mouseenter', function () { container.__hoverPaused = true; });
+        container.addEventListener('mouseleave', function () {
+          container.__hoverPaused = false;
+          schedule();
+        });
+        container.addEventListener('focusin', function () { container.__hoverPaused = true; });
+        container.addEventListener('focusout', function () {
+          container.__hoverPaused = false;
+          schedule();
+        });
+
+        document.addEventListener('visibilitychange', schedule);
+
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(function (entries) {
+            onScreen = entries[0].isIntersecting;
+            schedule();
+          }, { threshold: 0 }).observe(container);
+        }
       }
       createTicker('tickerWorld', [
         { heading: 'World', url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml' },
@@ -663,7 +771,7 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
       document.querySelectorAll('.ticker-speed-reset').forEach(function(btn) {
         btn.addEventListener('click', function() {
           var id = this.getAttribute('data-ticker');
-          var slider = document.querySelector('.ticker-speed[data-ticker="' + id + '"]');
+          var slider = document.querySelector('.ticker-speed[data-ticker="' + CSS.escape(id || '') + '"]');
           if (slider) {
             slider.value = '0.35';
             tickerSpeeds[id] = 0.35;
@@ -679,29 +787,26 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
           btn.setAttribute('aria-pressed', String(container.__paused));
           btn.setAttribute('aria-label', container.__paused ? 'Resume news ticker' : 'Pause news ticker');
           var icon = this.querySelector('i');
-          if (!icon) return;
-          if (container.__paused) {
-            icon.className = 'fa-solid fa-play';
-          } else {
-            icon.className = 'fa-solid fa-pause';
-          }
+          if (icon) icon.className = container.__paused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
+          if (container.__paused && container.__stop) container.__stop();
+          else if (container.__restart) container.__restart();
         });
       });
       document.querySelectorAll('.ticker-refresh-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
           var id = this.getAttribute('data-ticker');
-          if (tickerLoaders[id]) {
-            var container = document.getElementById(id);
-            if (container) {
-              container.classList.add('news-ticker-reset');
-              setTimeout(function() { container.classList.remove('news-ticker-reset'); }, 400);
-            }
-            tickerLoaders[id]();
+          if (!tickerLoaders[id]) return;
+          var container = document.getElementById(id);
+          if (container) {
+            container.classList.add('news-ticker-reset');
+            setTimeout(function() { container.classList.remove('news-ticker-reset'); }, 400);
           }
+          tickerLoaders[id](true);
         });
       });
 
       function updateClocks() {
+        if (document.hidden) return;
         const now = new Date();
         for (const z of zones) {
           const el = document.getElementById(z.id);
@@ -738,30 +843,30 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
         }
       }
       updateClocks();
+      document.addEventListener('visibilitychange', updateClocks);
       setInterval(updateClocks, 1000);
     })();
     (function () {
       const backToTop = document.getElementById("backToTop");
-      var liveRegion = document.createElement('div');
-      liveRegion.setAttribute('aria-live', 'polite');
-      liveRegion.setAttribute('aria-atomic', 'true');
-      liveRegion.className = 'sr-only';
-      document.body.appendChild(liveRegion);
-      document.querySelectorAll(".tool").forEach((tool) => {
-        tool.style.display = "";
-      });
       if ('IntersectionObserver' in window) {
+        let revealed = 0;
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
                 entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+                revealed++;
               }
             });
           },
-          { threshold: 0.1 }
+          { threshold: 0.1, rootMargin: "0px 0px -5% 0px" }
         );
         document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+        /* Safety net: never leave content permanently invisible. */
+        setTimeout(() => {
+          if (!revealed) document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
+        }, 2000);
       } else {
         document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
       }
@@ -776,185 +881,228 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
       }
     })();
   </script>
-  <script>
-    (function() {
+<script>
+    (function () {
+      'use strict';
       const pc = document.getElementById('particle-canvas');
       if (!pc) return;
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reducedMotion) { pc.style.display = 'none'; return; }
-      let animating = true;
-      document.addEventListener('visibilitychange', function() {
-        animating = !document.hidden;
-        if (animating) { if (typeof animateParticles === 'function') animateParticles(); if (typeof animatePortal === 'function') animatePortal(); }
-      });
-      const pctx = pc.getContext('2d');
+
+      const pctx = pc.getContext('2d', { alpha: true });
+      if (!pctx) return;
+
       const cc = document.createElement('canvas');
       cc.id = 'portal-canvas';
+      cc.setAttribute('aria-hidden', 'true');
       cc.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;';
       if (pc.parentNode) pc.parentNode.insertBefore(cc, pc.nextSibling);
-      const cctx = cc.getContext('2d');
-      let W, H;
+      const cctx = cc.getContext('2d', { alpha: true });
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (reducedMotion.matches || !cctx) {
+        pc.style.display = 'none';
+        return;
+      }
+
+      const MAX_PARTICLES = 80;
+      const MIN_PARTICLES = 30;
+      const LINK_DISTANCE = 130;
+      const ORBS = 40;
+      const RINGS = 6;
+      const RAY_COUNT = 24;
+      const ORB_COLORS = ['#38bdf8', '#a855f7', '#f97316', '#22d3ee', '#c084fc', '#34d399'];
+
+      let W = 0;
+      let H = 0;
       let particles = [];
-      let mouse = { x: null, y: null, radius: 150 };
-      let birth = 0, time = 0;
-      class Particle {
-        constructor() {
-          this.x = Math.random() * W;
-          this.y = Math.random() * H;
-          this.size = Math.random() * 2 + 1.2;
-          this.speedX = (Math.random() - 0.5) * 0.4;
-          this.speedY = (Math.random() - 0.5) * 0.4;
-          this.opacity = Math.random() * 0.5 + 0.25;
-        }
-        update() {
+      const orbs = [];
+      const mouse = { x: null, y: null, radius: 150 };
+      let birth = 0;
+      let time = 0;
+      let frame = 0;
+
+      function makeParticle() {
+        return {
+          x: Math.random() * W,
+          y: Math.random() * H,
+          size: Math.random() * 2 + 1.2,
+          speedX: (Math.random() - 0.5) * 0.4,
+          speedY: (Math.random() - 0.5) * 0.4,
+          opacity: Math.random() * 0.5 + 0.25
+        };
+      }
+
+      function makeOrb() {
+        return {
+          angle: Math.random() * Math.PI * 2,
+          radius: 60 + Math.random() * 280,
+          speed: (0.002 + Math.random() * 0.006) * (Math.random() > 0.5 ? 1 : -1),
+          size: 2 + Math.random() * 5,
+          phase: Math.random() * Math.PI * 2,
+          color: ORB_COLORS[Math.floor(Math.random() * ORB_COLORS.length)],
+          bobAmp: 5 + Math.random() * 15,
+          bobSpeed: 0.01 + Math.random() * 0.02
+        };
+      }
+
+      function rgba(hex, alpha) {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+      }
+
+      function build() {
+        /* Draw at device resolution so the effect stays crisp on high-DPI screens. */
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        [pc, cc].forEach(function (canvas) {
+          canvas.width = Math.round(W * dpr);
+          canvas.height = Math.round(H * dpr);
+          canvas.style.width = W + 'px';
+          canvas.style.height = H + 'px';
+        });
+        pctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const count = Math.min(MAX_PARTICLES, Math.max(MIN_PARTICLES, Math.floor((W * H) / 14000)));
+        particles = Array.from({ length: count }, makeParticle);
+      }
+
+      function drawParticles() {
+        pctx.clearRect(0, 0, W, H);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+
           if (mouse.x !== null) {
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < mouse.radius && dist > 0) {
+            const dx = mouse.x - p.x;
+            const dy = mouse.y - p.y;
+            const distSq = dx * dx + dy * dy;
+            if (distSq > 0 && distSq < mouse.radius * mouse.radius) {
+              const dist = Math.sqrt(distSq);
               const force = (mouse.radius - dist) / mouse.radius;
-              this.speedX += (dx / dist) * force * 0.02;
-              this.speedY += (dy / dist) * force * 0.02;
+              p.speedX += (dx / dist) * force * 0.02;
+              p.speedY += (dy / dist) * force * 0.02;
             }
           }
-          this.x += this.speedX;
-          this.y += this.speedY;
-          this.speedX *= 0.98;
-          this.speedY *= 0.98;
-          if (this.x < -20) this.x = W + 20;
-          if (this.x > W + 20) this.x = -20;
-          if (this.y < -20) this.y = H + 20;
-          if (this.y > H + 20) this.y = -20;
-        }
-        draw() {
+
+          p.x += p.speedX;
+          p.y += p.speedY;
+          p.speedX *= 0.98;
+          p.speedY *= 0.98;
+          if (p.x < -20) p.x = W + 20;
+          else if (p.x > W + 20) p.x = -20;
+          if (p.y < -20) p.y = H + 20;
+          else if (p.y > H + 20) p.y = -20;
+
           pctx.beginPath();
-          pctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          pctx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
+          pctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          pctx.fillStyle = 'rgba(56, 189, 248, ' + p.opacity + ')';
           pctx.fill();
         }
-      }
-      function initParticles() {
-        const area = W * H;
-        const count = Math.min(80, Math.max(30, Math.floor(area / 14000)));
-        particles = Array.from({ length: count }, () => new Particle());
-      }
-      function connectParticles() {
+
+        /* O(n^2) link pass, kept cheap with squared distances. */
+        const maxSq = LINK_DISTANCE * LINK_DISTANCE;
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 130) {
-              const opacity = (1 - dist / 130) * 0.2;
+            const distSq = dx * dx + dy * dy;
+            if (distSq < maxSq) {
               pctx.beginPath();
               pctx.moveTo(particles[i].x, particles[i].y);
               pctx.lineTo(particles[j].x, particles[j].y);
-              pctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
+              pctx.strokeStyle = 'rgba(56, 189, 248, ' + ((1 - Math.sqrt(distSq) / LINK_DISTANCE) * 0.2) + ')';
               pctx.lineWidth = 0.5;
               pctx.stroke();
             }
           }
         }
       }
-      const ORBS = 40;
-      const RINGS = 6;
-      const RAY_COUNT = 24;
-      let orbs = [];
-      class Orb {
-        constructor() {
-          this.angle = Math.random() * Math.PI * 2;
-          this.radius = 60 + Math.random() * 280;
-          this.speed = (0.002 + Math.random() * 0.006) * (Math.random() > 0.5 ? 1 : -1);
-          this.size = 2 + Math.random() * 5;
-          this.phase = Math.random() * Math.PI * 2;
-          this.color = ['#38bdf8','#a855f7','#f97316','#22d3ee','#c084fc','#34d399'][Math.floor(Math.random() * 6)];
-          this.bobAmp = 5 + Math.random() * 15;
-          this.bobSpeed = 0.01 + Math.random() * 0.02;
-        }
-      }
-      function initOrbs() {
-        orbs = Array.from({ length: ORBS }, () => new Orb());
-      }
+
       function drawRing(cx, cy, r, pulse, idx) {
+        const alpha = (0.15 + 0.1 * Math.sin(time * 0.5 + idx * 0.8 + pulse * 2)) * Math.min(1, birth * 4);
         cctx.beginPath();
         cctx.arc(cx, cy, r, 0, Math.PI * 2);
-        const alpha = 0.15 + 0.1 * Math.sin(time * 0.5 + idx * 0.8 + pulse * 2);
-        cctx.strokeStyle = `rgba(56,189,248,${alpha * Math.min(1, birth * 4)})`;
+        cctx.strokeStyle = 'rgba(56,189,248,' + alpha + ')';
         cctx.lineWidth = 1.5 + Math.sin(time + idx) * 0.8;
         cctx.stroke();
+
         cctx.beginPath();
         cctx.arc(cx, cy, r + 4, 0, Math.PI * 2);
-        cctx.strokeStyle = `rgba(168,85,247,${alpha * 0.4 * Math.min(1, birth * 4)})`;
+        cctx.strokeStyle = 'rgba(168,85,247,' + alpha * 0.4 + ')';
         cctx.lineWidth = 0.5;
         cctx.stroke();
       }
-      function animatePortal() {
-        birth = Math.min(birth + 0.005, 1);
-        time += 0.02;
-        const exp = Math.min(1, birth * 2.5);
-        const cx = W / 2, cy = H / 2;
+
+      function drawPortal() {
         cctx.clearRect(0, 0, W, H);
-        if (exp < 0.05) { requestAnimationFrame(animatePortal); return; }
+        const exp = Math.min(1, birth * 2.5);
+        if (exp < 0.05) return;
+
+        const cx = W / 2;
+        const cy = H / 2;
         const maxR = Math.min(W, H) * 0.45 * exp;
-        const cg = cctx.createRadialGradient(cx, cy, 0, cx, cy, maxR * 0.5);
-        cg.addColorStop(0, `rgba(56,189,248,${0.12 * exp})`);
-        cg.addColorStop(0.3, `rgba(168,85,247,${0.07 * exp})`);
-        cg.addColorStop(0.7, `rgba(249,115,22,${0.03 * exp})`);
-        cg.addColorStop(1, 'rgba(0,0,0,0)');
-        cctx.fillStyle = cg;
+
+        const glow = cctx.createRadialGradient(cx, cy, 0, cx, cy, maxR * 0.5);
+        glow.addColorStop(0, 'rgba(56,189,248,' + (0.12 * exp) + ')');
+        glow.addColorStop(0.3, 'rgba(168,85,247,' + (0.07 * exp) + ')');
+        glow.addColorStop(0.7, 'rgba(249,115,22,' + (0.03 * exp) + ')');
+        glow.addColorStop(1, 'rgba(0,0,0,0)');
+        cctx.fillStyle = glow;
         cctx.fillRect(0, 0, W, H);
+
         for (let r = 0; r < RAY_COUNT; r++) {
           const ra = (r / RAY_COUNT) * Math.PI * 2 + time * 0.1;
           const len = maxR * (0.7 + 0.3 * Math.sin(ra * 3 + time));
           cctx.beginPath();
           cctx.moveTo(cx, cy);
           cctx.lineTo(cx + Math.cos(ra) * len, cy + Math.sin(ra) * len);
-          const alpha = 0.04 + 0.03 * Math.sin(ra * 2 + time * 1.5);
-          cctx.strokeStyle = `rgba(56,189,248,${alpha * exp})`;
+          cctx.strokeStyle = 'rgba(56,189,248,' + ((0.04 + 0.03 * Math.sin(ra * 2 + time * 1.5)) * exp) + ')';
           cctx.lineWidth = 1 + Math.sin(ra * 4 + time) * 0.5;
           cctx.stroke();
         }
-        const og = cctx.createRadialGradient(cx - maxR * 0.2, cy - maxR * 0.2, 0, cx, cy, maxR);
-        og.addColorStop(0, 'rgba(0,0,0,0)');
-        og.addColorStop(0.6, `rgba(56,189,248,${0.02 * exp})`);
-        og.addColorStop(0.8, `rgba(168,85,247,${0.04 * exp})`);
-        og.addColorStop(1, 'rgba(0,0,0,0)');
-        cctx.fillStyle = og;
+
+        const rim = cctx.createRadialGradient(cx - maxR * 0.2, cy - maxR * 0.2, 0, cx, cy, maxR);
+        rim.addColorStop(0, 'rgba(0,0,0,0)');
+        rim.addColorStop(0.6, 'rgba(56,189,248,' + (0.02 * exp) + ')');
+        rim.addColorStop(0.8, 'rgba(168,85,247,' + (0.04 * exp) + ')');
+        rim.addColorStop(1, 'rgba(0,0,0,0)');
+        cctx.fillStyle = rim;
         cctx.beginPath();
         cctx.arc(cx, cy, maxR, 0, Math.PI * 2);
         cctx.fill();
+
         for (let ri = 0; ri < RINGS; ri++) {
-          const rr = (maxR / RINGS) * (ri + 0.5) + Math.sin(time * 0.3 + ri * 1.2) * 8;
-          drawRing(cx, cy, rr, (ri / RINGS), ri);
+          drawRing(cx, cy, (maxR / RINGS) * (ri + 0.5) + Math.sin(time * 0.3 + ri * 1.2) * 8, ri / RINGS, ri);
         }
+
         for (let o = 0; o < orbs.length; o++) {
           const ob = orbs[o];
           ob.angle += ob.speed;
           ob.radius += Math.sin(time * ob.bobSpeed + ob.phase) * 0.15;
           if (ob.radius > maxR * 0.9) ob.radius = maxR * 0.1;
-          if (ob.radius < maxR * 0.05) ob.radius = maxR * 0.1;
+          else if (ob.radius < maxR * 0.05) ob.radius = maxR * 0.1;
+
           const ox = cx + Math.cos(ob.angle) * ob.radius;
           const oy = cy + Math.sin(ob.angle) * ob.radius + Math.sin(time * ob.bobSpeed + ob.phase) * ob.bobAmp;
-          const alpha = 0.3 + 0.4 * (0.5 + 0.5 * Math.sin(time + ob.phase));
-          cctx.globalAlpha = alpha * exp;
+
+          cctx.globalAlpha = (0.3 + 0.4 * (0.5 + 0.5 * Math.sin(time + ob.phase))) * exp;
           cctx.fillStyle = ob.color;
           cctx.beginPath();
           cctx.arc(ox, oy, ob.size * (0.7 + 0.3 * Math.sin(time + ob.phase)), 0, Math.PI * 2);
           cctx.fill();
-          const gg = cctx.createRadialGradient(ox, oy, 0, ox, oy, ob.size * 3);
-          var oc = ob.color;
-          if (oc[0] === '#') {
-            var r = parseInt(oc.slice(1,3),16), g = parseInt(oc.slice(3,5),16), b = parseInt(oc.slice(5,7),16);
-            oc = 'rgba('+r+','+g+','+b+',0.15)';
-          } else { oc = oc.replace(')', ',0.15)').replace('rgb', 'rgba'); }
-          gg.addColorStop(0, oc);
-          gg.addColorStop(1, 'rgba(0,0,0,0)');
-          cctx.fillStyle = gg;
+
+          const halo = cctx.createRadialGradient(ox, oy, 0, ox, oy, ob.size * 3);
+          halo.addColorStop(0, rgba(ob.color, 0.15));
+          halo.addColorStop(1, 'rgba(0,0,0,0)');
+          cctx.fillStyle = halo;
           cctx.beginPath();
           cctx.arc(ox, oy, ob.size * 3, 0, Math.PI * 2);
           cctx.fill();
         }
-        const pulseR = ((time * 60) % (maxR * 2));
+
+        const pulseR = (time * 60) % (maxR * 2);
         if (pulseR < maxR) {
           cctx.globalAlpha = 0.15 * (1 - pulseR / maxR) * exp;
           cctx.strokeStyle = '#38bdf8';
@@ -964,40 +1112,69 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
           cctx.stroke();
         }
         cctx.globalAlpha = 1;
-        if (animating) requestAnimationFrame(animatePortal);
       }
-      function animateParticles() {
-        if (!animating) return;
-        pctx.clearRect(0, 0, W, H);
-        particles.forEach(p => { p.update(); p.draw(); });
-        connectParticles();
-        if (animating) requestAnimationFrame(animateParticles);
+
+      /* One loop for both canvases, and it stops when nothing is on screen. */
+      function isPaused() {
+        return document.hidden || document.body.classList.contains('cosmos-off') ||
+          (reducedMotion.matches);
       }
-      function resize() {
-        W = cc.width = pc.width = window.innerWidth;
-        H = cc.height = pc.height = window.innerHeight;
+
+      function loop() {
+        frame = 0;
+        if (isPaused()) return;
+        birth = Math.min(birth + 0.005, 1);
+        time += 0.02;
+        drawParticles();
+        drawPortal();
+        frame = requestAnimationFrame(loop);
       }
-      resize();
-      initParticles();
-      initOrbs();
-      animateParticles();
-      animatePortal();
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => { resize(); initParticles(); }, 200);
+
+      function start() {
+        if (!frame && !isPaused()) frame = requestAnimationFrame(loop);
+      }
+
+      build();
+      for (let i = 0; i < ORBS; i++) orbs.push(makeOrb());
+      start();
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden && frame) { cancelAnimationFrame(frame); frame = 0; }
+        else start();
       });
-      document.addEventListener('mousemove', (e) => {
+
+      /* The Cosmos switch sets body.cosmos-off; pick that up straight away. */
+      if ('MutationObserver' in window) {
+        new MutationObserver(function () {
+          if (isPaused()) {
+            if (frame) { cancelAnimationFrame(frame); frame = 0; }
+            pctx.clearRect(0, 0, W, H);
+            cctx.clearRect(0, 0, W, H);
+          } else {
+            start();
+          }
+        }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+      }
+
+      let resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(build, 200);
+      }, { passive: true });
+
+      document.addEventListener('mousemove', function (e) {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
-      });
-      document.addEventListener('mouseleave', () => {
+      }, { passive: true });
+
+      document.addEventListener('mouseleave', function () {
         mouse.x = null;
         mouse.y = null;
       });
     })();
-
-    (function() {
+  </script>
+  <script>
+        (function() {
       var list = document.getElementById('chatbotList');
       if (!list) return;
       var items = list.querySelectorAll('li');

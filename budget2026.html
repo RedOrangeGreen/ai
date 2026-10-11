@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="description" content="Predictions for the UK Autumn Budget of Wednesday 28 October 2026: 24 measures across income tax, capital gains, inheritance, property, savings, pensions, energy and business, each rated from settled to unlikely." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AI Playground" />
+  <meta property="og:title" content="UK Oct 2026 Budget Predictions" />
+  <meta property="og:description" content="24 predicted UK Autumn Budget measures for 28 October 2026, each with an assessment, what it would mean, and the main uncertainty." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:url" content="https://redorangegreen.github.io/ai/budget2026.html" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="UK Oct 2026 Budget Predictions" />
+  <meta name="twitter:description" content="24 predicted UK Autumn Budget measures for 28 October 2026, each with an assessment and the main uncertainty." />
+  <title>UK Oct 2026 Budget Predictions</title>
+  <link rel="canonical" href="https://redorangegreen.github.io/ai/budget2026.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%92%B7%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" /></noscript>
+  <style>
+    :root {
+      color-scheme: dark;
+      accent-color: #38bdf8;
+      --bg-body: #050816;
+      --bg-panel: rgba(15, 23, 42, 0.96);
+      --accent: #38bdf8;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.7);
+      --transition-fast: 0.18s ease-out;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --purple: #a855f7;
+      --scrollbar: rgba(148, 163, 184, 0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      line-height: 1.5;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .page-shell { max-width: 1240px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+
+    .hero-title {
+      font-size: clamp(2rem, 3vw + 1rem, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin: 0 0 0.4rem;
+      text-wrap: balance;
+    }
+    .hero-title span {
+      background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientShift 4s ease infinite;
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin: 0 0 1rem; line-height: 1.6; }
+
+    .card,
+    .overview-card {
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      background: var(--bg-panel);
+      box-shadow: var(--shadow-subtle);
+      overflow-x: auto;
+      content-visibility: auto;
+      contain-intrinsic-size: auto 280px;
+    }
+    .overview-card { border-color: rgba(56, 189, 248, 0.2); background: rgba(56, 189, 248, 0.04); }
+    .card-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; display: flex; align-items: center; gap: 0.5rem; text-wrap: balance; }
+    .card-title i { color: var(--accent); font-size: 1rem; }
+    .card-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0 0 1rem; line-height: 1.55; }
+    .card-sub:last-child { margin-bottom: 0; }
+    .overview-list { margin: 0; padding-left: 1.2rem; color: var(--text-muted); font-size: 0.84rem; line-height: 1.7; }
+    .overview-list strong { color: var(--text-main); }
+
+    .stats-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .stat-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+    .stat-pill i { color: var(--accent); font-size: 0.7rem; }
+    .stat-pill strong { color: var(--text-main); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+    .nav-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0 0 1rem; }
+    .nav-chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--text-muted);
+      font: inherit;
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+    .nav-chip:hover { color: var(--accent); border-color: rgba(56, 189, 248, 0.5); background: rgba(56, 189, 248, 0.06); }
+    .nav-chip[aria-pressed="true"] { color: var(--accent); border-color: rgba(56, 189, 248, 0.6); background: rgba(56, 189, 248, 0.12); font-weight: 600; }
+    .nav-chip-count { font-variant-numeric: tabular-nums; opacity: 0.75; font-size: 0.72rem; }
+
+    .search-wrap { position: relative; margin-bottom: 1rem; }
+    .search-wrap > i { position: absolute; left: 0.9rem; top: 50%; translate: 0 -50%; color: var(--text-muted); font-size: 0.85rem; pointer-events: none; }
+    .search-input {
+      width: 100%;
+      padding: 0.55rem 3.2rem 0.55rem 2.2rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6); }
+    .search-input::-webkit-search-cancel-button { display: none; }
+    .search-clear {
+      position: absolute; right: 2.5rem; top: 50%; translate: 0 -50%;
+      padding: 0.2rem 0.4rem;
+      border: 0; border-radius: 999px;
+      background: transparent;
+      color: var(--text-muted);
+      font: inherit; font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .search-clear:hover { color: var(--accent); }
+    .search-input:placeholder-shown ~ .search-clear { display: none; }
+    .search-kbd {
+      position: absolute; right: 0.9rem; top: 50%; translate: 0 -50%;
+      padding: 0.05rem 0.4rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      border-radius: 5px;
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--text-muted);
+      font-family: inherit; font-size: 0.72rem;
+      pointer-events: none;
+    }
+    .search-input:focus ~ .search-kbd { display: none; }
+
+    .search-stats {
+      display: none;
+      margin-bottom: 0.8rem;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      border-radius: var(--radius-pill);
+      background: rgba(56, 189, 248, 0.06);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+    .search-stats.visible { display: block; }
+
+    .data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.84rem; }
+    .data-table thead th {
+      padding: 0.5rem 0.55rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-align: left;
+      text-transform: uppercase;
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .data-table tbody td { padding: 0.62rem 0.55rem; border-bottom: 1px solid rgba(148, 163, 184, 0.08); vertical-align: top; }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .data-table tbody tr { transition: background 0.15s ease; }
+    .data-table tbody tr:hover { background: rgba(56, 189, 248, 0.06); }
+    .data-table tbody tr[hidden] { display: none; }
+
+    .th-sort {
+      all: unset;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font: inherit; letter-spacing: inherit; text-transform: inherit;
+      cursor: pointer;
+    }
+    .th-sort:hover { color: var(--accent); }
+    .th-sort-icon { opacity: 0.65; font-size: 0.9em; }
+    .data-table th[aria-sort="ascending"] .th-sort,
+    .data-table th[aria-sort="descending"] .th-sort { color: var(--accent); }
+    .data-table th[aria-sort="ascending"] .th-sort-icon::before { content: "\2191"; }
+    .data-table th[aria-sort="descending"] .th-sort-icon::before { content: "\2193"; }
+    .data-table th[aria-sort="none"] .th-sort-icon::before { content: "\2195"; }
+    .th-sort-icon::before { content: "\2195"; }
+
+    .primary-cell { color: var(--text-main); font-weight: 600; min-width: 8rem; }
+    .cat-cell { white-space: nowrap; color: var(--text-muted); font-size: 0.78rem; }
+    .muted { color: var(--text-muted); }
+
+    .badge {
+      display: inline-flex; align-items: center;
+      padding: 0.18rem 0.5rem;
+      border: 1px solid transparent;
+      border-radius: var(--radius-pill);
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.025em;
+      white-space: nowrap;
+    }
+    .badge-settled   { color: var(--green);  background: rgba(34, 197, 94, 0.1);   border-color: rgba(34, 197, 94, 0.25); }
+    .badge-expected  { color: var(--accent);  background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.25); }
+    .badge-plausible { color: #fbbf24;         background: rgba(251, 191, 36, 0.1); border-color: rgba(251, 191, 36, 0.25); }
+    .badge-possible  { color: #c4b5fd;         background: rgba(167, 139, 250, 0.1); border-color: rgba(167, 139, 250, 0.25); }
+    .badge-unlikely  { color: #94a3b8;         background: rgba(148, 163, 184, 0.1); border-color: rgba(148, 163, 184, 0.25); }
+
+    .disclaimer {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      margin: 1.1rem 0 0;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 12px;
+      background: rgba(245, 158, 11, 0.08);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+    .disclaimer i { color: var(--amber); margin-top: 0.15rem; }
+    .disclaimer strong { color: var(--text-main); }
+
+    .prose h3 { margin: 1.5rem 0 0.5rem; font-size: 1rem; color: var(--text-main); text-wrap: balance; }
+    .prose h3:first-child { margin-top: 0; }
+    .prose h4 { margin: 0.9rem 0 0.3rem; font-size: 0.87rem; color: var(--text-main); }
+    .prose p { margin: 0 0 0.5rem; color: var(--text-muted); font-size: 0.84rem; line-height: 1.6; }
+    .prose ul { margin: 0.3rem 0 0; padding-left: 1.15rem; }
+    .prose li { margin-bottom: 0.3rem; color: var(--text-muted); font-size: 0.84rem; line-height: 1.6; }
+    .prose strong { color: var(--text-main); }
+
+    .no-results { display: none; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.88rem; text-align: center; }
+    .no-results.visible { display: block; }
+
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.35rem 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover { color: var(--accent); }
+    .back-link-wrap { margin-bottom: 0.5rem; }
+
+    footer {
+      margin-top: 2rem; padding-top: 1.2rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .noscript-notice {
+      max-width: 1200px; margin: 0 auto 1rem;
+      padding: 0.9rem 1.1rem;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 12px;
+      background: rgba(239, 68, 68, 0.08);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .back-to-top {
+      position: fixed; right: max(2rem, env(safe-area-inset-right)); bottom: max(2rem, env(safe-area-inset-bottom));
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px;
+      border: 0; border-radius: 999px;
+      background: linear-gradient(120deg, #38bdf8, #0ea5e9);
+      box-shadow: 0 8px 24px rgba(8, 47, 73, 0.6);
+      color: #0b1120;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0;
+      translate: 0 16px;
+      scale: 0.9;
+      pointer-events: none;
+      transition: opacity 0.3s ease, translate 0.3s ease, scale 0.3s ease, box-shadow 0.3s ease;
+    }
+    .back-to-top.visible { opacity: 1; translate: 0 0; scale: 1; pointer-events: auto; }
+    .back-to-top:hover { translate: 0 -2px; scale: 1.05; }
+
+    .skip-link {
+      position: fixed; top: 0; left: 0.5rem; z-index: 9999;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--accent);
+      border-top: 0;
+      border-radius: 0 0 8px 8px;
+      background: #0b1120;
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      translate: 0 -110%;
+      transition: translate 0.15s ease-out;
+    }
+    .skip-link:focus-visible { translate: 0 0; }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    * { scrollbar-width: thin; scrollbar-color: var(--scrollbar) var(--bg-body); }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.45); }
+    ::selection { background: rgba(56, 189, 248, 0.3); color: #fff; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+    @media (max-width: 900px) {
+      .prose h3 { font-size: 0.95rem; }
+    }
+    @media (max-width: 600px) {
+      .page-shell { padding: 1rem 0.75rem 2rem; }
+      .card, .overview-card { padding: 1rem; }
+      .data-table { font-size: 0.8rem; }
+      .data-table thead th { font-size: 0.66rem; }
+      .data-table tbody td { padding: 0.52rem 0.4rem; }
+      .back-to-top { right: 1rem; bottom: 1rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .hero-title span { animation: none; background-position: 0% 50%; }
+    }
+
+    @media (prefers-contrast: more) {
+      .card, .overview-card, .stat-pill, .nav-chip, .search-input { border-color: rgba(148, 163, 184, 0.6); }
+      .text-muted, .muted { color: #cbd5e1; }
+    }
+
+    @media (forced-colors: active) {
+      .badge, .stat-pill, .nav-chip, .card, .overview-card { border: 1px solid CanvasText; }
+      .nav-chip[aria-pressed="true"] { background: Highlight; color: HighlightText; }
+    }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .btn-back, footer, .stats-row, .nav-chips, .search-wrap, .back-to-top, .skip-link, .noscript-notice { display: none !important; }
+      .card, .overview-card {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        background: #fff !important;
+        content-visibility: visible !important;
+        overflow: visible !important;
+        break-inside: avoid;
+      }
+      .data-table thead { display: table-header-group; }
+      .data-table tr { break-inside: avoid; }
+      .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; animation: none; }
+      .muted, .card-sub, .overview-list, .prose p, .prose li, .cat-cell { color: #333 !important; }
+      .badge { border: 1px solid #999 !important; color: #111 !important; background: #f4f4f5 !important; }
+      .disclaimer { border: 1px solid #bbb !important; background: #f4f4f5 !important; color: #333 !important; }
+      .disclaimer strong { color: #111 !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page uses JavaScript to filter and sort the table. Please enable JavaScript to continue.</div></noscript>
+
+  <main id="main-content" class="page-shell" tabindex="-1">
+    <div class="back-link-wrap">
+      <a href="index.html" class="btn-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back</a>
+    </div>
+
+    <h1 class="hero-title"><span>UK Oct 2026 Budget Predictions</span></h1>
+    <p class="hero-subtitle">Autumn Budget &mdash; Wednesday 28 October 2026 &middot; Chancellor John Healey</p>
+
+    <section class="overview-card" aria-labelledby="overview-heading">
+      <h2 class="card-title" id="overview-heading"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i> What this Budget has to solve</h2>
+      <p class="card-sub">The Chancellor faces three competing pressures at once: raising enough revenue to meet the Government's fiscal targets, supporting economic growth, and avoiding further pressure on household finances. A measure can be widely discussed without ever being announced.</p>
+      <ul class="overview-list">
+        <li><strong>Settled</strong> &mdash; already committed or explicitly ruled out.</li>
+        <li><strong>Plausible</strong> &mdash; a serious candidate supported by current reporting or professional analysis.</li>
+        <li><strong>Possible</strong> &mdash; in play, but politically difficult, expensive or uncertain.</li>
+        <li><strong>Unlikely</strong> &mdash; speculative, or more likely deferred to a later fiscal event.</li>
+      </ul>
+      <div class="disclaimer">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <div><strong>These are reasoned assessments, not official forecasts.</strong> They draw on published reporting and professional tax analysis, and they are not confirmed government policy. The definitive position emerges when the Chancellor delivers the Budget on 28 October 2026. Nothing here is financial advice.</div>
+      </div>
+    </section>
+
+    <section class="card" id="measures" aria-labelledby="measures-heading">
+      <h2 class="card-title" id="measures-heading"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Measures to watch</h2>
+      <p class="card-sub">24 measures across income tax, capital gains, inheritance, property, savings and pensions, energy, and business &mdash; each with an assessment and the main uncertainty attached to it.</p>
+
+      <div class="stats-row">
+        <span class="stat-pill"><i class="fa-solid fa-list-check" aria-hidden="true"></i><strong id="statMeasures">24</strong>&nbsp;measures</span>
+        <span class="stat-pill"><i class="fa-solid fa-layer-group" aria-hidden="true"></i><strong id="statCategories">7</strong>&nbsp;categories</span>
+        <span class="stat-pill"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><strong id="statSettled">6</strong>&nbsp;settled</span>
+        <span class="stat-pill"><i class="fa-solid fa-calendar-day" aria-hidden="true"></i>Updated 11 Oct 2026</span>
+      </div>
+
+      <div class="search-wrap">
+        <i class="fa-solid fa-search" aria-hidden="true"></i>
+        <input type="search" class="search-input" id="measureSearch" placeholder="Search by measure, category, assessment or uncertainty..." aria-label="Search Budget measures" aria-controls="measureRows" spellcheck="false" autocomplete="off" enterkeyhint="search" />
+        <button type="button" class="search-clear" id="searchClear" aria-label="Clear search"><i class="fa-solid fa-times" aria-hidden="true"></i></button>
+        <span class="search-kbd" aria-hidden="true">/</span>
+      </div>
+
+      <div class="nav-chips" role="group" aria-label="Filter by assessment">
+        <button type="button" class="nav-chip" data-rank="all" aria-pressed="true">All <span class="nav-chip-count" data-count="all">24</span></button>
+        <button type="button" class="nav-chip" data-rank="1" aria-pressed="false">Settled <span class="nav-chip-count" data-count="1">6</span></button>
+        <button type="button" class="nav-chip" data-rank="2" aria-pressed="false">Expected <span class="nav-chip-count" data-count="2">3</span></button>
+        <button type="button" class="nav-chip" data-rank="3" aria-pressed="false">Plausible <span class="nav-chip-count" data-count="3">4</span></button>
+        <button type="button" class="nav-chip" data-rank="4" aria-pressed="false">Possible <span class="nav-chip-count" data-count="4">7</span></button>
+        <button type="button" class="nav-chip" data-rank="5" aria-pressed="false">Unlikely <span class="nav-chip-count" data-count="5">4</span></button>
+      </div>
+
+      <div class="search-stats" id="searchStats" role="status" aria-live="polite" aria-atomic="true"></div>
+
+      <table class="data-table" aria-label="Predicted UK Budget measures for October 2026">
+        <caption class="sr-only">Predicted measures for the UK Autumn Budget of 28 October 2026, with assessment, effect and main uncertainty. Sortable by assessment.</caption>
+        <thead>
+          <tr>
+            <th scope="col">Category</th>
+            <th scope="col">Measure</th>
+            <th scope="col" class="sortable" id="rankSort" aria-sort="none">
+              <button type="button" class="th-sort" id="rankSortBtn">Assessment <span class="th-sort-icon" aria-hidden="true"></span></button>
+            </th>
+            <th scope="col">What it would mean</th>
+            <th scope="col">Key uncertainty</th>
+          </tr>
+        </thead>
+        <tbody id="measureRows">
+          <tr data-rank="1">
+            <td class="cat-cell">Income Tax &amp; NI</td>
+            <td class="primary-cell">Income tax thresholds stay frozen</td>
+            <td><span class="badge badge-settled">Settled</span></td>
+            <td>Personal allowance £12,570; higher-rate threshold £50,270 in England, Wales and Northern Ireland. Frozen thresholds to April 2031 raise revenue through fiscal drag as wages rise, without touching headline rates.</td>
+            <td class="muted">Whether any offsetting relief is announced alongside the freeze.</td>
+          </tr>
+          <tr data-rank="1">
+            <td class="cat-cell">Income Tax &amp; NI</td>
+            <td class="primary-cell">Income tax, VAT and employee NI rates unchanged</td>
+            <td><span class="badge badge-settled">Settled</span></td>
+            <td>The three main revenue drivers are ruled out for increases, consistent with the Government's manifesto commitments.</td>
+            <td class="muted">Effectively closed — broad rate rises are assessed as unlikely.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Income Tax &amp; NI</td>
+            <td class="primary-cell">Personal allowance raised to £15,000</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>Would free up to £2,430 of income. Maximum saving £486 a year (£40.50 a month) for a basic-rate taxpayer, before interactions with other tax rules.</td>
+            <td class="muted">Whether the Chancellor can afford the revenue loss while rebuilding headroom.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Income Tax &amp; NI</td>
+            <td class="primary-cell">New 50% band for very high earners</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>Could raise revenue without altering existing headline rates. The Government would weigh the effects on incentives, tax planning and high-earner behaviour.</td>
+            <td class="muted">Political and economic consequences — distinct from a general rate rise.</td>
+          </tr>
+          <tr data-rank="3">
+            <td class="cat-cell">Capital Gains</td>
+            <td class="primary-cell">Further CGT changes</td>
+            <td><span class="badge badge-plausible">Plausible</span></td>
+            <td>Options raised include higher rates on some gains, a lower annual exempt amount, changes to business disposal reliefs, and revisiting CGT on assets passing on death.</td>
+            <td class="muted">Which assets, and which taxpayers, would be affected.</td>
+          </tr>
+          <tr data-rank="5">
+            <td class="cat-cell">Capital Gains</td>
+            <td class="primary-cell">Wholesale alignment of CGT with income tax</td>
+            <td><span class="badge badge-unlikely">Unlikely</span></td>
+            <td>Early speculation pointed to alignment, but PwC treats that as less likely because of the disruption to investment and taxpayer behaviour.</td>
+            <td class="muted">Watch for targeted relief changes rather than a rate reset.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Inheritance Tax</td>
+            <td class="primary-cell">Further changes to IHT reliefs</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>Extending the seven-year relevant period for potentially exempt gifts to ten years; a lifetime limit on certain tax-free gifts; changes to relief for qualifying investments including AIM shares; revisiting CGT on inherited assets.</td>
+            <td class="muted">Whether the Government moves again so soon after earlier reforms.</td>
+          </tr>
+          <tr data-rank="5">
+            <td class="cat-cell">Inheritance Tax</td>
+            <td class="primary-cell">IHT replaced by a social care levy</td>
+            <td><span class="badge badge-unlikely">Unlikely</span></td>
+            <td>Reform on this scale is viewed as more likely to be considered over a longer period than introduced immediately in this Budget.</td>
+            <td class="muted">Whether broader reform is deferred to a later fiscal event.</td>
+          </tr>
+          <tr data-rank="1">
+            <td class="cat-cell">Property</td>
+            <td class="primary-cell">Mansion tax threshold stays at £2m</td>
+            <td><span class="badge badge-settled">Settled</span></td>
+            <td>The High Value Council Tax Surcharge is already announced for April 2028: properties at £2m+, charged £2,500–£7,500 a year with deferral available. The Financial Times reported on 11 October that the Chancellor has decided against lowering it to £1.5m.</td>
+            <td class="muted">Whether the Government revisits the decision. Homes in the £1m–£2m band are unaffected either way.</td>
+          </tr>
+          <tr data-rank="1">
+            <td class="cat-cell">Property</td>
+            <td class="primary-cell">Stamp duty and council tax overhaul</td>
+            <td><span class="badge badge-settled">Settled</span></td>
+            <td>Sweeping structural reform of stamp duty, or replacing council tax altogether, has been explicitly ruled out by the Prime Minister.</td>
+            <td class="muted">Targeted changes to specific transactions remain possible.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Property</td>
+            <td class="primary-cell">Other property tax changes</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>Rules on multiple residential properties, property held through companies, and non-resident property owners.</td>
+            <td class="muted">Possibilities raised by advisers, not confirmed proposals.</td>
+          </tr>
+          <tr data-rank="2">
+            <td class="cat-cell">Property</td>
+            <td class="primary-cell">“Your First Home” scheme logistics</td>
+            <td><span class="badge badge-expected">Expected</span></td>
+            <td>The Chancellor is expected to set out the finer detail of the government-backed equity loan letting first-time buyers in England secure a new build with a 2.5% deposit paired with a 20% government loan.</td>
+            <td class="muted">Finer logistics rather than the principle itself.</td>
+          </tr>
+          <tr data-rank="5">
+            <td class="cat-cell">Savings &amp; Pensions</td>
+            <td class="primary-cell">Cash ISA allowance capped at £12,000</td>
+            <td><span class="badge badge-unlikely">Unlikely</span></td>
+            <td>Pre-budget speculation that the balance of the standard £20,000 allowance would be diverted into Stocks and Shares ISAs for under-65s.</td>
+            <td class="muted">A whisper rather than confirmed policy.</td>
+          </tr>
+          <tr data-rank="5">
+            <td class="cat-cell">Savings &amp; Pensions</td>
+            <td class="primary-cell">Pension lump sum allowance cut from £268,275</td>
+            <td><span class="badge badge-unlikely">Unlikely</span></td>
+            <td>Significant noise in the sector about reducing the maximum tax-free pension lump sum, although some analysts view a full overhaul as politically difficult.</td>
+            <td class="muted">How much of this reaches the Budget.</td>
+          </tr>
+          <tr data-rank="2">
+            <td class="cat-cell">Savings &amp; Pensions</td>
+            <td class="primary-cell">State Pension versus the personal allowance</td>
+            <td><span class="badge badge-expected">Expected</span></td>
+            <td>The State Pension is on track to rise about 3.9%, pushing it above the £12,570 personal allowance for the first time. The Government is committed to protecting pensioners whose only income is the State Pension.</td>
+            <td class="muted">Expect clarification of the mechanism rather than a new tax.</td>
+          </tr>
+          <tr data-rank="1">
+            <td class="cat-cell">Savings &amp; Pensions</td>
+            <td class="primary-cell">State Pension triple lock retained</td>
+            <td><span class="badge badge-settled">Settled</span></td>
+            <td>The triple lock — highest of average earnings growth, inflation or 2.5% — is indicated to hold for the remainder of the Parliament.</td>
+            <td class="muted">The long-term cost of the State Pension remains open.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Savings &amp; Pensions</td>
+            <td class="primary-cell">Pension tax relief and salary sacrifice</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>The treatment of pension contributions, salary sacrifice rules, and pension assets for inheritance tax are all part of the wider debate.</td>
+            <td class="muted">Some changes are already scheduled; little evidence of a major new restriction now.</td>
+          </tr>
+          <tr data-rank="3">
+            <td class="cat-cell">Energy &amp; Fuel</td>
+            <td class="primary-cell">Targeted energy bill support</td>
+            <td><span class="badge badge-plausible">Plausible</span></td>
+            <td>Reuters reported on 7 October on a package costing more than £1bn aimed primarily at lower-income households, without establishing that it had been approved. Targeted assistance directs funds where they are judged to be needed; a universal rebate would spread the cost more widely.</td>
+            <td class="muted">Eligibility and size of the package.</td>
+          </tr>
+          <tr data-rank="3">
+            <td class="cat-cell">Energy &amp; Fuel</td>
+            <td class="primary-cell">Fuel duty increase delayed</td>
+            <td><span class="badge badge-plausible">Plausible</span></td>
+            <td>The Ukraine-era fuel duty reduction is due to unwind, with the next scheduled change in January 2027. Reuters reported on 7 October that the Chancellor might postpone it given the pressure on motorists.</td>
+            <td class="muted">Whether the planned January increase proceeds.</td>
+          </tr>
+          <tr data-rank="3">
+            <td class="cat-cell">Business &amp; Sectors</td>
+            <td class="primary-cell">Targeted business rates relief</td>
+            <td><span class="badge badge-plausible">Plausible</span></td>
+            <td>Builds on the confirmed 20% cut for pubs, live music venues and social clubs in England from April 2027. PwC flags continued relief for retail, hospitality and leisure, plus possible shifts of burden towards large distribution warehouses.</td>
+            <td class="muted">Which sectors qualify.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Business &amp; Sectors</td>
+            <td class="primary-cell">Higher bank taxation</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>Senior executives from major British banks have met the Chancellor without a clear indication of intent. A further levy raises revenue without increasing the main personal rates, but could affect investment decisions and competitiveness.</td>
+            <td class="muted">Whether the additional revenue justifies the economic effects.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Business &amp; Sectors</td>
+            <td class="primary-cell">Sector surcharges on high-profit industries</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>Sector-specific taxes on banking, oil and gas or other high-profit sectors remain on the table to help fill the fiscal shortfall.</td>
+            <td class="muted">Form and scale remain uncertain.</td>
+          </tr>
+          <tr data-rank="1">
+            <td class="cat-cell">Business &amp; Sectors</td>
+            <td class="primary-cell">Corporation tax main rate held at 25%</td>
+            <td><span class="badge badge-settled">Settled</span></td>
+            <td>Committed for large companies for the remainder of the Parliament, making changes to reliefs, allowances or sector-specific taxes more likely than a rise in the main rate.</td>
+            <td class="muted">Effectively closed.</td>
+          </tr>
+          <tr data-rank="2">
+            <td class="cat-cell">Business &amp; Sectors</td>
+            <td class="primary-cell">Devolution to local mayors</td>
+            <td><span class="badge badge-expected">Expected</span></td>
+            <td>Measures to shift financial autonomy and tax-revenue-sharing powers to local mayors outside Westminster, in line with the “growth in every postcode” mandate.</td>
+            <td class="muted">Scale and timing of the powers transferred.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="no-results" id="noResults" role="status">No measures match that search.</div>
+    </section>
+
+    <section class="card" id="detail" aria-labelledby="detail-heading">
+      <h2 class="card-title" id="detail-heading"><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i> In detail</h2>
+      <div class="prose">
+        <h3>Income tax: a freeze is more likely than a rate increase</h3>
+        <p>With thresholds committed to April 2031, rising wages alone pull more income into tax and move taxpayers into higher bands &mdash; fiscal drag, without an announced rate rise. Expect the freeze to hold rather than the basic or higher rates to move.</p>
+        <h4>Could the personal allowance rise to &pound;15,000?</h4>
+        <p>It would mean up to &pound;2,430 more income free of tax, a maximum of &pound;486 a year for a basic-rate taxpayer. The cost to the Treasury is substantial, and a Chancellor rebuilding headroom faces real difficulty financing a giveaway of that size.</p>
+        <h4>A new 50% band?</h4>
+        <p>It could raise revenue while leaving headline rates intact, but the Government would have to weigh the effect on incentives, tax planning and the behaviour of high earners.</p>
+
+        <h3>Capital gains tax: an area worth watching</h3>
+        <p>CGT applies to taxable profits on selling assets such as shares or a second property, with different rules and reliefs by asset and circumstance. Options in circulation: higher rates on some gains, a lower annual exempt amount, changes to business disposal reliefs, revisiting the treatment of inherited assets, and measures affecting higher-value property.</p>
+        <p>Further adjustments look plausible, particularly if the Chancellor wants revenue without touching income tax rates. A wholesale alignment of CGT with income tax is a bigger step, and PwC considers it less likely given the disruption to investment and taxpayer behaviour. It would be unwise to make a major financial decision on the assumption that the rules will change.</p>
+
+        <h3>Inheritance tax: tightening reliefs, not abolition</h3>
+        <p>For families and business owners the live question is whether the exemptions and reliefs move, not whether IHT is scrapped. Measures in circulation include extending the seven-year relevant period for potentially exempt gifts to ten years, lifetime limits on certain gifts, and changes to relief for qualifying investments including AIM shares. A social care levy in place of IHT remains speculation, and is thought more likely considered over a longer period than announced immediately.</p>
+
+        <h3>Property: the mansion tax stands, but watch the edges</h3>
+        <p>The High Value Council Tax Surcharge is already confirmed for April 2028 at £2m and above, charging £2,500–£7,500 a year with the option to defer. Speculation had focused on lowering the threshold to £1.5m; the Financial Times reported on 11 October that the Chancellor has decided against it. For the £1m–£2m band that matters most, the position is unchanged either way. Stamp duty reform and replacing council tax have both been ruled out by the Prime Minister.</p>
+
+        <h3>Pensions: clarification more likely than restriction</h3>
+        <p>The triple lock is expected to survive. The live pension question is the State Pension rising roughly 3.9% above the £12,570 personal allowance for the first time, and how the commitment to protect pensioners whose only income is that pension will work in practice. Expect clarification of the mechanism rather than a new tax. The tax treatment of pension contributions, salary sacrifice, and pension assets for IHT all sit in the wider debate, but some changes are already scheduled and there is not enough evidence to expect a major new restriction in this Budget.</p>
+
+        <h3>Energy and fuel: targeted beats universal</h3>
+        <p>A support package costing more than £1bn for lower-income households was reported on 7 October, though approval was not established. The form matters more than the headline: universal support spreads the cost more widely, targeted support directs it. On fuel duty, successive governments have avoided increases for years, making the January 2027 step politically sensitive; a delay is a credible possibility but not a certainty.</p>
+
+        <h3>Businesses: relief at the bottom, taxes at the top</h3>
+        <p>With corporation tax committed at 25% for large companies, revenue is more likely to come from specific reliefs, allowances or sector taxes than the main rate. Bank executives have met the Chancellor without a clear steer. On business rates, expect targeted relief for smaller retailers, pubs, restaurants and hospitality, building on the confirmed 20% cut from April 2027, with some discussion of shifting burden towards large distribution warehouses.</p>
+
+        <h3>What could change the picture before Budget day</h3>
+        <ul>
+          <li><strong>The OBR forecast.</strong> Weaker growth, lower receipts or higher debt-servicing costs would leave less room for tax cuts and spending commitments.</li>
+          <li><strong>The cost of borrowing.</strong> Higher gilt yields make the fiscal rules harder to meet without new revenue or spending restraint.</li>
+          <li><strong>The political balance.</strong> The Government may want to show it is helping with living costs while finding revenue from narrower tax changes.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" id="watch" aria-labelledby="watch-heading">
+      <h2 class="card-title" id="watch-heading"><i class="fa-solid fa-compass" aria-hidden="true"></i> Where this would land</h2>
+      <p class="card-sub">If you want to narrow this to the changes that actually affect you, the areas that matter most are:</p>
+      <ul class="overview-list">
+        <li><strong>Income tax, National Insurance and take-home pay.</strong> A freeze holds, with relief for very high earners the open question.</li>
+        <li><strong>Pensions, retirement income and pension tax relief.</strong> The triple lock survives; watch how the State Pension interacts with the personal allowance.</li>
+        <li><strong>Inheritance tax, gifts and estate planning.</strong> Reliefs tighten before the tax itself is replaced.</li>
+        <li><strong>Property, second homes and capital gains tax.</strong> The £2m mansion threshold stands, with targeted changes at the edges.</li>
+        <li><strong>Savings, ISAs, shares and investments.</strong> Allowance changes are the live risk rather than new headline rates.</li>
+        <li><strong>The wider economic outlook, interest rates and house prices.</strong> These shape everything above.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="sources" aria-labelledby="sources-heading">
+      <h2 class="card-title" id="sources-heading"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Sources &amp; method</h2>
+      <p class="card-sub">This page merges two independent assessments of the same Budget and reconciles them against the most recent reporting, including a Financial Times report of 11 October 2026 on the mansion tax threshold. Where the two disagreed &mdash; notably on whether CGT might align with income tax rates, and on whether the mansion tax threshold would fall &mdash; the later reporting has been taken as superseding the earlier speculation.</p>
+      <p class="card-sub">Assessment is drawn from published reporting and professional analysis including Reuters, PwC, Osborne Clarke, the Financial Times, the Institute for Government and GOV.UK. The likelihood labels are qualitative judgements, not statistically calculated probabilities: they distinguish reported government considerations from professional analysis and from measures that have not been confirmed.</p>
+    </section>
+
+    <footer>
+      Compiled 11 Oct 2026 &middot; Predictions only, for informational purposes. Not financial advice.
+    </footer>
+  </main>
+
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var tbody = document.getElementById('measureRows');
+    if (!tbody) return;
+
+    var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+    var originalOrder = rows.slice();
+
+    var searchInput = document.getElementById('measureSearch');
+    var searchClear = document.getElementById('searchClear');
+    var searchStats = document.getElementById('searchStats');
+    var noResults = document.getElementById('noResults');
+    var chips = Array.prototype.slice.call(document.querySelectorAll('.nav-chip[data-rank]'));
+    var sortHeader = document.getElementById('rankSort');
+    var sortButton = document.getElementById('rankSortBtn');
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    /* Pre-compute a lowercase haystack per row so filtering never touches the DOM. */
+    var searchIndex = rows.map(function (row) {
+      return row.textContent.replace(/\s+/g, ' ').toLowerCase();
+    });
+    var ranks = rows.map(function (row) {
+      return parseInt(row.getAttribute('data-rank'), 10) || 99;
+    });
+
+    var activeRank = 'all';
+    var query = '';
+    var sortDirection = 0; /* 0 = original, 1 = most likely first, -1 = least likely first */
+
+    /* ---- stats and chip counts ---- */
+    var categories = new Set();
+    var rankCounts = new Map();
+    rows.forEach(function (row, i) {
+      categories.add((row.cells[0] ? row.cells[0].textContent : '').trim());
+      rankCounts.set(ranks[i], (rankCounts.get(ranks[i]) || 0) + 1);
+    });
+
+    function setText(id, value) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = String(value);
+    }
+
+    setText('statMeasures', rows.length);
+    setText('statCategories', categories.size);
+    setText('statSettled', rankCounts.get(1) || 0);
+    chips.forEach(function (chip) {
+      var count = chip.querySelector('[data-count]');
+      if (!count) return;
+      count.textContent = chip.getAttribute('data-rank') === 'all'
+        ? rows.length
+        : (rankCounts.get(parseInt(chip.getAttribute('data-rank'), 10)) || 0);
+    });
+
+    /* ---- filtering ---- */
+    function applyFilter() {
+      var needle = query;
+      var visible = 0;
+      var total = 0;
+
+      for (var i = 0; i < rows.length; i++) {
+        var rankOk = activeRank === 'all' || String(ranks[i]) === activeRank;
+        var textOk = !needle || searchIndex[i].indexOf(needle) !== -1;
+        var show = rankOk && textOk;
+        rows[i].hidden = !show;
+        if (show) {
+          visible++;
+          if (ranks[i] === 1) total++;
+        }
+      }
+
+      if (query || activeRank !== 'all') {
+        searchStats.textContent = visible + ' of ' + rows.length + ' measures shown · ' +
+          total + ' settled';
+        searchStats.classList.add('visible');
+      } else {
+        searchStats.textContent = '';
+        searchStats.classList.remove('visible');
+      }
+
+      if (noResults) noResults.classList.toggle('visible', visible === 0);
+    }
+
+    var frame = 0;
+    function scheduleFilter() {
+      if (frame) return;
+      frame = requestAnimationFrame(function () {
+        frame = 0;
+        applyFilter();
+      });
+      /* requestAnimationFrame is throttled in background tabs, so make sure the
+         table still catches up if the frame never arrives. */
+      setTimeout(function () {
+        if (!frame) return;
+        cancelAnimationFrame(frame);
+        frame = 0;
+        applyFilter();
+      }, 120);
+    }
+
+    searchInput.addEventListener('input', function () {
+      query = this.value.trim().toLowerCase().replace(/\s+/g, ' ');
+      scheduleFilter();
+    });
+
+    searchInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && this.value) {
+        e.preventDefault();
+        this.value = '';
+        query = '';
+        scheduleFilter();
+      }
+    });
+
+    searchClear.addEventListener('click', function () {
+      searchInput.value = '';
+      query = '';
+      applyFilter();
+      searchInput.focus();
+    });
+
+    /* "/" focuses search, but never while typing somewhere else. */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
+      var active = document.activeElement;
+      if (active && (active.isContentEditable || /^(input|textarea|select)$/i.test(active.tagName))) return;
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    });
+
+    /* ---- assessment filter chips ---- */
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        activeRank = this.getAttribute('data-rank');
+        chips.forEach(function (other) {
+          other.setAttribute('aria-pressed', String(other === chip));
+        });
+        applyFilter();
+      });
+    });
+
+    /* ---- sorting ---- */
+    function render() {
+      var ordered;
+      if (sortDirection === 0) {
+        ordered = originalOrder;
+      } else {
+        ordered = rows.map(function (row, i) { return { row: row, rank: ranks[i] }; })
+          .sort(function (a, b) {
+            var diff = sortDirection === 1 ? a.rank - b.rank : b.rank - a.rank;
+            return diff !== 0 ? diff : originalOrder.indexOf(a.row) - originalOrder.indexOf(b.row);
+          })
+          .map(function (entry) { return entry.row; });
+      }
+
+      var fragment = document.createDocumentFragment();
+      ordered.forEach(function (row) { fragment.appendChild(row); });
+      tbody.appendChild(fragment);
+
+      sortHeader.setAttribute('aria-sort',
+        sortDirection === 1 ? 'ascending' : sortDirection === -1 ? 'descending' : 'none');
+    }
+
+    sortButton.addEventListener('click', function () {
+      sortDirection = sortDirection === 0 ? 1 : sortDirection === 1 ? -1 : 0;
+      render();
+      var label = { 1: 'most likely first', '-1': 'least likely first', 0: 'original order' }[sortDirection];
+      searchStats.textContent = 'Sorted by assessment: ' + label;
+      searchStats.classList.add('visible');
+    });
+
+    /* ---- back to top ---- */
+    var backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+      var ticking = false;
+      function updateBackToTop() {
+        ticking = false;
+        backToTop.classList.toggle('visible', window.scrollY > 400);
+      }
+      window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(updateBackToTop);
+      }, { passive: true });
+      updateBackToTop();
+
+      backToTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
+      });
+    }
+
+    applyFilter();
+  })();
+  </script>
+</body>
+</html>
