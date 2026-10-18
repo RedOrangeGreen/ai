@@ -19,9 +19,11 @@
   <meta name="twitter:title" content="TOTP Authenticator" />
   <meta name="twitter:description" content="Generate Google Authenticator–compatible 6-digit codes from a Base32 secret." />
   <title>TOTP Authenticator</title>
+  <link rel="canonical" href="https://redorangegreen.github.io/ai/totp.html" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E🔑%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" />
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" /></noscript>
   <style>
     @layer reset, base, components, utilities;
 
@@ -32,16 +34,12 @@
         field-sizing: content;
         --bg-body: #050816;
         --bg-elevated: #0b1020;
-        --bg-elevated-soft: #0f172a;
         --accent: #38bdf8;
-        --accent-soft: rgba(56,189,248,0.15);
-        --accent-strong: #0ea5e9;
         --text-main: #e5e7eb;
         --text-muted: #9ca3af;
         --border-subtle: rgba(148,163,184,0.25);
         --radius-lg: 18px;
         --radius-pill: 999px;
-        --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
         --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
         --transition-fast: 0.18s ease-out;
       }

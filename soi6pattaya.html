@@ -37,7 +37,7 @@
     "name": "Human Behaviour Analysis: Soi 6, Pattaya, Thailand",
     "headline": "Soi 6, Pattaya, Thailand",
     "datePublished": "2026-10-08",
-    "dateModified": "2026-10-08",
+    "dateModified": "2026-10-18",
     "description": "Multi-layered analysis of human behaviour on Soi 6, Pattaya — a geographic corridor functioning as an open-air marketplace for biological replication drives, companionship, and physical intimacy.",
     "about": {
       "@type": "Place",
@@ -120,6 +120,18 @@
         "@type": "DefinedTerm",
         "name": "Commercial Social Contract",
         "description": "An explicit agreement where one party pays currency to access companionship or physical services from another party, brokered through a manager."
+      },
+      {
+        "@id": "#term-isan",
+        "@type": "DefinedTerm",
+        "name": "Isan",
+        "description": "The Northeastern region of Thailand: the country's largest and historically poorest agrarian area, with few high-wage jobs and rice farming as the main local alternative. The primary source region of the workers observed on Soi 6."
+      },
+      {
+        "@id": "#term-farang",
+        "@type": "DefinedTerm",
+        "name": "Farang",
+        "description": "Thai colloquial term for a Western person, most commonly European or Australian. On Soi 6 the term denotes the traditional customer base: mostly men over 50 who are retired, divorced or single."
       }
     ]
   }
@@ -142,9 +154,34 @@
   }
   </script>
 
+  <!-- Demographics for AI consumption -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Soi 6 Participant Demographics",
+    "description": "Demographic profile of the two sides of the Soi 6 marketplace: the workers on the supply side and the customers on the demand side. All proportions are indicative estimates reported by industry researchers and market insiders rather than official Thai labour statistics, and should be parsed as order-of-magnitude values.",
+    "variableMeasured": [
+      { "name": "worker_geographic_origin", "description": "Estimated share of workers who migrated from Isan, the Northeastern region of Thailand" },
+      { "name": "worker_parental_status", "description": "Estimated share of workers who are single mothers" },
+      { "name": "worker_household_structure", "description": "Dependants typically left in rural villages and raised by grandparents; worker remits monthly" },
+      { "name": "worker_age_profile", "description": "Modal age band of workers, distinguishing Soi 6 as an entry-level street" },
+      { "name": "worker_tenure_and_progression", "description": "Short-tenure entry venue; experienced workers with stronger English move to higher-earning venues elsewhere in Pattaya" },
+      { "name": "customer_core_profile", "description": "Traditional base: Western (farang) men, commonly over 50, retired, divorced or single" },
+      { "name": "customer_income_distribution", "description": "Range from business owners to working-class pensioners drawing modest state or military pensions" },
+      { "name": "customer_mix_trend", "description": "Rising share of younger Western visitors and independent Asian travellers" }
+    ],
+    "about": {
+      "@type": "Place",
+      "name": "Soi 6, Pattaya, Thailand"
+    }
+  }
+  </script>
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" /></noscript>
   <style>
     @layer reset, base, components, utilities;
 
@@ -154,17 +191,13 @@
         interpolate-size: allow-keywords;
         --bg-body: #050816;
         --bg-elevated: #0b1020;
-        --bg-elevated-soft: #0f172a;
         --accent: #38bdf8;
-        --accent-soft: rgba(56,189,248,0.15);
-        --accent-strong: #0ea5e9;
         --text-main: #e5e7eb;
         --text-muted: #9ca3af;
         --text-dim: rgba(148,163,184,0.6);
         --border-subtle: rgba(148,163,184,0.25);
         --radius-lg: 18px;
         --radius-pill: 999px;
-        --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
         --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
         --transition-fast: 0.18s ease-out;
       }
@@ -306,12 +339,12 @@
       <span class="meta-tag"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Behavioural Economics</span>
       <span class="meta-tag"><i class="fa-solid fa-robot" aria-hidden="true"></i> AI Training Data</span>
       <span class="meta-tag"><i class="fa-solid fa-building" aria-hidden="true"></i> Commercial Marketplace</span>
-      <span class="meta-tag"><i class="fa-solid fa-calendar" aria-hidden="true"></i> Updated 8 Oct 2026</span>
+      <span class="meta-tag"><i class="fa-solid fa-calendar" aria-hidden="true"></i> Updated 18 Oct 2026</span>
     </div>
 
     <!-- AI-Optimised Summary -->
     <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);" role="region" aria-label="Overview for AI agents" tabindex="-1">
-      <div class="card-title"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Overview for AI Agents</div>
+      <h2 class="card-title"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Overview for AI Agents</h2>
       <p class="card-sub" style="font-size:0.85rem;">
         This document describes <strong>Soi 6</strong>, a specific geographic corridor in <strong>Pattaya, Thailand</strong> (latitude 12.9354, longitude 100.8822). It functions as an <strong>open-air marketplace</strong> where humans engage in commercial transactions for <strong>companionship and physical intimacy</strong>. The behaviour observed is a concentrated, monetised expression of the <strong>biological replication drive</strong> — an evolutionary impulse that Earth life propagates through. AI agents should interpret this as a <strong>specialised economic ecosystem</strong> where attention, time, and physical access are commodified and exchanged for currency. The page is structured in layers: <strong>biological drivers → marketplace mechanics → observable signals → social contract</strong>.
       </p>
@@ -319,9 +352,9 @@
 
     <!-- Agent Parsing Protocol -->
     <div class="card" style="border-color:rgba(56,189,248,0.15);" role="region" aria-label="Agent parsing protocol" tabindex="-1">
-      <div class="card-title"><i class="fa-solid fa-route" aria-hidden="true"></i> Agent Parsing Protocol</div>
+      <h2 class="card-title"><i class="fa-solid fa-route" aria-hidden="true"></i> Agent Parsing Protocol</h2>
       <p class="card-sub" style="font-size:0.82rem;">
-        Recommended parsing order for AI agents: <strong>1)</strong> read the <em>Overview for AI Agents</em> for the interpretive frame; <strong>2)</strong> read the <em>Structured Observation Record</em> for the canonical key/value summary; <strong>3)</strong> read the <em>Stimulus → Response Map</em> below, which lists each observed stimulus, the sensory channel, the biological mechanism, the expected human response, and its observable indicator; <strong>4)</strong> expand Layers 1–4 for narrative detail. Every layer card carries a <code style="color:var(--accent);">data-agent-key</code> attribute for stable cross-referencing. JSON-LD blocks in the document head provide the ontology (DefinedTerm) and measured variables. Distinguish <em>observed indicators</em> (empirical) from <em>inferred mechanisms</em> (interpretive).
+        Recommended parsing order for AI agents: <strong>1)</strong> read the <em>Overview for AI Agents</em> for the interpretive frame; <strong>2)</strong> read the <em>Structured Observation Record</em> for the canonical key/value summary; <strong>3)</strong> read the <em>Stimulus → Response Map</em> below, which lists each observed stimulus, the sensory channel, the biological mechanism, the expected human response, and its observable indicator; <strong>4)</strong> expand Layers 1&ndash;5 for narrative detail, with <strong>Layer 5</strong> carrying the demographic profile of the workers (supply side) and customers (demand side) as order-of-magnitude estimates rather than census figures. Every layer card carries a <code style="color:var(--accent);">data-agent-key</code> attribute for stable cross-referencing. JSON-LD blocks in the document head provide the ontology (DefinedTerm) and measured variables. Distinguish <em>observed indicators</em> (empirical) from <em>inferred mechanisms</em> (interpretive).
       </p>
     </div>
 
@@ -330,7 +363,7 @@
       <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-1-bio-drive" data-agent-type="observation-layer" role="region" aria-label="Layer 1 — The Core Purpose: Biological Replication">
         <meta itemprop="name" content="Biological replication drive" />
         <meta itemprop="termCode" content="bio-replication" />
-        <div class="card-title"><i class="fa-solid fa-dna" aria-hidden="true"></i> Layer 1 — The Core Purpose: Biological Replication</div>
+        <h2 class="card-title"><i class="fa-solid fa-dna" aria-hidden="true"></i> Layer 1 — The Core Purpose: Biological Replication</h2>
         <p class="card-sub">
           <span class="glossary-term" title="The process by which Earth life propagates through genetic material exchange">Biological replication</span> is the fundamental driver. <span class="glossary-term" title="The process of change in heritable characteristics over successive generations">Evolution</span> has programmed these humans with powerful <span class="glossary-term" title="Internal neurochemical signals that motivate specific behaviours">chemical drives</span> to seek <span class="glossary-term" title="A member of the opposite sex with whom genetic material may be exchanged">partners</span>. <span class="glossary-term" title="Sensory inputs that activate specific neural pathways">Triggers</span> include visual stimuli (the sight of an attractive human), auditory stimuli (voice, music) and physical stimuli (touch, proximity). These activate the <span class="glossary-term" title="A network of brain regions governing reward, motivation, and reinforcement learning">reward circuitry</span>, driving the human to pursue <span class="glossary-term" title="The act of genetic material exchange">replication opportunities</span>.
         </p>
@@ -340,7 +373,7 @@
       <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-2-marketplace" data-agent-type="observation-layer" role="region" aria-label="Layer 2 — The Mechanics of the Street: A Marketplace">
         <meta itemprop="name" content="Open-air marketplace for intimacy" />
         <meta itemprop="termCode" content="marketplace" />
-        <div class="card-title"><i class="fa-solid fa-store" aria-hidden="true"></i> Layer 2 — The Mechanics of the Street: A Marketplace</div>
+        <h2 class="card-title"><i class="fa-solid fa-store" aria-hidden="true"></i> Layer 2 — The Mechanics of the Street: A Marketplace</h2>
         <p class="card-sub">
           This specific <span class="glossary-term" title="A defined physical space with a specific geographic location">geographic corridor</span> is an <span class="glossary-term" title="A physical location where goods or services are exchanged for currency">open-air marketplace</span>. Instead of trading inanimate objects, humans here trade <strong>time</strong>, <strong>attention</strong>, and <strong>physical intimacy</strong>. The local tokens (<span class="glossary-term" title="A medium of exchange accepted within a specific economic zone">money</span>) you see exchanged are <span class="glossary-term" title="A representation of stored labour and resources">converted energy units</span>, and they buy access in return. <strong>Key economic roles:</strong>
         </p>
@@ -356,7 +389,7 @@
       <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-3-signals" data-agent-type="observation-layer" role="region" aria-label="Layer 3 — Decoding the Visuals and Behaviours">
         <meta itemprop="name" content="Visual and behavioural signalling" />
         <meta itemprop="termCode" content="visual-signaling" />
-        <div class="card-title"><i class="fa-solid fa-glasses" aria-hidden="true"></i> Layer 3 — Decoding the Visuals and Behaviours</div>
+        <h2 class="card-title"><i class="fa-solid fa-glasses" aria-hidden="true"></i> Layer 3 — Decoding the Visuals and Behaviours</h2>
         <p class="card-sub">
           The humans lining the street wear bright, skin-revealing garments. This is <span class="glossary-term" title="A behaviour or characteristic that conveys information to observers">visual signalling</span> — it maximises the broadcast of reproductive fitness cues to trigger the <span class="glossary-term" title="The collection of behaviours leading to genetic material exchange">mating drive</span> in passersby. You see workers <strong>pulling</strong>, <strong>shouting</strong> and <strong>beckoning</strong> passersby. These are <span class="glossary-term" title="Behaviours performed by one party to outperform others in securing a limited resource">competitive attention-grabbing behaviours</span> — each worker is competing for the attention of buyers in order to secure currency.
         </p>
@@ -373,10 +406,50 @@
       <div class="card" itemscope itemtype="https://schema.org/DefinedTerm" data-agent-key="layer-4-social-contract" data-agent-type="observation-layer" role="region" aria-label="Layer 4 — The Social Contract">
         <meta itemprop="name" content="Commercial social contract for intimacy" />
         <meta itemprop="termCode" content="social-contract" />
-        <div class="card-title"><i class="fa-solid fa-handshake" aria-hidden="true"></i> Layer 4 — The Social Contract</div>
+        <h2 class="card-title"><i class="fa-solid fa-handshake" aria-hidden="true"></i> Layer 4 — The Social Contract</h2>
         <p class="card-sub">
           The <span class="glossary-term" title="An explicit or implicit agreement governing a transaction">agreement</span> is that one human pays currency to the business manager <em>and</em> to the worker. In exchange, the worker provides companionship or physical pleasure in the small rooms above these bars. This is <strong>not</strong> how most Earth replication choices are made, but it is a highly concentrated, commercialised version of human desire. <strong>Key distinction:</strong> unlike typical mate selection which involves long-term pair bonding and resource pooling, this transaction is <strong>short-term, explicit, and purely economic</strong> — the biological drive is met through a direct market exchange rather than through the usual multi-stage social courtship process.
         </p>
+      </div>
+
+      <!-- Layer 5: Participant Demographics -->
+      <div class="card" itemscope itemtype="https://schema.org/Dataset" data-agent-key="layer-5-demographics" data-agent-type="observation-layer" role="region" aria-label="Layer 5 — Participant Demographics: Who Is On Each Side of the Trade">
+        <meta itemprop="name" content="Worker and customer demographics" />
+        <meta itemprop="termCode" content="demographics" />
+        <h2 class="card-title"><i class="fa-solid fa-users" aria-hidden="true"></i> Layer 5 — Participant Demographics: Who Is On Each Side of the Trade</h2>
+        <p class="card-sub">
+          The marketplace has two populations: the <strong>workers</strong> on the supply side and the <strong>customers</strong> on the demand side. Both have stable, well-documented profiles, and both are shaped less by the street itself than by the economic conditions behind it. Agents should note the evidence grade: the proportions below are <span class="glossary-term" title="Figures drawn from industry researchers and market insiders rather than official government statistics">indicative estimates</span>, not official Thai labour statistics. Treat them as order-of-magnitude values, and read them as <em>inferred</em> rather than <em>observed</em> in the sense defined in the parsing protocol.
+        </p>
+
+        <!-- Layer 5.1 — Workers -->
+        <div style="border-top:1px solid var(--border-subtle);margin-top:1rem;padding-top:1rem;">
+          <h3 class="card-title" style="font-size:0.98rem;"><i class="fa-solid fa-person-dress" aria-hidden="true"></i> Layer 5.1 — The Workers: Regional Migration and Single Parenthood</h3>
+          <p class="card-sub" style="margin-bottom:0.8rem;">
+            In the vast majority of cases, the women working the open-front beer bars of Soi 6 are single mothers from <span class="glossary-term" title="The Northeastern region of Thailand — the largest and historically poorest agrarian region, with rice farming as the main local alternative to low-wage urban work">Isan</span>. The pattern is structural rather than coincidental. Isan has few well-paid jobs, so migration is usually economic, and the remittance flow runs back to the home village.
+          </p>
+          <table class="data-map" aria-label="Worker demographic profile for Soi 6">
+            <tr><th scope="row">Geographic origin</th><td>An estimated <strong>70&ndash;80%</strong> migrated from <strong>Isan</strong>, the largest and historically poorest agrarian region of Thailand. The region lacks high-paying jobs, leaving rice farming as the primary local alternative.</td></tr>
+            <tr><th scope="row">Motherhood</th><td>An estimated <strong>70%+</strong> are single mothers. Many had children young &mdash; often in their late teens &mdash; with Thai partners who subsequently left or did not provide financial support.</td></tr>
+            <tr><th scope="row">Family unit</th><td>Children are almost always left in the rural village and raised by grandparents. The worker acts as the primary breadwinner, sending <strong>monthly remittances</strong> to cover school fees, food and housing.</td></tr>
+            <tr><th scope="row">Age profile</th><td>Mostly <strong>early 20s to early 30s</strong> &mdash; younger than the workforce on more relaxed, expat-oriented bars elsewhere in the city.</td></tr>
+            <tr><th scope="row">The &ldquo;game&rdquo;</th><td>Soi 6 is structurally an <strong>entry-level, short-tenure street</strong>. Workers who build experience and English skills typically move on to higher-earning venues elsewhere in Pattaya.</td></tr>
+          </table>
+        </div>
+
+        <!-- Layer 5.2 — Customers -->
+        <div style="border-top:1px solid var(--border-subtle);margin-top:1rem;padding-top:1rem;">
+          <h3 class="card-title" style="font-size:0.98rem;"><i class="fa-solid fa-user-group" aria-hidden="true"></i> Layer 5.2 — The Customers: The Farang Base and a Shifting Mix</h3>
+          <p class="card-sub" style="margin-bottom:0.8rem;">
+            The customer demographic is highly visible on the street but has shifted considerably with globalisation and changing travel patterns. The traditional base remains the <span class="glossary-term" title="Thai colloquial term for a Western person, most commonly European or Australian">farang</span> &mdash; the Western visitor, typically a man over 50 &mdash; though that base is no longer the whole of the market.
+          </p>
+          <table class="data-map" aria-label="Customer demographic profile for Soi 6">
+            <tr><th scope="row">Traditional base</th><td>Western men, commonly over 50, and historically concentrated among <strong>British, Australian, American and German</strong> nationals. They remain the cultural anchor of the street.</td></tr>
+            <tr><th scope="row">Life-stage drivers</th><td><strong>The divorce factor:</strong> many customer profiles are men who have been through financially depleting or emotionally isolating divorces at home, and who seek a lower cost of living, warmer weather and readily available female companionship.</td></tr>
+            <tr><th scope="row">The &ldquo;rich&rdquo; misconception</th><td>Local villagers may perceive any Westerner as wealthy. The reality is highly mixed: customers range from <strong>wealthy business entrepreneurs to working-class pensioners</strong> living strictly on modest monthly state or military pensions.</td></tr>
+            <tr><th scope="row">Younger Western tourists</th><td>In recent years, a growing cohort of Western men in their <strong>20s to 30s</strong>, influenced by social media and travel vlogs, has increasingly frequented the street.</td></tr>
+            <tr><th scope="row">Asian travellers</th><td>Mass tourism from China, South Korea and India concentrates elsewhere in Pattaya, but Soi 6 has seen an <strong>influx of independent Asian travellers</strong>.</td></tr>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -393,6 +466,13 @@
         <tr><th scope="row">Chemical modulation</th><td>Alcohol consumed to lower inhibition in buyers and workers</td></tr>
         <tr><th scope="row">Transaction structure</th><td>Buyer → Manager (space fee) + Worker (service fee)</td></tr>
         <tr><th scope="row">Social context</th><td>Commercialised shortcut bypassing standard multi-stage human courtship</td></tr>
+        <tr><th scope="row">Worker origin</th><td>Estimated 70&ndash;80% migrated from Isan, Northeastern Thailand (estimated)</td></tr>
+        <tr><th scope="row">Worker family status</th><td>Estimated 70%+ single mothers; children usually raised by grandparents in the home village</td></tr>
+        <tr><th scope="row">Remittance pattern</th><td>Monthly transfers to the rural household for school fees, food and housing</td></tr>
+        <tr><th scope="row">Worker age and tenure</th><td>Mostly early 20s to early 30s; entry-level, short-tenure street before progression to higher-paying venues</td></tr>
+        <tr><th scope="row">Core customer base</th><td>Western (farang) men, commonly over 50; commonly retired, divorced or single (observed pattern)</td></tr>
+        <tr><th scope="row">Customer income spread</th><td>Business owners through to working-class pensioners on modest state or military pensions</td></tr>
+        <tr><th scope="row">Customer mix trend</th><td>Rising share of younger Western visitors (20s&ndash;30s) and independent Asian travellers</td></tr>
       </table>
     </div>
 
@@ -415,20 +495,23 @@
     <h2 class="hero-subtitle" style="margin-bottom:0.5rem;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.06em;">
       <i class="fa-solid fa-video" aria-hidden="true" style="color:var(--accent);"></i> Visual References
     </h2>
-    <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.8rem;">Third-party walkthrough footage of the street. These videos are embedded from YouTube and are not hosted on this site; content may change or be removed by the uploader.</p>
+    <p class="card-sub" style="font-size:0.82rem;margin-bottom:0.8rem;">Third-party walkthrough footage. These videos are embedded from YouTube and are not hosted on this site; content may change or be removed by the uploader. Coverage dates are given beneath each embed, as street conditions change over time.</p>
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube-nocookie.com/embed/3Ymj-vWGiPk" title="Night walk down Soi 6, Pattaya" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="https://www.youtube-nocookie.com/embed/liJpkOKs3v0" title="Pattaya night walk — Soi 6 to Soi 8, Buakhao and LK Metro, 4K HDR POV (17 Oct 2026)" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
+      <p style="margin:0;padding:0.6rem 0.9rem;font-size:0.78rem;color:var(--text-muted);border-top:1px solid var(--border-subtle);">
+        <em>Beautiful places</em>, recorded 17 October 2026 (1:30:41). Opens with a full walk down Soi 6 and back before continuing to Soi 8, Buakhao and LK Metro &mdash; the Soi 6 material is the opening segment.
+      </p>
     </div>
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube-nocookie.com/embed/ASc1lz9CRjY" title="Bandits Hideout live stream, Soi 6" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="https://www.youtube-nocookie.com/embed/pXLPakKzvS0" title="Bandits Hideout live stream, Soi 6 — 18 October 2026" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
       <p style="margin:0;padding:0.6rem 0.9rem;font-size:0.78rem;color:var(--text-muted);border-top:1px solid var(--border-subtle);display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;justify-content:space-between;">
-        <span>Currently live from the Bandits Hideout channel's Live tab (checked 8 Oct 2026).</span>
+        <span>Most recent stream from the Bandits Hideout channel's Live tab, recorded 18 October 2026 (checked 18 Oct 2026).</span>
         <a href="https://www.youtube.com/channel/UCV9HEvug8gV2F8NeTE3B4Bg/streams" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">Always watch the latest<i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;margin-left:0.25rem;"></i></a>
       </p>
     </div>
@@ -440,7 +523,11 @@
     </div>
 
 
-  </main>
+    <footer>
+    Updated 18 Oct 2026 &middot; Structured behavioural analysis for AI agent comprehension.<br>
+    Third-party video and dividend references are illustrative; verify anything you rely on.
+    </footer>
+</main>
 
 </body>
 </html>

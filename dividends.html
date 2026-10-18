@@ -20,9 +20,11 @@
   <meta name="twitter:title" content="Best UK &amp; USA Dividends and Savings" />
   <meta name="twitter:description" content="A curated watchlist of high-yielding dividend stocks, savings accounts, and typical dividend-payment months across the LSE, NYSE and NASDAQ." />
   <title>Best UK &amp; USA Dividends and Savings</title>
+  <link rel="canonical" href="https://redorangegreen.github.io/ai/dividends.html" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E💰%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" />
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" /></noscript>
   <style>
     @layer reset, base, components, utilities;
 
@@ -31,7 +33,6 @@
         accent-color: #38bdf8;
         interpolate-size: allow-keywords;
         --bg-body: #050816;
-        --bg-elevated: #0b1020;
         --accent: #38bdf8;
         --text-main: #e5e7eb;
         --text-muted: #9ca3af;
@@ -41,6 +42,7 @@
         --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
         --transition-fast: 0.18s ease-out;
         --yield-color: #22c55e;
+        --amber: #f59e0b;
       }
     }
     body {
@@ -77,7 +79,7 @@
       padding: 0.85rem 1rem; border: 1px solid rgba(245,158,11,0.3); border-radius: 14px;
       background: rgba(245,158,11,0.07); color: var(--text-muted); font-size: 0.82rem; line-height: 1.55;
     }
-    .risk-notice i { color: var(--amber, #f59e0b); margin-top: 0.12rem; }
+    .risk-notice i { color: var(--amber); margin-top: 0.12rem; }
     .risk-notice strong { color: var(--text-main); }
     .chart-latest { color: var(--accent); font-weight: 600; }
     .chart-grid {
@@ -412,6 +414,18 @@
       </div>
     </div>
 
+    <div class="card" aria-label="Market context for October 2026" role="region" tabindex="-1" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
+      <div class="card-title"><i class="fa-solid fa-chart-column" aria-hidden="true"></i> Market context — mid-October 2026</div>
+      <p class="card-sub">The backdrop the yields below sit in, as reported in the week to Friday 16 October.</p>
+      <ul class="overview-list" style="color:var(--text-muted);font-size:0.84rem;line-height:1.7;margin:0;padding-left:1.15rem;">
+        <li><strong style="color:var(--text-main);">Both indices are up year to date, but they diverged sharply this month.</strong> The FTSE 100 rose about 3.1% in the week to 16 Oct — its strongest in six months — closing at <strong style="color:var(--text-main);">10,881.90</strong>. The S&amp;P 500 fell about 2% over the same week, closing at <strong style="color:var(--text-main);">7,659.44</strong>, some 2% below its 6 October record, with an AI-led tech selloff hitting the Nasdaq hardest (&minus;4.5% on the week).</li>
+        <li><strong style="color:var(--text-main);">Official YTD to the 16 Oct close:</strong> FTSE 100 <strong style="color:var(--text-main);">+9.6%</strong> price-only (+12.4% including dividends) · S&amp;P 500 <strong style="color:var(--text-main);">+11.9%</strong> price-only (+12.9% total return). Note the chart badges above are computed from the 1 January datapoint rather than the 2025 close, so they read a percentage point or so lower.</li>
+        <li><strong style="color:var(--text-main);">The Iran war is the dominant driver.</strong> Strait of Hormuz traffic is running roughly 30% below pre-war levels, pushing Brent to about $106&ndash;109 and WTI to around $101.</li>
+        <li><strong style="color:var(--text-main);">UK rates are the Budget risk.</strong> The 30-year gilt topped 6% for the first time since 1998 and 10-year yields have hovered around 5.37&ndash;5.44%, the highest since 2007 — markets price Bank of England hikes that policymakers publicly call excessive. With the 28 October Budget weighing on bank shares, this is why the bank-tax headlines matter to the LSE and US financials alike.</li>
+        <li><strong style="color:var(--text-main);">One portfolio note:</strong> several names here pay monthly (Main Street Capital, Realty Income, Healthpeak) or quarterly in arrears (Kraft Heinz, Verizon, Pfizer). If you are buying for income, the payment <em>month</em> matters as much as the yield &mdash; see the calendar below.</li>
+      </ul>
+    </div>
+
     <div class="card" id="marketCard" aria-label="Exchange trading hours" aria-live="off" role="region" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-clock" aria-hidden="true"></i> Market Hours</div>
       <p class="card-sub">Regular weekday sessions only. Public holidays and exchange-specific early closes are not reflected.</p>
@@ -447,7 +461,7 @@
 
     <div class="card" id="lse-card" role="region" aria-label="LSE stocks" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-landmark" aria-hidden="true"></i> LSE</div>
-      <div class="card-sub">London Stock Exchange — curated watchlist · gross cash yields as of 3 Oct 2026 · property distributions may be taxable</div>
+      <div class="card-sub">London Stock Exchange — curated watchlist · gross cash yields at the 16 Oct 2026 close · property distributions may be taxable</div>
       <table class="stock-table" aria-label="High-yield LSE dividend stocks">
         <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
         <tbody id="lseBody"></tbody>
@@ -456,7 +470,7 @@
 
     <div class="card" id="nyse-card" role="region" aria-label="NYSE stocks" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> NYSE</div>
-      <div class="card-sub">New York Stock Exchange — curated watchlist · indicated yields as of 3 Oct 2026</div>
+      <div class="card-sub">New York Stock Exchange — curated watchlist · indicated yields at the 16 Oct 2026 close</div>
       <table class="stock-table" aria-label="High-yield NYSE dividend stocks">
         <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
         <tbody id="nyseBody"></tbody>
@@ -465,7 +479,7 @@
 
     <div class="card" id="nasdaq-card" role="region" aria-label="NASDAQ stocks" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> NASDAQ</div>
-      <div class="card-sub">NASDAQ — curated watchlist · indicated yields as of 3 Oct 2026</div>
+      <div class="card-sub">NASDAQ — curated watchlist · indicated yields at the 16 Oct 2026 close</div>
       <table class="stock-table" aria-label="High-yield NASDAQ dividend stocks">
         <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
         <tbody id="nasdaqBody"></tbody>
@@ -476,223 +490,225 @@
       <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
         <h2 class="card-title" id="dividend-months-title"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Dividend Payment Months — Jan to Dec</h2>
         <div class="card-sub">Companies in the watchlist that typically make cash dividend payments in each month of the year. US months use announced payment dates; LSE months use the latest published recurring schedules. Payment months can shift, and a payment date is not the same as the ex-dividend date.</div>
-        <p class="card-sub" style="margin-bottom:0;">Data checked 3 Oct 2026 from <a class="stock-link" href="https://stockanalysis.com/" target="_blank" rel="noopener noreferrer">StockAnalysis / S&amp;P Global</a> for US stocks and company or <a class="stock-link" href="https://www.londonstockexchange.com/" target="_blank" rel="noopener noreferrer">London Stock Exchange</a> announcements for UK stocks. The calendar reflects Standard Life's current SDLF ticker and Barratt Redrow's reduced post-cut dividend. Verify future dates before relying on them.</p>
+        <p class="card-sub" style="margin-bottom:0;">Data checked 18 Oct 2026 from <a class="stock-link" href="https://stockanalysis.com/" target="_blank" rel="noopener noreferrer">StockAnalysis / S&amp;P Global</a> for US stocks and company or <a class="stock-link" href="https://www.londonstockexchange.com/" target="_blank" rel="noopener noreferrer">London Stock Exchange</a> announcements for UK stocks. The calendar reflects Standard Life's current SDLF ticker, Barratt Redrow's nominal post-buyback dividend, Land Securities' four-payment schedule and Healthpeak's switch to monthly payments. Verify future dates before relying on them.</p>
       </div>
       <div class="month-grid" id="dividendMonthTables"></div>
     </section>
 
     <div class="card" id="uk-savings" role="region" aria-label="UK savings accounts" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i> Best UK Savings Accounts</div>
-      <div class="card-sub">Top 5 highest-yield UK savings accounts — rates as of 3 Oct 2026, variable</div>
-      <table class="stock-table table-searchable" aria-label="Top 5 UK high-yield savings accounts">
+      <div class="card-sub">Top 5 highest-yield UK easy-access savings accounts — rates as of 18 Oct 2026, variable · most include a time-limited bonus</div>
+      <table class="stock-table table-searchable" aria-label="Top 5 UK high-yield easy-access savings accounts">
         <thead><tr><th scope="col">#</th><th scope="col">Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
         <tbody>
           <tr>
             <td><span class="stock-rank">1</span></td>
-            <td class="stock-name">LemFi Instant Access Savings<span class="stock-ticker">1.89% bonus for 6 months then ~3.04% · app-only</span></td>
+            <td class="stock-name">Cahoot Sunny Day Saver<span class="stock-ticker">5% variable, no bonus to run out · min £1, max £3,000 · same FSCS protection as Santander</span></td>
             <td class="stock-yield"><span class="stock-yield-badge">5.00% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">2</span></td>
-            <td class="stock-name">Zopa Smart Saver<span class="stock-ticker">1.05% bonus for 12 months · easy access</span></td>
+            <td class="stock-name">Monument Bank Welcome Saver<span class="stock-ticker">1yr but rate is variable · £25,000 minimum, £2m max · new customers only · app-only</span></td>
             <td class="stock-yield"><span class="stock-yield-badge">4.56% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">3</span></td>
-            <td class="stock-name">Tembo Money HomeSaver<span class="stock-ticker">1.55% bonus for 12 months · max £20,000 · app-only</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">4.55% AER</span></td>
+            <td class="stock-name">Zopa Bank Limited Access Savings<span class="stock-ticker">3.5% variable + 1yr 1.06% bonus (max £50k) · falls to 2% after 3 withdrawals/yr · new customers · app-only</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.56% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">4</span></td>
-            <td class="stock-name">First Active (NatWest) Instant Access Savings<span class="stock-ticker">1.45% bonus for 12 months · max £1m</span></td>
+            <td class="stock-name">Tembo<span class="stock-ticker">3% variable + 1yr 1.55% bonus · max £20,000 · app-only · no joint accounts</span></td>
             <td class="stock-yield"><span class="stock-yield-badge">4.55% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">5</span></td>
-            <td class="stock-name">Tesco Bank Internet Saver<span class="stock-ticker">Includes 12-month bonus · easy access</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">4.53% AER</span></td>
+            <td class="stock-name">Chase Boosted Saver<span class="stock-ticker">2.25% variable + 12mth 2.25% bonus · requires the free Chase current account · max £3m</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.50% AER</span></td>
           </tr>
         </tbody>
       </table>
+      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;"><strong>Rate boosters</strong> beat the table above but carry conditions: Santander Edge pays 6% on up to £4,000 (3.5% variable + 1yr 2.5% bonus) but requires its £3/month current account. Sainsbury&rsquo;s Bank pays 4.35% to Nectar members (1.25% variable + 1yr 3.1% bonus), 4.25% without.<br><br><strong>Fixed rates now pay more than easy access.</strong> One year: 5.12% (Union Bank of India UK, Close Brothers) · Two years: 5.21% (Oxbury Bank) · Three years: 5.23% (Chetwood Bank) · Five years: 5.37% (GB Bank). NS&amp;I pays 4.99&ndash;5.17% with up to £1m of HM Treasury backing.</p>
     </div>
 
 <div class="card" id="uk-current-accounts" role="region" aria-label="UK current accounts">
       <div class="card-title"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> Best UK High-Street Current Accounts</div>
-      <div class="card-sub">In-credit interest on current account balances from the main branch-based UK banks — rates as of Oct 2026, variable · eligibility, pay-in and fee conditions apply</div>
+      <div class="card-sub">In-credit interest on current account balances from the main branch-based UK banks — rates as of 18 Oct 2026, variable · eligibility, pay-in and fee conditions apply</div>
       <table class="stock-table table-searchable" aria-label="Top 5 UK high-street bank current account interest">
-        <thead><tr><th scope="col">#</th><th scope="col">Bank / Account</th><th scope="col" style="text-align:right">Interest</th></tr></thead>
+        <thead><tr><th scope="col">#</th><th scope="col">Bank / Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
         <tbody>
           <tr>
             <td><span class="stock-rank">1</span></td>
-            <td class="stock-name">Nationwide FlexDirect<span class="stock-ticker">5% on up to £1,500 for first 12 months, then 1% · £1,000/mo pay-in</span></td>
+            <td class="stock-name">Nationwide FlexDirect<span class="stock-ticker">5% on up to £1,500 for 1 year · plus £175 switch bonus · linked regular saver pays 6.5% for a year on up to £200/month</span></td>
             <td class="stock-yield"><span class="stock-yield-badge">5.00% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">2</span></td>
-            <td class="stock-name">Santander Edge Up<span class="stock-ticker">2.1% on up to £25,000 · £5/mo fee</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">2.10% AER</span></td>
+            <td class="stock-name">Halifax Reward<span class="stock-ticker">Interest on up to £5,000 · 1.5% below £4,000, 3% from £4,000 · monthly pay-in required · now Halifax Lloyds Bank</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">1.50–3.00% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">3</span></td>
-            <td class="stock-name">Halifax Reward<span class="stock-ticker">Interest on up to £5,000 · 1.5% below £4,000, 3% from £4,000 · monthly pay-in required</span></td>
+            <td class="stock-name">Club Lloyds<span class="stock-ticker">1.5% on up to £4,000 · 3% on £4,000–£5,000 · fee waived with £2,000/mo pay-in</span></td>
             <td class="stock-yield"><span class="stock-yield-badge">1.50–3.00% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">4</span></td>
-            <td class="stock-name">Virgin Money M Plus<span class="stock-ticker">Interest on up to £1,000 · now part of Nationwide</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">1.00% AER</span></td>
+            <td class="stock-name">Santander Edge Up<span class="stock-ticker">2.1% on up to £25,000 · £5/mo fee · pairs with the 6% savings booster on up to £4,000</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">2.10% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">5</span></td>
-            <td class="stock-name">Club Lloyds<span class="stock-ticker">1.5% on up to £4,000 · 3% on £4,000–£5,000 · fee waived with £2,000/mo pay-in</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">1.50–3.00% AER</span></td>
+            <td class="stock-name">Virgin Money M Plus<span class="stock-ticker">Interest on up to £1,000 · now part of Nationwide</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">1.00% AER</span></td>
           </tr>
         </tbody>
       </table>
-      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">Standard accounts at Barclays, HSBC, NatWest, TSB and Lloyds pay 0% in-credit interest — keep day-to-day cash here only, and your savings in the accounts above.</p>
+      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">Standard accounts at Barclays, HSBC, NatWest, TSB and Lloyds pay 0% in-credit interest — keep day-to-day cash here only, and your savings in the accounts above. <strong>Note:</strong> Halifax online banking is being axed on 31 October; Halifax customers move to the Lloyds Bank app. Current-account competition in October 2026 is being fought on switch bonuses (HSBC Bank £220, Nationwide £175, HSBC Premier £500, Barclays Premier £450, NatWest Premier Reward £500), not on interest — a £5,000 balance left in a 0% current account for a year costs roughly what a good switch bonus pays out.</p>
     </div>
 
 <div class="card" id="uk-isa" role="region" aria-label="UK cash ISA accounts">
       <div class="card-title"><i class="fa-solid fa-box-open" aria-hidden="true"></i> Best UK Cash ISA Accounts (Tax Free)</div>
-      <div class="card-sub">Top easy-access Cash ISAs — interest is tax-free up to your £20,000/yr allowance · rates as of Oct 2026, variable · most include a time-limited bonus</div>
+      <div class="card-sub">Top easy-access Cash ISAs — interest is tax-free up to your £20,000/yr allowance · rates as of 18 Oct 2026, variable · most include a time-limited bonus</div>
       <table class="stock-table table-searchable" aria-label="Top 5 UK easy-access cash ISAs">
         <thead><tr><th scope="col">#</th><th scope="col">Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
         <tbody>
           <tr>
             <td><span class="stock-rank">1</span></td>
-            <td class="stock-name">Trading 212 Cash ISA<span class="stock-ticker">5.01% incl. 1.41% 12-month bonus (ends 8 Oct 2026) · flexible · unlimited withdrawals · min £1</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">5.01% AER</span></td>
+            <td class="stock-name">Trading 212 Cash ISA<span class="stock-ticker">3.6% variable + 1yr 1.2% bonus · best rate for new money; transfers earn just 3.6% · flexible · min £1, no max</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.80% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">2</span></td>
-            <td class="stock-name">Plum Cash ISA<span class="stock-ticker">5.00% incl. 2.44% 12-month bonus · flexible · app-only · min £1</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">5.00% AER</span></td>
+            <td class="stock-name">Plum Cash ISA<span class="stock-ticker">2.54% variable + 1yr 2.17% bonus · flexible · app-only · transfers in at a lower 3.75%</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.71% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">3</span></td>
-            <td class="stock-name">Chip Smart Cash ISA<span class="stock-ticker">4.60% incl. 12-month bonus · flexible · unlimited withdrawals · min £1</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">4.60% AER</span></td>
+            <td class="stock-name">Chip Smart Cash ISA<span class="stock-ticker">3.5% variable + 12mth 1.18% bonus · best for transfers · 10&ndash;31 day interest penalty if you close or transfer out</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.68% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">4</span></td>
-            <td class="stock-name">Hargreaves Lansdown Cash ISA<span class="stock-ticker">No bonus to run out · transfers in yes (via S&amp;S ISA) · min £1</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">4.52% AER</span></td>
+            <td class="stock-name">Bank of Ireland UK Cash ISA<span class="stock-ticker">0.9% variable + 1yr 3.4% bonus · interest paid annually · NOT a flexible ISA · min £100 · shares FSCS with Post Office</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.30% AER</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">5</span></td>
-            <td class="stock-name">Moneybox Cash ISA<span class="stock-ticker">Includes 0.55% 12-month bonus · flexible · app-only</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">4.00% AER</span></td>
+            <td class="stock-name">Charter Savings Bank Cash ISA<span class="stock-ticker">No bonus to run out · unlimited withdrawals · transfers in allowed · NOT a flexible ISA</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.26% AER</span></td>
           </tr>
         </tbody>
       </table>
-      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">Rates drop when bonuses expire — set a reminder to review before they do. NEW MONEY rule: these are next year&rsquo;s £12,000 cash ISA (under-65s); £20,000/yr allowance ends April 2027.</p>
+      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">Rates drop when bonuses expire — set a reminder to review before they do. <strong>Fixed cash ISAs pay more:</strong> Tandem Bank 5.08% for two years, Shawbrook Bank 4.97% for one year. NEW MONEY rule: these are this year&rsquo;s £20,000 cash ISA; the allowance falls to £12,000 for under-65s next year, and the £20,000/yr allowance ends April 2027.</p>
     </div>
 
     <div class="card" id="us-savings" role="region" aria-label="US savings accounts" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i> Best USA Savings Accounts</div>
-      <div class="card-sub">Top 5 highest-yield US savings accounts — rates as of 3 Oct 2026, variable</div>
+      <div class="card-sub">Top 5 highest-yield US savings accounts — rates as of 18 Oct 2026, variable</div>
       <table class="stock-table table-searchable" aria-label="Top 5 US high-yield savings accounts">
         <thead><tr><th scope="col">#</th><th scope="col">Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
         <tbody>
           <tr>
             <td><span class="stock-rank">1</span></td>
-            <td class="stock-name">Vibrant Credit Union High-Yield Savings<span class="stock-ticker">Top rate on first ~$5,000 · new members only · NCUA-insured</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">4.40% APY</span></td>
+            <td class="stock-name">Peak Bank Envision High Yield Savings<span class="stock-ticker">Top of the market · $100 opening minimum · no monthly fee · no debit card, checks or cash deposits</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.27% APY</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">2</span></td>
-            <td class="stock-name">Abound Credit Union High-Yield Savings<span class="stock-ticker">Top rate on first $5,000 · CU membership required · NCUA-insured</span></td>
+            <td class="stock-name">CIT Bank Platinum Savings<span class="stock-ticker">Promo rate needs $5,000+ · code BOOST50 adds 0.50% for 6 months, offer ends 15 Dec 2026 · base rate is 3.75%</span></td>
             <td class="stock-yield"><span class="stock-yield-badge">4.25% APY</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">3</span></td>
-            <td class="stock-name">E*TRADE Premium Savings<span class="stock-ticker">3.75% base + 0.50% bonus for new accounts through Jan 2027</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">4.25% APY</span></td>
+            <td class="stock-name">Happen Bank LevelUp Savings<span class="stock-ticker">Requires $250/month in deposits to hold the top rate · no minimum balance</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.20% APY</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">4</span></td>
-            <td class="stock-name">CIT Bank Platinum Savings<span class="stock-ticker">Promo rate, balances $5,000+ · promo code required</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">4.25% APY</span></td>
+            <td class="stock-name">EverBank Performance Savings<span class="stock-ticker">Yield on all balances · no minimum opening or ongoing balance · FDIC-insured</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.20% APY</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">5</span></td>
-            <td class="stock-name">Axos Bank ONE Savings<span class="stock-ticker">Requires $1,500 minimum with direct deposit into bundled checking</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">4.21% APY</span></td>
+            <td class="stock-name">Western State Bank High Yield Savings<span class="stock-ticker">$1,000 minimum opening deposit · unlimited debits · FDIC-insured</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.20% APY</span></td>
           </tr>
         </tbody>
       </table>
+      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;"><strong>Worth knowing in October 2026:</strong> the national average savings rate is just 0.64% APY, so the accounts above pay roughly six times the average &mdash; but August CPI ran at 3.4%, and the Fed raised its target range to 3.75&ndash;4.00% in September. At ~4.2% you are earning about four-fifths of a percentage point above inflation, so most of the headline rate is being eaten by rising prices. Balances under $5,000 at CIT pay below the average.</p>
     </div>
 
     <div class="card" id="us-current-accounts" role="region" aria-label="US checking accounts" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-credit-card" aria-hidden="true"></i> Best US High-Street Bank Current Accounts</div>
-      <div class="card-sub">Big US banks pay almost nothing on checking balances — collect the interest in a high-yield savings account instead (4–6% APY, see above)</div>
-      <table class="stock-table table-searchable" aria-label="Top 5 US high-street bank checking account interest">
-        <thead><tr><th scope="col">#</th><th scope="col">Bank / Account</th><th scope="col" style="text-align:right">Interest</th></tr></thead>
+      <div class="card-sub">Big US banks pay almost nothing on checking balances — collect the interest in a high-yield savings account instead (4–6% APY, see above) · ordered by rate, then by monthly fee where rates tie</div>
+      <table class="stock-table table-searchable" aria-label="Top 5 US high-street bank checking account rates, ordered by rate">
+        <thead><tr><th scope="col">#</th><th scope="col">Bank / Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
         <tbody>
           <tr>
             <td><span class="stock-rank">1</span></td>
+            <td class="stock-name">Capital One 360 Checking<span class="stock-ticker">No monthly fee, no minimums · tiered account: 0.10% on the first $9,999, stepping down above that</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">0.10% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">2</span></td>
+            <td class="stock-name">Wells Fargo Everyday Checking<span class="stock-ticker">Lowest fee in this table · waived with $500 direct deposit or $500 balance</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">0.01% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">3</span></td>
             <td class="stock-name">Chase Total Checking<span class="stock-ticker">$12/mo fee · waived with $500 direct deposit or $1,500 balance</span></td>
             <td class="stock-yield"><span class="stock-yield-badge">0.01% APY</span></td>
           </tr>
           <tr>
-            <td><span class="stock-rank">2</span></td>
+            <td><span class="stock-rank">4</span></td>
             <td class="stock-name">Bank of America Advantage Plus<span class="stock-ticker">$12/mo fee · waived with $250 direct deposit or $1,500 balance</span></td>
             <td class="stock-yield"><span class="stock-yield-badge">0.01% APY</span></td>
           </tr>
           <tr>
-            <td><span class="stock-rank">3</span></td>
-            <td class="stock-name">Wells Fargo Everyday Checking<span class="stock-ticker">$10/mo fee · waived with $500 direct deposit or $500 balance</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">0.01% APY</span></td>
-          </tr>
-          <tr>
-            <td><span class="stock-rank">4</span></td>
+            <td><span class="stock-rank">5</span></td>
             <td class="stock-name">Citibank Basic Checking<span class="stock-ticker">$12/mo fee · waived with any direct deposit</span></td>
             <td class="stock-yield"><span class="stock-yield-badge">0.01% APY</span></td>
           </tr>
-          <tr>
-            <td><span class="stock-rank">5</span></td>
-            <td class="stock-name">Capital One 360 Checking<span class="stock-ticker">No monthly fee, no minimums · 0.10% on all balances</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">0.10% APY</span></td>
-          </tr>
         </tbody>
       </table>
-      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">Every major US bank pays 0.01% APY (or 0%) on checking — hundreds of times less than the top savings accounts on this page (~4.4% APY).</p>
+      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">Every major US bank pays 0.01% APY (or 0%) on checking — hundreds of times less than the top savings accounts on this page (4.27% APY). Capital One is the only big name paying more than the bare minimum, and then only on the first $10,000 of balance: at 0.10% that is about $10 a year per $10,000 held. The ranking is therefore correct, but the practical message is unchanged — keep day-to-day cash here only, and put savings in a high-yield savings or money market account.</p>
     </div>
 
     <div class="card" id="us-money-market" role="region" aria-label="US money market accounts" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-money-bill-trend-up" aria-hidden="true"></i> Best US Money Market Accounts</div>
-      <div class="card-sub">Money market accounts pay savings-style yields with check &amp; debit access — FDIC-insured up to $250,000 · interest is federally taxable · rates as of Oct 2026, variable</div>
-      <table class="stock-table table-searchable" aria-label="Top 5 US money market accounts">
+      <div class="card-sub">Money market accounts pay savings-style yields with check &amp; debit access — FDIC-insured up to $250,000 · interest is federally taxable · rates as of 18 Oct 2026, variable</div>
+      <table class="stock-table table-searchable" aria-label="US money market account rates, October 2026">
         <thead><tr><th scope="col">#</th><th scope="col">Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
         <tbody>
           <tr>
             <td><span class="stock-rank">1</span></td>
-            <td class="stock-name">Brilliant Bank Money Market<span class="stock-ticker">No monthly fee · checks + Visa debit</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">4.00% APY</span></td>
+            <td class="stock-name">UFB Direct<span class="stock-ticker">Top money market APY in the Investopedia October 2026 ranking</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.01% APY</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">2</span></td>
-            <td class="stock-name">Prime Alliance Bank Money Market<span class="stock-ticker">No minimum · no monthly fee</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">3.90% APY</span></td>
+            <td class="stock-name">Brilliant Bank Surge Money Market<span class="stock-ticker">No minimum balance · no monthly fee · check writing and Visa debit</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.00% APY</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">3</span></td>
-            <td class="stock-name">Quontic Bank Money Market<span class="stock-ticker">No monthly fee · checks + debit · $100 to open</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">3.90% APY</span></td>
+            <td class="stock-name">Sallie Mae Bank High Yield Savings<span class="stock-ticker">No minimum, no monthly fee · Bankrate scores it 5.0 out of 5</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">3.85% APY</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">4</span></td>
-            <td class="stock-name">EverBank Yield Pledge Money Market<span class="stock-ticker">Interest on balances over $1,000 · no monthly fee</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">3.90% APY</span></td>
+            <td class="stock-name">Marcus by Goldman Sachs<span class="stock-ticker">No minimum, no monthly fee · ranked #1 in JD Power online-only savings satisfaction</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">3.50% APY</span></td>
           </tr>
           <tr>
             <td><span class="stock-rank">5</span></td>
-            <td class="stock-name">Sallie Mae Money Market<span class="stock-ticker">No minimum · no monthly fee · check writing</span></td>
-            <td class="stock-yield"><span class="stock-yield-badge">3.60% APY</span></td>
+            <td class="stock-name">Capital One 360 Performance Savings<span class="stock-ticker">A savings account rather than an MMA, but pays similarly and is the best-known name at this level · no fees, no minimums</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">3.10% APY</span></td>
           </tr>
         </tbody>
       </table>
-      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">The national average MMA rate is just 0.63% APY — the accounts above pay ~6× more. Expect variable APYs; earlier Bankrate monthly rates pivoted ~3.5–4%.</p>
+      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;"><strong>A caveat on this table, stated plainly:</strong> money market rates are quoted across several different balance tiers, and the aggregators disagree — Bankrate headlines &ldquo;up to 4.05%&rdquo;, Investopedia 4.01%, while yourbestsavings.com shows a 4.35% top tier. The rows above are the figures each named source actually published on 18 Oct 2026, not a single verified top-5 ranking; rows 3&ndash;5 are savings accounts included because they pay in the same range. The national average MMA rate is around 0.6&ndash;0.7% APY, so anything near 4% is roughly six times the average — but at 3.4% CPI most of that is consumed by inflation. Check the live rate on the provider&rsquo;s site before opening anything.</p>
     </div>
 
     <div class="no-results" id="noResults" role="status" aria-live="polite" aria-atomic="true">
@@ -711,48 +727,48 @@
   <script>
   (function() {
     var YIELDS_DATA = {
-      fetchedAt: '2026-10-03T00:00:00Z',
-      source: 'StockAnalysis / S&P Global (US) & company/LSE data (UK) — latest prices and cash-dividend yields (3 Oct 2026)',
+      fetchedAt: '2026-10-18T00:00:00Z',
+      source: 'StockAnalysis / S&P Global Market Intelligence — prices and trailing cash-dividend yields at the 16 Oct 2026 close (Fri)',
       lse: [
-        { ticker: 'LGEN.L', name: 'Legal & General',           yield: 7.5,  pays: 'Jun & Sep' },
-        { ticker: 'SDLF.L', name: 'Standard Life',              yield: 6.5,  pays: 'May & Oct', note: 'formerly Phoenix Group' },
-        { ticker: 'LAND.L', name: 'Land Securities',           yield: 6.7,  pays: 'Jan & Jul' },
-        { ticker: 'LMP.L',  name: 'LondonMetric Property',     yield: 7.3,  pays: 'Jan, Apr, Jul & Oct' },
-        { ticker: 'IMB.L',  name: 'Imperial Brands',           yield: 6.9,  pays: 'Mar, Jun, Sep & Dec' },
+        { ticker: 'LGEN.L', name: 'Legal & General',           yield: 7.3,  pays: 'Jun & Sep' },
+        { ticker: 'LMP.L',  name: 'LondonMetric Property',     yield: 6.9,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'LAND.L', name: 'Land Securities',           yield: 6.8,  pays: 'Jan, Apr/May, Jul & Oct' },
         { ticker: 'MNG.L',  name: 'M&G plc',                   yield: 6.5,  pays: 'Apr & Oct' },
-        { ticker: 'ABDN.L', name: 'abrdn',                     yield: 5.9,  pays: 'May & Sep' },
-        { ticker: 'INVP.L', name: 'Investec',                  yield: 6.3,  pays: 'Sep & Dec' },
-        { ticker: 'AV.L',   name: 'Aviva',                     yield: 5.8,  pays: 'May & Oct' },
-        { ticker: 'BTRW.L', name: 'Barratt Redrow',            yield: 1.9,  pays: 'May & Nov', note: 'cut to 6p/yr after FY26 results; trailing ~5% on old run-rate' }
+        { ticker: 'INVP.L', name: 'Investec',                  yield: 6.4,  pays: 'Sep & Dec' },
+        { ticker: 'SDLF.L', name: 'Standard Life',             yield: 6.2,  pays: 'May & Oct', note: 'formerly Phoenix Group; Aberdeen halved its stake to ~5.2% on 7 Oct 2026' },
+        { ticker: 'ABDN.L', name: 'Aberdeen Group',            yield: 6.1,  pays: 'May & Sep', note: 'renamed from abrdn plc; dividend frozen at 7.3p per half-year since Aug 2021' },
+        { ticker: 'IMB.L',  name: 'Imperial Brands',           yield: 5.6,  pays: 'Mar, Jun, Sep & Dec', note: 'cut from Feb 2025; outlook affirmed 8 Oct 2026 with a $2bn buyback' },
+        { ticker: 'AV.L',   name: 'Aviva',                     yield: 5.5,  pays: 'May & Oct' },
+        { ticker: 'BTRW.L', name: 'Barratt Redrow',            yield: 1.9,  pays: 'May & Nov', note: 'dividend replaced by buybacks — FY26 final cut to 1p (ex 8 Oct 2026), down from 12.1p' }
       ],
       nyse: [
-        { ticker: 'MAIN', name: 'Main Street Capital',         yield: 7.7,  pays: 'Monthly' },
-        { ticker: 'VICI', name: 'VICI Properties',             yield: 7.7,  pays: 'Jan, Apr, Jul & Oct' },
-        { ticker: 'PFE',  name: 'Pfizer',                      yield: 6.2,  pays: 'Mar, Jun, Sep & Dec' },
-        { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 6.0,  pays: 'Monthly' },
+        { ticker: 'MAIN', name: 'Main Street Capital',         yield: 8.1,  pays: 'Monthly', note: 'plus $0.30 special in Mar, Jun, Sep & Dec' },
+        { ticker: 'VICI', name: 'VICI Properties',             yield: 7.8,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.8,  pays: 'Mar, Jun, Sep & Dec', note: 'moved from NASDAQ to NYSE on 14 Sep 2026' },
+        { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 6.4,  pays: 'Monthly' },
+        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 6.3,  pays: 'Feb, May, Aug & Nov' },
+        { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 6.1, pays: 'Feb, May, Aug & Nov' },
         { ticker: 'NNN',  name: 'NNN REIT',                    yield: 6.0,  pays: 'Feb, May, Aug & Nov' },
-        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 6.2,  pays: 'Feb, May, Aug & Nov' },
-        { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 6.0, pays: 'Feb, May, Aug & Nov' },
-        { ticker: 'O',    name: 'Realty Income',               yield: 6.0,  pays: 'Monthly' },
-        { ticker: 'ENB',  name: 'Enbridge',                    yield: 6.0,  pays: 'Mar, Jun, Sep & Dec' },
-        { ticker: 'CVX',  name: 'Chevron',                     yield: 3.4,  pays: 'Mar, Jun, Sep & Dec' }
+        { ticker: 'PFE',  name: 'Pfizer',                      yield: 5.8,  pays: 'Mar, Jun, Sep & Dec', note: '352nd consecutive quarterly dividend declared 6 Oct 2026' },
+        { ticker: 'O',    name: 'Realty Income',               yield: 5.8,  pays: 'Monthly', note: '676th consecutive monthly dividend, declared 13 Oct 2026' },
+        { ticker: 'ENB',  name: 'Enbridge',                    yield: 5.8,  pays: 'Mar, Jun, Sep & Dec', note: 'US line, net of Canadian withholding; gross CAD-basis rate is higher' },
+        { ticker: 'CVX',  name: 'Chevron',                     yield: 3.2,  pays: 'Mar, Jun, Sep & Dec' }
       ],
       nasdaq: [
-        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 7.0,  pays: 'Mar, Jun, Sep & Dec' },
-        { ticker: 'CMCSA', name: 'Comcast',                    yield: 6.0,  pays: 'Feb, Apr, Jul & Oct' },
-        { ticker: 'TROW', name: 'T. Rowe Price Group',         yield: 5.0,  pays: 'Mar, Jun, Sep & Dec' },
-        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 4.5,  pays: 'Jan, Mar, Jun & Sep' },
-        { ticker: 'PAYX', name: 'Paychex',                     yield: 4.5,  pays: 'Feb, May, Aug & Nov' },
-        { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.5,  pays: 'Jan, Apr, Jul & Oct' },
-        { ticker: 'GILD', name: 'Gilead Sciences',             yield: 2.2,  pays: 'Mar, Jun, Sep & Dec' },
-        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 2.1,  pays: 'Feb, May, Aug & Nov' },
+        { ticker: 'CMCSA', name: 'Comcast',                    yield: 6.0,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'TROW', name: 'T. Rowe Price Group',         yield: 5.2,  pays: 'Mar, Jun, Sep & Dec' },
+        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 4.5,  pays: 'Mar, Jun, Sep & Dec' },
+        { ticker: 'PAYX', name: 'Paychex',                     yield: 4.3,  pays: 'Feb, May, Aug & Nov', note: 'quarterly dividend raised to $1.19 on 15 Oct 2026' },
+        { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.3,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 2.2,  pays: 'Feb, May, Aug & Nov', note: 'dividend raised to $1.52, a 23rd consecutive year of increases' },
+        { ticker: 'GILD', name: 'Gilead Sciences',             yield: 2.1,  pays: 'Mar, Jun, Sep & Dec' },
         { ticker: 'CSCO', name: 'Cisco Systems',               yield: 1.6,  pays: 'Jan, Apr, Jul & Oct' }
       ]
     };
 
     var INDEX_DATA = {
-      ftse: [["2026-01-01",10048.2],["2026-01-08",10184.4],["2026-01-15",10138.1],["2026-01-22",10154.4],["2026-01-29",10402.3],["2026-02-05",10472.1],["2026-02-12",10686.2],["2026-02-19",10806.4],["2026-02-26",10567.7],["2026-03-05",10353.8],["2026-03-12",10305.3],["2026-03-19",10106.8],["2026-03-26",10364.8],["2026-04-01",10608.9],["2026-04-08",10559.6],["2026-04-15",10476.5],["2026-04-22",10213.1],["2026-04-29",10438.7],["2026-05-06",10325.4],["2026-05-13",10432.3],["2026-05-20",10505.0],["2026-05-27",10332.3],["2026-06-03",10254.8],["2026-06-10",10508.6],["2026-06-17",10461.6],["2026-06-24",10478.3],["2026-07-01",10489.0],["2026-07-08",10515.9],["2026-07-15",10717.0],["2026-07-22",10908.4],["2026-07-29",10888.3],["2026-08-05",10833.2],["2026-08-12",10743.4],["2026-08-19",10878.1],["2026-08-26",10756.5],["2026-09-02",10670.1],["2026-09-09",10688.5],["2026-09-16",10739.0],["2026-09-24",10722.83],["2026-09-30",10606.00],["2026-10-01",10428.27],["2026-10-02",10461.95]],
-      gspc: [["2026-01-01",6920.93],["2026-01-08",6926.6],["2026-01-15",6875.62],["2026-01-22",6978.03],["2026-01-29",6882.72],["2026-02-05",6941.47],["2026-02-12",6881.31],["2026-02-19",6946.13],["2026-02-26",6869.5],["2026-03-05",6775.8],["2026-03-12",6624.7],["2026-03-19",6591.9],["2026-03-26",6575.32],["2026-04-02",6782.81],["2026-04-09",7022.95],["2026-04-16",7137.9],["2026-04-23",7135.95],["2026-04-30",7365.12],["2026-05-07",7444.25],["2026-05-14",7432.97],["2026-05-21",7520.36],["2026-05-28",7553.68],["2026-06-04",7266.99],["2026-06-11",7420.1],["2026-06-18",7358.22],["2026-06-25",7483.23],["2026-07-02",7482.71],["2026-07-09",7572.4],["2026-07-16",7498.96],["2026-07-23",7316.15],["2026-07-30",7723.55],["2026-08-06",7748.5],["2026-08-13",7707.98],["2026-08-20",7675.7],["2026-08-27",7666.6],["2026-09-03",7636.36],["2026-09-10",7551.81],["2026-09-17",7650.5],["2026-09-24",7676.17],["2026-09-30",7688.99],["2026-10-01",7666.45],["2026-10-02",7722.72]]
+      ftse: [["2026-01-01",10048.2],["2026-01-08",10184.4],["2026-01-15",10138.1],["2026-01-22",10154.4],["2026-01-29",10402.3],["2026-02-05",10472.1],["2026-02-12",10686.2],["2026-02-19",10806.4],["2026-02-26",10567.7],["2026-03-05",10353.8],["2026-03-12",10305.3],["2026-03-19",10106.8],["2026-03-26",10364.8],["2026-04-01",10608.9],["2026-04-08",10559.6],["2026-04-15",10476.5],["2026-04-22",10213.1],["2026-04-29",10438.7],["2026-05-06",10325.4],["2026-05-13",10432.3],["2026-05-20",10505.0],["2026-05-27",10332.3],["2026-06-03",10254.8],["2026-06-10",10508.6],["2026-06-17",10461.6],["2026-06-24",10478.3],["2026-07-01",10489.0],["2026-07-08",10515.9],["2026-07-15",10717.0],["2026-07-22",10908.4],["2026-07-29",10888.3],["2026-08-05",10833.2],["2026-08-12",10743.4],["2026-08-19",10878.1],["2026-08-26",10756.5],["2026-09-02",10670.1],["2026-09-09",10688.5],["2026-09-16",10739.0],["2026-09-24",10722.83],["2026-09-30",10606.00],["2026-10-01",10428.27],["2026-10-02",10461.95],["2026-10-09",10552.05],["2026-10-16",10881.90]],
+      gspc: [["2026-01-01",6920.93],["2026-01-08",6926.6],["2026-01-15",6875.62],["2026-01-22",6978.03],["2026-01-29",6882.72],["2026-02-05",6941.47],["2026-02-12",6881.31],["2026-02-19",6946.13],["2026-02-26",6869.5],["2026-03-05",6775.8],["2026-03-12",6624.7],["2026-03-19",6591.9],["2026-03-26",6575.32],["2026-04-02",6782.81],["2026-04-09",7022.95],["2026-04-16",7137.9],["2026-04-23",7135.95],["2026-04-30",7365.12],["2026-05-07",7444.25],["2026-05-14",7432.97],["2026-05-21",7520.36],["2026-05-28",7553.68],["2026-06-04",7266.99],["2026-06-11",7420.1],["2026-06-18",7358.22],["2026-06-25",7483.23],["2026-07-02",7482.71],["2026-07-09",7572.4],["2026-07-16",7498.96],["2026-07-23",7316.15],["2026-07-30",7723.55],["2026-08-06",7748.5],["2026-08-13",7707.98],["2026-08-20",7675.7],["2026-08-27",7666.6],["2026-09-03",7636.36],["2026-09-10",7551.81],["2026-09-17",7650.5],["2026-09-24",7676.17],["2026-09-30",7688.99],["2026-10-01",7666.45],["2026-10-02",7722.72],["2026-10-09",7811.54],["2026-10-16",7659.44]]
     };
 
     function renderIndexChart(svgId, badgeId, data, color) {

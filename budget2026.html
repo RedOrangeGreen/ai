@@ -7,18 +7,18 @@
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="description" content="Predictions for the UK Autumn Budget of Wednesday 28 October 2026: 24 measures across income tax, capital gains, inheritance, property, savings, pensions, energy and business, each rated from settled to unlikely." />
+  <meta name="description" content="Predictions for the UK Autumn Budget of Wednesday 28 October 2026: 34 measures across income tax, capital gains, inheritance, property, savings, pensions, energy, business and defence, each rated from settled to unlikely." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="AI Playground" />
   <meta property="og:title" content="UK Oct 2026 Budget Predictions" />
-  <meta property="og:description" content="24 predicted UK Autumn Budget measures for 28 October 2026, each with an assessment, what it would mean, and the main uncertainty." />
+  <meta property="og:description" content="34 predicted UK Autumn Budget measures for 28 October 2026, each with an assessment, what it would mean, and the main uncertainty. Updated 18 October 2026." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AI Playground" />
   <meta property="og:locale" content="en_GB" />
   <meta property="og:url" content="https://redorangegreen.github.io/ai/budget2026.html" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="UK Oct 2026 Budget Predictions" />
-  <meta name="twitter:description" content="24 predicted UK Autumn Budget measures for 28 October 2026, each with an assessment and the main uncertainty." />
+  <meta name="twitter:description" content="34 predicted UK Autumn Budget measures for 28 October 2026, each with an assessment and the main uncertainty." />
   <title>UK Oct 2026 Budget Predictions</title>
   <link rel="canonical" href="https://redorangegreen.github.io/ai/budget2026.html" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%92%B7%3C/text%3E%3C/svg%3E" />
@@ -41,7 +41,6 @@
       --transition-fast: 0.18s ease-out;
       --green: #22c55e;
       --amber: #f59e0b;
-      --purple: #a855f7;
       --scrollbar: rgba(148, 163, 184, 0.25);
     }
 
@@ -269,6 +268,44 @@
     .no-results { display: none; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.88rem; text-align: center; }
     .no-results.visible { display: block; }
 
+    .quicktake {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 0.8rem;
+      margin: 0.9rem 0 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: qt;
+    }
+    .quicktake li {
+      counter-increment: qt;
+      margin: 0;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      background: rgba(2, 6, 23, 0.45);
+    }
+    .quicktake li::before {
+      content: counter(qt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #06121f;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .quicktake h3 { margin: 0 0 0.3rem; font-size: 0.92rem; line-height: 1.35; }
+    .quicktake h3 .badge { margin-left: 0.3rem; }
+    .quicktake p { margin: 0; color: var(--text-muted); font-size: 0.8rem; line-height: 1.55; }
+    .quicktake p + p { margin-top: 0.4rem; }
+    .quicktake .qt-since { color: #94a3b8; font-size: 0.75rem; }
+    @media (max-width: 600px) { .quicktake { grid-template-columns: 1fr; } }
+
     .btn-back {
       display: inline-flex; align-items: center; gap: 0.45rem;
       padding: 0.35rem 0;
@@ -417,13 +454,46 @@
     </div>
 
     <h1 class="hero-title"><span>UK Oct 2026 Budget Predictions</span></h1>
-    <p class="hero-subtitle">Autumn Budget &mdash; Wednesday 28 October 2026 &middot; Chancellor John Healey</p>
+    <p class="hero-subtitle">Autumn Budget &mdash; Wednesday 28 October 2026 &middot; Chancellor John Healey &middot; Updated 18 October 2026</p>
+
+    <section class="card" id="quick-take" aria-labelledby="quick-take-heading">
+      <h2 class="card-title" id="quick-take-heading"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Quick take &mdash; the six changes most likely on the day</h2>
+      <p class="card-sub">The short version, drawn from the most recent reporting. Each links to the fuller assessment in <em>Measures to watch</em> below.</p>
+      <ol class="quicktake">
+        <li>
+          <h3>Banks pay more<span class="badge badge-expected">Expected</span></h3>
+          <p>The clearest leak of this Budget. Bloomberg reports a bank tax rise is among the measures Healey has submitted to the OBR; the Guardian says reversing the 2023 cut that took the surcharge from 8% down to 3% is under discussion, worth upwards of &pound;2bn a year.</p>
+          <p class="qt-since">Bank shares fell on the reports. No rate or yield has been published.</p>
+        </li>
+        <li>
+          <h3>January fuel duty rise dropped<span class="badge badge-expected">Expected</span></h3>
+          <p>The Financial Times reports Healey will not bring forward the planned 3p rise in January and 2p in March. The pressure is one-sided: the AA has asked for a 5p cut, the Road Haulage Association for 15p off hauliers. Expect a freeze rather than a cut.</p>
+        </li>
+        <li>
+          <h3>Energy help, targeted and temporary<span class="badge badge-expected">Expected</span></h3>
+          <p>Healey has said cost-of-living support should be &ldquo;targeted and temporary&rdquo;. The Guardian reports he is considering adding &pound;100 to the &pound;150 Warm Home Discount, which reaches roughly six million households, ahead of a January price cap rise that Cornwall Insight forecasts at 16% &mdash; to &pound;1,999.</p>
+        </li>
+        <li>
+          <h3>Capital gains up, but not in line with income tax<span class="badge badge-plausible">Plausible</span></h3>
+          <p>Healey has ruled out equalising CGT with income tax rates, following warnings about investor behaviour. The Telegraph reports a smaller increase remains on the table. The structural option being discussed is removing the CGT uplift on death.</p>
+        </li>
+        <li>
+          <h3>&pound;2m mansion threshold stands, offices pay more<span class="badge badge-expected">Expected</span></h3>
+          <p>Lowering the threshold to &pound;1.5m has been ruled out &mdash; it would have pulled in 137,000 extra properties. Stamp duty reform and a new warehouse tax are also off the table. The Telegraph reports a &pound;1bn rise on offices above &pound;500,000 rateable value instead.</p>
+        </li>
+        <li>
+          <h3>Funded without borrowing, on a thinner buffer<span class="badge badge-expected">Expected</span></h3>
+          <p>The FT reports giveaways will be paid for with higher taxes or spending cuts, leaving the Budget &ldquo;scorecard positive&rdquo; in 2029-30. Headroom has fallen from &pound;23.6bn in March to estimates of roughly &pound;11bn&ndash;&pound;20bn, and Healey may deliberately spend some of it.</p>
+        </li>
+      </ol>
+    </section>
 
     <section class="overview-card" aria-labelledby="overview-heading">
       <h2 class="card-title" id="overview-heading"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i> What this Budget has to solve</h2>
-      <p class="card-sub">The Chancellor faces three competing pressures at once: raising enough revenue to meet the Government's fiscal targets, supporting economic growth, and avoiding further pressure on household finances. A measure can be widely discussed without ever being announced.</p>
+      <p class="card-sub">The Chancellor faces three competing pressures at once: raising enough revenue to meet the Government's fiscal targets, supporting economic growth, and avoiding further pressure on household finances. A measure can be widely discussed without ever being announced. The inherited headroom of &pound;23.6bn has since been estimated down to somewhere between &pound;11bn and &pound;20bn by the energy shock and higher gilt yields, so the room for manoeuvre is far narrower than it looked in March &mdash; which is why a bank tax rise is now the most trailed measure in this Budget.</p>
       <ul class="overview-list">
         <li><strong>Settled</strong> &mdash; already committed or explicitly ruled out.</li>
+        <li><strong>Expected</strong> &mdash; trailed by national reporting or confirmed to the OBR, and likely to appear on the day.</li>
         <li><strong>Plausible</strong> &mdash; a serious candidate supported by current reporting or professional analysis.</li>
         <li><strong>Possible</strong> &mdash; in play, but politically difficult, expensive or uncertain.</li>
         <li><strong>Unlikely</strong> &mdash; speculative, or more likely deferred to a later fiscal event.</li>
@@ -436,13 +506,13 @@
 
     <section class="card" id="measures" aria-labelledby="measures-heading">
       <h2 class="card-title" id="measures-heading"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Measures to watch</h2>
-      <p class="card-sub">24 measures across income tax, capital gains, inheritance, property, savings and pensions, energy, and business &mdash; each with an assessment and the main uncertainty attached to it.</p>
+      <p class="card-sub">34 measures across income tax, capital gains, inheritance, property, savings and pensions, energy, business, and defence &mdash; each with an assessment and the main uncertainty attached to it.</p>
 
       <div class="stats-row">
-        <span class="stat-pill"><i class="fa-solid fa-list-check" aria-hidden="true"></i><strong id="statMeasures">24</strong>&nbsp;measures</span>
-        <span class="stat-pill"><i class="fa-solid fa-layer-group" aria-hidden="true"></i><strong id="statCategories">7</strong>&nbsp;categories</span>
-        <span class="stat-pill"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><strong id="statSettled">6</strong>&nbsp;settled</span>
-        <span class="stat-pill"><i class="fa-solid fa-calendar-day" aria-hidden="true"></i>Updated 11 Oct 2026</span>
+        <span class="stat-pill"><i class="fa-solid fa-list-check" aria-hidden="true"></i><strong id="statMeasures">34</strong>&nbsp;measures</span>
+        <span class="stat-pill"><i class="fa-solid fa-layer-group" aria-hidden="true"></i><strong id="statCategories">8</strong>&nbsp;categories</span>
+        <span class="stat-pill"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><strong id="statSettled">8</strong>&nbsp;settled</span>
+        <span class="stat-pill"><i class="fa-solid fa-calendar-day" aria-hidden="true"></i>Updated 18 Oct 2026</span>
       </div>
 
       <div class="search-wrap">
@@ -453,11 +523,11 @@
       </div>
 
       <div class="nav-chips" role="group" aria-label="Filter by assessment">
-        <button type="button" class="nav-chip" data-rank="all" aria-pressed="true">All <span class="nav-chip-count" data-count="all">24</span></button>
-        <button type="button" class="nav-chip" data-rank="1" aria-pressed="false">Settled <span class="nav-chip-count" data-count="1">6</span></button>
-        <button type="button" class="nav-chip" data-rank="2" aria-pressed="false">Expected <span class="nav-chip-count" data-count="2">3</span></button>
-        <button type="button" class="nav-chip" data-rank="3" aria-pressed="false">Plausible <span class="nav-chip-count" data-count="3">4</span></button>
-        <button type="button" class="nav-chip" data-rank="4" aria-pressed="false">Possible <span class="nav-chip-count" data-count="4">7</span></button>
+        <button type="button" class="nav-chip" data-rank="all" aria-pressed="true">All <span class="nav-chip-count" data-count="all">34</span></button>
+        <button type="button" class="nav-chip" data-rank="1" aria-pressed="false">Settled <span class="nav-chip-count" data-count="1">8</span></button>
+        <button type="button" class="nav-chip" data-rank="2" aria-pressed="false">Expected <span class="nav-chip-count" data-count="2">6</span></button>
+        <button type="button" class="nav-chip" data-rank="3" aria-pressed="false">Plausible <span class="nav-chip-count" data-count="3">5</span></button>
+        <button type="button" class="nav-chip" data-rank="4" aria-pressed="false">Possible <span class="nav-chip-count" data-count="4">11</span></button>
         <button type="button" class="nav-chip" data-rank="5" aria-pressed="false">Unlikely <span class="nav-chip-count" data-count="5">4</span></button>
       </div>
 
@@ -512,12 +582,12 @@
             <td>Options raised include higher rates on some gains, a lower annual exempt amount, changes to business disposal reliefs, and revisiting CGT on assets passing on death.</td>
             <td class="muted">Which assets, and which taxpayers, would be affected.</td>
           </tr>
-          <tr data-rank="5">
+          <tr data-rank="1">
             <td class="cat-cell">Capital Gains</td>
             <td class="primary-cell">Wholesale alignment of CGT with income tax</td>
-            <td><span class="badge badge-unlikely">Unlikely</span></td>
-            <td>Early speculation pointed to alignment, but PwC treats that as less likely because of the disruption to investment and taxpayer behaviour.</td>
-            <td class="muted">Watch for targeted relief changes rather than a rate reset.</td>
+            <td><span class="badge badge-settled">Settled</span></td>
+            <td>Ruled out. Healey has rejected equalising CGT with income tax rates, following warnings that it could alter investor behaviour and encourage taxpayers to leave the UK. The Telegraph still reports a smaller CGT increase in play; alignment itself is closed.</td>
+            <td class="muted">Watch for a targeted increase instead, not a rate reset.</td>
           </tr>
           <tr data-rank="4">
             <td class="cat-cell">Inheritance Tax</td>
@@ -525,6 +595,13 @@
             <td><span class="badge badge-possible">Possible</span></td>
             <td>Extending the seven-year relevant period for potentially exempt gifts to ten years; a lifetime limit on certain tax-free gifts; changes to relief for qualifying investments including AIM shares; revisiting CGT on inherited assets.</td>
             <td class="muted">Whether the Government moves again so soon after earlier reforms.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Inheritance Tax</td>
+            <td class="primary-cell">Relief scrapped for family farms</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>Reported as under consideration, in response to farming sector concerns: removing inheritance tax on family farms, currently a 20% charge on assets above &pound;2.5m, at a cost of roughly &pound;300m a year. Lord Blunkett has publicly pressed the Prime Minister to &ldquo;act accordingly&rdquo;.</td>
+            <td class="muted">A give-away rather than a revenue measure, and hard to square with the headroom repair.</td>
           </tr>
           <tr data-rank="5">
             <td class="cat-cell">Inheritance Tax</td>
@@ -537,7 +614,7 @@
             <td class="cat-cell">Property</td>
             <td class="primary-cell">Mansion tax threshold stays at £2m</td>
             <td><span class="badge badge-settled">Settled</span></td>
-            <td>The High Value Council Tax Surcharge is already announced for April 2028: properties at £2m+, charged £2,500–£7,500 a year with deferral available. The Financial Times reported on 11 October that the Chancellor has decided against lowering it to £1.5m.</td>
+            <td>The High Value Council Tax Surcharge is already announced for April 2028: properties at £2m+, charged £2,500–£7,500 a year with deferral available. The Financial Times reported on 11 October that the Chancellor has decided against lowering it to £1.5m; the Sunday Times noted that doing so would have added 137,000 properties to the net.</td>
             <td class="muted">Whether the Government revisits the decision. Homes in the £1m–£2m band are unaffected either way.</td>
           </tr>
           <tr data-rank="1">
@@ -553,6 +630,13 @@
             <td><span class="badge badge-possible">Possible</span></td>
             <td>Rules on multiple residential properties, property held through companies, and non-resident property owners.</td>
             <td class="muted">Possibilities raised by advisers, not confirmed proposals.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Property</td>
+            <td class="primary-cell">Holiday lets reclassified as second homes</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>The Treasury has confirmed it is reviewing the tax treatment of short-term lets, following reports that holiday lets could be classified as second homes rather than businesses &mdash; closing the gap where second-home owners use small business rates relief. Treasury Minister James Murray cited &ldquo;concerns that have been raised&rdquo;.</td>
+            <td class="muted">Tourism bodies warn the move could push owners to sell and cut visitor spending. Not trailed as a Budget-day measure.</td>
           </tr>
           <tr data-rank="2">
             <td class="cat-cell">Property</td>
@@ -603,26 +687,61 @@
             <td>Reuters reported on 7 October on a package costing more than £1bn aimed primarily at lower-income households, without establishing that it had been approved. Targeted assistance directs funds where they are judged to be needed; a universal rebate would spread the cost more widely.</td>
             <td class="muted">Eligibility and size of the package.</td>
           </tr>
-          <tr data-rank="3">
+          <tr data-rank="4">
             <td class="cat-cell">Energy &amp; Fuel</td>
-            <td class="primary-cell">Fuel duty increase delayed</td>
-            <td><span class="badge badge-plausible">Plausible</span></td>
-            <td>The Ukraine-era fuel duty reduction is due to unwind, with the next scheduled change in January 2027. Reuters reported on 7 October that the Chancellor might postpone it given the pressure on motorists.</td>
-            <td class="muted">Whether the planned January increase proceeds.</td>
+            <td class="primary-cell">Warm Home Discount top-up</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>The Guardian reports the Chancellor is considering adding &pound;100 to the &pound;150 Warm Home Discount, which currently reaches around six million households on means-tested benefits. The Resolution Foundation has instead urged a temporary scheme for households below &pound;24,000 of income, worth about &pound;175 each at a cost of &pound;2bn.</td>
+            <td class="muted">Healey has said support should be &ldquo;targeted and temporary&rdquo;, which favours the existing scheme over a new broad one.</td>
+          </tr>
+          <tr data-rank="5">
+            <td class="cat-cell">Energy &amp; Fuel</td>
+            <td class="primary-cell">Zero-rate VAT on electricity not extended</td>
+            <td><span class="badge badge-unlikely">Unlikely</span></td>
+            <td>The Prime Minister cut VAT on household electricity from 5% to zero from 1 October, worth around &pound;45 a year for a typical household. The cut expires on 31 March, and The i reported on 15 October that Healey is unlikely to recommit to it beyond that date.</td>
+            <td class="muted">Worth &pound;45 a year, so a low-profile row &mdash; but a visible one for fuel-poor households.</td>
+          </tr>
+          <tr data-rank="2">
+            <td class="cat-cell">Energy &amp; Fuel</td>
+            <td class="primary-cell">Fuel duty increase dropped</td>
+            <td><span class="badge badge-expected">Expected</span></td>
+            <td>The Financial Times reported on 14 October that Healey is expected to drop the planned rise of 3p in January and 2p in March, rather than merely delay it. The lobbying is one-sided: the AA wants a 5p cut, the Road Haulage Association a 15p rebate for hauliers. A freeze is the realistic outcome; a cut is not.</td>
+            <td class="muted">Whether a freeze is presented as a permanent measure or a temporary one.</td>
           </tr>
           <tr data-rank="3">
             <td class="cat-cell">Business &amp; Sectors</td>
             <td class="primary-cell">Targeted business rates relief</td>
             <td><span class="badge badge-plausible">Plausible</span></td>
-            <td>Builds on the confirmed 20% cut for pubs, live music venues and social clubs in England from April 2027. PwC flags continued relief for retail, hospitality and leisure, plus possible shifts of burden towards large distribution warehouses.</td>
+            <td>Builds on the confirmed 20% cut for pubs, live music venues and social clubs in England from April 2027. PwC flags continued relief for retail, hospitality and leisure, plus possible shifts of burden towards large distribution warehouses. The Independent reported in September that raising the small business rates relief threshold from £12,000 to £17,096 is under consideration.</td>
             <td class="muted">Which sectors qualify.</td>
           </tr>
-          <tr data-rank="4">
+          <tr data-rank="3">
+            <td class="cat-cell">Property</td>
+            <td class="primary-cell">Higher business rates on large offices</td>
+            <td><span class="badge badge-plausible">Plausible</span></td>
+            <td>The Telegraph reported on 15 October that the Chancellor is considering increases to business rates on commercial properties with rateable values above £500,000, worth around £1bn a year on analysis by Ryan Tax Services, affecting roughly 9,000 properties in London and the South East. Larger retail and hospitality properties would reportedly be exempt.</td>
+            <td class="muted">Aimed squarely at the City and London office market, so it may fare better than other business measures.</td>
+          </tr>
+          <tr data-rank="1">
+            <td class="cat-cell">Business &amp; Sectors</td>
+            <td class="primary-cell">New &ldquo;warehouse tax&rdquo; ruled out</td>
+            <td><span class="badge badge-settled">Settled</span></td>
+            <td>The Telegraph reported on 10 October that Healey has ruled out a new warehouse tax, following concerns from major retailers that a higher multiplier would hit large stores as well as distribution centres. Expect the burden to shift to offices instead.</td>
+            <td class="muted">Whether the threat returns at a later fiscal event.</td>
+          </tr>
+          <tr data-rank="3">
+            <td class="cat-cell">Business &amp; Sectors</td>
+            <td class="primary-cell">Online platforms collect VAT at source</td>
+            <td><span class="badge badge-plausible">Plausible</span></td>
+            <td>The Times reported that marketplaces such as Amazon, eBay and Temu could be made responsible for collecting VAT owed by retailers selling through their platforms, with VAT collected at source from business sellers above the &pound;90,000 threshold. Reported plans would use the revenue to cut business rates for High Street shops.</td>
+            <td class="muted">Responsibility, timing and which platforms are in scope. Closely tied to the wider platform-economy work.</td>
+          </tr>
+          <tr data-rank="2">
             <td class="cat-cell">Business &amp; Sectors</td>
             <td class="primary-cell">Higher bank taxation</td>
-            <td><span class="badge badge-possible">Possible</span></td>
-            <td>Senior executives from major British banks have met the Chancellor without a clear indication of intent. A further levy raises revenue without increasing the main personal rates, but could affect investment decisions and competitiveness.</td>
-            <td class="muted">Whether the additional revenue justifies the economic effects.</td>
+            <td><span class="badge badge-expected">Expected</span></td>
+            <td>The strongest-trailed measure of this Budget. Bloomberg reported on 18 October that a bank tax rise is among the major measures Healey has submitted to the OBR; the Guardian reported on 15 October that reversing the 2023 cut which took the surcharge from 8% to 3% is an option, worth upwards of &pound;2bn a year. UK bank shares fell on the news. Bank executives have met the Chancellor without a steer.</td>
+            <td class="muted">No rate or expected yield has been published. A 3%&ndash;8% range is being discussed; nothing is confirmed.</td>
           </tr>
           <tr data-rank="4">
             <td class="cat-cell">Business &amp; Sectors</td>
@@ -637,6 +756,27 @@
             <td><span class="badge badge-settled">Settled</span></td>
             <td>Committed for large companies for the remainder of the Parliament, making changes to reliefs, allowances or sector-specific taxes more likely than a rise in the main rate.</td>
             <td class="muted">Effectively closed.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Business &amp; Sectors</td>
+            <td class="primary-cell">Higher gambling taxes</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>The Financial Times reported that ministers are considering increases to gambling taxes, including changes to machine gaming duty on slot machines, targeting betting shops and adult gaming centres while seeking to avoid hitting pubs, bingo halls and seaside arcades.</td>
+            <td class="muted">The carve-outs say as much as the rate change.</td>
+          </tr>
+          <tr data-rank="4">
+            <td class="cat-cell">Business &amp; Sectors</td>
+            <td class="primary-cell">Cheaper hiring for under-25s</td>
+            <td><span class="badge badge-possible">Possible</span></td>
+            <td>Reporting points in two directions. The Financial Times reported on 15 October that calls to scrap employer National Insurance for under-25s have been rejected, while City AM reported the same day that the Chancellor is considering measures to reduce the cost of hiring under-25s &mdash; extending National Insurance relief or offering tax holidays to employers.</td>
+            <td class="muted">Help for a politically popular group has to be funded from somewhere.</td>
+          </tr>
+          <tr data-rank="2">
+            <td class="cat-cell">Defence &amp; Spending</td>
+            <td class="primary-cell">3% defence target deferred to the Spending Review</td>
+            <td><span class="badge badge-expected">Expected</span></td>
+            <td>Healey has ruled out committing to 3% of GDP on defence in this Budget, deferring it to next year&rsquo;s Spending Review. RSM expects a roadmap instead, alongside protection of the existing &pound;298bn Defence Investment Plan and closure of the &pound;5bn defence equipment funding gap. The IFS puts the cost of reaching 3% by 2030 at &pound;11bn in 2030-31.</td>
+            <td class="muted">A roadmap is not a commitment. Watch whether it carries dates.</td>
           </tr>
           <tr data-rank="2">
             <td class="cat-cell">Business &amp; Sectors</td>
@@ -663,28 +803,42 @@
 
         <h3>Capital gains tax: an area worth watching</h3>
         <p>CGT applies to taxable profits on selling assets such as shares or a second property, with different rules and reliefs by asset and circumstance. Options in circulation: higher rates on some gains, a lower annual exempt amount, changes to business disposal reliefs, revisiting the treatment of inherited assets, and measures affecting higher-value property.</p>
-        <p>Further adjustments look plausible, particularly if the Chancellor wants revenue without touching income tax rates. A wholesale alignment of CGT with income tax is a bigger step, and PwC considers it less likely given the disruption to investment and taxpayer behaviour. It would be unwise to make a major financial decision on the assumption that the rules will change.</p>
+        <p>What has changed since the last update is the boundary. Healey has now ruled out equalising CGT with income tax rates, which removes the largest single option from the table. The Telegraph still reports a smaller increase in play, and RSM picks CGT as the most likely place for revenue given that the main rates are off limits. Two structural options are worth watching: removing the CGT uplift on death, so beneficiaries inherit the original cost rather than a market-value reset, and acting on the consultation on the taxation of distributions and capital repayments, which could move more shareholder transactions into the income tax net. HMRC data cited by RSM shows receipts falling as rates rise, so a standalone rate rise is an unreliable revenue raiser; a coherent package combining higher rates with relief for inflationary gains would be the more serious reform, if it happens at all.</p>
 
         <h3>Inheritance tax: tightening reliefs, not abolition</h3>
         <p>For families and business owners the live question is whether the exemptions and reliefs move, not whether IHT is scrapped. Measures in circulation include extending the seven-year relevant period for potentially exempt gifts to ten years, lifetime limits on certain gifts, and changes to relief for qualifying investments including AIM shares. A social care levy in place of IHT remains speculation, and is thought more likely considered over a longer period than announced immediately.</p>
 
         <h3>Property: the mansion tax stands, but watch the edges</h3>
-        <p>The High Value Council Tax Surcharge is already confirmed for April 2028 at £2m and above, charging £2,500–£7,500 a year with the option to defer. Speculation had focused on lowering the threshold to £1.5m; the Financial Times reported on 11 October that the Chancellor has decided against it. For the £1m–£2m band that matters most, the position is unchanged either way. Stamp duty reform and replacing council tax have both been ruled out by the Prime Minister.</p>
+        <p>The High Value Council Tax Surcharge is already confirmed for April 2028 at £2m and above, charging £2,500–£7,500 a year with the option to defer. Speculation had focused on lowering the threshold to £1.5m; the Financial Times reported on 11 October that the Chancellor has decided against it, and the Sunday Times noted that lowering it would have pulled in 137,000 extra properties. For the £1m–£2m band that matters most, the position is unchanged either way. Stamp duty reform and replacing council tax have both been ruled out by the Prime Minister, and a new warehouse tax has been ruled out too.</p>
+        <p>The pressure has moved instead to commercial property. The Telegraph reported on 15 October that business rates could rise on offices with rateable values above £500,000, which on Ryan Tax Services&rsquo; analysis would affect around 9,000 London and South East properties and raise roughly &pound;1bn a year, with larger retail and hospitality properties exempted. A separate thread worth tracking is the review of short-term lets: classifying holiday lets as second homes rather than businesses would close a well-known gap in the system, though tourism bodies warn it could force sales and cut visitor spending.</p>
 
         <h3>Pensions: clarification more likely than restriction</h3>
-        <p>The triple lock is expected to survive. The live pension question is the State Pension rising roughly 3.9% above the £12,570 personal allowance for the first time, and how the commitment to protect pensioners whose only income is that pension will work in practice. Expect clarification of the mechanism rather than a new tax. The tax treatment of pension contributions, salary sacrifice, and pension assets for IHT all sit in the wider debate, but some changes are already scheduled and there is not enough evidence to expect a major new restriction in this Budget.</p>
+        <p>The triple lock is expected to survive this Budget, but it has a visible end date in party politics. At the Labour conference the Prime Minister confirmed plans to replace it from April 2030 with the higher of inflation or 2.5%, plus a periodic earnings check &mdash; sometimes described as a &ldquo;double-and-a-half lock&rdquo; &mdash; with savings earmarked for a National Care Service. That is not this Budget, and it depends on Labour winning the next election, but it is the clearest signal yet that the Government regards the current lock as unsustainable over a longer horizon.</p>
+        <p>The live question here is narrower: the State Pension rising roughly 3.9% above the &pound;12,570 personal allowance for the first time, and how the commitment to protect pensioners whose only income is that pension will work in practice. Expect clarification of the mechanism rather than a new tax &mdash; the argument that it makes little sense to raise the pension with one hand and claw it back with the other has been made publicly, and pensioners have been promised detail. The tax treatment of pension contributions, salary sacrifice, and pension assets for IHT all sit in the wider debate, but some changes are already scheduled and there is not enough evidence to expect a major new restriction in this Budget.</p>
 
         <h3>Energy and fuel: targeted beats universal</h3>
-        <p>A support package costing more than £1bn for lower-income households was reported on 7 October, though approval was not established. The form matters more than the headline: universal support spreads the cost more widely, targeted support directs it. On fuel duty, successive governments have avoided increases for years, making the January 2027 step politically sensitive; a delay is a credible possibility but not a certainty.</p>
+        <p>The context has sharpened considerably. The Iran conflict has pushed prices sharply higher: the RAC put diesel at an average 199.90p a litre on 9 October, around 57p above pre-war levels, and the price cap rose 4% to &pound;1,723 on 1 October with Cornwall Insight forecasting a further 16% rise to &pound;1,999 in January &mdash; the biggest increase since January 2023. Healey told the BBC in September that the Budget was the &ldquo;place&rdquo; for dealing with petrol and diesel costs, and told the IMF meetings in Bangkok that he wanted a Budget giving Britain breathing space while reinforcing the fiscal plans. In the same week he told ITV News that support would be &ldquo;targeted and temporary&rdquo;, which effectively rules out a universal rebate.</p>
+        <p>The most likely form is therefore an extension of what already exists. The Guardian reports he is considering adding &pound;100 to the &pound;150 Warm Home Discount, which reaches around six million households on means-tested benefits. The Resolution Foundation has asked for more &mdash; a temporary scheme for households below &pound;24,000 of income, worth about &pound;175 each at a cost of &pound;2bn &mdash; but a new scheme is harder than topping up a running one. On fuel duty, the picture has firmed since the last update: the Financial Times reported on 14 October that Healey will drop the planned 3p January rise and 2p March rise rather than merely postpone them, which is consistent with the lobbying from the AA, the RAC and the Road Haulage Association. The temporary zero-rate VAT on household electricity introduced on 1 October is the open question nobody has resolved: the cut expires on 31 March and is not expected to be recommitted.</p>
 
-        <h3>Businesses: relief at the bottom, taxes at the top</h3>
-        <p>With corporation tax committed at 25% for large companies, revenue is more likely to come from specific reliefs, allowances or sector taxes than the main rate. Bank executives have met the Chancellor without a clear steer. On business rates, expect targeted relief for smaller retailers, pubs, restaurants and hospitality, building on the confirmed 20% cut from April 2027, with some discussion of shifting burden towards large distribution warehouses.</p>
+        <h3>Businesses: the bank surcharge is the measure to watch</h3>
+        <p>This is the tightest-trailed item in the Budget. Bloomberg reported on 18 October that a bank tax rise is among the major measures Healey has submitted to the OBR, and the Guardian reported on 15 October that reversing the 2023 cut which took the surcharge from 8% down to 3% is under discussion &mdash; worth upwards of &pound;2bn a year. UK bank shares fell on the reports. The arithmetic behind the pressure is the surge in bank profits as rates have risen: HSBC, NatWest, Barclays and Lloyds have generated &pound;200bn in pre-tax profits over five years.</p>
+        <p>The pushback is organised, though not united. The Telegraph reports concern in the City that a UK rise would fall more heavily on high-street lenders than on overseas banks or non-bank credit funds, and that activity could migrate towards less regulated private credit. Badenoch and Jeremy Hunt have both warned against it, and Positive Money claims a windfall tax could raise &pound;19bn from the four largest banks alone &mdash; a campaign figure, not a government or OBR number. Banks also argue they already pay more in the UK than in comparable jurisdictions, and that a rise cuts against the growth agenda. A higher surcharge is the cleaner instrument because it does not touch the corporation tax main rate, which is committed at 25%; a higher bank levy based on balance-sheet size is the alternative.</p>
+        <p>Elsewhere in the business tax mix, relief is likely at the bottom and cost at the top: targeted rates relief for pubs, hospitality and high-street retail, a possible rise in the small business rates relief threshold from &pound;12,000 to &pound;17,096, and higher rates on large offices. Two further trails are worth watching but sit further out: online marketplaces such as Amazon, eBay and Temu being made responsible for collecting VAT at source from business sellers above &pound;90,000, with the money recycled into High Street business rates cuts; and increases to gambling taxes including machine gaming duty, aimed at betting shops and adult gaming centres while sparing pubs, bingo halls and seaside arcades.</p>
+
+        <h3>Spending and defence: the argument is moving to the envelope</h3>
+        <p>The Budget that was trailed as a tax event is increasingly a spending argument. The IFS, in its Green Budget 2026, argues the real challenge is not headroom but the fact that higher inflation erodes the value of departmental budgets: avoiding real-terms cuts while funding higher defence could require a combined top-up of around &pound;25bn by 2030-31, or roughly &pound;35bn if the Government also wants to protect spending totals and fund 3% of GDP on defence. The IFS&rsquo;s central warning is procedural &mdash; if Healey sets out spending envelopes he is not willing to live within, his plan for the fiscal rules will not be credible.</p>
+        <p>On defence specifically, Healey has ruled out committing to 3% of GDP at this Budget, deferring the decision to next year&rsquo;s Spending Review. Expect a roadmap rather than a pledge, alongside protection of the existing &pound;298bn Defence Investment Plan and closure of the &pound;5bn equipment funding gap. No exit tax on university spin-outs, despite speculation, after the Business Secretary reassured executives.</p>
+
+        <h3>The headroom arithmetic, and why it shapes everything</h3>
+        <p>The inherited buffer was &pound;23.6bn against the stability rule in the March OBR forecast, on figures where receipts and day-to-day spending are each above &pound;1trn &mdash; so a 1% revision to either moves headroom by more than &pound;10bn, and revisions of that size are routine. Independent estimates now cluster far lower: EY puts it near &pound;11bn, the IFS near &pound;20bn, Deutsche Bank, KPMG and Bloomberg Economics in the &pound;11.6bn&ndash;&pound;14bn range, and the Resolution Foundation below &pound;8bn. One pre-registered nowcast put it at &pound;14.6bn before measures, with debt interest the predictable part and most of the gilt move attributable to global rather than UK-specific rates.</p>
+        <p>That arithmetic explains the shape of the whole Budget. The Financial Times reports that Healey intends to pay for the giveaways with higher taxes or spending cuts rather than more borrowing, leaving the Budget &ldquo;scorecard positive&rdquo; in 2029-30, and that he may treat the remaining headroom as a contingency fund for economic stress. Jim O&rsquo;Neill, who advises the Prime Minister, has gone further and argued in the FT that Healey should take an emergency cut in the buffer rather than tax businesses and the wealthy to fill a hole created by the war. The IMF, at its Bangkok meetings, praised UK progress and urged the Government to stay the course. The honest summary is that the Chancellor has room to be generous, but not much, and no appetite to borrow it.</p>
 
         <h3>What could change the picture before Budget day</h3>
         <ul>
-          <li><strong>The OBR forecast.</strong> Weaker growth, lower receipts or higher debt-servicing costs would leave less room for tax cuts and spending commitments.</li>
-          <li><strong>The cost of borrowing.</strong> Higher gilt yields make the fiscal rules harder to meet without new revenue or spending restraint.</li>
-          <li><strong>The political balance.</strong> The Government may want to show it is helping with living costs while finding revenue from narrower tax changes.</li>
+          <li><strong>The OBR forecast.</strong> Headroom estimates run from under &pound;8bn to about &pound;20bn. A weaker growth forecast, lower receipts or higher debt-servicing costs would leave less room for tax cuts and spending commitments; higher inflation, paradoxically, raises receipts and may make the fall smaller than expected.</li>
+          <li><strong>The cost of borrowing.</strong> Ten-year gilt yields are around 5.5% and 30-year yields have briefly breached 6%. Each percentage point on gilt yields between OBR forecast rounds has moved the third-year debt interest forecast by about &pound;11bn, so this is the single most sensitive variable.</li>
+          <li><strong>The political balance.</strong> The Government may want to show it is helping with living costs while finding revenue from narrower tax changes, with the bank surcharge doing the heavy lifting.</li>
+          <li><strong>Leak security.</strong> The Treasury has introduced tighter, reportedly military-style protocols to restrict the flow of information ahead of the Budget, which cuts both ways: fewer deliberate trails, and less reliable denial of things that turn out to be in it.</li>
         </ul>
       </div>
     </section>
@@ -693,23 +847,24 @@
       <h2 class="card-title" id="watch-heading"><i class="fa-solid fa-compass" aria-hidden="true"></i> Where this would land</h2>
       <p class="card-sub">If you want to narrow this to the changes that actually affect you, the areas that matter most are:</p>
       <ul class="overview-list">
-        <li><strong>Income tax, National Insurance and take-home pay.</strong> A freeze holds, with relief for very high earners the open question.</li>
-        <li><strong>Pensions, retirement income and pension tax relief.</strong> The triple lock survives; watch how the State Pension interacts with the personal allowance.</li>
-        <li><strong>Inheritance tax, gifts and estate planning.</strong> Reliefs tighten before the tax itself is replaced.</li>
-        <li><strong>Property, second homes and capital gains tax.</strong> The £2m mansion threshold stands, with targeted changes at the edges.</li>
-        <li><strong>Savings, ISAs, shares and investments.</strong> Allowance changes are the live risk rather than new headline rates.</li>
-        <li><strong>The wider economic outlook, interest rates and house prices.</strong> These shape everything above.</li>
+        <li><strong>Banking, and anyone who banks, borrows or works for a bank.</strong> The clearest leak of the Budget: a rise in the surcharge, possibly back towards 8%. Share prices have already moved on it.</li>
+        <li><strong>Drivers.</strong> The January and March fuel duty rises look to be dropped rather than delayed. Watch for whether the freeze is presented as permanent.</li>
+        <li><strong>Energy bills this winter.</strong> A 16% January price cap rise is forecast. Help is coming, but targeted and temporary, most likely as a Warm Home Discount top-up.</li>
+        <li><strong>Savers, investors and business owners.</strong> Capital gains tax is where the pressure point sits, now that alignment with income tax is off the table. Watch platform VAT collection and the fate of your ISA and pension reliefs.</li>
+        <li><strong>Property owners and landlords.</strong> The £2m mansion threshold stands, stamp duty reform is dead, and the burden is moving onto large offices and holiday lets.</li>
+        <li><strong>Pensioners.</strong> The triple lock survives this Budget, but with the State Pension crossing the personal allowance threshold, the mechanism for protecting pensioners needs to be spelled out.</li>
       </ul>
     </section>
 
     <section class="card" id="sources" aria-labelledby="sources-heading">
       <h2 class="card-title" id="sources-heading"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Sources &amp; method</h2>
-      <p class="card-sub">This page merges two independent assessments of the same Budget and reconciles them against the most recent reporting, including a Financial Times report of 11 October 2026 on the mansion tax threshold. Where the two disagreed &mdash; notably on whether CGT might align with income tax rates, and on whether the mansion tax threshold would fall &mdash; the later reporting has been taken as superseding the earlier speculation.</p>
-      <p class="card-sub">Assessment is drawn from published reporting and professional analysis including Reuters, PwC, Osborne Clarke, the Financial Times, the Institute for Government and GOV.UK. The likelihood labels are qualitative judgements, not statistically calculated probabilities: they distinguish reported government considerations from professional analysis and from measures that have not been confirmed.</p>
+      <p class="card-sub">This page merges two independent assessments of the same Budget and reconciles them against the most recent reporting. Later reporting supersedes earlier speculation where they conflict &mdash; notably on whether CGT might align with income tax rates (now ruled out), whether the mansion tax threshold would fall (it stays), and whether a bank tax rise is merely possible (now trailed by two outlets and submitted to the OBR).</p>
+      <p class="card-sub">Since the 11 October update, the material additions come from Bloomberg, the Guardian, the Financial Times, Reuters, the Times, the Telegraph, City AM, The i and the Independent, together with professional and institutional analysis from the Chartered Institute of Taxation&rsquo;s running speculation log, PwC, RSM, EY, the IFS Green Budget 2026, the Resolution Foundation, Cornwall Insight, the RAC, and pre-Budget headroom estimates from Deutsche Bank, KPMG and Bloomberg Economics.</p>
+      <p class="card-sub">Where sources conflict, both are shown rather than averaged &mdash; for example the reporting on under-25s hiring costs, where the Financial Times says calls to scrap employer National Insurance have been rejected while City AM reports options are still under consideration. Assessment is drawn from published reporting and professional analysis; the likelihood labels are qualitative judgements, not statistically calculated probabilities. They distinguish reported government considerations from professional analysis and from measures that have not been confirmed. Costings quoted are attributed to their source, and campaign or think-tank figures are labelled as such.</p>
     </section>
 
     <footer>
-      Compiled 11 Oct 2026 &middot; Predictions only, for informational purposes. Not financial advice.
+      Compiled 18 Oct 2026 &middot; Predictions only, for informational purposes. Not financial advice.
     </footer>
   </main>
 

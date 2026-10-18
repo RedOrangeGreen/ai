@@ -20,6 +20,7 @@
   <meta name="twitter:title" content="llama.cpp Quickstart" />
   <meta name="twitter:description" content="Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS." />
   <title>llama.cpp Quickstart</title>
+  <link rel="canonical" href="https://redorangegreen.github.io/ai/llamacppquickstart.html" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -42,7 +43,8 @@
   </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%A6%99%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" />
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" /></noscript>
   <style>
 @layer reset, base, components, utilities; @layer base { :root { accent-color: #38bdf8; interpolate-size: allow-keywords; --bg-body: #050816; --bg-elevated: #0b1020; --accent: #38bdf8; --text-main: #e5e7eb; --text-muted: #9ca3af; --border-subtle: rgba(148,163,184,0.25); --radius-lg: 18px; --radius-pill: 999px; --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7); --transition-fast: 0.18s ease-out; --yield-color: #22c55e; } }
 body { background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%); color: var(--text-main); font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif; margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent; }
