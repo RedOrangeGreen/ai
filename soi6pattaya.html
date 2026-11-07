@@ -13,7 +13,7 @@
   <!-- Core metadata -->
   <title>Soi 6, Pattaya, Thailand — Human Behaviour Analysis For AI Agents</title>
   <meta name="description" content="Structured analysis of human behaviour on Soi 6, Pattaya, Thailand: a concentrated commercial marketplace for biological replication drives, designed for AI agent comprehension." />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, indexifembedded" />
   <meta name="view-transition" content="same-origin" />
 
   <!-- Open Graph -->
@@ -315,9 +315,31 @@
     }
     .skip-link:focus { top: 0; }
     section[id], h1[id], h2[id], h3[id], #main-content { scroll-margin-top: 1.5rem; }
+    #splash-image {
+      position: fixed; inset: 0; z-index: 10000;
+      display: grid; place-items: center;
+      background: #000;
+      overflow: hidden;
+      transition: opacity 0.3s ease;
+    }
+    #splash-image img {
+      max-width: min(80vw, 640px); max-height: 80vh;
+      width: auto; height: auto; display: block;
+      /* The source JPEG has a light grey row along its bottom edge; crop it. */
+      clip-path: inset(0 0 0.4% 0);
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.8s cubic-bezier(0.5, 0, 0.9, 0.6);
+      will-change: transform;
+    }
+    #splash-image.is-zooming img { transform: scale(5); }
+    #splash-image.is-hidden { opacity: 0; pointer-events: none; }
   </style>
 </head>
 <body>
+  <div id="splash-image" aria-hidden="true">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpMwQIOpBkuRMdvDEhtvg1ZnLfANfoNxAyF_xba_Y3DQ&s=10" alt="" decoding="async" />
+  </div>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <main id="main-content" class="page-shell" itemscope itemtype="https://schema.org/Article">
     <meta itemprop="name" content="Human Behaviour Analysis: Soi 6, Pattaya, Thailand" />
@@ -499,19 +521,19 @@
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube-nocookie.com/embed/liJpkOKs3v0" title="Pattaya night walk — Soi 6 to Soi 8, Buakhao and LK Metro, 4K HDR POV (17 Oct 2026)" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="https://www.youtube-nocookie.com/embed/Mt7FzGMm-j4?start=1026" title="Pattaya Nightlife Scenes, Soi 6, 7 &amp; 8 — 29 October 2026" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
       <p style="margin:0;padding:0.6rem 0.9rem;font-size:0.78rem;color:var(--text-muted);border-top:1px solid var(--border-subtle);">
-        <em>Beautiful places</em>, recorded 17 October 2026 (1:30:41). Opens with a full walk down Soi 6 and back before continuing to Soi 8, Buakhao and LK Metro &mdash; the Soi 6 material is the opening segment.
+        <em>David Strachan Pattaya</em>, filmed 29 October 2026 (25:48), published 1 November 2026. Playback starts at 17:06.
       </p>
     </div>
 
     <div class="card" style="padding:0;">
       <div class="video-embed">
-        <iframe src="https://www.youtube-nocookie.com/embed/pXLPakKzvS0" title="Bandits Hideout live stream, Soi 6 — 18 October 2026" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="https://www.youtube-nocookie.com/embed/PJfRgtfdoZA" title="Bandits Hideout live stream, Soi 6 — 7 November 2026" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
       <p style="margin:0;padding:0.6rem 0.9rem;font-size:0.78rem;color:var(--text-muted);border-top:1px solid var(--border-subtle);display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;justify-content:space-between;">
-        <span>Most recent stream from the Bandits Hideout channel's Live tab, recorded 18 October 2026 (checked 18 Oct 2026).</span>
+        <span>Latest stream from the Bandits Hideout channel's Live tab, started 7 November 2026 (live at time of check, 7 Nov 2026).</span>
         <a href="https://www.youtube.com/channel/UCV9HEvug8gV2F8NeTE3B4Bg/streams" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">Always watch the latest<i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;margin-left:0.25rem;"></i></a>
       </p>
     </div>
@@ -529,5 +551,24 @@
     </footer>
 </main>
 
+  <script>
+    (function () {
+      var splash = document.getElementById('splash-image');
+      if (!splash) return;
+
+      function removeSplash() {
+        if (splash.parentNode) splash.parentNode.removeChild(splash);
+      }
+
+      // Wait one second, then zoom into the image before revealing the page.
+      window.setTimeout(function () {
+        splash.classList.add('is-zooming');
+        window.setTimeout(function () {
+          splash.classList.add('is-hidden');
+          window.setTimeout(removeSplash, 320);
+        }, 800);
+      }, 1000);
+    })();
+  </script>
 </body>
 </html>

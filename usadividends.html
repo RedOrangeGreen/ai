@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="description" content="High-yielding US dividend stocks, US savings accounts, and a Jan–Dec dividend-payment calendar for the NYSE and NASDAQ." />
+  <meta name="robots" content="index, follow, indexifembedded" />
+  <meta name="view-transition" content="same-origin" />
+  <meta name="author" content="AI Playground" />
+  <meta property="og:title" content="Best USA Dividends and Savings" />
+  <meta property="og:description" content="A curated watchlist of high-yielding US dividend stocks, US savings accounts, and typical dividend-payment months across the NYSE and NASDAQ." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Playground" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Best USA Dividends and Savings" />
+  <meta name="twitter:description" content="A curated watchlist of high-yielding US dividend stocks, US savings accounts, and typical dividend-payment months across the NYSE and NASDAQ." />
+  <title>Best USA Dividends and Savings</title>
+  <link rel="canonical" href="https://redorangegreen.github.io/ai/usadividends.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E💰%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" /></noscript>
+  <style>
+    @layer reset, base, components, utilities;
+
+    @layer base {
+      :root {
+        accent-color: #38bdf8;
+        interpolate-size: allow-keywords;
+        --bg-body: #050816;
+        --accent: #38bdf8;
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-subtle: rgba(148,163,184,0.25);
+        --radius-lg: 18px;
+        --radius-pill: 999px;
+        --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7);
+        --transition-fast: 0.18s ease-out;
+        --yield-color: #22c55e;
+        --amber: #f59e0b;
+      }
+    }
+    body {
+      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent;
+    }
+    .page-shell { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+    .hero-title {
+      font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 0.4rem;
+    }
+    .hero-title span {
+      background: linear-gradient(120deg,#38bdf8,#a855f7,#f97316);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      background-size: 200% 200%; animation: gradientShift 4s ease infinite;
+    }
+    @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6; }
+    .nav-chips {
+      display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.9rem 0 1.35rem;
+    }
+    .nav-chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.76rem; color: var(--text-muted); text-decoration: none;
+      padding: 0.3rem 0.7rem; border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill); background: rgba(15,23,42,0.6);
+      transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+    .nav-chip:hover { color: var(--accent); border-color: rgba(56,189,248,0.5); background: rgba(56,189,248,0.06); }
+    .risk-notice {
+      display: flex; align-items: flex-start; gap: 0.65rem; margin: 0 0 1.2rem;
+      padding: 0.85rem 1rem; border: 1px solid rgba(245,158,11,0.3); border-radius: 14px;
+      background: rgba(245,158,11,0.07); color: var(--text-muted); font-size: 0.82rem; line-height: 1.55;
+    }
+    .risk-notice i { color: var(--amber); margin-top: 0.12rem; }
+    .risk-notice strong { color: var(--text-main); }
+    .chart-latest { color: var(--accent); font-weight: 600; }
+    .chart-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.25rem; margin-bottom: 1.5rem;
+    }
+    .chart-badge {
+      margin-left: auto; font-size: 0.78rem; font-weight: 700;
+      padding: 0.15rem 0.6rem; border-radius: var(--radius-pill);
+      background: rgba(148,163,184,0.12); color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .chart-badge.up { color: #22c55e; background: rgba(34,197,94,0.12); }
+    .chart-badge.down { color: #ef4444; background: rgba(239,68,68,0.12); }
+    .chart-price {
+      font-size: 0.78rem; font-weight: 700;
+      padding: 0.15rem 0.6rem; border-radius: var(--radius-pill);
+      background: rgba(148,163,184,0.12); color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .line-chart { width: 100%; height: auto; display: block; }
+    .status-bar {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      font-size: 0.8rem; color: var(--text-muted);
+      background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15);
+      border-radius: var(--radius-pill); padding: 0.45rem 1rem; margin-bottom: 1.5rem; text-align: center;
+      flex-wrap: wrap;
+    }
+    .status-bar i { color: var(--accent); font-size: 0.7rem; }
+    .status-bar .sep { width: 3px; height: 3px; border-radius: 999px; background: rgba(148,163,184,0.5); flex-shrink: 0; }
+    .status-bar .source { color: var(--accent); }
+    .market-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.6rem;
+    }
+    .market-box {
+      border: 1px solid var(--border-subtle); border-radius: 14px;
+      padding: 0.7rem 0.5rem; text-align: center;
+      background: rgba(5,8,22,0.6); transition: border-color var(--transition-fast), background var(--transition-fast);
+    }
+    .market-box.open {
+      border-color: rgba(34,197,94,0.55); background: rgba(34,197,94,0.08);
+    }
+    .market-name { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+    .market-hours { font-size: 0.72rem; color: var(--text-muted); font-variant-numeric: tabular-nums; margin-top: 0.1rem; }
+    .market-session { font-size: 0.72rem; color: var(--text-muted); line-height: 1.45; margin-top: 0.35rem; }
+    .open-badge { color: #22c55e; font-weight: 600; }
+    .closed-badge { color: #f87171; font-weight: 600; }
+    @media (max-width: 480px) {
+      .market-grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      padding: 1.4rem 1.6rem; border-radius: var(--radius-lg);
+      background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; overflow-x: auto;
+      content-visibility: auto; contain-intrinsic-size: auto 280px;
+    }
+    .card-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card-title i { color: var(--accent); font-size: 1rem; }
+    .card-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0 0 1rem; }
+    .stock-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.88rem; }
+    .stock-table thead th {
+      text-align: left; font-weight: 600; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted);
+      padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border-subtle);
+    }
+    .stock-table thead th:last-child { text-align: right; }
+    .stock-table tbody tr { transition: background 0.15s ease; }
+    .stock-table tbody tr:hover { background: rgba(56,189,248,0.06); }
+    .stock-table tbody td {
+      padding: 0.6rem 0.6rem; border-bottom: 1px solid rgba(148,163,184,0.08); vertical-align: middle;
+    }
+    .stock-table tbody tr:last-child td { border-bottom: none; }
+    .stock-rank { color: var(--text-muted); font-variant-numeric: tabular-nums; font-size: 0.8rem; width: 1.8rem; }
+    .stock-name { font-weight: 500; color: var(--text-main); }
+    .stock-ticker { color: var(--text-muted); font-size: 0.78rem; margin-left: 0.3rem; }
+    .stock-pays {
+      display: block; margin-top: 0.22rem; color: var(--text-muted);
+      font-size: 0.74rem; font-style: italic; font-variant-numeric: tabular-nums;
+    }
+    .stock-link {
+      color: var(--accent); text-decoration: none; border-bottom: 1px dotted rgba(56,189,248,0.4);
+      transition: color var(--transition-fast), border-bottom-color var(--transition-fast);
+    }
+    .stock-link:hover { color: #7dd3fc; border-bottom-color: #7dd3fc; }
+    .stock-yield { text-align: right; font-weight: 600; color: var(--yield-color); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .stock-yield-badge {
+      display: inline-block; background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.25); border-radius: var(--radius-pill);
+      padding: 0.15rem 0.6rem; font-size: 0.82rem;
+    }
+    .month-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem; margin-bottom: 1.5rem; align-items: start;
+    }
+    .month-card { margin-bottom: 0; }
+    .month-card .stock-table { min-width: 430px; }
+    .market-tag {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 3.6rem; padding: 0.2rem 0.45rem; border-radius: var(--radius-pill);
+      border: 1px solid rgba(56,189,248,0.25); background: rgba(56,189,248,0.08);
+      color: var(--accent); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em;
+    }
+    @media (max-width: 860px) {
+      .month-grid { grid-template-columns: 1fr; }
+    }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.95rem;
+      color: var(--text-muted); text-decoration: none; padding: 0.35rem 0;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover { color: var(--accent); }
+    footer {
+      margin-top: 2rem; padding-top: 1.2rem;
+      border-top: 1px solid rgba(148,163,184,0.35);
+      font-size: 0.78rem; color: var(--text-muted); text-align: center;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 999px; }
+    ::selection { background: rgba(56,189,248,0.3); color: #fff; }
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+      html { scroll-behavior: auto; }
+    }
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .btn-back,footer,.status-bar,.nav-chips { display: none !important; }
+      .card { border: 1px solid #ddd !important; box-shadow: none !important; content-visibility: visible !important; }
+      .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; }
+      .stock-yield { color: #16a34a !important; }
+      .stock-yield-badge { border-color: #16a34a !important; background: rgba(22,163,74,0.1) !important; }
+    }
+    @media (max-width: 480px) {
+      .card { padding: 1rem; }
+      .page-shell { padding: 1rem 0.75rem 2rem; }
+      .stock-table { font-size: 0.82rem; }
+      .stock-table thead th { font-size: 0.7rem; }
+      .stock-table tbody td { padding: 0.5rem 0.4rem; }
+    }
+    html { scroll-behavior: smooth; overscroll-behavior: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+    * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
+    h1, h2, h3, p { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
+    .search-wrap {
+      position: relative; margin-bottom: 1.2rem;
+    }
+    .search-wrap i {
+      position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 0.85rem; pointer-events: none;
+    }
+    .search-input {
+      width: 100%; border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.5); background: rgba(15,23,42,0.9);
+      color: var(--text-main); padding: 0.55rem 0.95rem 0.55rem 2.2rem;
+      font-size: 0.88rem; outline: none; box-sizing: border-box;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.6), 0 18px 40px rgba(15,23,42,0.9);
+    }
+    .search-clear {
+      position: absolute; right: 2.7rem; top: 50%; transform: translateY(-50%);
+      border: none; background: transparent; color: var(--text-muted);
+      cursor: pointer; font-size: 0.85rem; padding: 0.2rem 0.4rem;
+      transition: color var(--transition-fast);
+    }
+    .search-clear:hover { color: var(--accent); }
+    .search-kbd {
+      position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%);
+      border: 1px solid rgba(148,163,184,0.4); border-radius: 5px;
+      padding: 0.05rem 0.4rem; font-family: inherit; font-size: 0.72rem;
+      color: var(--text-muted); pointer-events: none; background: rgba(15,23,42,0.6);
+    }
+    .stats-row {
+      display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem;
+    }
+    .stat-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border-radius: var(--radius-pill); padding: 0.3rem 0.75rem;
+      font-size: 0.78rem; background: rgba(15,23,42,0.9);
+      border: 1px solid var(--border-subtle); color: var(--text-muted);
+    }
+    .stat-pill i { color: var(--accent); font-size: 0.7rem; }
+    .stat-pill strong { color: var(--text-main); font-weight: 600; }
+    .yield-bar-wrap {
+      position: relative; height: 6px; border-radius: 999px;
+      background: rgba(148,163,184,0.12); overflow: hidden;
+    }
+    .yield-bar {
+      height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      transition: width 0.4s ease;
+    }
+    .stock-table thead th.sortable { padding: 0; }
+    .stock-table thead th.sortable button {
+      appearance: none; border: 0; background: transparent; color: inherit; font: inherit;
+      letter-spacing: inherit; text-transform: inherit; cursor: pointer; user-select: none;
+      display: flex; align-items: center; gap: 0.3rem; width: 100%; padding: 0.5rem 0.6rem;
+      transition: color 0.15s ease;
+    }
+    .stock-table thead th.sortable.numeric button { justify-content: flex-end; }
+    .stock-table thead th.sortable button:hover { color: var(--accent); }
+    .stock-table thead th.sortable .sort-icon {
+      font-size: 0.65rem; margin-left: 0.3rem; opacity: 0.4; transition: opacity 0.15s ease;
+    }
+    .stock-table thead th.sortable.asc .sort-icon,
+    .stock-table thead th.sortable.desc .sort-icon { opacity: 1; color: var(--accent); }
+    .no-results {
+      text-align: center; padding: 1.5rem 0; color: var(--text-muted); font-size: 0.88rem;
+      display: none;
+    }
+    .no-results.visible { display: block; }
+    .back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px;
+      border-radius: 999px; border: none;
+      background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120;
+      font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(8,47,73,0.6);
+      opacity: 0; transform: translateY(16px) scale(0.9);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000; pointer-events: none;
+    }
+    .back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .back-to-top:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 12px 32px rgba(8,47,73,0.8); }
+
+    @container card (max-width: 380px) {
+      .stock-table { font-size: 0.78rem; }
+      .stat-pill { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+    }
+    .card { container-type: inline-size; container-name: card; }
+    @media (prefers-contrast: more) {
+      .stock-table tbody td { border-bottom-width: 2px; }
+      .stock-yield-badge { border-width: 2px; }
+    }
+    @supports (field-sizing: content) {
+      input, textarea { field-sizing: content; }
+    }
+    .skip-link {
+      position: absolute; top: -999px; left: 0.5rem; z-index: 9999;
+      background: #0b1120; color: var(--accent); padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--accent); border-top: none;
+    }
+    .skip-link:focus { top: 0; }
+    .noscript-notice {
+      margin: 0 auto 1rem; max-width: 1200px; padding: 0.9rem 1.1rem;
+      border-radius: 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.35); color: var(--text-main);
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    section[id], h1[id], h2[id], h3[id], div[id], #main-content { scroll-margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <noscript><div class="noscript-notice" role="note">This page requires JavaScript to render its interactive content. Please enable JavaScript to continue.</div></noscript>
+  <main id="main-content" class="page-shell" tabindex="-1">
+    <div style="margin-bottom:0.5rem;">
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back
+      </a>
+    </div>
+    <h1 class="hero-title"><span>Best USA Dividends and Savings</span></h1>
+    <p class="hero-subtitle">A curated snapshot of selected US dividend yields, savings rates and payment-month patterns across US markets.</p>
+    <aside class="risk-notice" id="risk-disclaimer" aria-label="Financial information notice">
+      <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+      <div><strong>Verify before acting.</strong> Yields, bonuses, account limits, fees, tax treatment and market prices change frequently. Payment months are indicative, not guarantees. This page is educational and is not financial advice or a recommendation to buy or hold any product.</div>
+    </aside>
+    <nav class="nav-chips" aria-label="Jump to a section">
+      <a class="nav-chip" href="#charts"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Charts</a>
+      <a class="nav-chip" href="#marketCard"><i class="fa-solid fa-clock" aria-hidden="true"></i> Market Hours</a>
+      <a class="nav-chip" href="#nyse-card">NYSE</a>
+      <a class="nav-chip" href="#nasdaq-card">NASDAQ</a>
+      <a class="nav-chip" href="#dividend-months"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Payment Months</a>
+      <a class="nav-chip" href="#us-savings">US Savings</a>
+      <a class="nav-chip" href="#us-current-accounts">US Checking</a>
+      <a class="nav-chip" href="#us-money-market">US Money Market</a>
+    </nav></nav>
+
+    <div class="card" aria-label="Key to terms used on this page" role="region" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Key: Understanding the Terms</div>
+      <div class="card-sub">What the figures in the charts and tables below mean</div>
+      <table class="stock-table" aria-label="Key to abbreviations used on this page">
+        <thead><tr><th scope="col" style="text-align:left">Term</th><th scope="col" style="text-align:left">Meaning</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="stock-name">YTD<span class="stock-ticker">Year to date</span></span></td>
+            <td>How an index has performed since the start of 2026 — shown on the S&amp;P 500 chart</td>
+          </tr>
+          <tr>
+            <td><span class="stock-name">Yield<span class="stock-ticker">Dividend yield</span></span></td>
+            <td>Annual dividend per share ÷ share price, shown as a % — the figure in the stock tables</td>
+          </tr>
+          <tr>
+            <td><span class="stock-name">Pay month<span class="stock-ticker">Typical payment month</span></span></td>
+            <td>The month cash is normally paid to eligible shareholders; it may differ from the ex-dividend date and can change</td>
+          </tr>
+          <tr>
+            <td><span class="stock-name">APY<span class="stock-ticker">Annual Percentage Yield</span></span></td>
+            <td>US equivalent of AER — interest plus compounding — used on US savings, money market &amp; checking tables</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-grid" id="charts" role="group" aria-label="2026 index performance chart">
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> S&amp;P 500 Index <span class="chart-price" id="gspcPrice"></span><span class="chart-badge" id="gspcBadge"></span></div>
+        <div class="card-sub">Weekly closes with the latest available market price — start of 2026 to current week <span class="chart-latest" id="gspcLatest"></span></div>
+        <svg id="gspcChart" class="line-chart" role="img" aria-label="S&amp;P 500 weekly close prices and latest 2026 market price"></svg>
+      </div>
+    </div>
+
+    <div class="card" aria-label="Market context for November 2026" role="region" tabindex="-1" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
+      <div class="card-title"><i class="fa-solid fa-chart-column" aria-hidden="true"></i> Market context — early November 2026</div>
+      <p class="card-sub">The backdrop the US yields below sit in, as reported in the week to Friday 6 November.</p>
+      <ul class="overview-list" style="color:var(--text-muted);font-size:0.84rem;line-height:1.7;margin:0;padding-left:1.15rem;">
+        <li><strong style="color:var(--text-main);">The S&amp;P 500 is still up year to date but has fallen sharply.</strong> It closed at <strong style="color:var(--text-main);">7,376.86</strong> on 6 Nov, 3.7% below the 16 Oct close of 7,659.44 and some 5.6% below its 9 October peak, after the AI-led selloff.</li>
+        <li><strong style="color:var(--text-main);">Official YTD to the 6 Nov close:</strong> S&amp;P 500 <strong style="color:var(--text-main);">+7.8%</strong> price-only from the 2025 close of 6,845.50. Note the chart badge above is computed from the 2 January datapoint rather than the 2025 close, so it reads slightly lower.</li>
+        <li><strong style="color:var(--text-main);">The AI trade cracked on 5 November.</strong> The Nasdaq plunged 5.4% and entered correction territory, the S&amp;P 500 fell 4.4% in its worst day since April 2025, and the Dow dropped more than 1,800 points as investors retreated from the year&rsquo;s biggest AI winners. The VIX jumped to about 26.</li>
+        <li><strong style="color:var(--text-main);">Oil has come off its war highs.</strong> Brent is about $98 and WTI about $91, down from October&rsquo;s $106&ndash;109.</li>
+        <li><strong style="color:var(--text-main);">US rates are rising.</strong> The Fed raised its target range to 3.75&ndash;4.00% in September, and August CPI ran at 3.4% &mdash; which is why the savings rates below are worth watching closely. <strong style="color:var(--text-main);">Portfolio note:</strong> several names here pay monthly (Main Street Capital, Realty Income, Healthpeak) or quarterly in arrears (Kraft Heinz, Verizon, Pfizer). If you are buying for income, the payment <em>month</em> matters as much as the yield &mdash; see the calendar below.</li>
+      </ul>
+    </div>
+
+    <div class="card" id="marketCard" aria-label="Exchange trading hours" aria-live="off" role="region" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-clock" aria-hidden="true"></i> Market Hours</div>
+      <p class="card-sub">Regular weekday sessions only. Public holidays and exchange-specific early closes are not reflected.</p>
+      <div class="market-grid">
+        <div class="market-box" data-exchange="nyse">
+          <div class="market-name">NYSE · New York</div>
+          <div class="market-hours">09:30–16:00 local · New York <span class="market-local">–:–:–</span></div>
+          <div class="market-session">…</div>
+        </div>
+        <div class="market-box" data-exchange="nasdaq">
+          <div class="market-name">NASDAQ · New York</div>
+          <div class="market-hours">09:30–16:00 local · New York <span class="market-local">–:–:–</span></div>
+          <div class="market-session">…</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="statusBar" class="status-bar" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="stats-row" id="statsRow" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <search class="search-wrap" role="search">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input type="search" id="stockSearch" class="search-input" placeholder="Search US stocks, savings &amp; accounts…" aria-label="Search US stocks, savings and accounts by name, ticker, or payment month" spellcheck="false" autocomplete="off" enterkeyhint="search" />
+      <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      <kbd class="search-kbd">/</kbd>
+    </search>
+
+    <div class="card" id="nyse-card" role="region" aria-label="NYSE stocks" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> NYSE</div>
+      <div class="card-sub">New York Stock Exchange — curated watchlist · indicated yields at the 6 Nov 2026 close</div>
+      <table class="stock-table" aria-label="High-yield NYSE dividend stocks">
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
+        <tbody id="nyseBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card" id="nasdaq-card" role="region" aria-label="NASDAQ stocks" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> NASDAQ</div>
+      <div class="card-sub">NASDAQ — curated watchlist · indicated yields at the 6 Nov 2026 close</div>
+      <table class="stock-table" aria-label="High-yield NASDAQ dividend stocks">
+        <thead><tr><th scope="col">#</th><th scope="col" class="sortable" data-sort="name" aria-sort="none"><button type="button"><span class="sort-label">Company</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th><th scope="col" class="sortable numeric" data-sort="yield" aria-sort="none"><button type="button"><span class="sort-label">Yield</span><i class="fa-solid fa-sort sort-icon" aria-hidden="true"></i></button></th></tr></thead>
+        <tbody id="nasdaqBody"></tbody>
+      </table>
+    </div>
+
+    <section id="dividend-months" aria-labelledby="dividend-months-title">
+      <div class="card" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);">
+        <h2 class="card-title" id="dividend-months-title"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Dividend Payment Months — Jan to Dec</h2>
+        <div class="card-sub">Companies in the watchlist that typically make cash dividend payments in each month of the year. US months use announced payment dates. Payment months can shift, and a payment date is not the same as the ex-dividend date.</div>
+        <p class="card-sub" style="margin-bottom:0;">Data checked 7 Nov 2026 from <a class="stock-link" href="https://stockanalysis.com/" target="_blank" rel="noopener noreferrer">StockAnalysis / S&amp;P Global</a> for US stocks. The calendar reflects Healthpeak's switch to monthly payments. Verify future dates before relying on them.</p>
+      </div>
+      <div class="month-grid" id="dividendMonthTables"></div>
+    </section>
+
+    <div class="card" id="us-savings" role="region" aria-label="US savings accounts" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i> Best USA Savings Accounts</div>
+      <div class="card-sub">Top 5 highest-yield US savings accounts — rates as of 7 Nov 2026, variable</div>
+      <table class="stock-table table-searchable" aria-label="Top 5 US high-yield savings accounts">
+        <thead><tr><th scope="col">#</th><th scope="col">Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="stock-rank">1</span></td>
+            <td class="stock-name">CIT Bank Platinum Savings<span class="stock-ticker">4.35% APY includes a 0.60% bonus for six months with code BOOST60 · requires $5,000+ balance · offer ends 15 Dec 2026 · base rate 3.75%</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.35% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">2</span></td>
+            <td class="stock-name">Peak Bank Envision High Yield Savings<span class="stock-ticker">Top standard rate · $100 opening minimum · no monthly fee · no debit card, checks or cash deposits</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.27% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">3</span></td>
+            <td class="stock-name">Happen Bank LevelUp Savings<span class="stock-ticker">Requires $250/month in deposits to hold the top rate · no minimum balance</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.20% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">4</span></td>
+            <td class="stock-name">EverBank Performance Savings<span class="stock-ticker">Yield on all balances · no minimum opening or ongoing balance · FDIC-insured</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.20% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">5</span></td>
+            <td class="stock-name">Western State Bank High Yield Savings<span class="stock-ticker">$1,000 minimum opening deposit · unlimited debits · FDIC-insured</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.20% APY</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;"><strong>Worth knowing in November 2026:</strong> the national average savings rate is just 0.57% APY, so the accounts above pay roughly seven times the average &mdash; but August CPI ran at 3.4%, and the Fed raised its target range to 3.75&ndash;4.00% in September. At ~4.2% you are earning about four-fifths of a percentage point above inflation, so most of the headline rate is being eaten by rising prices. Balances under $5,000 at CIT pay well below the average, and Axos ONE&rsquo;s 4.21% or Chime&rsquo;s 4.00% require a linked checking account or qualifying direct deposits.</p>
+    </div>
+
+    <div class="card" id="us-current-accounts" role="region" aria-label="US checking accounts" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-credit-card" aria-hidden="true"></i> Best US High-Street Bank Current Accounts</div>
+      <div class="card-sub">Big US banks pay almost nothing on checking balances — collect the interest in a high-yield savings account instead (up to 4.35% APY, see above) · rates as of 7 Nov 2026 · ordered by rate, then by monthly fee where rates tie</div>
+      <table class="stock-table table-searchable" aria-label="Top 5 US high-street bank checking account rates, ordered by rate">
+        <thead><tr><th scope="col">#</th><th scope="col">Bank / Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="stock-rank">1</span></td>
+            <td class="stock-name">Capital One 360 Checking<span class="stock-ticker">No monthly fee, no minimums · 0.10% APY on all balance tiers · $250 new-customer bonus available</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">0.10% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">2</span></td>
+            <td class="stock-name">Wells Fargo Everyday Checking<span class="stock-ticker">0.01% APY · $325 new-checking bonus · fee waived with $500 direct deposit or $500 balance</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">0.01% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">3</span></td>
+            <td class="stock-name">Chase Total Checking<span class="stock-ticker">0.01% APY · $12/mo fee · waived with $500 direct deposit or $1,500 balance</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">0.01% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">4</span></td>
+            <td class="stock-name">Bank of America Advantage Plus<span class="stock-ticker">0.01% APY · $12/mo fee · waived with $250 direct deposit or $1,500 balance</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">0.01% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">5</span></td>
+            <td class="stock-name">Citibank Basic Checking<span class="stock-ticker">0.01% APY · $12/mo fee · waived with any direct deposit</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">0.01% APY</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;">Every major US bank pays 0.01% APY (or 0%) on checking — hundreds of times less than the top savings accounts on this page (4.35% APY). Capital One is the only big name paying more than the bare minimum, and 0.10% is still only about $10 a year per $10,000 held. The ranking is therefore correct, but the practical message is unchanged — keep day-to-day cash here only, and put savings in a high-yield savings or money market account. If you want interest on checking itself, Axos ONE pays 0.51% with qualifying activity, SoFi pays 0.50%, and Lake Michigan Credit Union&rsquo;s Max Checking pays 4.00% on up to $15,000 with monthly requirements.</p>
+    </div>
+
+    <div class="card" id="us-money-market" role="region" aria-label="US money market accounts" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-money-bill-trend-up" aria-hidden="true"></i> Best US Money Market Accounts</div>
+      <div class="card-sub">Money market accounts pay savings-style yields with check &amp; debit access — FDIC-insured up to $250,000 · interest is federally taxable · rates as of 7 Nov 2026, variable</div>
+      <table class="stock-table table-searchable" aria-label="US money market account rates, November 2026">
+        <thead><tr><th scope="col">#</th><th scope="col">Account</th><th scope="col" style="text-align:right">Rate</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="stock-rank">1</span></td>
+            <td class="stock-name">Zynlo Bank Money Market<span class="stock-ticker">No minimum balance · no monthly fees · unlimited withdrawals · checks available from a third-party vendor</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.05% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">2</span></td>
+            <td class="stock-name">Bank5 Connect Money Market<span class="stock-ticker">$100 minimum deposit · check writing available · FDIC-insured</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">4.00% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">3</span></td>
+            <td class="stock-name">Quontic Bank Money Market<span class="stock-ticker">$100 minimum deposit · debit card and check-writing privileges · no monthly fee</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">3.90% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">4</span></td>
+            <td class="stock-name">Sallie Mae Bank Money Market<span class="stock-ticker">No minimum deposit · no monthly fee · FDIC-insured</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">3.60% APY</span></td>
+          </tr>
+          <tr>
+            <td><span class="stock-rank">5</span></td>
+            <td class="stock-name">BTG Pactual Bank Money Market<span class="stock-ticker">$500 minimum deposit · check writing available · FDIC-insured</span></td>
+            <td class="stock-yield"><span class="stock-yield-badge">3.50% APY</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="card-sub" style="margin-top:0.85rem; margin-bottom:0;"><strong>A caveat on this table, stated plainly:</strong> money market rates are quoted across different balance tiers, and the aggregators disagree — Bankrate&rsquo;s top pick pays 4.05%, Investopedia 4.01%, while promotional savings accounts reach 5.00%. The rows above are the figures Bankrate published on 7 Nov 2026, not a single verified top-5 ranking. The national average MMA rate is about 0.48% APY, so anything near 4% is roughly eight times the average — but at 3.4% CPI most of the headline rate is consumed by inflation. Check the live rate and balance requirements on the provider&rsquo;s site before opening anything.</p>
+    </div>
+
+    <div class="no-results" id="noResults" role="status" aria-live="polite" aria-atomic="true">
+      <i class="fa-solid fa-magnifying-glass" style="font-size:1.5rem;color:rgba(148,163,184,0.3);display:block;margin-bottom:0.5rem;" aria-hidden="true"></i>
+      No matches found for your search. Try a company, ticker, month, or account name.
+    </div>
+
+    <footer>
+      For informational purposes only — not financial advice. Always verify before investing.<br>
+      <span style="font-size:0.72rem;">Page generated <span id="fileDate"></span></span>
+    </footer>
+  </main>
+
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
+
+  <script>
+  (function() {
+    var YIELDS_DATA = {
+      fetchedAt: '2026-11-07T00:00:00Z',
+      source: 'Yahoo Finance / company trailing 12-month cash dividends — NYSE and NASDAQ prices and yields at the 6 Nov 2026 close (Fri)',
+      nyse: [
+        { ticker: 'MAIN', name: 'Main Street Capital',         yield: 8.1,  pays: 'Monthly', note: 'plus $0.30 special in Mar, Jun, Sep & Dec' },
+        { ticker: 'VICI', name: 'VICI Properties',             yield: 7.3,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'PFE',  name: 'Pfizer',                      yield: 7.3,  pays: 'Mar, Jun, Sep & Dec', note: '352nd consecutive quarterly dividend declared 6 Oct 2026' },
+        { ticker: 'KHC',  name: 'Kraft Heinz',                 yield: 6.5,  pays: 'Mar, Jun, Sep & Dec', note: 'moved from NASDAQ to NYSE on 14 Sep 2026' },
+        { ticker: 'VZ',   name: 'Verizon Communications',      yield: 6.2,  pays: 'Feb, May, Aug & Nov' },
+        { ticker: 'DOC',  name: 'Healthpeak Properties',       yield: 6.0,  pays: 'Monthly' },
+        { ticker: 'EPD',  name: 'Enterprise Products Partners', yield: 6.0, pays: 'Feb, May, Aug & Nov' },
+        { ticker: 'NNN',  name: 'NNN REIT',                    yield: 5.9,  pays: 'Feb, May, Aug & Nov' },
+        { ticker: 'O',    name: 'Realty Income',               yield: 5.5,  pays: 'Monthly', note: '676th consecutive monthly dividend, declared 13 Oct 2026' },
+        { ticker: 'ENB',  name: 'Enbridge',                    yield: 4.5,  pays: 'Mar, Jun, Sep & Dec', note: 'US line, net of Canadian withholding; gross CAD-basis rate is higher' },
+        { ticker: 'CVX',  name: 'Chevron',                     yield: 3.3,  pays: 'Mar, Jun, Sep & Dec' }
+      ],
+      nasdaq: [
+        { ticker: 'CMCSA', name: 'Comcast',                    yield: 5.4,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'PAYX', name: 'Paychex',                     yield: 4.9,  pays: 'Feb, May, Aug & Nov', note: 'quarterly dividend raised to $1.19 on 15 Oct 2026' },
+        { ticker: 'TROW', name: 'T. Rowe Price Group',         yield: 4.8,  pays: 'Mar, Jun, Sep & Dec' },
+        { ticker: 'PEP',  name: 'PepsiCo',                     yield: 4.1,  pays: 'Mar, Jun, Sep & Dec' },
+        { ticker: 'MDLZ', name: 'Mondelez International',      yield: 3.1,  pays: 'Jan, Apr, Jul & Oct' },
+        { ticker: 'TXN',  name: 'Texas Instruments',           yield: 2.1,  pays: 'Feb, May, Aug & Nov', note: 'dividend raised to $1.52, a 23rd consecutive year of increases' },
+        { ticker: 'GILD', name: 'Gilead Sciences',             yield: 2.0,  pays: 'Mar, Jun, Sep & Dec' },
+        { ticker: 'CSCO', name: 'Cisco Systems',               yield: 1.3,  pays: 'Jan, Apr, Jul & Oct' }
+      ]
+    };
+
+    var INDEX_DATA = {
+      gspc: [["2026-01-02",6858.47],["2026-01-09",6966.28],["2026-01-16",6940.01],["2026-01-23",6915.61],["2026-01-30",6939.03],["2026-02-06",6932.3],["2026-02-13",6836.17],["2026-02-20",6909.51],["2026-02-27",6878.88],["2026-03-06",6740.02],["2026-03-13",6632.19],["2026-03-20",6506.48],["2026-03-27",6368.85],["2026-04-10",6816.89],["2026-04-17",7126.06],["2026-04-24",7165.08],["2026-05-01",7230.12],["2026-05-08",7398.93],["2026-05-15",7408.5],["2026-05-22",7473.47],["2026-05-29",7580.06],["2026-06-05",7383.74],["2026-06-12",7431.46],["2026-06-26",7354.02],["2026-07-10",7575.39],["2026-07-17",7457.69],["2026-07-24",7411.98],["2026-07-31",7489.72],["2026-08-07",7757.64],["2026-08-14",7785.76],["2026-08-21",7674.37],["2026-08-28",7711.76],["2026-09-04",7718.6],["2026-09-11",7656.98],["2026-09-18",7650.5],["2026-09-25",7743.41],["2026-10-02",7722.72],["2026-10-09",7811.54],["2026-10-16",7659.44],["2026-10-23",7623.68],["2026-10-30",7580.07],["2026-11-06",7376.86]]
+    };
+
+    function renderIndexChart(svgId, badgeId, data, color) {
+      var svg = document.getElementById(svgId);
+      if (!svg) return;
+      var W = 600, H = 260, padL = 58, padR = 18, padT = 14, padB = 30;
+      var closes = data.map(function(d) { return d[1]; });
+      var min = Math.min.apply(null, closes), max = Math.max.apply(null, closes);
+      var span = (max - min) || 1;
+      min -= span * 0.08; max += span * 0.08;
+      var iw = W - padL - padR, ih = H - padT - padB;
+      function X(i) { return padL + (data.length === 1 ? iw / 2 : i / (data.length - 1) * iw); }
+      function Y(v) { return padT + (1 - (v - min) / (max - min)) * ih; }
+
+      var path = '', i;
+      for (i = 0; i < data.length; i++) path += (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(data[i][1]).toFixed(1);
+      var area = path + 'L' + X(data.length - 1).toFixed(1) + ',' + (padT + ih).toFixed(1) + 'L' + X(0).toFixed(1) + ',' + (padT + ih).toFixed(1) + 'Z';
+
+      var grid = '';
+      for (var g = 0; g <= 4; g++) {
+        var v = min + (max - min) * g / 4;
+        var gy = Y(v).toFixed(1);
+        grid += '<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - padR) + '" y2="' + gy + '" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>' +
+          '<text x="' + (padL - 8) + '" y="' + (+gy + 4) + '" text-anchor="end" font-size="11" fill="#9ca3af">' + Math.round(v).toLocaleString('en-US') + '</text>';
+      }
+      var months = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var xlabels = '', lastMonth = '';
+      for (i = 0; i < data.length; i++) {
+        var mo = data[i][0].slice(5, 7);
+        if (mo !== lastMonth) {
+          lastMonth = mo;
+          xlabels += '<text x="' + X(i).toFixed(1) + '" y="' + (H - 8) + '" text-anchor="middle" font-size="11" fill="#9ca3af">' + months[+mo] + '</text>';
+        }
+      }
+
+      var lastX = X(data.length - 1), lastY = Y(closes[closes.length - 1]);
+      var marker = '<circle cx="' + lastX.toFixed(1) + '" cy="' + lastY.toFixed(1) + '" r="4" fill="' + color + '" stroke="#0b1020" stroke-width="2"/>';
+
+      var pointTitles = '';
+      for (i = 0; i < data.length; i++) {
+        var pmo = data[i][0].slice(5, 7), pdd = data[i][0].slice(8, 10);
+        pointTitles += '<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(data[i][1]).toFixed(1) + '" r="5.5" fill="transparent"><title>' +
+          months[+pmo] + ' ' + (+pdd) + ' · ' + closes[i].toLocaleString('en-US', { maximumFractionDigits: 2 }) + '</title></circle>';
+      }
+
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      svg.innerHTML =
+        '<defs><linearGradient id="' + svgId + 'Grad" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0%" stop-color="' + color + '" stop-opacity="0.28"/>' +
+        '<stop offset="100%" stop-color="' + color + '" stop-opacity="0"/></linearGradient></defs>' +
+        grid + xlabels +
+        '<path d="' + area + '" fill="url(#' + svgId + 'Grad)"/>' +
+        '<path d="' + path + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' +
+        marker + pointTitles;
+
+      var pct = (closes[closes.length - 1] - closes[0]) / closes[0] * 100;
+      var badge = document.getElementById(badgeId);
+      if (badge) {
+        badge.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '% YTD';
+        badge.classList.add(pct >= 0 ? 'up' : 'down');
+      }
+      var priceEl = document.getElementById(badgeId.replace('Badge', 'Price'));
+      if (priceEl) {
+        priceEl.textContent = closes[closes.length - 1].toLocaleString('en-US', { maximumFractionDigits: 2 });
+      }
+      var lastEl = document.getElementById(svgId.replace('Chart', 'Latest'));
+      if (lastEl) {
+        var lmo = data[data.length - 1][0].slice(5, 7), ldd = data[data.length - 1][0].slice(8, 10);
+        lastEl.textContent = '· latest ' + months[+lmo] + ' ' + (+ldd);
+      }
+    }
+
+    renderIndexChart('gspcChart', 'gspcBadge', INDEX_DATA.gspc, '#a855f7');
+
+    var statusBar = document.getElementById('statusBar');
+    var nyseBody = document.getElementById('nyseBody');
+    var nasdaqBody = document.getElementById('nasdaqBody');
+    var statsRow = document.getElementById('statsRow');
+    var noResults = document.getElementById('noResults');
+    var searchInput = document.getElementById('stockSearch');
+    var searchClear = document.getElementById('searchClear');
+    var searchKbd = document.querySelector('.search-kbd');
+    var backToTop = document.getElementById('backToTop');
+
+    YIELDS_DATA.nyse.forEach(function(s) { s.market = 'NYSE'; });
+    YIELDS_DATA.nasdaq.forEach(function(s) { s.market = 'NASDAQ'; });
+
+    var allStocks = YIELDS_DATA.nyse.concat(YIELDS_DATA.nasdaq);
+    var max_yield = Math.max.apply(null, allStocks.map(function(s) { return s.yield; }));
+    var totalYield = allStocks.reduce(function(sum, s) { return sum + s.yield; }, 0);
+    var avgYield = totalYield / allStocks.length;
+    var highestStock = allStocks.reduce(function(a, b) { return a.yield > b.yield ? a : b; });
+    var monthlyCount = allStocks.filter(function(s) { return /\bMonthly\b/.test(s.pays || ''); }).length;
+    var highCount = allStocks.filter(function(s) { return s.yield >= 5; }).length;
+
+    var dt = new Date(YIELDS_DATA.fetchedAt);
+    var timeStr = dt.toLocaleString('en-GB', {
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+    });
+
+    statusBar.innerHTML =
+      '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>' +
+      '<span>Data checked ' + timeStr + '</span>' +
+      '<span class="sep"></span>' +
+      '<span class="source">Source: ' + YIELDS_DATA.source + '</span>';
+
+    statsRow.innerHTML =
+      '<span class="stat-pill"><i class="fa-solid fa-chart-line"></i> Avg yield: <strong>' + avgYield.toFixed(1) + '%</strong></span>' +
+      '<span class="stat-pill"><i class="fa-solid fa-arrow-trend-up"></i> Highest: <strong>' + highestStock.yield.toFixed(1) + '%</strong> (' + highestStock.ticker + ')</span>' +
+      '<span class="stat-pill"><i class="fa-solid fa-list"></i> <strong>' + allStocks.length + '</strong> stocks</span>' +
+      '<span class="stat-pill"><i class="fa-solid fa-calendar-check"></i> Monthly payers: <strong>' + monthlyCount + '</strong></span>' +
+      '<span class="stat-pill"><i class="fa-solid fa-star"></i> 5%+ yields: <strong>' + highCount + '</strong></span>';
+
+    var MARKET_TZ = {
+      nyse:   { tz: 'America/New_York', open: [9, 30], close: [16, 0] },
+      nasdaq: { tz: 'America/New_York', open: [9, 30], close: [16, 0] }
+    };
+
+    function pad2(n) { n = +n; return n < 10 ? '0' + n : '' + n; }
+
+    function tzParts(tz, date) {
+      var dtf = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, hour12: false, weekday: 'short', year: 'numeric',
+        month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      var map = {};
+      dtf.formatToParts(date || new Date()).forEach(function(p) { map[p.type] = p.value; });
+      map.hour = +map.hour % 24;
+      return map;
+    }
+
+    function tzWallToUtc(tz, y, mo, d, h, mi) {
+      var asUTC = Date.UTC(y, mo - 1, d, h, mi, 0);
+      var dtf = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, hour12: false, year: 'numeric', month: '2-digit',
+        day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      var map = {};
+      dtf.formatToParts(new Date(asUTC)).forEach(function(p) { map[p.type] = p.value; });
+      var wall = Date.UTC(+map.year, +map.month - 1, +map.day, +map.hour % 24, +map.minute, +map.second);
+      return Date.UTC(y, mo - 1, d, h, mi, 0) - (wall - asUTC);
+    }
+
+    function durLabel(ms) {
+      var s = Math.floor(ms / 1000);
+      var d = Math.floor(s / 86400); s -= d * 86400;
+      var h = Math.floor(s / 3600); s -= h * 3600;
+      var m = Math.floor(s / 60); s -= m * 60;
+      if (d > 0) return d + 'd ' + h + 'h ' + m + 'm ' + s + 's';
+      if (h > 0) return h + 'h ' + m + 'm ' + s + 's';
+      if (m > 0) return m + 'm ' + s + 's';
+      return s + 's';
+    }
+
+    function updateMarketClocks() {
+      var now = Date.now();
+
+      Object.keys(MARKET_TZ).forEach(function(key) {
+        var cfg = MARKET_TZ[key];
+        var box = document.querySelector('.market-box[data-exchange="' + key + '"]');
+        if (!box) return;
+
+        var p = tzParts(cfg.tz);
+        var localClock = pad2(p.hour) + ':' + pad2(p.minute) + ':' + pad2(p.second);
+        var openUtc = tzWallToUtc(cfg.tz, +p.year, +p.month, +p.day, cfg.open[0], cfg.open[1]);
+        var closeUtc = tzWallToUtc(cfg.tz, +p.year, +p.month, +p.day, cfg.close[0], cfg.close[1]);
+        var wd = p.weekday;
+        var weekend = wd === 'Sat' || wd === 'Sun';
+
+        var html, cls;
+        if (!weekend && now >= openUtc && now < closeUtc) {
+          html = '<span class="open-badge">● Open</span> &middot; closes in ' + durLabel(closeUtc - now);
+          cls = 'open';
+        } else if (!weekend && now < openUtc) {
+          html = '<span class="closed-badge">● Closed</span> &middot; opens in ' + durLabel(openUtc - now);
+          cls = 'closed';
+        } else {
+          var days = weekend ? (wd === 'Sat' ? 2 : 1) : (wd === 'Fri' ? 3 : 1);
+          var reopenUtc = tzWallToUtc(cfg.tz, +p.year, +p.month, +p.day + days, cfg.open[0], cfg.open[1]);
+          var rp = tzParts(cfg.tz, new Date(reopenUtc));
+          html = '<span class="closed-badge">● Closed</span> &middot; reopens ' + rp.weekday +
+            ' ' + pad2(cfg.open[0]) + ':' + pad2(cfg.open[1]) + ':00 in ' + durLabel(reopenUtc - now);
+          cls = 'closed';
+        }
+
+        var local = box.querySelector('.market-local');
+        if (local) local.textContent = localClock;
+        box.querySelector('.market-session').innerHTML = html;
+        box.classList.toggle('open', cls === 'open');
+      });
+    }
+
+    var sortState = { field: null, asc: true };
+
+    var MONTH_FULL = { Jan:'January', Feb:'February', Mar:'March', Apr:'April', May:'May', Jun:'June', Jul:'July', Aug:'August', Sep:'September', Oct:'October', Nov:'November', Dec:'December' };
+    var MONTH_KEYS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    function getPaysSearch(s) {
+      if (s._paysSearch === undefined) {
+        s._paysSearch = (s.pays || '').replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b/g, function(m) { return MONTH_FULL[m]; }).toLowerCase();
+      }
+      return s._paysSearch;
+    }
+
+    function getPaysMonths(s) {
+      if (/\bMonthly\b/i.test(s.pays || '')) return MONTH_KEYS.slice();
+      var matches = (s.pays || '').match(/\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b/g) || [];
+      return matches.filter(function(month, index) { return matches.indexOf(month) === index; });
+    }
+
+    function renderDividendMonthTables() {
+      var container = document.getElementById('dividendMonthTables');
+      if (!container) return;
+      var marketOrder = { NYSE: 0, NASDAQ: 1 };
+
+      container.innerHTML = MONTH_KEYS.map(function(month) {
+        var stocks = allStocks.filter(function(s) {
+          return getPaysMonths(s).indexOf(month) !== -1;
+        }).sort(function(a, b) {
+          return (marketOrder[a.market] - marketOrder[b.market]) || (b.yield - a.yield);
+        });
+
+        var rows = stocks.map(function(s) {
+          return '<tr data-month="' + MONTH_FULL[month] + '">' +
+            '<td><span class="market-tag">' + s.market + '</span></td>' +
+            '<td class="stock-name">' + s.name + ' <span class="stock-ticker"><a class="stock-link" href="https://finance.yahoo.com/quote/' + encodeURIComponent(s.ticker) + '/" target="_blank" rel="noopener noreferrer">' + s.ticker + '</a></span></td>' +
+            '<td class="stock-yield"><span class="stock-yield-badge">' + s.yield.toFixed(1) + '%</span></td>' +
+            '</tr>';
+        }).join('');
+
+        return '<article class="card month-card" data-month-card="' + month + '">' +
+          '<div class="card-title"><i class="fa-solid fa-calendar-day"></i> ' + MONTH_FULL[month] + '<span class="chart-badge">' + stocks.length + ' companies</span></div>' +
+          '<div class="card-sub">Typical cash dividend payment month</div>' +
+          '<table class="stock-table table-searchable" aria-label="Companies paying dividends in ' + MONTH_FULL[month] + '">' +
+            '<thead><tr><th scope="col">Market</th><th scope="col">Company</th><th scope="col" style="text-align:right">Yield</th></tr></thead>' +
+            '<tbody>' + rows + '</tbody>' +
+          '</table>' +
+        '</article>';
+      }).join('');
+    }
+
+    function getSortIcon(col) {
+      if (sortState.field !== col) return 'fa-solid fa-sort sort-icon';
+      return sortState.asc
+        ? 'fa-solid fa-sort-up sort-icon'
+        : 'fa-solid fa-sort-down sort-icon';
+    }
+
+    function renderTable(tbody, stocks, query) {
+      var sorted = stocks.slice().sort(function(a, b) {
+        if (sortState.field === 'yield') return sortState.asc ? a.yield - b.yield : b.yield - a.yield;
+        if (sortState.field === 'name') return sortState.asc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+        if (sortState.field === 'ticker') return sortState.asc ? a.ticker.localeCompare(b.ticker) : b.ticker.localeCompare(a.ticker);
+        return b.yield - a.yield;
+      });
+
+      var filtered = sorted;
+      if (query) {
+        var q = query.toLowerCase();
+        filtered = sorted.filter(function(s) {
+          if (s.name.toLowerCase().indexOf(q) !== -1) return true;
+          if (s.ticker.toLowerCase().indexOf(q) !== -1) return true;
+          var pays = (s.pays || '').toLowerCase();
+          if (pays.indexOf(q) !== -1) return true;
+          if ((s.note || '').toLowerCase().indexOf(q) !== -1) return true;
+          return getPaysSearch(s).indexOf(q) !== -1;
+        });
+      }
+
+      var html = '';
+      filtered.forEach(function(s, i) {
+        var barPct = (s.yield / max_yield * 100).toFixed(0);
+        html += '<tr>' +
+          '<td><span class="stock-rank">' + (i + 1) + '</span></td>' +
+          '<td class="stock-name">' + s.name + ' <span class="stock-ticker"><a class="stock-link" href="https://finance.yahoo.com/quote/' + encodeURIComponent(s.ticker) + '/" target="_blank" rel="noopener noreferrer">' + s.ticker + '</a></span>' +
+            '<span class="stock-pays">Typical pay: ' + s.pays + (s.note ? ' · ' + s.note : '') + '</span></td>' +
+          '<td class="stock-yield">' +
+            '<div class="yield-bar-wrap" style="margin-bottom:4px;"><div class="yield-bar" style="width:' + barPct + '%"></div></div>' +
+            '<span class="stock-yield-badge">' + s.yield.toFixed(1) + '%</span>' +
+          '</td>' +
+          '</tr>';
+      });
+      tbody.innerHTML = html;
+      return filtered.length;
+    }
+
+    function updateAll() {
+      var q = searchInput.value.trim().toLowerCase();
+      var nyseCount = renderTable(nyseBody, YIELDS_DATA.nyse, q);
+      var nasdaqCount = renderTable(nasdaqBody, YIELDS_DATA.nasdaq, q);
+
+      var staticTotal = 0;
+      var staticTables = Array.prototype.slice.call(document.querySelectorAll('table.table-searchable > tbody'));
+      staticTables.forEach(function(tbody) {
+        var rows = tbody.rows, shown = 0, r;
+        for (r = 0; r < rows.length; r++) {
+          var searchText = (rows[r].textContent + ' ' + (rows[r].dataset.month || '')).toLowerCase();
+          var match = !q || searchText.indexOf(q) !== -1;
+          rows[r].style.display = match ? '' : 'none';
+          if (match) shown++;
+        }
+        staticTotal += shown;
+        var card = tbody.closest('.card');
+        if (card) card.style.display = (!q || shown) ? '' : 'none';
+      });
+
+      var totalVisible = nyseCount + nasdaqCount + staticTotal;
+      noResults.classList.toggle('visible', totalVisible === 0 && q.length > 0);
+
+      nyseBody.closest('.card').style.display = (nyseCount === 0 && q) ? 'none' : '';
+      nasdaqBody.closest('.card').style.display = (nasdaqCount === 0 && q) ? 'none' : '';
+
+      [nyseBody, nasdaqBody].forEach(function(body) {
+        var table = body.closest('table');
+        ['name', 'yield'].forEach(function(col) {
+          var th = table.querySelector('th.sortable[data-sort="' + col + '"]');
+          if (!th) return;
+          var alignmentClass = col === 'yield' ? ' numeric' : '';
+          th.className = sortState.field === col ? ('sortable' + alignmentClass + (sortState.asc ? ' asc' : ' desc')) : ('sortable' + alignmentClass);
+          if (sortState.field === col) th.setAttribute('aria-sort', sortState.asc ? 'ascending' : 'descending');
+          else th.setAttribute('aria-sort', 'none');
+          var label = th.querySelector('.sort-label');
+          var icon = th.querySelector('.sort-icon');
+          if (label) label.textContent = col === 'name' ? 'Company' : 'Yield';
+          if (icon) icon.className = getSortIcon(col);
+        });
+      });
+
+      if (searchClear) searchClear.hidden = !q;
+      if (searchKbd) searchKbd.hidden = !!q;
+    }
+
+    document.querySelectorAll('th.sortable').forEach(function(th) {
+      var control = th.querySelector('button');
+      if (!control) return;
+      function toggleSort() {
+        var col = th.dataset.sort;
+        if (sortState.field === col) { sortState.asc = !sortState.asc; }
+        else { sortState.field = col; sortState.asc = col === 'name' || col === 'ticker'; }
+        updateAll();
+      }
+      control.addEventListener('click', toggleSort);
+    });
+
+    searchInput.addEventListener('input', function() { updateAll(); });
+
+    if (searchClear) {
+      searchClear.addEventListener('click', function() {
+        searchInput.value = '';
+        searchInput.focus();
+        updateAll();
+      });
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === '/' && !(e.target instanceof HTMLInputElement) && !(e.target instanceof HTMLTextAreaElement)) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+
+    if (backToTop) {
+      window.addEventListener('scroll', function() {
+        backToTop.classList.toggle('visible', window.scrollY > 400);
+      });
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+    }
+
+    var fd = document.getElementById('fileDate');
+    if (fd) fd.textContent = new Date(document.lastModified).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    updateMarketClocks();
+    setInterval(updateMarketClocks, 1000);
+
+    renderDividendMonthTables();
+    updateAll();
+  })();
+  </script>
+</body>
+</html>

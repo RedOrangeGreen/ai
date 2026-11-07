@@ -8,7 +8,7 @@
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="description" content="Time-based one-time passwords (TOTP) compatible with Google Authenticator — enter a Base32 secret and get the current code." />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, indexifembedded" />
   <meta name="view-transition" content="same-origin" />
   <meta property="og:title" content="TOTP Authenticator" />
   <meta property="og:description" content="Generate Google Authenticator–compatible 6-digit codes from a Base32 secret." />
@@ -200,6 +200,8 @@
     .settings-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; }
     .setting-item { display: flex; flex-direction: column; gap: 0.3rem; }
     .setting-item .field-label { margin-bottom: 0; }
+    .setting-hint { margin: 0.55rem 0 0; font-size: 0.72rem; color: var(--text-muted); line-height: 1.45; }
+    .remember-hint { margin: 0.55rem 0 0; font-size: 0.75rem; color: rgba(239,68,68,0.9); line-height: 1.45; border-left: 3px solid rgba(239,68,68,0.45); padding-left: 0.7rem; background: rgba(239,68,68,0.07); border-radius: 0 8px 8px 0; }
     .remember-row {
       display: flex; align-items: center; gap: 0.5rem; margin-top: 0.9rem;
       font-size: 0.8rem; color: var(--text-muted); cursor: pointer; user-select: none;
@@ -310,13 +312,19 @@
           </div>
           <div class="setting-item">
             <label class="field-label" for="algorithmSelect">Algorithm</label>
-            <select id="algorithmSelect" disabled><option>SHA-1 (Google)</option></select>
+            <select id="algorithmSelect" title="Must match the algorithm used by the service that issued the secret">
+              <option value="SHA1" selected>SHA-1 (Google)</option>
+              <option value="SHA256">SHA-256</option>
+              <option value="SHA512">SHA-512</option>
+            </select>
           </div>
         </div>
+        <p class="setting-hint">Use the algorithm your service specifies &mdash; SHA-1 is the default for Google Authenticator and most others. Changing it recalculates the code immediately.</p>
         <label class="remember-row" title="Stores your secret in this browser's localStorage — only check on a device you trust.">
           <input type="checkbox" id="rememberSecret" />
           <span>Remember secret on this device</span>
         </label>
+        <p class="remember-hint">⚠ Your secret is stored in this browser's localStorage (it is never sent anywhere). Only check this on a device you trust — anyone with access to this browser could see the stored secret and generate your codes.</p>
       </div>
       <div class="btn-row">
         <button class="btn btn-ghost" id="demoBtn" type="button">
@@ -353,7 +361,7 @@
 
     <div class="card" style="padding:1rem 1.3rem;">
       <div class="info-note" style="margin-top:0;border:none;background:none;padding:0;">
-        <p style="margin:0 0 0.5rem;"><strong style="color:var(--text-main);">Standard, not proprietary</strong> — this implements RFC&nbsp;6238 TOTP with HMAC-SHA-1, exactly what Google Authenticator, Microsoft Authenticator and most other apps use. A secret added here produces identical codes to the same secret in those apps.</p>
+        <p style="margin:0 0 0.5rem;"><strong style="color:var(--text-main);">Standard, not proprietary</strong> — this implements RFC&nbsp;6238 TOTP with HMAC-SHA-1 (the default used by Google Authenticator, Microsoft Authenticator and most other apps), and also supports HMAC-SHA-256 and HMAC-SHA-512 for services that require them. A secret added here produces identical codes to the same secret in those apps.</p>
         <p style="margin:0 0 0.5rem;"><strong style="color:var(--text-main);">Base32 secret</strong> — services usually show it as a QR code; "enter this key" reveals the text form (characters A–Z and 2–7).</p>
         <p style="margin:0 0 0.5rem;"><strong style="color:var(--text-main);">30-second window</strong> — the code changes every 30 seconds (adjustable). The ring shows time left; wait for the ring to fill for a fresh code.</p>
         <p style="margin:0 0 0.5rem;"><strong style="color:var(--text-main);">Fully offline</strong> — hashing happens in this page; nothing is sent anywhere. If you save the secret, it stays only in this browser's storage.</p>
@@ -373,6 +381,7 @@
     var B32 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
 
     function rl(n, s) { return (n << s) | (n >>> (32 - s)); }
+    function rr(n, s) { return (n >>> s) | (n << (32 - s)); }
 
     function sha1Bytes(msg) {
       var ml = msg.length;
@@ -421,25 +430,171 @@
       return out;
     }
 
+    var K256 = [
+      0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+      0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+      0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+      0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+      0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+      0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+      0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+      0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+    ];
+
+    function sha256Bytes(msg) {
+      var ml = msg.length;
+      var newLen = (((ml + 8) >> 6) + 1) << 6;
+      var h = new Uint8Array(newLen);
+      h.set(msg);
+      h[ml] = 0x80;
+      var bitLenHi = Math.floor(ml / 0x20000000) >>> 0;
+      var bitLenLo = (ml << 3) >>> 0;
+      h[newLen - 8] = (bitLenHi >>> 24) & 0xff;
+      h[newLen - 7] = (bitLenHi >>> 16) & 0xff;
+      h[newLen - 6] = (bitLenHi >>> 8) & 0xff;
+      h[newLen - 5] = bitLenHi & 0xff;
+      h[newLen - 4] = (bitLenLo >>> 24) & 0xff;
+      h[newLen - 3] = (bitLenLo >>> 16) & 0xff;
+      h[newLen - 2] = (bitLenLo >>> 8) & 0xff;
+      h[newLen - 1] = bitLenLo & 0xff;
+
+      var H = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
+      var w = new Int32Array(64);
+      for (var i = 0; i < h.length; i += 64) {
+        for (var j = 0; j < 16; j++) {
+          var o = i + j * 4;
+          w[j] = (h[o] << 24) | (h[o + 1] << 16) | (h[o + 2] << 8) | h[o + 3];
+        }
+        for (j = 16; j < 64; j++) {
+          var x = w[j - 15], y = w[j - 2];
+          var s0 = rr(x, 7) ^ rr(x, 18) ^ (x >>> 3);
+          var s1 = rr(y, 17) ^ rr(y, 19) ^ (y >>> 10);
+          w[j] = (w[j - 16] + s0 + w[j - 7] + s1) | 0;
+        }
+        var a = H[0], b = H[1], c = H[2], d = H[3], e = H[4], f = H[5], g = H[6], hh = H[7];
+        for (j = 0; j < 64; j++) {
+          var S1 = rr(e, 6) ^ rr(e, 11) ^ rr(e, 25);
+          var ch = (e & f) ^ (~e & g);
+          var t1 = (hh + S1 + ch + K256[j] + w[j]) | 0;
+          var S0 = rr(a, 2) ^ rr(a, 13) ^ rr(a, 22);
+          var maj = (a & b) ^ (a & c) ^ (b & c);
+          var t2 = (S0 + maj) | 0;
+          hh = g; g = f; f = e; e = (d + t1) | 0;
+          d = c; c = b; b = a; a = (t1 + t2) | 0;
+        }
+        H[0] = (H[0] + a) | 0; H[1] = (H[1] + b) | 0; H[2] = (H[2] + c) | 0; H[3] = (H[3] + d) | 0;
+        H[4] = (H[4] + e) | 0; H[5] = (H[5] + f) | 0; H[6] = (H[6] + g) | 0; H[7] = (H[7] + hh) | 0;
+      }
+      var out = new Uint8Array(32);
+      for (i = 0; i < 8; i++) {
+        out[i * 4] = (H[i] >>> 24) & 0xff;
+        out[i * 4 + 1] = (H[i] >>> 16) & 0xff;
+        out[i * 4 + 2] = (H[i] >>> 8) & 0xff;
+        out[i * 4 + 3] = H[i] & 0xff;
+      }
+      return out;
+    }
+
+    var MASK64 = (1n << 64n) - 1n;
+    var K512 = [
+      0x428a2f98d728ae22n, 0x7137449123ef65cdn, 0xb5c0fbcfec4d3b2fn, 0xe9b5dba58189dbbcn,
+      0x3956c25bf348b538n, 0x59f111f1b605d019n, 0x923f82a4af194f9bn, 0xab1c5ed5da6d8118n,
+      0xd807aa98a3030242n, 0x12835b0145706fben, 0x243185be4ee4b28cn, 0x550c7dc3d5ffb4e2n,
+      0x72be5d74f27b896fn, 0x80deb1fe3b1696b1n, 0x9bdc06a725c71235n, 0xc19bf174cf692694n,
+      0xe49b69c19ef14ad2n, 0xefbe4786384f25e3n, 0x0fc19dc68b8cd5b5n, 0x240ca1cc77ac9c65n,
+      0x2de92c6f592b0275n, 0x4a7484aa6ea6e483n, 0x5cb0a9dcbd41fbd4n, 0x76f988da831153b5n,
+      0x983e5152ee66dfabn, 0xa831c66d2db43210n, 0xb00327c898fb213fn, 0xbf597fc7beef0ee4n,
+      0xc6e00bf33da88fc2n, 0xd5a79147930aa725n, 0x06ca6351e003826fn, 0x142929670a0e6e70n,
+      0x27b70a8546d22ffcn, 0x2e1b21385c26c926n, 0x4d2c6dfc5ac42aedn, 0x53380d139d95b3dfn,
+      0x650a73548baf63den, 0x766a0abb3c77b2a8n, 0x81c2c92e47edaee6n, 0x92722c851482353bn,
+      0xa2bfe8a14cf10364n, 0xa81a664bbc423001n, 0xc24b8b70d0f89791n, 0xc76c51a30654be30n,
+      0xd192e819d6ef5218n, 0xd69906245565a910n, 0xf40e35855771202an, 0x106aa07032bbd1b8n,
+      0x19a4c116b8d2d0c8n, 0x1e376c085141ab53n, 0x2748774cdf8eeb99n, 0x34b0bcb5e19b48a8n,
+      0x391c0cb3c5c95a63n, 0x4ed8aa4ae3418acbn, 0x5b9cca4f7763e373n, 0x682e6ff3d6b2b8a3n,
+      0x748f82ee5defb2fcn, 0x78a5636f43172f60n, 0x84c87814a1f0ab72n, 0x8cc702081a6439ecn,
+      0x90befffa23631e28n, 0xa4506cebde82bde9n, 0xbef9a3f7b2c67915n, 0xc67178f2e372532bn,
+      0xca273eceea26619cn, 0xd186b8c721c0c207n, 0xeada7dd6cde0eb1en, 0xf57d4f7fee6ed178n,
+      0x06f067aa72176fban, 0x0a637dc5a2c898a6n, 0x113f9804bef90daen, 0x1b710b35131c471bn,
+      0x28db77f523047d84n, 0x32caab7b40c72493n, 0x3c9ebe0a15c9bebcn, 0x431d67c49c100d4cn,
+      0x4cc5d4becb3e42b6n, 0x597f299cfc657e2an, 0x5fcb6fab3ad6faecn, 0x6c44198c4a475817n
+    ];
+
+    function rotr64(x, n) { return ((x >> n) | (x << (64n - n))) & MASK64; }
+
+    function sha512Bytes(msg) {
+      var ml = msg.length;
+      var newLen = (((ml + 16) >> 7) + 1) << 7;
+      var h = new Uint8Array(newLen);
+      h.set(msg);
+      h[ml] = 0x80;
+      var bitLen = BigInt(ml) * 8n;
+      for (var k = 0; k < 8; k++) {
+        h[newLen - 1 - k] = Number((bitLen >> BigInt(8 * k)) & 0xffn);
+      }
+      var H = [
+        0x6a09e667f3bcc908n, 0xbb67ae8584caa73bn, 0x3c6ef372fe94f82bn, 0xa54ff53a5f1d36f1n,
+        0x510e527fade682d1n, 0x9b05688c2b3e6c1fn, 0x1f83d9abfb41bd6bn, 0x5be0cd19137e2179n
+      ];
+      var w = new Array(80);
+      for (var i = 0; i < h.length; i += 128) {
+        for (var j = 0; j < 16; j++) {
+          var v = 0n;
+          for (var b = 0; b < 8; b++) v = (v << 8n) | BigInt(h[i + j * 8 + b]);
+          w[j] = v;
+        }
+        for (j = 16; j < 80; j++) {
+          var x = w[j - 15], y = w[j - 2];
+          var s0 = rotr64(x, 1n) ^ rotr64(x, 8n) ^ (x >> 7n);
+          var s1 = rotr64(y, 19n) ^ rotr64(y, 61n) ^ (y >> 6n);
+          w[j] = (w[j - 16] + s0 + w[j - 7] + s1) & MASK64;
+        }
+        var a = H[0], bb = H[1], c = H[2], d = H[3], e = H[4], f = H[5], g = H[6], hh = H[7];
+        for (j = 0; j < 80; j++) {
+          var S1 = rotr64(e, 14n) ^ rotr64(e, 18n) ^ rotr64(e, 41n);
+          var ch = (e & f) ^ (~e & g);
+          var t1 = (hh + S1 + ch + K512[j] + w[j]) & MASK64;
+          var S0 = rotr64(a, 28n) ^ rotr64(a, 34n) ^ rotr64(a, 39n);
+          var maj = (a & bb) ^ (a & c) ^ (bb & c);
+          var t2 = (S0 + maj) & MASK64;
+          hh = g; g = f; f = e; e = (d + t1) & MASK64;
+          d = c; c = bb; bb = a; a = (t1 + t2) & MASK64;
+        }
+        H[0] = (H[0] + a) & MASK64; H[1] = (H[1] + bb) & MASK64; H[2] = (H[2] + c) & MASK64; H[3] = (H[3] + d) & MASK64;
+        H[4] = (H[4] + e) & MASK64; H[5] = (H[5] + f) & MASK64; H[6] = (H[6] + g) & MASK64; H[7] = (H[7] + hh) & MASK64;
+      }
+      var out = new Uint8Array(64);
+      for (i = 0; i < 8; i++) {
+        for (var q = 0; q < 8; q++) {
+          out[i * 8 + q] = Number((H[i] >> BigInt(8 * (7 - q))) & 0xffn);
+        }
+      }
+      return out;
+    }
+
     function concatBytes(a, b) {
       var out = new Uint8Array(a.length + b.length);
       out.set(a, 0); out.set(b, a.length);
       return out;
     }
 
-    function hmacSha1(keyBytes, msgBytes) {
-      var block = 64;
+    function hmac(hashFn, blockSize, keyBytes, msgBytes) {
       var key = keyBytes;
-      if (key.length > block) key = sha1Bytes(key);
-      var k = new Uint8Array(block);
+      if (key.length > blockSize) key = hashFn(key);
+      var k = new Uint8Array(blockSize);
       k.set(key, 0);
-      var ipad = new Uint8Array(block), opad = new Uint8Array(block);
-      for (var i = 0; i < block; i++) {
+      var ipad = new Uint8Array(blockSize), opad = new Uint8Array(blockSize);
+      for (var i = 0; i < blockSize; i++) {
         ipad[i] = k[i] ^ 0x36;
         opad[i] = k[i] ^ 0x5c;
       }
-      return sha1Bytes(concatBytes(opad, sha1Bytes(concatBytes(ipad, msgBytes))));
+      return hashFn(concatBytes(opad, hashFn(concatBytes(ipad, msgBytes))));
     }
+
+    var HASHES = {
+      SHA1:   { block: 64,  hash: sha1Bytes,   label: 'SHA-1' },
+      SHA256: { block: 64,  hash: sha256Bytes, label: 'SHA-256' },
+      SHA512: { block: 128, hash: sha512Bytes, label: 'SHA-512' }
+    };
 
     function base32Decode(s) {
       var clean = s.toUpperCase().replace(/[\s=-]/g, '');
@@ -458,13 +613,14 @@
       return new Uint8Array(out);
     }
 
-    function totp(secretBytes, timeStep, digits) {
+    function totp(secretBytes, timeStep, digits, algorithm) {
+      var spec = HASHES[algorithm] || HASHES.SHA1;
       var counter = Math.floor(Date.now() / 1000 / timeStep);
       var msg = new Uint8Array(8);
       var c = counter;
       for (var i = 7; i >= 0; i--) { msg[i] = c & 0xff; c = Math.floor(c / 256); }
-      var mac = hmacSha1(secretBytes, msg);
-      var off = mac[19] & 0x0f;
+      var mac = hmac(spec.hash, spec.block, secretBytes, msg);
+      var off = mac[mac.length - 1] & 0x0f;
       var bin = ((mac[off] & 0x7f) << 24) | (mac[off + 1] << 16) | (mac[off + 2] << 8) | mac[off + 3];
       var code = (bin % Math.pow(10, digits)).toString();
       while (code.length < digits) code = '0' + code;
@@ -476,6 +632,7 @@
     var pasteSecret   = document.getElementById('pasteSecret');
     var periodSelect  = document.getElementById('periodSelect');
     var digitsSelect  = document.getElementById('digitsSelect');
+    var algorithmSelect = document.getElementById('algorithmSelect');
     var rememberChk   = document.getElementById('rememberSecret');
     var demoBtn       = document.getElementById('demoBtn');
     var clearBtn      = document.getElementById('clearBtn');
@@ -551,6 +708,8 @@
     function tick() {
       var period = parseInt(periodSelect.value, 10) || 30;
       var digits = parseInt(digitsSelect.value, 10) || 6;
+      var algorithm = algorithmSelect.value || 'SHA1';
+      var spec = HASHES[algorithm] || HASHES.SHA1;
       var now = Math.floor(Date.now() / 1000);
       var step = Math.floor(now / period);
       var remaining = period - (now % period);
@@ -560,11 +719,11 @@
 
       if (secretBytes && step !== lastCodeWindow) {
         lastCodeWindow = step;
-        lastCode = totp(secretBytes, period, digits);
+        lastCode = totp(secretBytes, period, digits, algorithm);
         codeDisplay.textContent = lastCode;
         var d = new Date();
         var h = pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
-        codeMeta.textContent = 'SHA-1 · ' + period + 's window · ' + digits + ' digits · ' + h;
+        codeMeta.textContent = spec.label + ' · ' + period + 's window · ' + digits + ' digits · ' + h;
       } else if (secretBytes && digits !== lastCode.length) {
         lastCodeWindow = -1;
       } else if (!secretBytes) {
@@ -582,12 +741,13 @@
           var params = uri.searchParams;
           var sec = (params.get('secret') || '').trim();
           if (!sec) { clearSecret(); showStatus('err', 'That otpauth URI has no secret parameter.'); return; }
-          var alg = (params.get('algorithm') || 'SHA1').toUpperCase();
-          if (alg !== 'SHA1') { clearSecret(); showStatus('err', 'Algorithm ' + alg + ' is not supported here — SHA-1 only.'); return; }
+          var alg = (params.get('algorithm') || 'SHA1').toUpperCase().replace(/[-_]/g, '');
+          if (!HASHES[alg]) { clearSecret(); showStatus('err', 'Algorithm ' + params.get('algorithm') + ' is not supported — use SHA-1, SHA-256 or SHA-512.'); return; }
           var per = parseInt(params.get('period') || '30', 10);
           var dig = parseInt(params.get('digits') || '6', 10);
           periodSelect.value = (per === 60) ? '60' : '30';
           digitsSelect.value = (dig === 8) ? '8' : '6';
+          algorithmSelect.value = alg;
           lastCodeWindow = -1;
           secretInput.value = sec;
         } catch (e) {
@@ -629,6 +789,15 @@
       lastCodeWindow = -1;
       if (secretBytes) { tick(); showStatus('info', 'Digits set to ' + digitsSelect.value + '.'); }
       else clearSecret();
+    });
+    algorithmSelect.addEventListener('change', function() {
+      lastCodeWindow = -1;
+      if (secretBytes) {
+        tick();
+        showStatus('info', 'Algorithm set to ' + (HASHES[algorithmSelect.value] || HASHES.SHA1).label + '.');
+      } else {
+        tick();
+      }
     });
 
     toggleSecret.addEventListener('click', function() {

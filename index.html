@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#050816" />
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, indexifembedded" />
   <meta name="view-transition" content="same-origin" />
   <meta name="author" content="AI Playground" />
   <meta property="og:title" content="AI Playground – Free AI Tools" />
@@ -397,12 +397,14 @@ input { field-sizing: content; }
               <span class="tool-badge guide"><i aria-hidden="true" class="fa-solid fa-book-open"></i> Guide</span>
             </div>
           </div>
-          <p class="tool-card-body">To install OpenCode v2 for free on Ubuntu, enter:</p>
+          <p class="tool-card-body">To install and start OpenCode v2 for free on Ubuntu, enter:</p>
           <pre style="margin:0;" tabindex="0" role="region" aria-label="Command"><code>sudo apt update
 sudo apt install curl -y
 curl -fsSL https://opencode.ai/v2/install | bash
 source ~/.bashrc
 opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy" aria-hidden="true"></i></button></pre>
+          <p class="tool-card-body">Example use (enter the following at the OpenCode prompt after it starts):</p>
+          <pre style="margin:0;white-space:pre-wrap;" tabindex="0" role="region" aria-label="Command"><code>Act as a senior C++ engineer. In a new folder named family, build a complete, working project without asking questions: a static library libfamily.a exposing an abstract Father base class with a virtual destructor, a pure virtual name(), and a virtual speak() with a default implementation; Son and Daughter subclasses that override both, chain to Father::speak(), and add one distinctive behaviour each; one class per header/source pair with #pragma once and RAII-only, const-correct code; a Makefile with all, lib, test and clean targets using g++ -std=c++17 -Wall -Wextra -Werror -O2 and ar rcs; and a test app that stores Son and Daughter in a std::vector&lt;std::unique_ptr&lt;Father&gt;&gt;, calls them through the base pointer to prove dynamic dispatch and virtual destruction, asserts the exact expected output, prints PASS/FAIL per check and exits non-zero on failure. Then run make clean all test, fix any failures, and finish by showing the file tree and the test output.</code><button type="button" class="copy-btn" title="Copy" aria-label="Copy code"><i class="fa-regular fa-copy" aria-hidden="true"></i></button></pre>
           <div class="tool-card-subsection">
             <p class="tool-card-subsection-title"><i aria-hidden="true" class="fa-solid fa-triangle-exclamation"></i> <span><span class="subsection-label">Error Workarounds</span><br>Upstream request failed: Endpoint is unavailable.<br>Error: Model exo-free has been deprecated.</span></p>
             <ol>
@@ -425,10 +427,10 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-robot"></i><h2 id="generated-reports-heading">Generated Reports</h2></div>
       </header>
       <ul class="chatbot-list" aria-label="Generated reports">
-        <li><a href="dividends.html">Best UK &amp; USA Dividends and Savings</a> &mdash; The highest-yielding dividend stocks and savings rates. (Updated 18 Oct 2026)</li>
-        <li><a href="currentleaders.html">Current &amp; Future World Leaders</a> &mdash; Current national officeholders, plus four plausible future leaders each for the UK, USA, China and Russia, and capability-ranked AI models. (Updated 3 Oct 2026)</li>
-        <li><a href="ukmps.html">UK MPs, Tale Of The Tape</a> &mdash; All 650 sitting Westminster MPs, with constituency, party, role, salary and voting records. (Updated 11 Oct 2026)</li>
-        <li><a href="budget2026.html">UK Oct 2026 Budget Predictions</a> &mdash; Predictions for the Autumn Budget on 28 October, rating 34 measures from settled to unlikely. (Updated 18 Oct 2026)</li>
+        <li><a href="ukdividends.html">Best UK Dividends and Savings</a> &mdash; The highest-yielding UK dividend stocks and savings rates.</li>
+        <li><a href="usadividends.html">Best USA Dividends and Savings</a> &mdash; The highest-yielding US dividend stocks and savings rates.</li>
+        <li><a href="currentleaders.html">Human and AI Leaders</a> &mdash; Current officeholders.</li>
+        <li><a href="ukmps.html">UK MPs, Tale Of The Tape</a> &mdash; Current London MPs.</li>
       </ul>
     </section>
     <section class="reveal" aria-labelledby="generated-apps-heading">
@@ -436,7 +438,6 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
         <div class="section-heading-main"><i aria-hidden="true" class="fa-solid fa-mobile-screen-button"></i><h2 id="generated-apps-heading">Generated Apps</h2></div>
       </header>
       <ul class="chatbot-list" aria-label="Generated apps">
-        <li><a href="todolist.html">To-Do List</a> &mdash; A simple, free, anonymous to-do list manager. Save and load lists locally in XML or JSON.</li>
         <li><a href="totp.html">TOTP</a> &mdash; Time-based one-time passwords (TOTP), compatible with Google Authenticator. Enter a Base32 secret and get the current code.</li>
       </ul>
     </section>
@@ -622,6 +623,48 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
         container.__paused = false;
         container.__hoverPaused = false;
 
+        function appendResults(frag, results) {
+          results.forEach(function (result) {
+            var headingEl = document.createElement('div');
+            headingEl.className = 'news-ticker-heading';
+            headingEl.textContent = result.heading;
+            frag.appendChild(headingEl);
+
+            result.items.sort(function (a, b) { return new Date(b.pubDate) - new Date(a.pubDate); });
+            var count = Math.min(result.items.length, 5);
+            for (var i = 0; i < count; i++) {
+              var item = result.items[i];
+              if (!item || !item.link) continue;
+              var link;
+              try { link = new URL(item.link, window.location.href); } catch (e) { continue; }
+              if (link.protocol !== 'http:' && link.protocol !== 'https:') continue;
+
+              var el = document.createElement('a');
+              el.className = 'news-ticker-item';
+              el.href = link.href;
+              el.target = '_blank';
+              el.rel = 'noopener noreferrer';
+              el.setAttribute('aria-label', 'Open news story: ' + item.title);
+
+              var titleSpan = document.createElement('span');
+              titleSpan.className = 'ni-title';
+              titleSpan.textContent = item.title;
+              titleSpan.title = item.title;
+
+              var timeSpan = document.createElement('span');
+              timeSpan.className = 'ni-time';
+              var d = new Date(item.pubDate);
+              timeSpan.textContent = isNaN(d.getTime()) ? '' :
+                d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ' ' +
+                d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
+              el.appendChild(titleSpan);
+              el.appendChild(timeSpan);
+              frag.appendChild(el);
+            }
+          });
+        }
+
         function load(force) {
           var now = Date.now();
           if (!force && now - lastLoaded < REFRESH_INTERVAL) return;
@@ -639,47 +682,9 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
                 return { heading: feed.heading, items: (data && Array.isArray(data.items)) ? data.items : [] };
               });
           })).then(function (results) {
+            try { sessionStorage.setItem('news-cache-' + containerId, JSON.stringify({ ts: Date.now(), results })); } catch (e) {}
             var frag = document.createDocumentFragment();
-            results.forEach(function (result) {
-              var headingEl = document.createElement('div');
-              headingEl.className = 'news-ticker-heading';
-              headingEl.textContent = result.heading;
-              frag.appendChild(headingEl);
-
-              result.items.sort(function (a, b) { return new Date(b.pubDate) - new Date(a.pubDate); });
-              var count = Math.min(result.items.length, 5);
-              for (var i = 0; i < count; i++) {
-                var item = result.items[i];
-                if (!item || !item.link) continue;
-                var link;
-                try { link = new URL(item.link, window.location.href); } catch (e) { continue; }
-                if (link.protocol !== 'http:' && link.protocol !== 'https:') continue;
-
-                var el = document.createElement('a');
-                el.className = 'news-ticker-item';
-                el.href = link.href;
-                el.target = '_blank';
-                el.rel = 'noopener noreferrer';
-                el.setAttribute('aria-label', 'Open news story: ' + item.title);
-
-                var titleSpan = document.createElement('span');
-                titleSpan.className = 'ni-title';
-                titleSpan.textContent = item.title;
-                titleSpan.title = item.title;
-
-                var timeSpan = document.createElement('span');
-                timeSpan.className = 'ni-time';
-                var d = new Date(item.pubDate);
-                timeSpan.textContent = isNaN(d.getTime()) ? '' :
-                  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ' ' +
-                  d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-
-                el.appendChild(titleSpan);
-                el.appendChild(timeSpan);
-                frag.appendChild(el);
-              }
-            });
-
+            appendResults(frag, results);
             var fresh = frag.childNodes.length > 0;
             if (fresh) {
               var wasAtTop = pos === 0;
@@ -692,7 +697,19 @@ opencode</code><button type="button" class="copy-btn" title="Copy" aria-label="C
           }).catch(function () {
             lastLoaded = 0; /* allow an immediate retry */
             container.removeAttribute('aria-busy');
+            var restored = false;
             if (!inner.querySelector('.news-ticker-item')) {
+              try {
+                var cached = JSON.parse(sessionStorage.getItem('news-cache-' + containerId) || 'null');
+                if (cached && Date.now() - cached.ts < 24 * 60 * 60 * 1000) {
+                  var frag = document.createDocumentFragment();
+                  appendResults(frag, cached.results);
+                  inner.replaceChildren(frag);
+                  restored = true;
+                }
+              } catch (e) {}
+            }
+            if (!restored) {
               inner.innerHTML = '<div class="news-ticker-loading">Could not load news. Check your connection, then press refresh.</div>';
             }
           });
