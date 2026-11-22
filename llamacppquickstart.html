@@ -8,8 +8,7 @@
   <meta name="color-scheme" content="dark" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="description" content="Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS." />
-  <meta name="robots" content="index, follow, indexifembedded" />
-  <meta name="view-transition" content="same-origin" />
+  <meta name="robots" content="index, follow" />
   <meta name="author" content="AI Playground" />
   <meta property="og:title" content="llama.cpp Quickstart" />
   <meta property="og:description" content="Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS." />
@@ -25,8 +24,9 @@
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "Build and run llama.cpp locally",
+    "name": "llama.cpp Quickstart",
     "description": "Compile llama.cpp from source, download a GGUF model and run a local text generation chat from the command line.",
+    "dateModified": "2026-11-22",
     "totalTime": "PT30M",
     "tool": [
       { "@type": "HowToTool", "name": "git" },
@@ -34,10 +34,10 @@
       { "@type": "HowToTool", "name": "C++ build toolchain (build-essential)" }
     ],
     "step": [
-      { "@type": "HowToStep", "name": "Install dependencies and clone the source", "text": "Install git, build-essential, cmake, libcurl4-openssl-dev and libssl-dev, then clone https://github.com/ggml-org/llama.cpp." },
+      { "@type": "HowToStep", "name": "Install dependencies and clone the source", "text": "Install git, build-essential, cmake and libssl-dev, then clone https://github.com/ggml-org/llama.cpp." },
       { "@type": "HowToStep", "name": "Configure and compile", "text": "Run cmake -B build followed by cmake --build build --config Release." },
-      { "@type": "HowToStep", "name": "First run", "text": "Run ./build/bin/llama-cli -hf ggml-org/Qwen3.5-0.8B-GGUF and stop the program with Ctrl+C." },
-      { "@type": "HowToStep", "name": "Edit the prompt and rebuild", "text": "Edit the prompt string in tools/cli/cli-ui.h with sed, rebuild, then run llama-cli again." }
+      { "@type": "HowToStep", "name": "First run", "text": "Run ./build/bin/llama-cli -hf ggml-org/Qwen3.5-0.8B-GGUF -c 4096 with the chat template kwargs that disable thinking, then stop the program with Ctrl+C." },
+      { "@type": "HowToStep", "name": "Edit the prompt marker and rebuild", "text": "Change the prompt marker in tools/cli/cli-ui.h with sed, rebuild, then run llama-cli again." }
     ]
   }
   </script>
@@ -46,7 +46,7 @@
   <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" /></noscript>
   <style>
-@layer reset, base, components, utilities; @layer base { :root { accent-color: #38bdf8; interpolate-size: allow-keywords; --bg-body: #050816; --bg-elevated: #0b1020; --accent: #38bdf8; --text-main: #e5e7eb; --text-muted: #9ca3af; --border-subtle: rgba(148,163,184,0.25); --radius-lg: 18px; --radius-pill: 999px; --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7); --transition-fast: 0.18s ease-out; --yield-color: #22c55e; } }
+:root { accent-color: #38bdf8; --bg-body: #050816; --accent: #38bdf8; --text-main: #e5e7eb; --text-muted: #9ca3af; --border-subtle: rgba(148,163,184,0.25); --radius-lg: 18px; --radius-pill: 999px; --shadow-subtle: 0 10px 30px rgba(15,23,42,0.7); --transition-fast: 0.18s ease-out; }
 body { background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%); color: var(--text-main); font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif; margin: 0; min-height: 100vh; min-height: 100dvh; -webkit-tap-highlight-color: transparent; }
 .page-shell { max-width: 1200px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
 .hero-title { font-size: clamp(2rem,3vw + 1rem,2.8rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.4rem; }
@@ -54,7 +54,7 @@ body { background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 1
 @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 .hero-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6; }
 .card { padding: 1.4rem 1.6rem; border-radius: var(--radius-lg); background: rgba(15,23,42,0.96); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-subtle); margin-bottom: 1.5rem; overflow-x: auto; content-visibility: auto; contain-intrinsic-size: auto 280px; }
-.card-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.2rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
 .card-title i { color: var(--accent); font-size: 1rem; }
 .card-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0 0 1rem; }
 .btn-back { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.95rem; color: var(--text-muted); text-decoration: none; padding: 0.35rem 0; transition: color var(--transition-fast); }
@@ -71,8 +71,11 @@ footer { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid rgba(148,1
 }
 @media print {
   body { background: #fff !important; color: #111 !important; }
-  .btn-back,footer,.status-bar { display: none !important; }
-  .card { border: 1px solid #ddd !important; box-shadow: none !important; content-visibility: visible !important; }
+  .btn-back, footer, .back-to-top, .copy-all { display: none !important; }
+  .card, pre.cmd, pre.terminal, code { background: #fff !important; color: #111 !important; border-color: #ccc !important; box-shadow: none !important; }
+  .card { content-visibility: visible !important; }
+  .card-sub, .note-list li, .hero-subtitle, footer, pre.terminal .dim { color: #111 !important; }
+  pre.terminal .sh, pre.terminal .q, pre.terminal .a, pre.terminal .x { color: #111 !important; font-weight: 600; }
   .hero-title span { color: #111 !important; -webkit-background-clip: unset; background-clip: unset; background: none; }
 }
 @media (max-width: 480px) {
@@ -80,17 +83,12 @@ footer { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid rgba(148,1
   .page-shell { padding: 1rem 0.75rem 2rem; }
 }
 html { scroll-behavior: smooth; overscroll-behavior: none; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-}
 * { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) var(--bg-body); }
 h1, h2, h3, p { text-wrap: pretty; }
 h1, h2, h3 { text-wrap: balance; }
-.no-results.visible { display: block; }
-.back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 999px; border: none; background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(8,47,73,0.6); opacity: 0; transform: translateY(16px) scale(0.9); transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; z-index: 1000; pointer-events: none; }
-.back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 999px; border: none; background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(8,47,73,0.6); opacity: 0; visibility: hidden; transform: translateY(16px) scale(0.9); transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, visibility 0.3s; z-index: 1000; pointer-events: none; }
+.back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0) scale(1); pointer-events: auto; }
 .back-to-top:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 12px 32px rgba(8,47,73,0.8); }
-.card { container-type: inline-size; container-name: card; }
 .skip-link { position: absolute; top: -999px; left: 0.5rem; z-index: 9999; background: #0b1120; color: var(--accent); padding: 0.5rem 1rem; border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; border: 1px solid var(--accent); border-top: none; }
 .skip-link:focus { top: 0; }
 .noscript-notice { margin: 0 auto 1rem; max-width: 1200px; padding: 0.9rem 1.1rem; border-radius: 12px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.35); color: var(--text-main); font-size: 0.85rem; line-height: 1.5; }
@@ -99,7 +97,6 @@ section[id], h1[id], h2[id], h3[id], div[id], #main-content { scroll-margin-top:
 code { background: #0d1117; border: 1px solid rgba(148,163,184,0.15); border-radius: 5px; padding: 0.1em 0.4em; font-size: 0.85em; color: #7dd3fc; overflow-wrap: anywhere; }
 /* never let the inline-code chip styling bleed into a code block */ pre code { background: none; border: 0; border-radius: 0; padding: 0; font-size: inherit; color: inherit; overflow-wrap: normal; }
 pre.cmd, pre.terminal { margin: 0.55rem 0 0; padding: 0.7rem 0.9rem; overflow-x: auto; background: #0d1117; border: 1px solid rgba(148,163,184,0.15); border-left: 3px solid var(--accent); border-radius: 8px; font-size: 0.8rem; line-height: 1.6; color: #e6edf3; white-space: pre; tab-size: 4; }
-pre.cmd .c { color: #6e7681; font-style: italic; }
 .copy-all { margin-left: auto; flex-shrink: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 0.25rem; background: linear-gradient(120deg, #38bdf8, #0ea5e9); color: #0b1120; border: none; border-radius: var(--radius-pill); /* right padding absorbs the icon + gap so the label sits optically centred */ padding: 0.3rem 1.05rem 0.3rem 0.8rem; font: inherit; font-size: 0.76rem; font-weight: 600; box-shadow: 0 6px 16px rgba(8, 47, 73, 0.6); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.2s ease; }
 .copy-all:hover { filter: brightness(1.08); box-shadow: 0 9px 22px rgba(8, 47, 73, 0.75); }
 .copy-all:active { transform: scale(0.96); }
@@ -114,7 +111,7 @@ pre.terminal .sh { color: #7ee787; }
 pre.terminal .q { color: #e5e7eb; font-weight: 600; }
 pre.terminal .a { color: #9ca3af; }
 pre.terminal .x { color: #f59e0b; font-weight: 600; }
-pre.terminal .dim{ color: #6e7681; }
+pre.terminal .dim{ color: #8b949e; }
 .note-list { margin: 0.5rem 0 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; }
 .note-list li { font-size: 0.83rem; color: var(--text-muted); }
 .note-list li strong, .note-list li b { color: var(--text-main); }
@@ -137,7 +134,7 @@ pre.terminal .dim{ color: #6e7681; }
       <div class="card-sub">Overview</div>
       <ul class="note-list">
         <li><strong>Ubuntu (or Debian) Linux</strong> (last tested on Ubuntu 26.04 LTS) with <code>sudo</code> access. Every command below is plain Linux shell — no GUI required.</li>
-        <li><strong>Network access on the first run only.</strong> <code>llama-cli</code> downloads the model for you.</li>
+        <li><strong>Network access to download the model.</strong> <code>llama-cli</code> fetches it on first use; later runs may still revalidate the cache. Use <code>--offline</code> once cached if you need to avoid network access.</li>
         <li><strong>A few GB of free disk</strong> for the source tree, the build output and the model weights.</li>
         <li><strong>No GPU required.</strong> The 0.8B model below runs on CPU, so this works on any machine with a modern processor.</li>
       </ul>
@@ -149,19 +146,19 @@ pre.terminal .dim{ color: #6e7681; }
       </div>
       <div class="card-sub">Copy and paste in order</div>
 <pre class="cmd" tabindex="0" role="region" aria-label="Commands" id="setupCmds">
-<span class="sh">$</span> sudo apt install -y git build-essential cmake libcurl4-openssl-dev libssl-dev
+<span class="sh">$</span> sudo apt install -y git build-essential cmake libssl-dev
 <span class="sh">$</span> git clone https://github.com/ggml-org/llama.cpp
 <span class="sh">$</span> cd llama.cpp
 <span class="sh">$</span> cmake -B build
 <span class="sh">$</span> cmake --build build --config Release
-<span class="sh">$</span> ./build/bin/llama-cli -hf ggml-org/Qwen3.5-0.8B-GGUF --chat-template-kwargs '{"enable_thinking":false}'</pre>
-<pre class="terminal" tabindex="0" role="region" aria-label="Terminal output">
+<span class="sh">$</span> ./build/bin/llama-cli -hf ggml-org/Qwen3.5-0.8B-GGUF -c 4096 --chat-template-kwargs '{"enable_thinking":false}'</pre>
+<pre class="terminal" tabindex="0" role="region" aria-label="First-run terminal output">
 <span class="dim">loading model / downloading ggml-org/Qwen3.5-0.8B-GGUF ...</span>
 <span class="dim">llama_context: n_ctx = 4096</span>
 <span class="q">&gt; In one sentence, what is a cat?</span>
 <span class="a">A cat is a small, carnivorous mammal kept as a pet, known for its
 independence, agility and ability to purr.</span>
-<span class="x">[CNTRL+C]</span></pre>
+<span class="x">[CTRL+C]</span></pre>
     </div>
 
     <div class="card" id="editrun" role="region" aria-label="Edit and second run" tabindex="-1">
@@ -172,13 +169,13 @@ independence, agility and ability to purr.</span>
 <pre class="cmd" tabindex="0" role="region" aria-label="Commands" id="editrunCmds">
 <span class="sh">$</span> sed -i 's/\\n&gt; /\\nEnter question&gt; /g' ./tools/cli/cli-ui.h
 <span class="sh">$</span> cmake --build build --config Release
-<span class="sh">$</span> ./build/bin/llama-cli -hf ggml-org/Qwen3.5-0.8B-GGUF --chat-template-kwargs '{"enable_thinking":false}'</pre>
-<pre class="terminal" tabindex="0" role="region" aria-label="Terminal output">
+<span class="sh">$</span> ./build/bin/llama-cli -hf ggml-org/Qwen3.5-0.8B-GGUF -c 4096 --chat-template-kwargs '{"enable_thinking":false}'</pre>
+<pre class="terminal" tabindex="0" role="region" aria-label="Second-run terminal output">
 <span class="q">Enter question&gt; In one sentence, why is the sky blue?</span>
 <span class="a">The sky looks blue because air scatters short blue wavelengths of
 sunlight more strongly than long red ones, so blue light reaches your
 eyes from all directions.</span>
-<span class="x">[CNTRL+C]</span></pre>
+<span class="x">[CTRL+C]</span></pre>
     </div>
 
     <div class="card" id="agent" role="region" aria-label="Simple Agent" tabindex="-1">
@@ -187,11 +184,39 @@ eyes from all directions.</span>
         <button type="button" class="copy-all" data-copy-target="agentCmds" style="margin-left:0.75rem;" title="Copy commands to the clipboard"><i class="fa-solid fa-copy" aria-hidden="true"></i><i class="fa-solid fa-check" aria-hidden="true"></i><span class="copy-all-label" aria-live="polite">Copy compilation/run commands</span></button>
       </div>
       <div class="card-sub">An ultra-simple, self-contained C++ agent — little more than a while loop that prompts the model via llama.cpp</div>
-<pre class="cmd" tabindex="0" role="region" aria-label="Agent source" id="agentSrc"><code class="language-cpp">// agent.cpp — self-contained llama.cpp agent loop
+<pre class="cmd" tabindex="0" role="region" aria-label="Agent source" id="agentSrc"><code class="language-cpp">// agent.cpp — incremental llama.cpp agent loop
 #include "llama.h"
 #include &lt;iostream&gt;
 #include &lt;string&gt;
 #include &lt;vector&gt;
+
+// Append tokenized text to dst. BOS is added only for the very first prompt.
+static void append_text(std::vector&lt;llama_token&gt;&amp; dst, const llama_vocab* vocab,
+                        const std::string&amp; text, bool add_bos) {
+    std::vector&lt;llama_token&gt; buf(text.size() + 16);
+    int n = llama_tokenize(vocab, text.c_str(), static_cast&lt;int&gt;(text.size()),
+                           buf.data(), static_cast&lt;int&gt;(buf.size()), add_bos, true);
+    if (n &lt;= 0) return;
+    dst.insert(dst.end(), buf.begin(), buf.begin() + n);
+}
+
+// Decode tokens at absolute KV-cache positions; only the last requests logits.
+static bool decode_tokens(llama_context* ctx, const std::vector&lt;llama_token&gt;&amp; tokens,
+                          int n_past, bool want_logits) {
+    int n = static_cast&lt;int&gt;(tokens.size());
+    llama_batch batch = llama_batch_init(n, 0, 1);
+    for (int i = 0; i &lt; n; i++) {
+        batch.token[i]    = tokens[i];
+        batch.pos[i]      = n_past + i;
+        batch.n_seq_id[i] = 1;
+        batch.seq_id[i][0] = 0;
+        batch.logits[i]   = (want_logits &amp;&amp; i == n - 1) ? 1 : 0;
+    }
+    batch.n_tokens = n;
+    int rc = llama_decode(ctx, batch);
+    llama_batch_free(batch);
+    return rc == 0;
+}
 
 int main(int argc, char** argv) {
     if (argc &lt; 2) { std::cerr &lt;&lt; "usage: " &lt;&lt; argv[0] &lt;&lt; " model.gguf\n"; return 1; }
@@ -200,63 +225,90 @@ int main(int argc, char** argv) {
     auto* model = llama_model_load_from_file(argv[1], mparams);
     if (!model) { std::cerr &lt;&lt; "failed to load model\n"; return 1; }
     auto cparams = llama_context_default_params();
-    cparams.n_ctx = 2048;
+    cparams.n_ctx = 4096;                 // match the CLI examples above
     auto* ctx = llama_init_from_model(model, cparams);
     const llama_vocab* vocab = llama_model_get_vocab(model);
 
-    std::string history;
+    int n_past = 0;                       // tokens already stored in the KV cache
     while (true) {
         std::cout &lt;&lt; "\n&gt; ";
         std::string input;
         if (!std::getline(std::cin, input) || input == "exit") break;
-        history += "&lt;|im_start|&gt;user\n" + input + "&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant\n";
 
-        std::vector&lt;llama_token&gt; tokens(history.size() + 16);
-        int n = llama_tokenize(vocab, history.c_str(), history.size(),
-                               tokens.data(), tokens.size(), true, true);
-        tokens.resize(n);
-        llama_batch batch = llama_batch_get_one(tokens.data(), tokens.size());
-        std::vector&lt;int8_t&gt; logits_flags(tokens.size(), 0);
-        logits_flags.back() = 1;
-        batch.logits = logits_flags.data();
-        llama_decode(ctx, batch);
+        // With the raw template Qwen3.5 thinks by default; the empty think
+        // block disables it, matching --chat-template-kwargs in the CLI runs.
+        std::string prompt = "&lt;|im_start|&gt;user\n" + input + "&lt;|im_end|&gt;\n"
+                             "&lt;|im_start|&gt;assistant\n&lt;think&gt;\n\n&lt;/think&gt;\n\n";
+        std::vector&lt;llama_token&gt; new_tokens;
+        append_text(new_tokens, vocab, prompt, n_past == 0);
+        if (new_tokens.empty()) { std::cerr &lt;&lt; "tokenization failed\n"; break; }
+        if (n_past + static_cast&lt;int&gt;(new_tokens.size()) &gt; cparams.n_ctx) {
+            std::cerr &lt;&lt; "context full — restart the agent to continue\n";
+            break;
+        }
+        if (!decode_tokens(ctx, new_tokens, n_past, true)) {
+            std::cerr &lt;&lt; "prompt decode failed (no KV slot?)\n";
+            break;
+        }
+        n_past += static_cast&lt;int&gt;(new_tokens.size());
 
         std::cout &lt;&lt; "&lt; ";
-        std::string reply;
         while (true) {
-            auto logits = llama_get_logits_ith(ctx, -1);
+            if (n_past &gt;= cparams.n_ctx) {
+                std::cerr &lt;&lt; "\ncontext full during generation\n";
+                break;
+            }
+            const float* logits = llama_get_logits_ith(ctx, -1);
             llama_token id = 0;
             float best = -1e30f;
             for (int i = 0; i &lt; llama_vocab_n_tokens(vocab); i++)
                 if (logits[i] &gt; best) { best = logits[i]; id = i; }
-            if (llama_vocab_is_eog(vocab, id)) break;
-            char buf[256];
+
+            if (llama_vocab_is_eog(vocab, id)) {
+                // Record the turn terminator so the next prompt follows it.
+                std::vector&lt;llama_token&gt; eog(1, id);
+                if (n_past + 1 &gt; cparams.n_ctx || !decode_tokens(ctx, eog, n_past, false))
+                    std::cerr &lt;&lt; "\ncould not record end of turn\n";
+                else
+                    n_past += 1;
+                break;
+            }
+
+            char buf[64];
             int len = llama_token_to_piece(vocab, id, buf, sizeof(buf), 0, true);
-            std::cout.write(buf, len); std::cout.flush();
-            reply.append(buf, len);
-            llama_batch one = llama_batch_get_one(&amp;id, 1);
-            int8_t one_flag = 1;
-            one.logits = &amp;one_flag;
-            llama_decode(ctx, one);
+            if (len &lt; 0) {
+                std::vector&lt;char&gt; big(-len);
+                len = llama_token_to_piece(vocab, id, big.data(), big.size(), 0, true);
+                std::cout.write(big.data(), len &gt; 0 ? len : 0);
+            } else if (len &gt; 0) {
+                std::cout.write(buf, len);
+            }
+            std::cout.flush();
+
+            std::vector&lt;llama_token&gt; one(1, id);
+            if (!decode_tokens(ctx, one, n_past, true)) {
+                std::cerr &lt;&lt; "\ndecode failed during generation\n";
+                break;
+            }
+            n_past += 1;
         }
-        history += reply + "&lt;|im_end|&gt;\n";
     }
     llama_free(ctx); llama_model_free(model); llama_backend_free();
 }</code></pre>
       <div class="card-sub" style="margin:1rem 0 0.3rem;">Compile (from the llama.cpp directory):</div>
 <pre class="cmd" tabindex="0" role="region" aria-label="Compile commands" id="agentCmds">
-<span class="sh">$</span> g++ -O2 agent.cpp -I./include -I./ggml/include -L./build/bin -lllama -lggml -Wl,-rpath,'$ORIGIN/build/bin' -o agent
+<span class="sh">$</span> g++ -std=c++17 -O2 agent.cpp -I./include -I./ggml/include -L./build/bin -lllama -lggml -Wl,-rpath,'$ORIGIN/build/bin' -o agent
 <span class="sh">$</span> ./agent "$(find ~/.cache/huggingface/hub -path '*Qwen3.5-0.8B*' -name '*.gguf' | head -1)"</pre>
       <ul class="note-list">
         <li>The <code>-Wl,-rpath,'$ORIGIN/build/bin'</code> flag embeds the library path into the binary — without it you get <code>error while loading shared libraries: libllama.so.0</code>. The alternative is <code>LD_LIBRARY_PATH=./build/bin ./agent ...</code> at run time.</li>
-        <li>The first <code>llama-cli</code> run cached the model under <code>~/.cache/huggingface/hub</code> — the <code>find</code> command locates the <code>.gguf</code> file regardless of its exact snapshot path.</li>
+        <li>The first <code>llama-cli</code> run cached the model under <code>~/.cache/huggingface/hub</code> — the <code>find</code> command locates the <code>.gguf</code> file regardless of its exact snapshot path. If you use <code>HF_HOME</code> or <code>LLAMA_CACHE</code>, point <code>find</code> at that directory instead, or pass an explicit model filename with <code>-hff</code>.</li>
       </ul>
     </div>
-
-    <footer>
-      <span style="font-size:0.72rem;">Page generated <span id="fileDate"></span></span>
-    </footer>
   </main>
+
+  <footer>
+    <span style="font-size:0.72rem;">File last modified <span id="fileDate"></span></span>
+  </footer>
 
   <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
 
@@ -296,7 +348,7 @@ int main(int argc, char** argv) {
         function done() {
           copyBtn.classList.add('copied');
           if (copyLabel) copyLabel.textContent = 'Copied';
-          copyBtn.setAttribute('aria-label', 'Commands copied to clipboard');
+          copyBtn.setAttribute('aria-label', copyLabelOriginal + ' — copied');
           if (copyTimer) clearTimeout(copyTimer);
           copyTimer = setTimeout(function() {
             copyBtn.classList.remove('copied');
