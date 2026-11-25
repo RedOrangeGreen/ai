@@ -20,9 +20,8 @@
   <title>TOTP Authenticator</title>
   <link rel="canonical" href="https://redorangegreen.github.io/ai/totp.html" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E🔑%3C/text%3E%3C/svg%3E" />
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" /></noscript>
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" referrerpolicy="no-referrer" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" referrerpolicy="no-referrer" /></noscript>
   <style>
     :root {
       accent-color: #38bdf8;
@@ -292,8 +291,8 @@
         <label class="field-label" for="secretInput">Base32 secret</label>
         <div class="input-wrap">
           <input type="password" id="secretInput" placeholder="e.g. JBSWY3DPEHPK3PXP" spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off" />
-          <button class="eye-btn" id="toggleSecret" title="Show / hide secret" type="button" aria-label="Show or hide secret" aria-pressed="false"><i class="fa-solid fa-eye"></i></button>
-          <button class="paste-btn" id="pasteSecret" title="Paste from clipboard" type="button"><i class="fa-regular fa-clipboard"></i> Paste</button>
+          <button class="eye-btn" id="toggleSecret" title="Show secret" type="button" aria-label="Show secret"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+          <button class="paste-btn" id="pasteSecret" title="Paste from clipboard" type="button"><i class="fa-regular fa-clipboard" aria-hidden="true"></i> Paste</button>
         </div>
       </div>
       <div class="field-group">
@@ -342,7 +341,7 @@
     <div class="card">
       <h2 class="card-title"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Authenticator code</h2>
       <div class="code-area">
-        <div class="code-display placeholder" id="codeDisplay" role="status" aria-live="polite" aria-atomic="true" aria-label="Current authenticator code">------</div>
+        <div class="code-display placeholder" id="codeDisplay" role="status" aria-live="polite" aria-atomic="true">------</div>
         <div class="ring placeholder" id="countdownRing" role="timer" aria-label="Time remaining in the current code period" style="--pct:100%;">
           <div class="ring-inner">
             <span class="ring-label">Next code in</span>
@@ -353,7 +352,7 @@
         <div class="code-meta" id="codeMeta" aria-live="off">Waiting for a valid secret…</div>
         <div class="btn-row" style="justify-content:center;">
           <button class="btn btn-sm" id="copyBtn" type="button" disabled>
-            <i class="fa-regular fa-copy"></i> Copy code
+            <i class="fa-regular fa-copy" aria-hidden="true"></i> Copy code
           </button>
         </div>
       </div>
@@ -657,6 +656,7 @@
     var secretHidden = true;
     var pasteLabelTimer = null;
     var copyLabelTimer = null;
+    var parseTimer = null;
 
     function showStatus(type, msg) {
       statusMsg.className = 'status-msg visible ' + type;
@@ -664,6 +664,7 @@
       statusMsg.innerHTML = '';
       var iconEl = document.createElement('i');
       iconEl.className = 'fa-solid ' + icon;
+      iconEl.setAttribute('aria-hidden', 'true');
       var msgEl = document.createElement('span');
       msgEl.textContent = msg;
       statusMsg.appendChild(iconEl);
@@ -694,7 +695,7 @@
       lastCode = '';
       codeDisplay.classList.remove('placeholder');
       ring.classList.remove('placeholder');
-      copyBtn.disabled = false;
+      copyBtn.disabled = !(navigator.clipboard && navigator.clipboard.writeText);
       tick();
       showStatus('ok', 'Secret accepted — codes are now live. Verify them with Google Authenticator.');
     }
@@ -724,6 +725,7 @@
 
       ringSeconds.textContent = String(remaining);
       ring.style.setProperty('--pct', (remaining / period * 100).toFixed(1) + '%');
+      ring.setAttribute('aria-label', 'Time remaining in the current code period: ' + remaining + ' seconds');
 
       if (secretBytes && step !== lastCodeWindow) {
         lastCodeWindow = step;
@@ -784,16 +786,22 @@
     }
 
     function saveIfRemembered() {
-      if (rememberChk.checked) {
-        try { localStorage.setItem(STORAGE_KEY, secretInput.value); } catch (e) {}
+      if (rememberChk.checked && secretBytes) {
+        try { localStorage.setItem(STORAGE_KEY, normalizeSecret(secretInput.value)); } catch (e) {}
       } else {
         try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
       }
     }
 
     secretInput.addEventListener('input', function() {
-      onSecretInput();
-      saveIfRemembered();
+      // Wait for a short pause so a partly typed key cannot produce a wrong code.
+      copyBtn.disabled = true;
+      if (parseTimer) clearTimeout(parseTimer);
+      parseTimer = setTimeout(function() {
+        onSecretInput();
+        saveIfRemembered();
+        parseTimer = null;
+      }, 350);
     });
 
     rememberChk.addEventListener('change', saveIfRemembered);
@@ -821,7 +829,9 @@
     toggleSecret.addEventListener('click', function() {
       secretHidden = !secretHidden;
       secretInput.type = secretHidden ? 'password' : 'text';
-      toggleSecret.setAttribute('aria-pressed', String(!secretHidden));
+      var label = secretHidden ? 'Show secret' : 'Hide secret';
+      toggleSecret.setAttribute('aria-label', label);
+      toggleSecret.title = label;
       toggleSecret.innerHTML = '<i class="fa-solid ' + (secretHidden ? 'fa-eye' : 'fa-eye-slash') + '" aria-hidden="true"></i>';
     });
 
@@ -832,7 +842,7 @@
         return;
       }
       navigator.clipboard.readText().then(function(text) {
-        if (!text) return;
+        if (!text) { showStatus('err', 'Clipboard is empty. Enter the secret manually.'); return; }
         secretInput.value = text.trim();
         onSecretInput();
         saveIfRemembered();
@@ -851,10 +861,10 @@
     });
 
     demoBtn.addEventListener('click', function() {
-      secretInput.value = 'JBSWY3DPEHPK3PXP';
+      secretInput.value = 'GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ';
       onSecretInput();
       saveIfRemembered();
-      showStatus('info', 'Demo secret loaded (RFC 6238 test key). Compare with Google Authenticator.');
+      showStatus('info', 'RFC 6238 SHA-1 test key loaded. At T=59s with 30s/8-digit settings, the expected code is 94287082.');
     });
 
     clearBtn.addEventListener('click', function() {
@@ -891,6 +901,15 @@
       backToTop.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       });
+    }
+
+    if (!navigator.clipboard || !navigator.clipboard.readText) {
+      pasteSecret.disabled = true;
+      pasteSecret.title = 'Clipboard read is unavailable here — type the secret manually';
+    }
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {
+      copyBtn.disabled = true;
+      copyBtn.title = 'Clipboard write is unavailable here — select the code manually';
     }
 
     (function init() {

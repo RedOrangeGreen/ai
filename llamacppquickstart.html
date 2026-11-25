@@ -37,7 +37,9 @@
       { "@type": "HowToStep", "name": "Install dependencies and clone the source", "text": "Install git, build-essential, cmake and libssl-dev, then clone https://github.com/ggml-org/llama.cpp." },
       { "@type": "HowToStep", "name": "Configure and compile", "text": "Run cmake -B build followed by cmake --build build --config Release." },
       { "@type": "HowToStep", "name": "First run", "text": "Run ./build/bin/llama-cli -hf ggml-org/Qwen3.5-0.8B-GGUF -c 4096 with the chat template kwargs that disable thinking, then stop the program with Ctrl+C." },
-      { "@type": "HowToStep", "name": "Edit the prompt marker and rebuild", "text": "Change the prompt marker in tools/cli/cli-ui.h with sed, rebuild, then run llama-cli again." }
+      { "@type": "HowToStep", "name": "Edit the prompt marker and rebuild", "text": "Change the prompt marker in tools/cli/cli-ui.h with sed, rebuild, then run llama-cli again." },
+      { "@type": "HowToStep", "name": "Build the Simple Agent", "text": "Compile agent.cpp against llama.cpp and run the small incremental chat loop with a cached GGUF model." },
+      { "@type": "HowToStep", "name": "Build the Superfind Agent", "text": "Compile superfind.cpp, enter a search string at startup, and ask the agent questions grounded in matching file:line snippets from local files." }
     ]
   }
   </script>
@@ -127,7 +129,7 @@ pre.terminal .dim{ color: #8b949e; }
       </a>
     </div>
     <h1 class="hero-title"><span>llama.cpp Quickstart</span></h1>
-    <p class="hero-subtitle">Build llama.cpp from source, download a GGUF model and run a local LLM from the command line. Tested on Ubuntu 26.04 LTS.</p>
+    <p class="hero-subtitle">Build llama.cpp from source, download a GGUF model, run a local LLM from the command line and build small C++ agents on top of it. Tested on Ubuntu 26.04 LTS.</p>
 
     <div class="card" role="region" aria-label="What you need" tabindex="-1">
       <div class="card-title"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> What you need</div>
@@ -302,6 +304,237 @@ int main(int argc, char** argv) {
       <ul class="note-list">
         <li>The <code>-Wl,-rpath,'$ORIGIN/build/bin'</code> flag embeds the library path into the binary — without it you get <code>error while loading shared libraries: libllama.so.0</code>. The alternative is <code>LD_LIBRARY_PATH=./build/bin ./agent ...</code> at run time.</li>
         <li>The first <code>llama-cli</code> run cached the model under <code>~/.cache/huggingface/hub</code> — the <code>find</code> command locates the <code>.gguf</code> file regardless of its exact snapshot path. If you use <code>HF_HOME</code> or <code>LLAMA_CACHE</code>, point <code>find</code> at that directory instead, or pass an explicit model filename with <code>-hff</code>.</li>
+      </ul>
+    </div>
+
+    <div class="card" id="superfind" role="region" aria-label="Superfind Agent" tabindex="-1">
+      <div class="card-title"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Superfind Agent
+        <button type="button" class="copy-all" data-copy-target="superfindSrc" style="margin-left:1rem;" title="Copy C++ source to the clipboard"><i class="fa-solid fa-copy" aria-hidden="true"></i><i class="fa-solid fa-check" aria-hidden="true"></i><span class="copy-all-label" aria-live="polite">Copy C++ source</span></button>
+        <button type="button" class="copy-all" data-copy-target="superfindCmds" style="margin-left:0.75rem;" title="Copy commands to the clipboard"><i class="fa-solid fa-copy" aria-hidden="true"></i><i class="fa-solid fa-check" aria-hidden="true"></i><span class="copy-all-label" aria-live="polite">Copy compilation/run commands</span></button>
+      </div>
+      <div class="card-sub">Same agent loop as Simple Agent, plus a case-insensitive recursive grep of local files for a string entered in <code>main()</code> when the agent starts. Matching <code>file:line</code> snippets become evidence for the first answer, and the conversation continues from there.</div>
+<pre class="cmd" tabindex="0" role="region" aria-label="Superfind source" id="superfindSrc"><code class="language-cpp">// superfind.cpp — Simple Agent + a startup grep of local files
+#include "llama.h"
+#include &lt;cctype&gt;
+#include &lt;filesystem&gt;
+#include &lt;fstream&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+namespace fs = std::filesystem;
+
+// Append tokenized text to dst. BOS is added only for the very first prompt.
+static void append_text(std::vector&lt;llama_token&gt;&amp; dst, const llama_vocab* vocab,
+                        const std::string&amp; text, bool add_bos) {
+    std::vector&lt;llama_token&gt; buf(text.size() + 16);
+    int n = llama_tokenize(vocab, text.c_str(), static_cast&lt;int&gt;(text.size()),
+                           buf.data(), static_cast&lt;int&gt;(buf.size()), add_bos, true);
+    if (n &lt;= 0) return;
+    dst.insert(dst.end(), buf.begin(), buf.begin() + n);
+}
+
+// Decode tokens at absolute KV-cache positions; only the last requests logits.
+static bool decode_tokens(llama_context* ctx, const std::vector&lt;llama_token&gt;&amp; tokens,
+                          int n_past, bool want_logits) {
+    int n = static_cast&lt;int&gt;(tokens.size());
+    llama_batch batch = llama_batch_init(n, 0, 1);
+    for (int i = 0; i &lt; n; i++) {
+        batch.token[i]    = tokens[i];
+        batch.pos[i]      = n_past + i;
+        batch.n_seq_id[i] = 1;
+        batch.seq_id[i][0] = 0;
+        batch.logits[i]   = (want_logits &amp;&amp; i == n - 1) ? 1 : 0;
+    }
+    batch.n_tokens = n;
+    int rc = llama_decode(ctx, batch);
+    llama_batch_free(batch);
+    return rc == 0;
+}
+
+// ---- the "superfind" part: a small, safe, recursive grep ------------------
+static std::string lower(std::string s) {
+    for (char&amp; c : s) c = static_cast&lt;char&gt;(std::tolower(static_cast&lt;unsigned char&gt;(c)));
+    return s;
+}
+
+static bool looks_like_text(const fs::path&amp; p, std::error_code&amp; ec) {
+    if (fs::file_size(p, ec) &gt; 2000000 || ec) return false;
+    std::ifstream f(p, std::ios::binary);
+    if (!f) return false;
+    char buf[4096];
+    f.read(buf, sizeof(buf));
+    for (std::streamsize i = 0; i &lt; f.gcount(); ++i)
+        if (buf[i] == '\0') return false;   // NUL byte: probably binary
+    return true;
+}
+
+static void grep_file(const fs::path&amp; p, const std::string&amp; needle_lc,
+                      std::vector&lt;std::string&gt;&amp; out, std::size_t limit) {
+    std::ifstream f(p);
+    if (!f) return;
+    std::string line;
+    int lineno = 0;
+    while (std::getline(f, line) &amp;&amp; out.size() &lt; limit) {
+        ++lineno;
+        if (lower(line).find(needle_lc) == std::string::npos) continue;
+        if (line.size() &gt; 400) line.resize(400);
+        out.push_back(p.string() + ":" + std::to_string(lineno) + ": " + line);
+    }
+}
+
+static void search_tree(const fs::path&amp; root, const std::string&amp; needle_lc,
+                        std::vector&lt;std::string&gt;&amp; out, std::size_t limit) {
+    std::error_code ec;
+    fs::recursive_directory_iterator it(root, fs::directory_options::skip_permission_denied, ec);
+    fs::recursive_directory_iterator end;
+    for (; it != end &amp;&amp; out.size() &lt; limit; it.increment(ec)) {
+        if (ec) { ec.clear(); continue; }
+        const fs::path&amp; p = it-&gt;path();
+        if (it-&gt;is_directory(ec)) {
+            const std::string name = p.filename().string();
+            if (name == ".git" || name == "build" || name == "node_modules" || name == ".cache")
+                it.disable_recursion_pending();
+            continue;
+        }
+        if (!it-&gt;is_regular_file(ec) || !looks_like_text(p, ec)) continue;
+        grep_file(p, needle_lc, out, limit);
+    }
+}
+
+int main(int argc, char** argv) {
+    if (argc &lt; 2) {
+        std::cerr &lt;&lt; "usage: " &lt;&lt; argv[0] &lt;&lt; " model.gguf [search_root] [search_string]\n";
+        return 1;
+    }
+
+    // The search string is entered here, at startup, when no argv[3] is given.
+    const std::string root = argc &gt; 2 ? argv[2] : ".";
+    std::string needle;
+    if (argc &gt; 3) {
+        needle = argv[3];
+    } else {
+        std::cout &lt;&lt; "Search string&gt; ";
+        if (!std::getline(std::cin, needle) || needle.empty()) {
+            std::cerr &lt;&lt; "no search string entered\n";
+            return 1;
+        }
+    }
+
+    std::vector&lt;std::string&gt; hits;
+    search_tree(root, lower(needle), hits, 80);
+    std::string evidence;
+    for (const std::string&amp; hit : hits) {
+        if (evidence.size() + hit.size() + 1 &gt; 6000) break;  // stay inside n_ctx
+        evidence += hit;
+        evidence += '\n';
+    }
+    std::cerr &lt;&lt; "search: " &lt;&lt; hits.size() &lt;&lt; " matching line(s) under "
+              &lt;&lt; root &lt;&lt; "\n";
+
+    llama_backend_init();
+    auto mparams = llama_model_default_params();
+    auto* model = llama_model_load_from_file(argv[1], mparams);
+    if (!model) { std::cerr &lt;&lt; "failed to load model\n"; return 1; }
+    auto cparams = llama_context_default_params();
+    cparams.n_ctx = 4096;                 // match the CLI examples above
+    auto* ctx = llama_init_from_model(model, cparams);
+    const llama_vocab* vocab = llama_model_get_vocab(model);
+
+    int n_past = 0;                       // tokens already stored in the KV cache
+    bool first_turn = true;
+    while (true) {
+        std::cout &lt;&lt; "\n&gt; ";
+        std::string input;
+        if (!std::getline(std::cin, input) || input == "exit") break;
+
+        // On the first turn, hand the grep results to the model as evidence.
+        std::string prompt;
+        if (first_turn) {
+            prompt = "&lt;|im_start|&gt;user\nLocal file search for \"" + needle
+                   + "\" under " + root + " produced these file:line snippets:\n"
+                   + evidence
+                   + "\nUse them to answer, citing file:line. Say so if nothing was found.\n\nQuestion: "
+                   + input + "&lt;|im_end|&gt;\n";
+            first_turn = false;
+        } else {
+            prompt = "&lt;|im_start|&gt;user\n" + input + "&lt;|im_end|&gt;\n";
+        }
+        // The raw Qwen3.5 template thinks by default; the empty think block
+        // disables it, matching --chat-template-kwargs in the CLI runs.
+        prompt += "&lt;|im_start|&gt;assistant\n&lt;think&gt;\n\n&lt;/think&gt;\n\n";
+
+        std::vector&lt;llama_token&gt; new_tokens;
+        append_text(new_tokens, vocab, prompt, n_past == 0);
+        if (new_tokens.empty()) { std::cerr &lt;&lt; "tokenization failed\n"; break; }
+        if (n_past + static_cast&lt;int&gt;(new_tokens.size()) &gt; cparams.n_ctx) {
+            std::cerr &lt;&lt; "context full — restart the agent to continue\n";
+            break;
+        }
+        if (!decode_tokens(ctx, new_tokens, n_past, true)) {
+            std::cerr &lt;&lt; "prompt decode failed (no KV slot?)\n";
+            break;
+        }
+        n_past += static_cast&lt;int&gt;(new_tokens.size());
+
+        std::cout &lt;&lt; "&lt; ";
+        while (true) {
+            if (n_past &gt;= cparams.n_ctx) {
+                std::cerr &lt;&lt; "\ncontext full during generation\n";
+                break;
+            }
+            const float* logits = llama_get_logits_ith(ctx, -1);
+            llama_token id = 0;
+            float best = -1e30f;
+            for (int i = 0; i &lt; llama_vocab_n_tokens(vocab); i++)
+                if (logits[i] &gt; best) { best = logits[i]; id = i; }
+
+            if (llama_vocab_is_eog(vocab, id)) {
+                std::vector&lt;llama_token&gt; eog(1, id);
+                if (n_past + 1 &gt; cparams.n_ctx || !decode_tokens(ctx, eog, n_past, false))
+                    std::cerr &lt;&lt; "\ncould not record end of turn\n";
+                else
+                    n_past += 1;
+                break;
+            }
+
+            char buf[64];
+            int len = llama_token_to_piece(vocab, id, buf, sizeof(buf), 0, true);
+            if (len &lt; 0) {
+                std::vector&lt;char&gt; big(-len);
+                len = llama_token_to_piece(vocab, id, big.data(), big.size(), 0, true);
+                std::cout.write(big.data(), len &gt; 0 ? len : 0);
+            } else if (len &gt; 0) {
+                std::cout.write(buf, len);
+            }
+            std::cout.flush();
+
+            std::vector&lt;llama_token&gt; one(1, id);
+            if (!decode_tokens(ctx, one, n_past, true)) {
+                std::cerr &lt;&lt; "\ndecode failed during generation\n";
+                break;
+            }
+            n_past += 1;
+        }
+    }
+    llama_free(ctx); llama_model_free(model); llama_backend_free();
+}</code></pre>
+      <div class="card-sub" style="margin:1rem 0 0.3rem;">Compile and start (from the llama.cpp directory):</div>
+<pre class="cmd" tabindex="0" role="region" aria-label="Superfind compile commands" id="superfindCmds">
+<span class="sh">$</span> g++ -std=c++17 -O2 superfind.cpp -I./include -I./ggml/include -L./build/bin -lllama -lggml -Wl,-rpath,'$ORIGIN/build/bin' -o superfind
+<span class="sh">$</span> ./superfind "$(find ~/.cache/huggingface/hub -path '*Qwen3.5-0.8B*' -name '*.gguf' | head -1)" ~/llama.cpp</pre>
+<pre class="terminal" tabindex="0" role="region" aria-label="Superfind terminal output">
+<span class="q">Search string&gt;</span> llama_decode
+<span class="dim">search: 23 matching line(s) under /home/ubuntu/llama.cpp</span>
+<span class="q">&gt; Where does the agent record generated tokens?</span>
+<span class="a">In decode_tokens(): each generated id is put in a one-token batch and
+decoded at the current n_past position, then n_past is incremented
+(superfind.cpp:198). The end-of-turn token is recorded the same way.</span>
+<span class="x">[CTRL+C]</span></pre>
+      <ul class="note-list">
+        <li>The search string is read in <code>main()</code> at startup; you can also supply it as a third argument (for example <code>./superfind model.gguf ~/llama.cpp llama_decode</code>) to skip the prompt.</li>
+        <li>Searching is case-insensitive, recursive and deliberately conservative: it skips <code>.git</code>, <code>build</code>, <code>node_modules</code> and <code>.cache</code>, ignores binary or very large files, caps results at 80 lines and 6000 characters, and truncates long lines to 400 characters.</li>
+        <li>The snippets are injected only into the first user turn, so later questions reuse the same evidence without repeating the grep. The search runs before the model loads, so a bad path just yields zero hits rather than an error.</li>
       </ul>
     </div>
   </main>
